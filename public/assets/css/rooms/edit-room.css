@@ -1,0 +1,101 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: white;
+
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--black1);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 11rem;
+}
+
+.heading-text {
+    /* color: white; */
+    font-size: 4rem;
+}
+
+.back-button {
+    position: absolute;
+    left: 13rem;
+    bottom: 60rem;
+    font-size: 3.6rem;
+    text-decoration: none;
+    color: gold;
+}
+
+.room-name-title {
+    /* color: white; */
+    font-size: 3.4rem;
+}
+
+.name-input {
+    color: black;
+    padding: 2rem;
+    border-radius: 2rem;
+}
+
+.create-room-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name-input {
+    color: black;
+    font-size: 2rem;
+}
+
+.error-message {
+    color: red;
+}
+
+.edit-container {
+    background-color: var(--black2);
+    border: 0.3rem solid white;
+    border-radius: 1.8rem;
+    width: 60rem;
+    height: 60rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.create-room-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 70%;
+    /* background-color: pink; */
+}
+
+.update-button {
+    color: black;
+    padding: 2rem;
+    font-size: 2rem;
+}
+
+.delete-button {
+    color: black;
+    padding: 2rem;
+    font-size: 2rem;
+}

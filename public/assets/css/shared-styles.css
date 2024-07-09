@@ -1,0 +1,73 @@
+@font-face {
+    font-family: serotiva-reg;
+    src: url(assets/fonts/Serotiva-Regular.otf);
+}
+
+@font-face {
+    font-family: serotiva-black;
+    src: url(assets/fonts/Serotiva-Black.otf);
+}
+
+@font-face {
+    font-family: serotiva-semibold;
+    src: url(assets/fonts/Serotiva-SemiBold.otf);
+}
+
+@font-face {
+    font-family: serotiva-lightitalic;
+    src: url(assets/fonts/Serotiva-LightItalic.otf);
+}
+@font-face {
+    font-family: walvis;
+    src: url(assets/fonts/walvis-demo-regular.otf);
+}
+
+@font-face {
+    font-family: navOut;
+    src: url(assets/fonts/Outline/Navada\ Outline\ Demo.otf);
+}
+
+::-webkit-scrollbar {
+    width: 1rem; /* Adjust the width */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--black3); /* Track color */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--white1); /* Thumb color */
+    border-radius: 6px; /* Rounded corners */
+  }
+
+:root {
+    --mbti-blue: #3BC9DB;
+    --mbti-gold: #ffd43b;
+    --mbti-green: #21FC9E;
+    --mbti-purple: #DA77F2;
+
+    --black1: #12130F;
+    --black2: #1E1E1E;
+    --black3: #252525;
+    --black4: #2D2C2C;
+
+    --white1: #e9e9ea;
+}
+
+.mbti-m {
+    color: var(--mbti-green);
+}
+
+.mbti-b {
+    color: var(--mbti-blue);
+}
+
+.mbti-t {
+    color: var(--mbti-gold);
+}
+
+.mbti-i {
+    color: var(--mbti-purple);
+}
+
+/* NT - PURPLE, NF - GREEN, SJ - BLUE, SP - GOLD */

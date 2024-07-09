@@ -1,0 +1,81 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--black1);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-function-container {
+    display: flex;
+}
+
+.heading-text {
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.class-list {
+    background-color: red;
+    border: 2px solid black;
+    height: 60rem;
+}
+
+.class-list-title {
+    font-size: 3rem;
+    
+}
+
+.student-name {
+    font-size: 2.2rem;
+    list-style: none;
+    color: black;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 120rem;
+    height: 60rem;
+}
+
+.room-tabs {
+    background-color: grey;
+    display: flex;
+    height: 30%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.tabs {
+    font-size: 2.2rem;
+}
+
+.group-tool-container {
+    background-color: bisque;
+    height: 100%;
+}
+
+.hidden-group-form {
+    display: none;
+}

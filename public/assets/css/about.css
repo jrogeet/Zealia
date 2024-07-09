@@ -1,0 +1,464 @@
+@import url(/resources/styles/shared-styles.css);
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--black1);
+}
+
+main {
+    max-width: 153.6rem;
+
+
+    margin: 0 auto;
+}
+
+  /***********************/
+ /*         HERO        */
+/***********************/
+
+.section-about-container {
+    
+    margin-top: 8.6rem;
+    padding: 2rem 0;
+    /* background-image: url('/resources/images/backgrounds/CITY_1_Rocket_Animation.gif'); */
+
+}
+
+.about-hero {
+
+    min-height: 45rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 32em;
+
+    text-align: center;
+    background-image: linear-gradient(#272729 1.5px, transparent 1.5px, transparent calc(100% - 1.5px), #272729 calc(100% - 1.5px)), linear-gradient(90deg, #272729 1.5px, transparent 1.5px, transparent calc(100% - 1.5px), #272729 calc(100% - 1.5px));
+    background-size: 10% 20%;
+    border: 1.5px solid #272729;
+
+}
+
+.about-header {
+    font-size: 6.4rem;
+    letter-spacing: .3rem;
+    background: radial-gradient(circle, var(--mbti-blue) 25%, var(--mbti-green) 50%, var(--mbti-gold) 75%, var(--mbti-purple) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-family: serotiva-semibold;
+    
+}
+
+.about-para {
+    letter-spacing: 0.05rem;
+    font-size: 2.4rem;
+    line-height: 1.52;
+    font-family: serotiva-lightitalic;
+    color: white;
+}
+
+  /***********************/
+ /*     HOW IT WORKS    */
+/***********************/
+.section-how-container {
+
+}
+
+.how-it-works-container {
+    color: white;
+    
+    margin: 0 auto;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.how-container{
+    padding: 5rem 20rem;
+    padding-bottom: 0;
+    /* background-color: beige; */
+    display: flex;
+    flex-direction: column;
+
+}
+
+.left-how {
+    background-color: var(--black2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0 1.5rem 1.5rem 0 ;
+    padding: 1rem;
+
+    height: 20rem;
+    width: 60%;
+}
+
+.right-how {
+    background-color: var(--black2);
+    display: flex;
+    flex-direction: column;
+   justify-content: center;
+   margin-left: auto;
+   border-radius: 1.5rem 0 0 1.5rem;
+   padding: 1rem;
+
+    height: 20rem;
+    width: 60%;
+}
+
+.how-header {
+    font-size: 4.8rem;
+    font-family: serotiva-semibold;
+    font-weight: 800;
+    color: white;
+}
+
+.how-para {
+    letter-spacing: 0.05rem;
+    font-size: 2rem;
+    font-family: serotiva-reg;
+    color: white;
+}
+
+.left-how-header {
+    font-size: 4.8rem;
+    font-family: serotiva-semibold;
+    font-weight: 800;
+    text-align: left;
+    color: beige;
+}
+
+.right-how-header {
+    font-size: 4.8rem;
+    font-family: serotiva-semibold;
+    font-weight: 800;
+    text-align: right;
+    color: beige;
+}
+
+.left-how-para {
+    letter-spacing: 0.05rem;
+    font-size: 2rem;
+    font-family: serotiva-reg;
+    text-align: left;
+    color: rgb(224, 224, 208);
+}
+.right-how-para {
+    letter-spacing: 0.05rem;
+    font-size: 2rem;
+    font-family: serotiva-reg;
+    text-align: right;
+    color: rgb(224, 224, 208);
+}
+
+.how-conflict-table{
+    background-color: beige;
+}
+
+
+  /***********************/
+ /*        CARDS        */
+/***********************/
+
+
+.deck-container {
+    /* border: 1px solid red; */
+    width: 80%;
+    margin: 0 auto;
+}
+
+.deck-header {
+    font-size: 3.6rem;
+
+    padding: 3.4rem 0;
+    text-align: center;
+    font-family: serotiva-reg;
+    color: white;
+}
+
+.deck {
+    padding: 2rem 0rem;
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    row-gap: 4rem;
+    margin-bottom: 10rem;
+}   
+
+.cards {
+    height: 50rem;
+
+
+    border-radius: 4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.card-purple {
+    background-color: #DA77F2;
+    border: 1.5px solid var(--mbti-purple);
+    background: rgba(218, 119, 242, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+}
+
+.card-green {
+    background-color: #21fc9e;
+    border: 1.5px solid var(--mbti-green);
+    background: rgba(33, 252, 158, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+}
+
+.card-blue {
+    background-color: #3BC9DB;
+    border: 1.5px solid var(--mbti-blue);
+    background: rgba(59, 201, 219, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+}
+
+.card-gold {
+    background-color: #ffd43b;
+    border: 1.5px solid var(--mbti-gold);
+    background: rgba(255, 212, 59, 0.4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+}
+
+.card-header{
+    font-size: 4.2rem;
+    font-family: serotiva-semibold;
+    letter-spacing: 0.3rem;
+    color: white;
+}
+
+.cards-mbti-m, .cards-mbti-b, .cards-mbti-t, .cards-mbti-i {
+    font-family: serotiva-semibold;
+}
+
+.cards-mbti-m {
+    color: var(--green);
+}
+
+.cards-mbti-b {
+    color: var(--blue);
+}
+
+.cards-mbti-t {
+    color: var(--purple);
+}
+
+.cards-mbti-i {
+    color: var(--gold);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    z-index: 2;
+    padding: 0 1.6rem;
+
+
+    height: 50%;
+
+    background-color: var(--black1);
+    border-radius: 2rem;
+}
+
+.roles-title {
+    font-size: 2.4rem;
+    font-family: serotiva-black;
+    color: white;
+}
+
+.role-des, .role-prog, .role-lead, .role-anal {
+    font-size: 2.2rem;
+    font-family: serotiva-semibold;
+    color: black;
+}
+
+
+.conflicts-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    /* background-color: beige; */
+    height: 50%;
+}
+
+.conflicts-title {
+    font-size: 1.8rem;
+    font-family: serotiva-semibold;
+    color: black;
+}
+
+.conflicts-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.4rem;
+}
+
+.no-conflicts {
+    font-size: 2rem;
+    color: white;
+}
+
+
+.conflicts {
+    color: black;
+    font-size: 2rem;
+    background-color: white;
+    padding: 0.1rem 6rem;
+    border-radius: 1.2rem;
+}
+
+
+
+
+  /***********************/
+ /*        TEAM         */
+/***********************/
+
+.team {
+    height: 60rem;
+    position: relative;
+    margin-top: 1rem;
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.team::before {
+    content: "";
+    height: 1.5px;
+    margin: 0 auto;
+    top: -2rem;
+    width: 91%;
+    background-color: var(--white1);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.team-container {
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.team-header {
+    font-size: 3rem;
+    font-family: serotiva-semibold;
+    color: white;
+}
+
+.team-deck {
+    display: flex;
+    gap: 2.5rem;
+    width:  90%;
+    height: 100%;
+    margin-top: 3rem;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.llamas-card-container, .gregorio-card-container, .ganon-card-container, .turqueza-card-container {
+    perspective: 1000px; 
+    width: 100%;
+    position: relative;
+
+}
+
+.team-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.llamas-card-container:hover .team-card, .gregorio-card-container:hover .team-card, .ganon-card-container:hover .team-card, .turqueza-card-container:hover .team-card {
+    transform: rotateY(180deg);
+    
+}
+
+.team-card-front, .team-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+  
+.team-card-back {
+    transform: rotateY(180deg);
+}
+
+
+.team-card-img {
+    height: 37rem;
+}
+
+.team-name {
+    font-size: 2.4rem;
+}
+
+.team-role {
+    font-size: 1.6rem;
+}
+
+
+.role-des {
+    color: var(--mbti-purple);
+}
+
+.role-prog {
+    color: var(--mbti-blue);
+}
+
+.role-lead {
+    color: var(--mbti-gold);
+}
+
+.role-anal {
+    color: var(--mbti-green);
+}

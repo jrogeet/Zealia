@@ -1,0 +1,207 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: white;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--black1);
+    
+}
+
+
+.main-container {
+    margin-top: 14rem;
+    margin-bottom: 5rem;
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    height: 50rem;
+    /* background-color: grey; */
+}
+
+.profile-section {
+
+    border: 0.4rem solid white;
+    border-radius: 1.4rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 2rem;
+}
+
+.mbti-test-section {
+    border: 0.4rem solid white;
+    border-radius: 1.4rem;
+    padding: 2rem;
+    height: 100%;
+    width: 30%;
+
+}
+
+
+.profile-info-li {
+    list-style: none;
+    font-size: 2.8rem;
+}
+
+.change-pass-li {
+    list-style: none;
+    font-size: 2.2rem;
+}
+
+.change-pass-input {
+    color: black;
+}
+
+.change-pass-btn {
+    color: black;
+}
+
+
+
+
+/* PERSONALITY TYPE GRAPHS */
+
+.mbti-test-section {
+    min-width: 30%;
+    width: auto;
+    height: 100%;
+}
+
+.type-graph-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.result-page{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    /* justify-content: space-evenly; */
+
+    height: 100%;
+    /* background-color: #7bdcff; */
+}
+
+.mbti-type-container {
+    display: flex;
+    height: 15%;
+    width: 100%;
+    /* background-color: green; */
+    align-items: center;
+    justify-content: center;
+}
+
+.mbti-avatar {
+    height: 7rem;
+}
+
+.mbti-type {
+    font-size: 3.8rem;
+    letter-spacing: 0.6rem;
+    font-family: walvis;
+}
+
+.letter-bar-container {
+    height: 85%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* background-color: blue; */
+}
+
+.letter-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+}
+
+.mbti-perc {
+    font-size: 2.4rem;
+}
+
+.result-bar {
+    width: 30rem;
+    height: 2rem;
+    background-color: #7bdcff;
+    margin: auto 1.2rem;
+    border-radius: 0.5rem;
+}
+.fill {
+    height: 100%;
+    background-color: #4CAF50;
+}
+.intro-fill {
+    height: 100%;
+    background-color: #3498db;
+}
+.percentage-label {
+    margin-top: 10px;
+}
+
+.take-test-btn {
+    width: 18rem;
+    height: 8rem;
+    font-size: 1.8rem;
+    padding: 2rem;
+    border: 0.3rem solid white;
+    border-radius: 3.8rem;
+    background-color: black;
+}
+
+.account-no-test-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+
+    height: 100%;
+    width: 100%;
+}
+
+.account-no-test {
+    font-family: serotiva-reg;
+    font-size: 2rem;
+}
+
+.account-no-test-btn {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(218, 119, 242, 0.3);
+    color: var(--white1);
+    padding: 1rem;
+    border-radius: 1.2rem;
+    font-size: 1.8rem;
+
+    font-family: serotiva-semibold;
+    cursor: pointer;
+}
+
+.account-no-test-btn-link {
+    text-decoration: none;
+    color: black;
+}
+

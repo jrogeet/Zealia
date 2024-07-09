@@ -1,0 +1,121 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    /*  */
+    color: white;
+}
+
+html {
+    font-size: 62.5%;
+
+}
+
+
+body {
+    background-color: var(--black1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main {
+    margin: 0 auto;
+    height: 100vh;
+    width: 100vw;
+    /* background-color: red; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.forgot-header {
+    font-family: ttgro;
+    font-size: 5.4rem;
+}
+
+.forgot-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: red; */
+    height: 20rem;
+    width: 40rem;
+
+}
+
+.email-label {
+    font-size: 3.4rem;
+    font-family: walvis;
+}
+
+.forgot-input {
+    color: black;
+    font-size: 1.6rem;
+    padding: 1.6rem;
+    font-weight: 900;
+
+    width: 80%;
+    border-radius: 2rem;
+}
+
+.forgot-submit {
+    background-color: var(--black2);
+    
+    font-size: 2.4rem;
+    border-radius: 1.8rem;
+    padding: 1.4rem;
+
+    font-family: walvis;
+    cursor: pointer;
+}
+
+
+/* change pass */
+
+.change-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: pink; */
+    height: 30rem;
+    width: 40rem;
+}
+
+.pass-label {
+    font-size: 2.4rem;
+    font-family: walvis;
+}
+
+.pass-input {
+    color: black;
+    font-size: 1.6rem;
+    padding: 1.6rem;
+    font-weight: 900;
+
+    width: 80%;
+    border-radius: 2rem;
+}
+
+.change-btn {
+    background-color: var(--black2);
+    font-size: 2.4rem;
+    border-radius: 1.8rem;
+    padding: 1.4rem;
+
+    font-family: walvis;
+    cursor: pointer;
+    color: #21FC9E;
+    letter-spacing: 0.15rem;
+}
+
+
+.error-msg{
+    font-size: 1.6rem;
+    color: red;
+}
