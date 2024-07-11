@@ -30,7 +30,6 @@
                 <ul class="student-name-list">
             <?php
                 // if ($curUInList === 1) {
-
                     foreach($stu_info as $student) {    
 
                         $stu_l = ucfirst($student['l_name']);
@@ -39,18 +38,18 @@
                         <li class='student-name-li' style="<?php if($_SESSION['user']['account_type'] === 'professor'){ echo "background-color: rgb(220, 220, 201);"; }?>">
                             <a class="class-list-info" href="/profile?id=<?= $student['school_id'] ?>">
                                 <span class='student-name' style="<?php if($_SESSION['user']['account_type'] === 'professor'){ echo "color: black;"; }?>"><?php echo "{$stu_l}, {$stu_f}" ?></span>
-                                <form action="/room" method="POST">
-                                    <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
-                                    <button type="submit" name="delete" value="<?php echo implode(',', [$student['school_id'], $_GET['room_id']]); ?>" class="delete-student-btn">
-                                        Remove
-                                    </button>
-                                </form>
+                                
+                                <?php if($_SESSION['user']['account_type'] === 'professor'):?>
+                                    <form action="/room" method="POST">
+                                        <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
+                                        <button type="submit" name="delete" value="<?php echo implode(',', [$student['school_id'], $_GET['room_id']]); ?>" class="delete-student-btn">
+                                            Remove
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
                             </a>
                         </li>
                     <?php } ?>
-
-
-
                 </ul>
             </div>
 
@@ -90,7 +89,6 @@
 
                 
                         </div>
-
 
 
                         <div class="group-tool-container" style="display: none">
