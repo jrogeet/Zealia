@@ -85,11 +85,7 @@
                             <button onclick="innerTabs('grouptool')"  class='grouping-tool-btn inner-tabs-btn tabs'>
                                 <span class="grouping-tool-text tabs-text">Grouping Tool</span>
                             </button>
-
-
-                
                         </div>
-
 
                         <div class="group-tool-container" style="display: none">
                             <input type="hidden" id="phpData" value="<?= $idNmbti ?>">
