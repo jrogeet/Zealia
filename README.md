@@ -21,6 +21,8 @@ This project aims to form cohesive, high-performing teams in educational setting
 | Hosting |  
 
 ## To Fix:
+- Admin Page
+- Pages that requires confirmation when refreshing the Website
 
 
 ## Features
