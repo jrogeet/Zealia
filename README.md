@@ -27,8 +27,8 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 ### Features
 
-- Realtime Notifications (Websockets(?))
-- Chat or Send Email (?)
+- Realtime Notifications & Chat (Websockets(?))
+- Send Email (?)
 
 
 
