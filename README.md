@@ -15,11 +15,12 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 | General            | 
 | ----------------- | 
+|Fix|
 | Design | 
 | Features |  
 | Hosting |  
 
-
+## To Fix:
 
 
 ## Features
