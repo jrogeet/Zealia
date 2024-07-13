@@ -12,6 +12,7 @@ $form = new LoginForm();
 if ($form->validate($school_id, $password))
 {
     $auth = new Authenticator();
+    // Authenticate(Check from DataBase) and Redirect / Throw errors
     switch ($auth->attempt($school_id, $password)) 
     {
         case 0:
@@ -29,7 +30,12 @@ if ($form->validate($school_id, $password))
     }
 }
 
+
 Session::flash('errors', $form->errors());
+// Flash the previous attempt's 'School_ID' in the input field
+Session::flash('old', [
+    'school_id' => $_POST['school_id']
+]);
 
 return redirect('/login');
 

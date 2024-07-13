@@ -43,6 +43,11 @@ function redirect($path)
     exit();
 }
 
+function old($key, $default = '') 
+{
+    return Core\Session::get('old')[$key] ?? $default;
+}
+
 
 function authorize($condition, $status = Response::FORBIDDEN) {
     if (! $condition) {

@@ -35,7 +35,7 @@
             <form method="POST" action="/login" class="login-actual-form">
                 <div class="login-input-field">
                     <div class="login-input-field-container">
-                        <input type="number" name="school_id" id="school_id" class="inputfield" placeholder="School ID Number:" required> 
+                        <input type="number" name="school_id" id="school_id" class="inputfield" placeholder="School ID Number:" value="<?= old('school_id') ?>" required> 
                     </div>
                     
                     <div class="login-input-field-container">
