@@ -25,14 +25,14 @@ This project aims to form cohesive, high-performing teams in educational setting
 - Pages that requires confirmation when refreshing the Website
 
 
-## Features
+### Features
 
 - Realtime Notifications (Websockets(?))
 - Chat or Send Email (?)
 
 
 
-## Design
+### Design
 
 - Theme
 - Layout
@@ -41,5 +41,5 @@ This project aims to form cohesive, high-performing teams in educational setting
 - Error Pages (404, 403, etc.)
 - Admin Page
 - etc...
-## Hosting
+### Hosting
 - Host Website
