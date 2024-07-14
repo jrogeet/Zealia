@@ -36,6 +36,7 @@ if ($form->validate($school_id, $email, $fname, $lname, $password, $confirm_pass
             $mail->setFrom('ambitionxmbti@gmail.com', 'Zealia');
             $mail->addAddress($email);
             $mail->Subject="Account Activation";
+            // TO-DO: Change the link of activation below relative to website's domain
             $mail->Body = <<< END
             
                 Click <a href="riasec.test/active-success?token=$activation_token">Activate</a>
