@@ -39,7 +39,7 @@ if ($form->validate($school_id, $email, $fname, $lname, $password, $confirm_pass
             // TO-DO: Change the link of activation below relative to website's domain
             $mail->Body = <<< END
             
-                Click <a href="riasec.test/active-success?token=$activation_token">Activate</a>
+                Click <a href="zealia.test/active-success?token=$activation_token">Activate</a>
                 to activate your account.
             END;
 
