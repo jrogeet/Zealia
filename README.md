@@ -21,13 +21,11 @@ This project aims to form cohesive, high-performing teams in educational setting
 | [Hosting](#Hosting) |  
 
 ## 🔧 Fix:
----
 - Admin Page
 - Pages that requires confirmation when refreshing the Website
 
 
 ## 🌟 Features
----
 - Realtime Notifications & Chat (using Websockets(?))
 - Send Email (?)
 - Delete Account
@@ -35,7 +33,6 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 
 ## 🎨 Design
----
 - Theme
 - Layout
 - ### Pages
@@ -43,6 +40,6 @@ This project aims to form cohesive, high-performing teams in educational setting
 - Error Pages (404, 403, etc.)
 - Admin Page
 - etc...
+
 ## 🌐 Hosting
----
 - Host Website
