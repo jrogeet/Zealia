@@ -11,7 +11,7 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 
 
-## 📝 To-Do List:
+# 📝 To-Do List:
 
 | General            | 
 | ----------------- | 
@@ -20,13 +20,13 @@ This project aims to form cohesive, high-performing teams in educational setting
 | [Features](#Features) |  
 | [Hosting](#Hosting) |  
 
-### 🔧 Fix:
+## 🔧 Fix:
 ---
 - Admin Page
 - Pages that requires confirmation when refreshing the Website
 
 
-### 🌟 Features
+## 🌟 Features
 ---
 - Realtime Notifications & Chat (using Websockets(?))
 - Send Email (?)
@@ -34,7 +34,7 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 
 
-### 🎨 Design
+## 🎨 Design
 ---
 - Theme
 - Layout
@@ -43,6 +43,6 @@ This project aims to form cohesive, high-performing teams in educational setting
 - Error Pages (404, 403, etc.)
 - Admin Page
 - etc...
-### 🌐 Hosting
+## 🌐 Hosting
 ---
 - Host Website
