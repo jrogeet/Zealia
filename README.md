@@ -15,10 +15,10 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 | General            | 
 | ----------------- | 
-|Fix|
-| Design | 
-| Features |  
-| Hosting |  
+|[Fix](##Fix)|
+| [Design](###Design) | 
+| [Features](###Features) |  
+| [Hosting](###Hosting) |  
 
 ## Fix:
 - Admin Page
