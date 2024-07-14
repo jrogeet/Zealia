@@ -13,7 +13,7 @@ if ($form->validate($school_id, $password))
 {
     $auth = new Authenticator();
     // Authenticate(Check from DataBase) and Redirect / Throw errors
-    switch ($auth->attempt($school_id, $password)) 
+    switch ($auth->attempt($school_id, $password, 'l')) 
     {
         case 0:
             redirect('/admin');

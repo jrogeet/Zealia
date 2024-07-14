@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIASEC by MBTHESIS</title>
+    <title>Zealia</title>
     <link rel="stylesheet" type="text/css" href="assets/css/rooms/groups/grouping.css">
 </head>
 <body>
     <?php //dd($rows);?>
 
     <div class="header">
-        <h1> RIASEC BY MBTHESIS </h1>
+        <h1> Zealia </h1>
     </div>
 
     <div class="content">

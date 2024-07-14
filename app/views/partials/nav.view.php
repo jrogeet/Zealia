@@ -4,13 +4,7 @@
             <div class="logo-container">
                 <!-- <a href="/index.html"><img class="logo nav-select" src="" alt="Website Logo"/></a> -->
                 <a href="/" class="logo-link">
-                    <span class="logo nav-select">M
-                        <span class="logo-span mbti-m">B</span>
-                            <span class="logo-span mbti-b">T</span>
-                            <span class="logo-span">H E</span><span class="logo-span">
-                                <span class="logo-span mbti-t"></span>
-                                <span class="logo-span mbti-i">S</span>
-                                I S</span></a>
+                    <span class="logo nav-select">Zealia</span></a>
             </div>
 
             <nav class="main-nav nav-select">

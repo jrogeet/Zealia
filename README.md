@@ -29,6 +29,7 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 - Realtime Notifications & Chat (using Websockets(?))
 - Send Email (?)
+- Delete Account
 
 
 

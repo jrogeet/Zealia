@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIASEC by MBTHESIS</title>
+    <title>Zealia</title>
     <link rel="stylesheet" href="assets/css/account/result.css">
 </head>
 <body>
     <div class="header">
-        <h1> RIASEC BY MBTHESIS </h1>
+        <h1> Zealia </h1>
     </div>
 
     <div class="content">

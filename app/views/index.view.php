@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>MBTHESIS</title>
+    <title>Zealia</title>
     
 
     <link rel="stylesheet" type="text/css"  href="assets/css/shared-styles.css">
@@ -27,13 +27,7 @@
             <div class="hero">
                 <div class="title-container">
                     <a class="menu-title-anchor" href="/">
-                        <span class="menu-title title-text ">M
-                            <span class="title-text title-span mbti-m">B</span>
-                            <span class="title-text title-span mbti-b">T</span>
-                            H E
-                            <span class="title-text title-span mbti-t"></span>
-                            <span class="title-text title-span mbti-i">S</span>
-                            I S</span></a>
+                        <span class="menu-title title-text ">Zealia</span></a>
                 </div>
 
                 <div class="hero-text">

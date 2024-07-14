@@ -12,7 +12,7 @@
                                     <span class="logo-span mbti-i">S</span>
                                     I S</span></a>
 
-                    <span class="tagline">Forging Stronger Teams with RIASEC</span>
+                    <span class="tagline">Forging Stronger Teams with Zealia</span>
                 </div>
 
                 <div class="footer-nav">
