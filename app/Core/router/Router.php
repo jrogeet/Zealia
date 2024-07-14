@@ -1,7 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Router;
+namespace Core\Router;
 use Core\Middleware\Auth;
 use Core\Middleware\Guest;
 use Core\Middleware\Middleware;
@@ -53,7 +54,7 @@ class Router {
         return $this;
     }
 
-    public function route($uri, $method) 
+    public function route($uri, $method)
     {
         foreach ($this->routes as $route) {
             if($route['uri'] === $uri && $route['method'] === strtoupper($method)) {

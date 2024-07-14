@@ -34,7 +34,7 @@ function controller($path, $attributes = []) {
 
 function router($path)
  {
-    return base_path('app/router/'. $path);
+    return base_path('app/Core/router/'. $path);
  }
 
 function redirect($path)

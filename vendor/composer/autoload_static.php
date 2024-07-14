@@ -20,13 +20,21 @@ class ComposerStaticInit7422faf8f33d1f1cdfca8767e0ffc0f4
         array (
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'M' => 
+        array (
+            'Model\\' => 6,
+        ),
+        'H' => 
+        array (
+            'Http\\' => 5,
+        ),
+        'C' => 
+        array (
+            'Core\\' => 5,
+        ),
         'B' => 
         array (
             'Brick\\Math\\' => 11,
-        ),
-        'A' => 
-        array (
-            'App\\' => 4,
         ),
     );
 
@@ -43,13 +51,21 @@ class ComposerStaticInit7422faf8f33d1f1cdfca8767e0ffc0f4
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
+        'Model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Model',
+        ),
+        'Http\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Http',
+        ),
+        'Core\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Core',
+        ),
         'Brick\\Math\\' => 
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
-        ),
-        'App\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 

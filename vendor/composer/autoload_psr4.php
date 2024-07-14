@@ -9,6 +9,8 @@ return array(
     'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),
     'Ramsey\\Collection\\' => array($vendorDir . '/ramsey/collection/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'Model\\' => array($baseDir . '/app/Model'),
+    'Http\\' => array($baseDir . '/app/Http'),
+    'Core\\' => array($baseDir . '/app/Core'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
-    'App\\' => array($baseDir . '/app'),
 );
