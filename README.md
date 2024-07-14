@@ -20,7 +20,7 @@ This project aims to form cohesive, high-performing teams in educational setting
 | [Features](#Features) |  
 | [Hosting](#Hosting) |  
 
-## 🔧 Fix:
+### 🔧 Fix:
 ---
 - Admin Page
 - Pages that requires confirmation when refreshing the Website
