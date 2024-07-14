@@ -12,14 +12,6 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 
 # 📝 To-Do List:
-
-| General            | 
-| ----------------- | 
-|[Fix](#Fix)|
-| [Design](#Design) | 
-| [Features](#Features) |  
-| [Hosting](#Hosting) |  
-
 ## 🔧 Fix:
 - Admin Page
 - Pages that requires confirmation when refreshing the Website
