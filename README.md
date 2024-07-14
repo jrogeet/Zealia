@@ -11,7 +11,7 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 
 
-## Roadmap / To Do:
+## To-Do List:
 
 | General            | 
 | ----------------- | 
@@ -20,7 +20,7 @@ This project aims to form cohesive, high-performing teams in educational setting
 | Features |  
 | Hosting |  
 
-## To Fix:
+## Fix:
 - Admin Page
 - Pages that requires confirmation when refreshing the Website
 
