@@ -41,6 +41,6 @@ This project aims to form cohesive, high-performing teams in educational setting
 - [Tailwind Cheatsheet](https://tailwindcomponents.com/cheatsheet/)
 
 
-## <img src="https://pngimg.com/d/php_PNG6.png" alt="PHP Logo Image" height="20px"> PHP
+## <img src="https://static-00.iconduck.com/assets.00/php-icon-2048x1078-v38o7sa6.png" alt="PHP Logo Image" height="20px"> PHP
 #### Learn:
 - [PHP for Beginners (2023 Edition)](https://www.youtube.com/playlist?list=PL3VM-unCzF8ipG50KDjnzhugceoSG3RTC) by [Laracasts](https://laracasts.com/)
