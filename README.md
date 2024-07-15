@@ -6,11 +6,6 @@
 #### Project Description:
 This project aims to form cohesive, high-performing teams in educational settings by using Holland’s RIASEC interest test to assign appropriate roles to team members. This web-based application optimizes team composition, ensuring that members complement each other's strengths, enhancing overall efficiency and productivity.
 
-## Based on this tutorial:
-[PHP for Beginners (2023 Edition)](https://www.youtube.com/playlist?list=PL3VM-unCzF8ipG50KDjnzhugceoSG3RTC) by Laracasts
-
-
-
 # 📝 To-Do List:
 ## 🔧 Fix:
 - Admin Page
@@ -35,3 +30,18 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 ## 🌐 Hosting
 - Host Website
+
+---
+
+# ⚙️ Tools
+
+## Tailwind
+#### Learn:
+- [Official Tailwind Docs](https://tailwindcss.com/docs/)
+- [Tailwind Cheatsheet](https://tailwindcomponents.com/cheatsheet/)
+
+
+## PHP
+#### Learn:
+- [PHP for Beginners (2023 Edition)](https://www.youtube.com/playlist?list=PL3VM-unCzF8ipG50KDjnzhugceoSG3RTC) by [Laracasts](https://laracasts.com/)
+
