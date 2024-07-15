@@ -35,7 +35,7 @@ This project aims to form cohesive, high-performing teams in educational setting
 
 # ⚙️ Tools
 
-## ![Tailwind Logo](https://static-00.iconduck.com/assets.00/tailwind-css-icon-2048x1229-u8dzt4uh.png) Tailwind
+## <img src="https://static-00.iconduck.com/assets.00/tailwind-css-icon-2048x1229-u8dzt4uh.png" alt="Tailwind Logo Image" height="10px"> Tailwind
 #### Learn:
 - [Official Tailwind Docs](https://tailwindcss.com/docs/)
 - [Tailwind Cheatsheet](https://tailwindcomponents.com/cheatsheet/)
