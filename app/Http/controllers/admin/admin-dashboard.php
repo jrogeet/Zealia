@@ -42,31 +42,6 @@ if ($_SESSION['user']['account_type'] === "admin") {
         $recentAccounts[$index]['daysAgo'] = $daysAgo;
         $recentAccounts[$index]['hoursAgo'] = $hoursAgo;
         $recentAccounts[$index]['minutesAgo'] = $minutesAgo;
-
-
-
-
-
-        // // Given date and time
-        // $dateString = $account['reg_date'];
-    
-        // // Create a DateTime object for the given date and time
-        // $givenDateTime = new DateTime($dateString);
-    
-        // // Get the current date and time
-        // $currentDateTime = new DateTime();
-    
-        // // Calculate the difference between the current time and the given time
-        // $interval = $currentDateTime->diff($givenDateTime);
-    
-        // // Extract days, hours, and minutes from the interval
-        // $daysAgo = $interval->days;
-        // $hoursAgo = $interval->h;
-        // $minutesAgo = $interval->i;
-    
-        // $recentAccounts[$index]['daysAgo'] = $daysAgo;
-        // $recentAccounts[$index]['hoursAgo'] = $hoursAgo;
-        // $recentAccounts[$index]['minutesAgo'] = $minutesAgo;
     }
 
 
@@ -112,30 +87,6 @@ if ($_SESSION['user']['account_type'] === "admin") {
         $recentRooms[$index]['daysAgo'] = $daysAgo;
         $recentRooms[$index]['hoursAgo'] = $hoursAgo;
         $recentRooms[$index]['minutesAgo'] = $minutesAgo;
-
-
-
-
-        // // Given date and time
-        // $dateString = $room['created_date'];
-    
-        // // Create a DateTime object for the given date and time
-        // $givenDateTime = new DateTime($dateString);
-    
-        // // Get the current date and time
-        // $currentDateTime = new DateTime();
-    
-        // // Calculate the difference between the current time and the given time
-        // $interval = $currentDateTime->diff($givenDateTime);
-    
-        // // Extract days, hours, and minutes from the interval
-        // $daysAgo = $interval->days;
-        // $hoursAgo = $interval->h;
-        // $minutesAgo = $interval->i;
-    
-        // $rooms[$index]['daysAgo'] = $daysAgo;
-        // $rooms[$index]['hoursAgo'] = $hoursAgo;
-        // $rooms[$index]['minutesAgo'] = $minutesAgo;
     }
 
     $tickets = $db->query('SELECT * FROM ticket', [
