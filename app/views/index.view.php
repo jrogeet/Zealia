@@ -7,8 +7,7 @@
     <title>Zealia</title>
     
 
-    <link rel="stylesheet" type="text/css"  href="assets/css/shared-styles.css">
-    <link rel="stylesheet" type="text/css"  href="assets/css/index.css">
+    <link rel="stylesheet" type="text/css"  href="assets/css/output.css">
 </head>
 <style>
     <?php 
@@ -27,7 +26,7 @@
             <div class="hero">
                 <div class="title-container">
                     <a class="menu-title-anchor" href="/">
-                        <span class="menu-title title-text ">Zealia</span></a>
+                        <span class="text-5xl text-green-400 font-bold">Zealia</span></a>
                 </div>
 
                 <div class="hero-text">
