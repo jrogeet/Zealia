@@ -11,14 +11,12 @@
 
 <style>
     <?php 
-        
         include base_path('public/assets/css/shared-styles.css');
-
     ?>
-
 </style>
+
 <body>
-    <?php view('partials/nav.view.php', ['notifications' => $notifications])?>
+    <?php view('partials/nav.view.php')?>
 
     <main>
         <h1 class="forgot-header">Change Password</h1>
@@ -44,6 +42,4 @@
             </div>
         </form>
     </main>
-
-
 </body>
