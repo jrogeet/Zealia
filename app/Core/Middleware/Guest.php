@@ -1,5 +1,5 @@
 <?php
-
+// Guest
 namespace Core\Middleware;
 
 class Guest

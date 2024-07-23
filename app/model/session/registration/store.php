@@ -36,10 +36,9 @@ if ($form->validate($school_id, $email, $fname, $lname, $password, $confirm_pass
             $mail->setFrom('ambitionxmbti@gmail.com', 'Zealia');
             $mail->addAddress($email);
             $mail->Subject="Account Activation";
-            // TO-DO: Change the link of activation below relative to website's domain
+            $domain = $_SERVER['HTTP_HOST'];
             $mail->Body = <<< END
-            
-                Click <a href="zealia.local/active-success?token=$activation_token">Activate</a>
+                Click <a href="$domain/active-success?token=$activation_token">Activate</a>
                 to activate your account.
             END;
 

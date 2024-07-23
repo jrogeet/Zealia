@@ -1,5 +1,5 @@
 <?php
-
+// Authorized (Logged In)
 namespace Core\Middleware;
 
 class Auth

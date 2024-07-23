@@ -12,7 +12,6 @@ class Middleware
 
     public static function resolve($key)
     {
-
         if (!$key) {
             return;
         }
