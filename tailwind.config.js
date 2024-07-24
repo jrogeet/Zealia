@@ -8,7 +8,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'eurostile': 'assets/fonts/Eurostile-Extended-Regular.ttf',
+        'eurostile': 'eurostile',
+      },
+      FontFace: {
+        
       }
     },
   },
