@@ -10,11 +10,7 @@
     <link rel="stylesheet" type="text/css"  href="assets/css/output.css">
 </head>
 <style>
-    <?php 
-        
-        include base_path('public/assets/css/shared-styles.css');
-
-    ?>
+    <?php include base_path('public/assets/css/shared-styles.css'); ?>
 </style>
 
 <body>
