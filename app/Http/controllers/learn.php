@@ -26,14 +26,9 @@ if (isset($_SESSION['user']['school_id'])) {
         $notification['room_name'] = $room_name['room_name'];
     }
     
-    
-    view("index.view.php", [
-        'heading' => 'AMBITION',
+    view("learn.view.php", [
         'notifications' => $notifications
     ]);
 } else {
-    view("index.view.php", [
-        'heading' => 'AMBITION'
-    ]);
+    view("learn.view.php");
 }
-

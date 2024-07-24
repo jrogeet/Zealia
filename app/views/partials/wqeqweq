@@ -1,18 +1,19 @@
-<header class="bg-blue-400" id="navbar">
-        <!-- Whole NavBar Container -->
-        <div class="flex justify-between items-center">
-            <!-- Main NavBar -->
-            <nav class="flex w-1/2 bg-green-400 items-center">
+<header class="header" id="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
                 <a href="/">
-                    <img class="h-16" src="assets/images/icons/ZealiaLogoStarTrail-2.png" alt="ZealiaLogoStarTrail-2.png"/>
+                    <!-- <img class="logo nav-select" src="assets/images/icons/ZealiaLogoStarTrail-2.png" alt="ZealiaLogoStarTrail-2.png"/> -->
+                    <img class="h-20" src="assets/images/icons/ZealiaLogoStarTrail-2.png" alt="ZealiaLogoStarTrail-2.png"/>
                 </a>
+            </div>
 
-                <ul class="flex">
-                    <li>
-                        <a href="/" class="font-eurostile">Home</a>
+            <nav class="main-nav nav-select">
+                <ul class="flex-row">
+                    <li class="main-nav-li">
+                        <a href="/" class="text-4xl">Home</a>
                     </li>
                     
-                    <li>
+                    <li class="main-nav-li">
                         <a href="<?php if (isset($_SESSION['user'])) {
                             if ($_SESSION['user']['account_type'] == 'admin') {
                                 echo '/admin';
@@ -21,21 +22,28 @@
                             }
                         } else {
                             echo '/login';
-                        } ?>" class="">Dashboard</a>
+                        } ?>" class="nav-btn btn-dashboard">Dashboard</a>
                     </li>
-
-                    <li>
-                        <a href="/about" class="">About</a>
-                    </li>
-
-                    <li>
-                        <a href="/learn" class="">Learn</a>
+                    <li class="main-nav-li">
+                        <a href="/about" class="nav-btn btn-about">About</a>
                     </li>
                 </ul>
             </nav>
 
             <div class="account-container">
+                <!-- <a href="#" class="account nav-select">
+                    <img src="/resources/images/icons/accountblack.png" class="account-img" alt="Login Icon"/>
+                </a> -->
                 <?php if ($_SESSION['user'] ?? false) : ?>
+                    <!-- <a href="/account" >
+                        <span class="account-btns nav-account nav-btn nav-text">Account</span>
+                    </a>
+
+                    <form method="POST" action="/login">
+                        <input type="hidden" name="_method" value="DELETE" />
+                        <button class="account-btns logout-btn">Log Out</button>
+                    </form> -->
+
                     <div class="dropdown-container">
                         <label class="dropdown dd-notif">
                             <div class="dd-button dd-notif-btn">
@@ -142,15 +150,15 @@
                     </div>
 
                 <?php else: ?>
-                    <a href="/login" class="login-container">
-                        <span class="">Login</span>
-                    </a>
-
                     <a href="/register" class="register-container">
-                        <span class="">Sign Up</span>
+                        <span class="account-btns register nav-text">Register</span>
+                    </a>
+                    <a href="/login" class="login-container">
+                        <span class="account-btns login nav-text">Login</span>
                     </a>
                 <?php endif; ?>
             </div> 
+
         </div>
     </header>
 

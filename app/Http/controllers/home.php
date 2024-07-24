@@ -26,12 +26,11 @@ if (isset($_SESSION['user']['school_id'])) {
         $notification['room_name'] = $room_name['room_name'];
     }
     
+    
     view("home.view.php", [
-        'heading' => 'MBTI',
         'notifications' => $notifications
     ]);
 } else {
-    view("home.view.php", [
-        'heading' => 'MBTI'
-    ]);
+    view("home.view.php");
 }
+

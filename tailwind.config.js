@@ -6,7 +6,11 @@ module.exports = {
     "./app/views/**/*.php",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'eurostile': 'assets/fonts/Eurostile-Extended-Regular.ttf',
+      }
+    },
   },
   plugins: [],
 }
