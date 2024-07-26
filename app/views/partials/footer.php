@@ -18,7 +18,7 @@
                 <div class="footer-nav">
                     <span class="footer-nav-header">General</span>
                     <ul class="footer-nav-ul">
-                        <li class="footer-nav-li"><a href="/home" class="nav-btn btn-home">Home</a></li>
+                        <li class="footer-nav-li"><a href="/" class="nav-btn btn-home">Home</a></li>
                         <li class="footer-nav-li"><a href="/dashboard" class="nav-btn btn-create">Dashboard</a></li>
                         <li class="footer-nav-li"><a href="/about" class="nav-btn btn-about">About</a></li>
     

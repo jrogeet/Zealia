@@ -1,7 +1,7 @@
 <?php
 
-$router->get('/', 'Http/controllers/index.php');
-$router->get('/home', 'Http/controllers/home.php');
+$router->get('/', 'Http/controllers/home.php');
+$router->get('/learn', 'Http/controllers/learn.php');
 $router->get('/about', 'Http/controllers/about.php');
 
 $router->post('/nav', 'model/clear-notifications.php');

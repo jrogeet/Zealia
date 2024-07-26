@@ -1,24 +1,5 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personality Test</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/partials/navbar.css">
-    <link rel="stylesheet" type="text/css"  href="assets/css/account/account.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/partials/footer.css">
-</head>
-
-<style>
-    <?php 
-        
-        include base_path('public/assets/css/shared-styles.css');
-
-    ?>
-
-</style>
-
+<?php view('partials/head.view.php'); ?>
 <body>
     <?php   view('partials/nav.view.php', ['notifications' => $notifications]) ?>
 
