@@ -4,7 +4,7 @@
             <!-- Main NavBar -->
             <nav class="flex w-1/2 h-full justify-between items-center">
                 <a href="/">
-                    <img class="h-16" src="assets/images/icons/ZealiaLogoStarTrail-2.png" alt="ZealiaLogoStarTrail-2.png"/>
+                    <img class="h-16" src="assets/images/icons/ZealiaLogoStarTrail-1.png" alt="ZealiaLogoStarTrail-2.png"/>
                 </a>
 
                 <ul class="bg-red-400 transition-colors ease-in-out duration-300 hover:text-black flex w-4/5 justify-between font-semibold">
