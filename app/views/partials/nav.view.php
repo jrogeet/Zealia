@@ -7,7 +7,7 @@
                     <img class="h-16" src="assets/images/icons/ZealiaLogoStarTrail-1.png" alt="ZealiaLogoStarTrail-2.png"/>
                 </a>
 
-                <ul class="bg-red-400 transition-colors ease-in-out duration-300 hover:text-black flex w-4/5 justify-between font-semibold">
+                <ul class="transition-colors ease-in-out duration-300 hover:text-black flex w-4/5 justify-between font-semibold">
                     <li class="hover:text-white">
                         <a href="/" class="">Home</a>
                     </li>
@@ -34,7 +34,7 @@
                 </ul>
             </nav>
 
-            <div class="text-black w-2/12 flex justify-evenly">
+            <div class="text-black w-52 flex justify-between">
                 <?php if ($_SESSION['user'] ?? false) : ?>
                     <div class="dropdown-container">
                         <label class="dropdown dd-account">                          
@@ -57,13 +57,19 @@
 
                 <?php else: ?>
                     <!-- TO-DO: Hover Image Effect -->
-                    <a href="/login" class="before:content-[url('/assets/images/icons/black-oval.png')] before:hidden before:absolute hover:text-white hover:before:block">
-                        <span class="">Login</span>
-                    </a>
+                     <div class="group">
+                        <a href="/login" class="group-hover:text-white">
+                            <span class="">Login</span>
+                        </a>
+                        <img class="group-hover:block hidden h-18 absolute -z-20 top-4 right-35" src="/assets/images/icons/black-oval.png">
+                    </div>
 
-                    <a href="/register" class="hover:text-white">
-                        <span class="">Sign Up</span>
-                    </a>
+                     <div class="group">
+                        <a href="/register" class="group-hover:text-white">
+                            <span class="">Sign Up</span>
+                        </a>
+                        <img class="group-hover:block hidden h-18 absolute -z-20 top-4 right-2" src="/assets/images/icons/black-oval.png">
+                    </div>
                 <?php endif; ?>
             </div> 
         </div>

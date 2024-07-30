@@ -596,12 +596,32 @@ video {
   position: relative;
 }
 
-.inset-0 {
-  inset: 0px;
+.right-2 {
+  right: 0.5rem;
 }
 
 .right-24 {
   right: 6rem;
+}
+
+.right-36 {
+  right: 9rem;
+}
+
+.top-4 {
+  top: 1rem;
+}
+
+.right-35 {
+  right: 8.75rem;
+}
+
+.right-34 {
+  right: 8.5rem;
+}
+
+.-z-20 {
+  z-index: -20;
 }
 
 .z-20 {
@@ -644,6 +664,10 @@ video {
   height: 42rem;
 }
 
+.h-18 {
+  height: 4.5rem;
+}
+
 .h-192 {
   height: 48rem;
 }
@@ -670,6 +694,10 @@ video {
 
 .w-4\/5 {
   width: 80%;
+}
+
+.w-52 {
+  width: 13rem;
 }
 
 .w-64 {
@@ -809,16 +837,8 @@ video {
   transition-duration: 150ms;
 }
 
-.duration-500 {
-  transition-duration: 500ms;
-}
-
 .duration-300 {
   transition-duration: 300ms;
-}
-
-.ease-in {
-  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
 .ease-in-out {
@@ -831,70 +851,9 @@ video {
   src: url('/assets/fonts/Eurostile-Extended-Regular.ttf');
 }
 
-.before\:absolute::before {
-  content: var(--tw-content);
-  position: absolute;
-}
-
-.before\:inset-0::before {
-  content: var(--tw-content);
-  inset: 0px;
-}
-
-.before\:hidden::before {
-  content: var(--tw-content);
-  display: none;
-}
-
-.before\:h-8::before {
-  content: var(--tw-content);
-  height: 2rem;
-}
-
-.before\:h-10::before {
-  content: var(--tw-content);
-  height: 2.5rem;
-}
-
-.before\:h-2::before {
-  content: var(--tw-content);
-  height: 0.5rem;
-}
-
-.before\:h-4::before {
-  content: var(--tw-content);
-  height: 1rem;
-}
-
-.before\:text-lg::before {
-  content: var(--tw-content);
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.before\:content-\[\'\/assets\/images\/icons\/bell\.png\'\]::before {
-  --tw-content: '/assets/images/icons/bell.png';
-  content: var(--tw-content);
-}
-
-.before\:content-\[url\(\'\/assets\/images\/icons\/bell\.png\'\)\]::before {
-  --tw-content: url('/assets/images/icons/bell.png');
-  content: var(--tw-content);
-}
-
-.before\:content-\[url\(\'\/assets\/images\/icons\/black-oval\.png\'\)\]::before {
-  --tw-content: url('/assets/images/icons/black-oval.png');
-  content: var(--tw-content);
-}
-
-.hover\:text-2xl:hover {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-.hover\:text-yellow-300:hover {
+.hover\:text-black:hover {
   --tw-text-opacity: 1;
-  color: rgb(253 224 71 / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .hover\:text-white:hover {
@@ -902,18 +861,17 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.hover\:text-black:hover {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
 .hover\:drop-shadow-2xl:hover {
   --tw-drop-shadow: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-.hover\:before\:block:hover::before {
-  content: var(--tw-content);
+.group:hover .group-hover\:block {
   display: block;
+}
+
+.group:hover .group-hover\:text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
