@@ -1,7 +1,7 @@
 <?php
+// Public Functions
 
 use Core\Response;
-
 
 function dd($values) {
     echo "<pre>";

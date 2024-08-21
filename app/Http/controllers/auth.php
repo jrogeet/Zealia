@@ -96,7 +96,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<br>";
             } else {
                 $db->query("INSERT INTO accounts (school_id, email, password, f_name, l_name, account_type) 
-                VALUES ('$school_number', '$email', '$hash', '$firstn', '$lastn', '$user_type')")->get();
+                VALUES ('$school_number', '$email', '$hash', '$firstn', '$lastn', '$user_type')")->findAll();
             }
         }
     }

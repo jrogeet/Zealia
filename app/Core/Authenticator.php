@@ -5,6 +5,7 @@ use Model\App;
 use Model\Database;
 
 
+// Authenticate Login & Registration of User
 class Authenticator
 {
     protected $db;
@@ -31,21 +32,21 @@ class Authenticator
             if ($user) {
                 if (password_verify($password, $user['password'])) {   // If password matches:
                     if ($user["account_activation_hash"] === NULL) {  // If user activated their email:
-                        $this->login($user); // Assuming login() handles session securely
+                        $this->login($user); // Login the user
 
                         if ($_SESSION['user']['account_type'] === 'admin') { 
-                            return 0; // Redirect to Admin Page
+                            return 0; // 0 = Redirect to Admin Page
                         }
 
-                        return 1; // Redirect to User's Dashboard
+                        return 1; // 1 = Redirect to User's Dashboard
                     } else {
-                        return -2; // Email not activated Error
+                        return -2; // -2 = Email not activated Error
                     }
                 } else {
-                    return -1; // Failed Login: (Password didn't match)
+                    return -1; // -1 = Failed Login (Password didn't match)
                 }
             } else {
-                return -1; // Failed Login: (User doesn't exist)
+                return -1; // -1 = Failed Login (User doesn't exist)
             }
         // Register
         } else if ($attempt_type == 'r'){

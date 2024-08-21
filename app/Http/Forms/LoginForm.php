@@ -21,9 +21,7 @@ class LoginForm
         return empty($this->errors);
     }
 
-    // Check User in the Database
-
-  
+    // Functions for Setting Errors
     public function errors()
     {
         return $this->errors;

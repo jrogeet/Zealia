@@ -1,5 +1,5 @@
 <?php
-
+// Routes
 $router->get('/', 'Http/controllers/home.php');
 $router->get('/learn', 'Http/controllers/learn.php');
 $router->get('/about', 'Http/controllers/about.php');

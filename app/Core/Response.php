@@ -1,6 +1,8 @@
 <?php
 
 namespace Core;
+
+// for Page Errors
 class Response
 {   
     const NOT_FOUND = 404;

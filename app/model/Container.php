@@ -6,6 +6,7 @@ class Container
 {
     protected $bindings = [];
 
+    // Binding the Database: Hostname, Port, Database Name, charset
     public function bind($key, $resolver)
     {
         $this->bindings[$key] = $resolver;

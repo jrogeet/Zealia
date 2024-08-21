@@ -24,7 +24,7 @@
                         } ?>" class="">Dashboard</a>
                     </li>
 
-                    <li class="hover:text-white">
+                    <li class="hover:`2 12`-white">
                         <a href="/about" class="">About</a>
                     </li>
 

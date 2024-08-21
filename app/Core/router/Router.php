@@ -1,5 +1,5 @@
 <?php
-
+// Functions for the Routes
 declare(strict_types=1);
 
 namespace Core\Router;

@@ -10,7 +10,7 @@ class Database
 
     public function __construct($config, $username = 'root', $password = ''){
 
-        // put this in the __construct so that we will only connect to the database once
+        // I put this in the __construct so that we will only connect to the database once
         // because if not, everytime we run a query, we would need to start this everytime
         $dsn = 'mysql:' . http_build_query($config, '', ';');
 
@@ -19,6 +19,7 @@ class Database
         ]);
     }
 
+    // Where SQL Queries is put
     public function query($query, $params = []) {
         $this->statement = $this->connection->prepare($query);
         $this->statement->execute($params);
@@ -27,20 +28,19 @@ class Database
     }
 
 
-    public function get()
-    {
-        return $this->statement->fetchAll();
-    }
+    // For finding values from the Query:
 
+    // find() = Find a Match
     public function find() {
         return $this->statement->fetch();
     }
 
+    // findAll() = Find ALL Match    
     public function findAll() {
         return $this->statement->fetchAll();
     }
 
-
+    // findOrFail() = Show an Error if nothing's found
     public function findOrFail() {
         $result = $this->findAll();
 

@@ -2,6 +2,7 @@
 
 namespace Core\Middleware;
 
+// Determines if a page is for [Auth]orized (Logged In user) or [GUEST]
 class Middleware
 {
     const MAP = [

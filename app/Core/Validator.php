@@ -1,7 +1,7 @@
 <?php
 namespace Core;
 
-
+// Validates Password and Email upon Registration
 class Validator
 {
     // Pure Function (not dependent to outside variables etc.) so static:
@@ -11,6 +11,7 @@ class Validator
         return strlen($value) >= $min && strlen($value) <= $max;
     }
     
+    // Checks if Email is valid and is a Fatima email
     public static function email($value)
     {
         $email_parts = explode('@', $value);
