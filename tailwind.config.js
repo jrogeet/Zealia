@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'blue-noise': "url('/assets/images/background.png')"
+        'cropped-breakdance': "url('/assets/images/vectors/human/breakdance-whiteshade-cropped.png')",
       },
 
       colors: {
@@ -22,6 +22,9 @@ module.exports = {
         blue1: '#E2EEF8',
         orange1: '#DF9F5E',
         red1: '#B31312',
+      },
+      content: {
+        'gen-team': '"generate teams by passion"',
       },
 
       fontFamily: {
