@@ -2,7 +2,6 @@
 
 <body class="bg-white1 flex flex-col justify-between">
     <?php view('partials/nav.view.php'); ?>
-    <main class="flex flex-col">
         <div class="flex flex-col">
             <div class="h-[20.5625rem] flex justify-center items-center">
                 <div class=" h-full w-[63.9375rem] flex justify-center items-center bg-cropped-breakdance bg-cover bg-no-repeat">
@@ -14,12 +13,16 @@
                 </div>
             </div>
 
-            <div class="">
-
+            <div class="w-full h-[35.1875rem] flex justify-center items-center bg-threshold-cropped-solid bg-cover bg-no-repeat">
+                <div class="bg-blue3 text-white1 text-4xl text-center w-[84.375rem] px-8 py-4">
+                Discover your perfect team match by <span class="text-orange1">creating groups that harmonize</span> your unique RIASEC type with the complementary strengths of others.
+                </div>
             </div>
         </div>
-        <div class="">
-
+        <div class="flex justify-center items-center my-8">
+            <div class="min-h-[900px] w-[1400px] border-2 border-black1 rounded-2xl">
+                
+            </div>
         </div>
     </main>
     <?php view('partials/footer.view.php'); ?>

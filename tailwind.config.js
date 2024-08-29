@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'cropped-breakdance': "url('/assets/images/vectors/human/breakdance-whiteshade-cropped.png')",
+        'threshold-cropped-solid': "url('/assets/images/threshold-cropped-solid.png')",
       },
 
       colors: {
