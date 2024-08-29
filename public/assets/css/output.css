@@ -665,6 +665,10 @@ video {
   height: 100%;
 }
 
+.h-\[7\.8125rem\] {
+  height: 7.8125rem;
+}
+
 .min-h-\[1400px\] {
   min-height: 1400px;
 }
@@ -757,6 +761,14 @@ video {
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
 }
 
+.bg-\[url\(\'\/assets\/images\/vectors\/human\/breakdance-whiteshade-cropped\.png\'\)\] {
+  background-image: url('/assets/images/vectors/human/breakdance-whiteshade-cropped.png');
+}
+
+.bg-\[url\(\'assets\/images\/vectors\/human\/breakdance-whiteshade-cropped\.png\'\)\] {
+  background-image: url('assets/images/vectors/human/breakdance-whiteshade-cropped.png');
+}
+
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -799,6 +811,11 @@ video {
 
 .text-\[6\.875rem\] {
   font-size: 6.875rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .font-extrabold {

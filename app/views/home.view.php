@@ -4,12 +4,11 @@
     <?php view('partials/nav.view.php'); ?>
     <main class="bg-red-400 flex flex-col">
         <div class="flex flex-col">
-            <div class="">
-                <div class="flex">
-                    <img class="h-14" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png" alt="ZealiaLogoStarTrail-2.png"/>
-                    <span class="font-syneboldextra text-black1 text-[6.875rem]">ealia</span>
-                </div>
+            <div class="flex justify-center bg-[url('assets/images/vectors/human/breakdance-whiteshade-cropped.png')]">
+                <img class="h-[7.8125rem]" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png" alt="ZealiaLogoStarTrail-2.png"/>
+                <span class="font-syneboldextra text-black1 text-[6.875rem]">ealia</span>
             </div>
+
             <div class="">
 
             </div>
