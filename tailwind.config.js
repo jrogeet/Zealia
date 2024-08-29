@@ -11,8 +11,25 @@ module.exports = {
         'blue-noise': "url('/assets/images/background.png')"
       },
 
+      colors: {
+        white1: '#FFF6E9',
+        white2: '#E6DDD2',
+        grey1: '#99948C',
+        grey2: '#807B75',
+        black1: '#2B2D2F',
+        blue3: '#03346E',
+        blue2: '#6EACDA',
+        blue1: '#E2EEF8',
+        orange1: '#DF9F5E',
+        red1: '#B31312',
+      },
+
       fontFamily: {
-        eurostile: "eurostile"
+        eurostile: "eurostile",
+        synereg: ['Syne-Reg', 'sans-serif'],
+        synesemi: ['Syne-semibold', 'sans-serif'],
+        synebold: ['Syne-bold', 'sans-serif'],
+        syneboldextra: ['Syne-Extrabold', 'sans-serif'],
       },
 
       height: {

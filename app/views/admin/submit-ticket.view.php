@@ -75,7 +75,7 @@
         </div>
     </main>
 
-    <?php view('partials/footer.php')?>
+    <?php view('partials/footer.view.php'); ?>
     
     <script src="assets/js/shared-scripts.js"></script>
 </body>

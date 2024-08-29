@@ -3,7 +3,31 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: eurostile;
+    font-family: 'eurostile';
     src: url('/assets/fonts/Eurostile-Extended-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'syne-reg';
+    src: url('/assets/fonts/syne/Syne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'syne-med';
+    src: url('/assets/fonts/syne/Syne-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'syne-semibold';
+    src: url('/assets/fonts/syne/Syne-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'syne-bold';
+    src: url('/assets/fonts/syne/Syne-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'syne-extrabold';
+    src: url('/assets/fonts/syne/Syne-ExtraBold.ttf') format('truetype');
+}

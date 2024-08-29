@@ -1,48 +1,23 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="flex flex-col justify-center overflow-x-hidden">
-
-    <?php if(isset($notifications)){
-        view('partials/nav.view.php', ['notifications' => $notifications]);
-    } elseif (! isset($notifications)) {
-        view('partials/nav.view.php');
-    }
-    ?>
-
-    <div class="self-center flex flex-col w-web justify-center text-white">
-        <section class="relative  flex justify-center items-end">
-            <!-- <div> -->
-                <img class=" h-168 z-20 select-none" src="assets/images/Header-Computer-Merge.png">
-            <!-- </div> -->
-
-            <div class="absolute z-50 right-24 break-words h-80 w-64 mb-4">
-                <h1 class="text-4xl">01 / 03</h1>
-                <p class="text-base font-semibold">
-                    Zealia Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                    Architecto, temporibus. Distinctio, maxime nulla beatae quibusdam sequi doloremque, 
-                    temporibus id placeat non eveniet quos nostrum vitae iusto laborum nesciunt rem tempore.
-                </p>
+<body class="bg-white1 flex flex-col justify-between">
+    <?php view('partials/nav.view.php'); ?>
+    <main class="bg-red-400 flex flex-col">
+        <div class="flex flex-col">
+            <div class="">
+                <div class="flex">
+                    <img class="h-14" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png" alt="ZealiaLogoStarTrail-2.png"/>
+                    <span class="font-syneboldextra text-black1 text-[6.875rem]">ealia</span>
+                </div>
             </div>
-        </section>
+            <div class="">
 
-        <section class="h-192">
+            </div>
+        </div>
+        <div class="">
 
-        </section>
-
-        <section class="h-192">
-
-        </section>    
-    </div>
-
-
-    
-
-
-    <!-- <img class="w-auto" src="assets/images/background.png"> -->
-    <script src="assets/js/shared-scripts.js"></script>
+        </div>
+    </main>
+    <?php view('partials/footer.view.php'); ?>
 </body>
-
-<style>
-    <?php include base_path('public/assets/css/shared-styles.css'); ?>
-</style>
 </html>

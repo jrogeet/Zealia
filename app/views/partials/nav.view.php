@@ -1,18 +1,18 @@
-<header class="h-24 font-eurostile text-white text-xl font-extrabold" id="navbar">
+<header class="bg-white1 shadow-md h-20 w-full justify-center  content-center top-0" id="navbar">
         <!-- Whole NavBar Container -->
-        <div class="h-full px-6 flex justify-between items-center">
+        <div class="flex h-12 mx-14 justify-between font-synesemi text-xl text-black1">
             <!-- Main NavBar -->
-            <nav class="flex w-1/2 h-full justify-between items-center">
+            <nav class="flex gap-14">
                 <a href="/">
-                    <img class="h-16" src="assets/images/icons/ZealiaLogoStarTrail-1.png" alt="ZealiaLogoStarTrail-2.png"/>
+                    <img class="h-14" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png" alt="Zealia Logo"/>
                 </a>
 
-                <ul class="transition-colors ease-in-out duration-300 hover:text-black flex w-4/5 justify-between font-semibold">
-                    <li class="hover:text-white">
+                <ul class="w-[30.93rem] [&>*]:content-center gap-14 flex">
+                    <li class="inline-block">
                         <a href="/" class="">Home</a>
                     </li>
                     
-                    <li class="hover:text-white">
+                    <li class="inline-block">
                         <a href="<?php if (isset($_SESSION['user'])) {
                             if ($_SESSION['user']['account_type'] == 'admin') {
                                 echo '/admin';
@@ -24,17 +24,17 @@
                         } ?>" class="">Dashboard</a>
                     </li>
 
-                    <li class="hover:`2 12`-white">
+                    <li class="inline-block">
                         <a href="/about" class="">About</a>
                     </li>
-
-                    <li class="hover:text-white">
-                        <a href="/learn" class="">Learn</a>
+                    <li class="inline-block">
+                        <a href="/submit-ticket" class="">Contact</a>
                     </li>
                 </ul>
             </nav>
 
-            <div class="text-black w-52 flex justify-between">
+            <!-- LOGIN & SIGNUP Part -->
+            <div class="flex gap-[1.44rem] items-center">
                 <?php if ($_SESSION['user'] ?? false) : ?>
                     <div class="dropdown-container">
                         <label class="dropdown dd-account">                          
@@ -56,20 +56,13 @@
                     </div>
 
                 <?php else: ?>
-                    <!-- TO-DO: Hover Image Effect -->
-                     <div class="group">
-                        <a href="/login" class="group-hover:text-white">
-                            <span class="">Login</span>
-                        </a>
-                        <img class="group-hover:block hidden h-18 absolute -z-20 top-4 right-35" src="/assets/images/icons/black-oval.png">
-                    </div>
+                    <a href="/login" class="bg-blue3 rounded-lg h-10 w-[6.25rem] flex justify-center items-center">
+                        <span class="text-white">Sign In</span>
+                    </a>
 
-                     <div class="group">
-                        <a href="/register" class="group-hover:text-white">
-                            <span class="">Sign Up</span>
-                        </a>
-                        <img class="group-hover:block hidden h-18 absolute -z-20 top-4 right-2" src="/assets/images/icons/black-oval.png">
-                    </div>
+                    <a href="/register" class="bg-orange1 rounded-lg h-10 w-[6.25rem] flex justify-center items-center">
+                        <span class="text-offBlack">Sign Up</span>
+                    </a>
                 <?php endif; ?>
             </div> 
         </div>
