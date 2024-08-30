@@ -782,6 +782,22 @@ video {
   height: 0.125rem;
 }
 
+.h-\[1000px\] {
+  height: 1000px;
+}
+
+.h-\[1px\] {
+  height: 1px;
+}
+
+.h-\[1\.5px\] {
+  height: 1.5px;
+}
+
+.h-\[1\.75px\] {
+  height: 1.75px;
+}
+
 .min-h-\[900px\] {
   min-height: 900px;
 }
@@ -836,6 +852,10 @@ video {
 
 .w-52 {
   width: 13rem;
+}
+
+.w-\[87\.5rem\] {
+  width: 87.5rem;
 }
 
 .flex-col {

@@ -38,7 +38,7 @@
                 <?php if ($_SESSION['user'] ?? false) : ?>
                     <div class="relative text-xl">
                         <button class="z-50 flex justify-between items-center px-4 h-12 w-56  bg-blue3 border rounded-lg" id="navDDbutton">
-                            <span class="text-white1 w-4/5 text-left truncate">NamewillTruncate</span>
+                            <span class="text-white1 w-4/5 text-left truncate"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
                             <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white1"></div>
                         </button>
                         <!-- TEMPO -->
@@ -48,7 +48,7 @@
                                 <span class="">Account Settings</span>
                             </a>
 
-                            <div class="w-52 h-0.5 bg-black1"></div>
+                            <div class="w-52 h-[1.5px] bg-black1"></div>
 
                             <form method="POST" action="/login">
                                 <input type="hidden" name="_method" value="DELETE" />

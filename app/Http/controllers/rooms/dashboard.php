@@ -85,12 +85,11 @@ $encoded_room_info = json_encode($room_info);
 
 
 view('rooms/dashboard.view.php', [
-    'heading' => 'My Dashboard',
     'room_info' => $room_info,
     'encoded_room_info' => $encoded_room_info,
     'ascending_rooms' => $ascending_rooms,
     'descending_rooms' => $descending_rooms,
-    'notifications' => $notifications
+    'currentUser' => $currentUser
 ]);
 
 
