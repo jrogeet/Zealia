@@ -36,19 +36,19 @@
             <!-- LOGIN & SIGNUP Part -->
             <div class="flex gap-[1.44rem] items-center">
                 <?php if ($_SESSION['user'] ?? false) : ?>
-                    <div class="">
-                        <div class="">
-                            <button class="" id="navDDbutton">Name</button>
-                            <!-- TEMPO -->
-                            <span>v</span>
-                        </div>
+                    <div class="relative text-xl">
+                        <button class="z-50 flex justify-between items-center px-4 h-12 w-56  bg-blue3 border rounded-lg" id="navDDbutton">
+                            <span class="text-white1 w-4/5 text-left truncate">NamewillTruncate</span>
+                            <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white1"></div>
+                        </button>
+                        <!-- TEMPO -->
 
-                        <div class="hidden" id="navDropDown">
+                        <div class="z-40 hidden absolute flex-col justify-evenly bg-white1 h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 border-black1 rounded-b-2xl" id="navDropDown">
                             <a href="/account">
                                 <span class="">Account Settings</span>
                             </a>
 
-                            <div class=""></div>
+                            <div class="w-52 h-0.5 bg-black1"></div>
 
                             <form method="POST" action="/login">
                                 <input type="hidden" name="_method" value="DELETE" />
