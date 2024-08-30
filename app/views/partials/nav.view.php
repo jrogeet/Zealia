@@ -36,23 +36,42 @@
             <!-- LOGIN & SIGNUP Part -->
             <div class="flex gap-[1.44rem] items-center">
                 <?php if ($_SESSION['user'] ?? false) : ?>
-                    <div class="dropdown-container">
-                        <label class="dropdown dd-account">                          
-                            <ul class="dd-menu dd-menu-account">
+                    <div class="">
+                        <div class="">
+                            <button class="" id="navDDbutton">Name</button>
+                            <!-- TEMPO -->
+                            <span>v</span>
+                        </div>
+
+                        <div class="hidden" id="navDropDown">
+                            <a href="/account">
+                                <span class="">Account Settings</span>
+                            </a>
+
+                            <div class=""></div>
+
+                            <form method="POST" action="/login">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button class="text-red1">Log Out</button>
+                            </form>
+                        </div>
+
+                        <!-- <label class="">                          
+                            <ul class="">
                                 <a href="/account">
-                                    <li class="account-menu-li">
-                                        <span class="account-menu-text">Account</span>
+                                    <li class="">
+                                        <span class="">Account Settings</span>
                                     </li>
                                 </a>
-                                <li class="divider"></li>
-                                <li class="account-menu-li">
+                                <li class=""></li>
+                                <li class="">
                                     <form method="POST" action="/login">
                                         <input type="hidden" name="_method" value="DELETE" />
-                                        <button class="account-btns logout-btn">Log Out</button>
+                                        <button class="text-red1">Log Out</button>
                                     </form>
                                 </li>
                             </ul>
-                        </label>
+                        </label> -->
                     </div>
 
                 <?php else: ?>
