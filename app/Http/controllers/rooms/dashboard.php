@@ -32,7 +32,7 @@ if ($_SESSION['user']['account_type'] === 'professor') {
         $room_info[] = $db->query('select * from rooms where room_id = :room_id', [
             ':room_id'=>$room['room_id'],
         ])->find();
-    };
+    }
 } elseif ($_SESSION['user']['account_type'] === 'student') {
     foreach ($stuRooms as $room) {
         $room_info[] = $db->query('select * from rooms where room_id = :room_id', [

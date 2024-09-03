@@ -10,6 +10,7 @@ module.exports = {
       backgroundImage: {
         'cropped-breakdance': "url('/assets/images/vectors/human/breakdance-whiteshade-cropped.png')",
         'threshold-cropped-solid': "url('/assets/images/threshold-cropped-solid.png')",
+        'howtouse': "url('/assets/images/howtouse.png')"
       },
 
       colors: {
@@ -31,9 +32,11 @@ module.exports = {
       fontFamily: {
         eurostile: "eurostile",
         synereg: ['Syne-Reg', 'sans-serif'],
+        synemed: ['Syne-Med', 'sans-serif'],
         synesemi: ['Syne-semibold', 'sans-serif'],
         synebold: ['Syne-bold', 'sans-serif'],
         syneboldextra: ['Syne-Extrabold', 'sans-serif'],
+        
       },
 
       height: {
