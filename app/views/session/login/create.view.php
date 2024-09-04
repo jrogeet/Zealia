@@ -26,7 +26,7 @@
             <?php endif; ?>
 
             <button class="text-lg h-10 w-2/3 text-center text-white border border-blue3 bg-blue3 rounded-xl relative left-[50%] transform translate-x-[-50%] mt-2 mb-0">Sign in</button></br>
-            <h6 class="text-xs text-center mt-2 mb-0" >Already have an account? <a class="text-blue3" href="/register">Create an account</a></h6></br>6
+            <h6 class="text-xs text-center mt-2 mb-0" >Don't have an account? <a class="text-blue3" href="/register">Create an account</a></h6></br>
 
         </form>
         
