@@ -2,8 +2,11 @@
 
 <body class="">
     <?php view('partials/nav.view.php'); ?>
+    <main class="">
 
-    <script src="assets/js/shared-scripts.js"></script>
+
+    </main>
+    <?php view('partials/footer.view.php'); ?>
 </body>
 
 </html>

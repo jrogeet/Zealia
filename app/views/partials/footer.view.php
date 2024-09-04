@@ -22,9 +22,6 @@
                     <a href="/about" class="">About</a>
                 </li>
 
-                <li class="inline-block">
-                    <a href="/submit-ticket" class="">Contact</a>
-                </li>
             </ul>
             <a class="font-synebold text-4xl text-white1" href="/submit-ticket">Submit a Ticket</a>
         </div>
