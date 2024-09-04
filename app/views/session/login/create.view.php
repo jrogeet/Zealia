@@ -1,49 +1,40 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="">
+<body class="font-synereg bg-white1">
     <?php view('partials/nav.view.php')?>
 
-    <main>
-        <div class="loginform" id="loginform">
-            <!-- <h2 class="header">Login:</h2> -->
-            <div class="heading-text">Login</div>
 
-            <div>
-                <?php if(isset($loginmessage)): ?>
-                    <p class="change-pass-success"><?= $loginmessage ?></p>
-                <?php endif; ?>
-                
-            </div>
+    <div class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute left-[50%] top-[20%] transform translate-x-[-50%] w-[420px] h-fit"> 
 
-            <form method="POST" action="/login" class="login-actual-form">
-                <div class="login-input-field">
-                    <div class="login-input-field-container">
-                        <input type="number" name="school_id" id="school_id" class="inputfield" placeholder="School ID Number:" value="<?= old('school_id') ?>" required> 
-                    </div>
-                    
-                    <div class="login-input-field-container">
-                        <input type="password" name="password" class="inputfield" placeholder="Enter Password:" required> 
+        <h1 class="mb-16 mx-12 text-4xl text-center">Welcome back to Zealia</h1>
 
-                        <?php if (isset($errors['password'])): ?>
-                            <p class=""><?= $errors['password'] ?></p>
-                        <?php elseif (isset($errors['school_id'])):?>
-                            <p class=""><?= $errors['school_id'] ?></p>
-                        <?php elseif (isset($errors['activate'])): ?>
-                            <p class=""><?= $errors['activate']?></p>
-                        <?php elseif (isset($errors['regexist'])): ?>
-                            <p class=""><?= $errors['regexist'] ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <input type="submit" name="login" value="LOGIN" class="submit-button login-button" >
-                    <a class="forgot-password-link" href="/forgot-password">Forgot Password</a>
-                </div>
+        <form method="POST" action="/login" class="login-actual-form">
+        
+            <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-4 bg-white1" type="text" placeholder="Student Number"></input></br>
+            <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-0 bg-white1" type="text" placeholder="Password"></input></br>
 
-
-            </form>
-
+            <a class="text-xs relative right-[-60%] top-1 my-0 text-red-600" href="/reset-password">Forgot password?</a></br>
             
-        </div>
-    </main>
+            <?php if (isset($errors['password'])): ?>
+                <p class="text-center text-sm text-red-600 my-0"><?= $errors['password'] ?></p>
+            <?php elseif (isset($errors['school_id'])):?>
+                <p class="text-center text-sm text-red-600 my-0"><?= $errors['school_id'] ?></p>
+            <?php elseif (isset($errors['activate'])): ?>
+                <p class="text-center text-sm text-red-600 my-0"><?= $errors['activate']?></p>
+            <?php elseif (isset($errors['regexist'])): ?>
+                <p class="text-center text-sm text-red-600 my-0"><?= $errors['regexist'] ?></p>
+            <?php endif; ?>
+
+            <button class="text-lg h-10 w-2/3 text-center text-white border border-blue3 bg-blue3 rounded-xl relative left-[50%] transform translate-x-[-50%] mt-2 mb-0">Sign in</button></br>
+            <h6 class="text-xs text-center mt-2 mb-0" >Already have an account? <a class="text-blue3" href="/register">Create an account</a></h6></br>6
+
+        </form>
+        
+
+    </div>
+
+
+
 
 
 </body>
