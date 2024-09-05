@@ -1,4 +1,4 @@
-<header class="bg-white1 fixed z-50 shadow-md h-20 w-full justify-center  content-center top-0" id="navbar">
+<header class="bg-white1 z-50 shadow-md h-20 w-full justify-center  content-center top-0" id="navbar">
         <!-- Whole NavBar Container -->
         <div class="flex h-12 mx-14 justify-between font-synesemi text-xl text-black1">
             <!-- Main NavBar -->
