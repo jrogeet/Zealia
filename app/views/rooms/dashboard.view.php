@@ -23,105 +23,11 @@
                 </div>
             </div>
 
-            <div class="h-[40rem] w-full overflow-y-auto overflow-x-hidden">
-                <div class="bg-red-400 flex flex-wrap gap-x-2.5 gap-y-10 min-h-full w-[84.5rem] m-4">
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-                    
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-                    
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-                    
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-                    
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl">Room Name</h1>
-                            <span class="text-grey2 text-base">Name of D. Professor</span>
-                        </div>
-                        <span class="text-grey2 text-base">123456</span>
-                    </div>
-
-                    <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
+            <!-- TILES  -->
+            <!-- <div class="h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden">
+                <div class="flex flex-wrap gap-x-2.5 gap-y-10 min-h-[36rem] w-[84.5rem] m-4"> -->
+                    <!--  ROOMS  -->
+                    <!-- <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
                         <div>   
                             <h1 class="font-synemed text-2xl">Room Name</h1>
                             <span class="text-grey2 text-base">Name of D. Professor</span>
@@ -129,7 +35,25 @@
                         <span class="text-grey2 text-base">123456</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
+
+            <div class="bg-green-400 h-full w-full overflow-y-scroll overflow-x-hidden">
+                <table class="h-full w-full">
+                    <thead class="bg-blue3 h-10 font-synereg text-xl">
+                        <tr>
+                            <th class="text-white1">Room Name</th>
+                            <th class="text-white1">Instructor Name</th>
+                            <th class="text-white1">Room Code</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+
+                        </tr>
+                    </tbody>
+                </table>
+           </div> 
             
         </div>
     </main>

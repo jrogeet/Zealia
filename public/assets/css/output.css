@@ -741,6 +741,10 @@ video {
   margin-top: 0.5rem;
 }
 
+.ml-4 {
+  margin-left: 1rem;
+}
+
 .block {
   display: block;
 }
@@ -878,6 +882,26 @@ video {
   height: fit-content;
 }
 
+.h-\[39rem\] {
+  height: 39rem;
+}
+
+.h-\[39\.8rem\] {
+  height: 39.8rem;
+}
+
+.h-\[39\.7rem\] {
+  height: 39.7rem;
+}
+
+.h-\[39\.75rem\] {
+  height: 39.75rem;
+}
+
+.h-\[39\.76rem\] {
+  height: 39.76rem;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -897,6 +921,14 @@ video {
 
 .min-h-full {
   min-height: 100%;
+}
+
+.min-h-\[38rem\] {
+  min-height: 38rem;
+}
+
+.min-h-\[36rem\] {
+  min-height: 36rem;
 }
 
 .w-0 {
@@ -1063,6 +1095,10 @@ video {
   row-gap: 2.5rem;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -1073,6 +1109,10 @@ video {
 
 .overflow-y-visible {
   overflow-y: visible;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
 }
 
 .truncate {
@@ -1197,6 +1237,11 @@ video {
 .bg-green-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(134 239 172 / var(--tw-bg-opacity));
+}
+
+.bg-green-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
 }
 
 .bg-borger {
