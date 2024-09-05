@@ -82,6 +82,6 @@ try {
     echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
 }
 
-view("session/login/create.view.php", [
+view("session/login/login.view.php", [
     "loginmessage" => "Your password has been changed successfully!"
 ]);

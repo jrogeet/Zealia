@@ -31,12 +31,12 @@ $router->post('/groups', 'Http/controllers/rooms/group/results.php')->only('auth
 $router->patch('/groups', 'Http/controllers/rooms/group/results.php')->only('auth');
 $router->delete('/groups', 'Http/controllers/rooms/group/results.php')->only('auth');
 
-$router->get('/register', 'Http/controllers/session/registration/create.php')->only('guest');
+$router->get('/register', 'Http/controllers/session/registration/register.php')->only('guest');
 $router->post('/register', 'model/session/registration/store.php')->only('guest');
 $router->get('/activate-account', 'Http/controllers/session/registration/success-signup.php')->only('guest');
 $router->get('/active-success', '/model/session/registration/success-activation.php')->only('guest');
 
-$router->get('/login', 'Http/controllers/session/login/create.php')->only('guest');
+$router->get('/login', 'Http/controllers/session/login/login.php')->only('guest');
 $router->post('/login', 'model/session/login/store.php')->only('guest');
 $router->delete('/login', 'model/session/login/destroy.php')->only('auth');
 
