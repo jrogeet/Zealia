@@ -11,8 +11,8 @@ module.exports = {
         'cropped-breakdance': "url('/assets/images/vectors/human/breakdance-whiteshade-cropped.png')",
         'threshold-cropped-solid': "url('/assets/images/threshold-cropped-solid.png')",
         'howtouse': "url('/assets/images/howtouse.png')",
-        'tiles': "url('/assets/images/vectors/icons/tiles.png)",
-        'borger': "url('/assets/images/vectors/icons/borger.png)",
+        'tiles': "url('/assets/images/vectors/icons/tiles.png')",
+        'borger': "url('/assets/images/vectors/icons/borger.png')",
       },
 
       colors: {
