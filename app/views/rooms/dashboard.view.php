@@ -23,8 +23,8 @@
                 </div>
             </div>
 
-            <div class="h-full w-full bg-green-300">
-                <div class="bg-red-400 flex flex-wrap gap-x-2.5 gap-y-10 min-h-full max-h-full w-[84.5rem] m-6 overflow-y-auto">
+            <div class="h-[40rem] w-full bg-green-300 overflow-y-auto overflow-x-hidden">
+                <div class="bg-red-400 flex flex-wrap gap-x-2.5 gap-y-10 min-h-full max-h-full w-[84.5rem] m-6">
                     <div class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
                         <div>   
                             <h1 class="font-synemed text-2xl">Room Name</h1>
