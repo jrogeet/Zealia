@@ -26,6 +26,7 @@ module.exports = {
         blue1: '#E2EEF8',
         orange1: '#DF9F5E',
         red1: '#B31312',
+        green1: '#0DE830',
       },
       content: {
         'gen-team': '"generate teams by passion"',
