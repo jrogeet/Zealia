@@ -17,25 +17,25 @@
            <div class="h-[37.5rem] w-[18.75rem] border border-black1 rounded-xl">
                 <!-- Tabs -->
                 <div class="flex">
-                    <button class="bg-blue3 h-[2.81rem] w-[9.37rem] font-synereg text-white1 border border-black1 rounded-tl-xl">Students</button>
-                    <button class="bg-blue2 h-[2.81rem] w-[9.37rem] font-synereg text-black1 border border-black1 rounded-tr-xl">Join Requests</button>
+                    <button onClick="show('roomStudentList'); hide('roomJoinRequest');" class="bg-blue3 h-[2.81rem] w-[9.37rem] font-synereg text-white1 border border-black1 rounded-tl-xl">Students</button>
+                    <button onClick="show('roomJoinRequest'); hide('roomStudentList');" class="bg-blue2 h-[2.81rem] w-[9.37rem] font-synereg text-black1 border border-black1 rounded-tr-xl">Join Requests</button>
                 </div>
 
                 <!-- List -->
-                <div class="hidden h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
-                    <div class="flex justify-between h-[3.75rem] bg-blue1 border border-black1 p-4">
+                <div id="roomStudentList" class="h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
+                    <a href="#" class="flex justify-between h-[3.75rem] w-full bg-blue1 border border-black1 p-4">
                         <span class="text-base font-synereg">Surname, First Name</span>
 
                         <button class="h-6 w-6 bg-red1 rounded">
 
                         </button>
-                    </div>
+                    </a>
 
                 </div>
 
                 <!-- Requests -->
-                <div class="h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
-                    <div class="flex justify-between items-center h-20 px-2 bg-blue1 border border-black1">
+                <div id="roomJoinRequest" class="hidden h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
+                    <a href="#" class="flex justify-between items-center h-20 w-full px-2 bg-blue1 border border-black1">
                         <div class="w-52 flex flex-col">
                             <span class="font-synereg text-base">Surname, First Name</span>
                             <span class="font-synereg text-sm text-grey2">0123456789</span>
@@ -48,7 +48,7 @@
                             <button class="h-6 w-6 bg-green1 rounded"></button>
                             <button class="h-6 w-6 bg-red1 rounded"></button>
                         </div>
-                    </div>
+                    </a>
                     
                 </div>
            </div>
