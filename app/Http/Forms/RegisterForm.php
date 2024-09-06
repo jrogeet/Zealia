@@ -18,7 +18,7 @@ class RegisterForm
         if (! Validator::string($password, 7, 255)) {
             $this->errors['password'] = 'Please provide a password with a minimum length of 7 characters.';
         } elseif ($password !== $confirm_password) {
-            $this->errors['password'] = 'Please confirm if the password match!';
+            $this->errors['password-match'] = 'Please confirm if the password match!';
         }
 
         if ( ! preg_match("/[a-z]/i", $password)) {

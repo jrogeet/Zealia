@@ -1,59 +1,43 @@
 <?php view('partials/head.view.php'); ?>
 
-<body>
+<body class="bg-white1">
     <?php view('partials/nav.view.php'); ?>
     
     <main>
-        <div class="">
-            <span>Submit Ticket</span>
-        </div>
-        <div class="submit-ticket-container">
-            <div class="contact-container">
-                <span class="email-span">Email:<a class="email-link" href="mailto:ambitionxmbti@gmail.com">ambitionxmbti@gmail.com</a></span>
+        <div class="font-synereg relative flex h-[86vh] w-full top-0 left-[50%] transform translate-x-[-50%] mt-14 mb-12 py-16">
+            <div class="absolute inline-block w-fit h-fit left-6 ml-16">
+
+                <h1 class="mt-14 mb-0 text-6xl font-synemed">Need a help?</h1></br>
+                <h3 class="transform translate-y-[-49%] text-2xl">Send us a message by filling out the form</h3></br>
+
+                <h4 class="relative top-72 text-2xl">or email us at:</h4>
+                <h2 class="relative top-72 text-4xl font-synemed text-blue3">ambitionxmbti@gmail.com</h2>
+
             </div>
-            <form method="post" action="/submit-ticket" class="actual-form">
-                <div class="form-group"> 
-                    <label for="category">Category</label>
-                    <select name="category" id="reason" placeholder="Select Category" required>
-                        <option value="">-- Select Category --</option>
-                        <option value="account">Account</option>
-                        <option value="rooms">Rooms</option>
-                        <option value="groups">Groups</option>
-                        <option value="other">Other (specify in message)</option>
-                    </select>
 
-                    <label for="f_name">First Name</label>
-                    <input type="text" name="f_name" id="f_name" class="input-text" placeholder="First Name" required>
-                    
-                    <label for="l_name">Last Name</label>
-                    <input type="text" name="l_name" id="l_name" class="input-text" placeholder="Last Name" required>
 
-                    <label for="school_id">School ID Number (optional)</label>
-                    <input type="number" name="school_id" id="school_id" class="input-number" placeholder="School ID Number">
-
-                    <label for="year_section">Year & Section (optional)</label>
-                    <input type="text" name="year_section" id="year_section" class="input-text" placeholder="Year & Section">
-
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="input-email" placeholder="Email" required>
-
-                
-                    
-                    <label for="message">Message</label>
-                    <textarea name="message" id="message" required></textarea>
-
-                    <div class="submit-btn-container">
-                        <button type="submit">Submit</button>
-                    </div>
-
-                    <?php if(isset($success)): ?>
-                    <div class="success-contianer">
-                        <span class="success-text"><?= $success ?></span>
-                    </div>
-                    <?php endif; ?>
+            <div class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute inline-block w-[28%] h-[93%] right-0 mr-16 text-center object-center">
+                <h1 class="font-synemed mb-16 mx-12 text-4xl">Submit a Ticket</h1>
+                <div class="flex justify-between mx-16 mb-1">
+                    <input class="border border-black rounded-xl transform translate-x-[5%] text-left pl-4 mb-1 h-10 w-[46%] text-sm bg-white1" type="text" placeholder="First name" type="text" name="lname" required>
+                    <input class="border border-black rounded-xl transform translate-x-[-5%] text-left pl-4 mb-1 h-10 w-[46%] text-sm bg-white1" type="text" placeholder="Last name" type="text" name="fname" required>
                 </div>
-                
-            </form>
+
+                <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative mb-2 bg-white1" placeholder="Student number" type="number" name="school_id" id="school_id" required></input></br>
+                <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative mb-2 bg-white1" placeholder="Fatima Email" type="email" name="email" required></input></br>
+                <select class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative mb-2 bg-blue2" name="category" id="reason" placeholder="Select Category" required>
+                    <option class="bg-white2" value="">Select Category:</option>
+                    <option class="bg-white2" value="account">Account</option>
+                    <option class="bg-white2" value="rooms">Rooms</option>
+                    <option class="bg-white2" value="groups">Groups</option>
+                    <option class="bg-white2" value="other">Other (specify in message)</option>
+                </select>
+                <input class="text-sm h-2/6 w-2/3 pl-4 border border-black rounded-xl relative mb-2 bg-white1" placeholder="Add details..." type="number" name="school_id" id="school_id" required></input></br>
+                <button class="font-synesemi text-lg h-10 w-2/3 text-center text-white border border-blue3 bg-blue3 rounded-xl mt-2 mb-0" type="submit" name="login">Submit</button></br>
+            
+
+
+            </div>
         </div>
     </main>
 
