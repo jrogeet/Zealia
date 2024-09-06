@@ -54,10 +54,10 @@
            </div>
 
            <!-- Groups Area -->
-           <div class="h-[37.5rem] w-[67.5rem] border border-black1 rounded-xl">
-                <div class="flex flex-col">
-                    <span class="text-4xl">You haven't grouped the class yet.</span>
-                    <button></button>
+           <div class="h-[37.5rem] w-[67.5rem] border border-black1 rounded-xl flex justify-center items-center">
+                <div class="flex flex-col items-center">
+                    <span class="font-synebold text-4xl">You haven't grouped the class yet.</span>
+                    <button class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
                 </div>
             </div>
         </div>
