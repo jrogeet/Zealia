@@ -1,19 +1,18 @@
-const navDD = document.getElementById('navDropDown');
-
 document.getElementById('navDDbutton').addEventListener('click', (event) => 
 {
     event.stopPropagation(); 
-    show(navDD)
+    show('navDropDown');
 });
     
 
 function show(showID) {
-    showID.classList.toggle("hidden");
-    showID.classList.toggle("flex");
-    console.log("showed");
+    const element = document.getElementById(showID);
+    element.classList.toggle("hidden");
+    element.classList.toggle("flex");
 }
 
-function hide(showID) {
+function hide(hideID) {
+    const element = document.getElementById(hideID);
     const displayClasses = [
         "block",
         "inline-block",
@@ -25,12 +24,10 @@ function hide(showID) {
         "table-cell",
         "grid",
         "inline-grid",
-      ];
+    ];
 
-    showID.classList.remove(...displayClasses);
-    console.log('removed');
-    showID.classList.add("hidden");
-    console.log('added');
+    element.classList.remove(...displayClasses);
+    element.classList.add("hidden");
 }
 
-document.body.addEventListener('click', () => hide(navDD));
+document.body.addEventListener('click', () => hide('navDropDown'));
