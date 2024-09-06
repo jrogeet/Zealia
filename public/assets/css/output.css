@@ -636,6 +636,22 @@ video {
   top: 20%;
 }
 
+.top-20 {
+  top: 5rem;
+}
+
+.top-40 {
+  top: 10rem;
+}
+
+.top-60 {
+  top: 15rem;
+}
+
+.top-80 {
+  top: 20rem;
+}
+
 .z-40 {
   z-index: 40;
 }
@@ -919,6 +935,26 @@ video {
   height: 100%;
 }
 
+.h-32 {
+  height: 8rem;
+}
+
+.h-36 {
+  height: 9rem;
+}
+
+.h-44 {
+  height: 11rem;
+}
+
+.h-60 {
+  height: 15rem;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
 .max-h-40 {
   max-height: 10rem;
 }
@@ -1063,6 +1099,74 @@ video {
   width: 100%;
 }
 
+.w-\[32rem\] {
+  width: 32rem;
+}
+
+.w-\[24rem\] {
+  width: 24rem;
+}
+
+.w-96 {
+  width: 24rem;
+}
+
+.w-8 {
+  width: 2rem;
+}
+
+.w-\[44rem\] {
+  width: 44rem;
+}
+
+.w-4\/6 {
+  width: 66.666667%;
+}
+
+.w-\[36rem\] {
+  width: 36rem;
+}
+
+.w-\[34rem\] {
+  width: 34rem;
+}
+
+.w-\[35rem\] {
+  width: 35rem;
+}
+
+.w-\[33rem\] {
+  width: 33rem;
+}
+
+.w-\[40rem\] {
+  width: 40rem;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
+.w-24 {
+  width: 6rem;
+}
+
+.w-44 {
+  width: 11rem;
+}
+
+.w-80 {
+  width: 20rem;
+}
+
+.w-1\/5 {
+  width: 20%;
+}
+
+.w-screen {
+  width: 100vw;
+}
+
 .max-w-\[29\.13rem\] {
   max-width: 29.13rem;
 }
@@ -1088,6 +1192,10 @@ video {
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.flex-row {
+  flex-direction: row;
 }
 
 .flex-col {
@@ -1190,6 +1298,11 @@ video {
 .rounded-t-\[1\.25rem\] {
   border-top-left-radius: 1.25rem;
   border-top-right-radius: 1.25rem;
+}
+
+.rounded-t-lg {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }
 
 .rounded-tl-xl {
@@ -1307,6 +1420,16 @@ video {
   background-color: rgb(230 221 210 / var(--tw-bg-opacity));
 }
 
+.bg-green-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+}
+
+.bg-pink-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 114 182 / var(--tw-bg-opacity));
+}
+
 .bg-borger {
   background-image: url('/assets/images/vectors/icons/borger.png');
 }
@@ -1345,6 +1468,14 @@ video {
 
 .p-8 {
   padding: 2rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.p-1 {
+  padding: 0.25rem;
 }
 
 .px-2 {
@@ -1397,6 +1528,22 @@ video {
 
 .pt-16 {
   padding-top: 4rem;
+}
+
+.pr-1 {
+  padding-right: 0.25rem;
+}
+
+.pl-1 {
+  padding-left: 0.25rem;
+}
+
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
+.pl-3 {
+  padding-left: 0.75rem;
 }
 
 .text-left {
