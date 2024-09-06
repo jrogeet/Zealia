@@ -13,8 +13,8 @@
 
         <form method="POST" action="/register">
             <div class="flex justify-between mx-16 mb-2">
-                <input class="border border-black rounded-xl transform translate-x-[5%] text-left pl-4 mb-1 h-10 w-[47%] text-sm" type="text" placeholder="Last name" type="text" name="lname" required>
-                <input class="border border-black rounded-xl transform translate-x-[-5%] text-left pl-4 mb-1 h-10 w-[47%] text-sm" type="text" placeholder="First name" type="text" name="fname" required>
+                <input class="border border-black rounded-xl transform translate-x-[5%] text-left pl-4 mb-1 h-10 w-[47%] text-sm bg-white1" type="text" placeholder="Last name" type="text" name="lname" required>
+                <input class="border border-black rounded-xl transform translate-x-[-5%] text-left pl-4 mb-1 h-10 w-[47%] text-sm bg-white1" type="text" placeholder="First name" type="text" name="fname" required>
             </div>
 
             <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-2 bg-white1" placeholder="Student number" type="number" name="school_id" id="school_id" required></input></br>
