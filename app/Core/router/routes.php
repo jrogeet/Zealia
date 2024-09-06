@@ -19,7 +19,7 @@ $router->get('/sample-grouping', 'Http/controllers/account/sample-grouping.php')
 $router->get('/profile', 'Http/controllers/account/profile.php')->only('auth');
 
 $router->get('/dashboard', 'Http/controllers/rooms/dashboard.php')->only('auth');
-$router->post('/dashboard', 'model/rooms/store.php')->only('auth');
+$router->post('/dashboard', 'model/rooms/create.php')->only('auth');
 
 $router->get('/room', 'Http/controllers/rooms/show.php')->only('auth');
 $router->post('/room', 'model/rooms/request.php');

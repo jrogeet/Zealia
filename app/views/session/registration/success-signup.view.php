@@ -1,26 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<?php view('partials/head.view.php'); ?>
 
-    <title>Confirm Email</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/partials/navbar.css">
-    <link rel="stylesheet" type="text/css"  href="assets/css/shared-styles.css">
-    <link rel="stylesheet" type="text/css"  href="assets/css/session/success-signup.css">
-</head>
-
-<style>
-    <?php 
-        
-        include base_path('public/assets/css/shared-styles.css');
-
-    ?>
-
-</style>
-<body>
+<body class="flex flex-col justify-between">
     <?php view('partials/nav.view.php')?>
-    <main>
+    <main class="h-[735px] mt-32">
         <p>
             Signup Successful.
             Please check your email to activate your account.
@@ -32,5 +14,5 @@
         </a>
     </main>
 
-
+    <?php view('partials/footer.view.php'); ?>
 </body>
