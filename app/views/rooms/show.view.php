@@ -12,7 +12,7 @@
         </div>
 
         <div id="changeRoomNameInput" class="hidden h-12 w-[40rem] my-6 justify-evenly items-center">
-            <button class="bg-red1 h-8 w-12 rounded" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
+            <button class="bg-grey2 h-8 w-12 rounded" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
 
             <form class="flex w-[33rem] justify-between items-center">
                 <input class="h-12 w-96 border border-black1 rounded-lg px-4" placeholder="Change room name: Room Name">
@@ -40,7 +40,7 @@
                     </a>
                 </div>
 
-                <div id="kickConfirmation" class="relative h-screen w-screen">
+                <div id="kickConfirmation" class="absolute h-screen w-screen">
                     <div class="bg-white2 absolute top-80 flex flex-col h-40 w-80 border border-black1 rounded-t-lg">
                         <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
                             <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>
@@ -54,7 +54,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <!-- Requests -->
                 <div id="roomJoinRequest" class="hidden h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">

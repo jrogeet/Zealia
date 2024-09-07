@@ -1,14 +1,33 @@
+// NavBar Account Toggle
 document.getElementById('navDDbutton').addEventListener('click', (event) => 
 {
     event.stopPropagation(); 
-    show('navDropDown');
+    toggle('navDropDown');
 });
     
+function toggle(toggleID) {
+    const element = document.getElementById(toggleID);
+    element.classList.toggle("hidden");
+    element.classList.toggle("flex");
+}
 
 function show(showID) {
     const element = document.getElementById(showID);
-    element.classList.toggle("hidden");
-    element.classList.toggle("flex");
+    const displayClasses = [
+        "block",
+        "inline-block",
+        "inline",
+        "flex",
+        "inline-flex",
+        "table",
+        "table-row",
+        "table-cell",
+        "grid",
+        "inline-grid",
+    ];
+
+    element.classList.remove(...displayClasses);
+    element.classList.add("flex");
 }
 
 function hide(hideID) {
