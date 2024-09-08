@@ -31,3 +31,16 @@
     font-family: 'syne-extrabold';
     src: url('/assets/fonts/syne/Syne-ExtraBold.ttf') format('truetype');
 }
+
+
+
+@layer components {
+    .bg-glassmorphism {
+        @apply rounded-lg border;
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur( 4px );
+        -webkit-backdrop-filter: blur( 4px );
+        border-color: rgba(255, 255, 255, 0.18);
+    }
+}

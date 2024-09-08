@@ -36,15 +36,16 @@
                     <a href="#" class="flex justify-between h-[3.75rem] w-full bg-blue1 border border-black1 p-4">
                         <span class="text-base font-synereg">Surname, First Name</span>
 
-                        <button class="h-6 w-6 bg-red1 rounded" onClick="show('');"></button>
+                        <button class="h-6 w-6 bg-red1 rounded" onClick="show('kickConfirmation'); disableScroll();"></button>
                     </a>
                 </div>
+                
 
-                <div id="kickConfirmation" class="absolute h-screen w-screen">
-                    <div class="bg-white2 absolute top-80 flex flex-col h-40 w-80 border border-black1 rounded-t-lg">
+                <div id="kickConfirmation" class="hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
+                    <div class="bg-white2 flex flex-col h-40 w-80 border border-black1 rounded-t-lg">
                         <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
                             <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>
-                            <button class="bg-red1 h-full w-1/5 rounded">X</button>
+                            <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('kickConfirmation'); enableScroll();">X</button>
                         </div>
                         <div class="flex flex-col items-center h-60 p-2">
                             <span class="font-synebold text-red1 text-2xl">Remove:</span>
@@ -76,11 +77,41 @@
            </div>
 
            <!-- Groups Area -->
-           <div class="h-[37.5rem] w-[67.5rem] border border-black1 rounded-xl flex justify-center items-center">
-                <div class="flex flex-col items-center">
+           <div class="bg-white2 h-[37.5rem] w-[67.5rem] border border-black1 rounded-xl flex justify-center items-center">
+                <!-- Has Groups -->
+                <div class=" h-full w-full flex flex-col items-center overflow-y-auto">
+                    <div class="h-20 w-full flex items-center justify-between p-6">
+                        <span class="w-4/5 font-synebold text-4xl flex">GROUPS</span>
+                        <button class="bg-blue2 h-10 w-36 font-synereg text-lg border border-black1 rounded-lg">Edit Groups</button>
+                    </div>
+
+                    
+                    <!-- Groups Container -->
+                    <div class="h-auto w-full flex flex-wrap gap-y-5 justify-evenly p-6">
+                        <!-- Each Boxes -->
+                        <div class="bg-white1 h-auto max-h-[30rem] min-w-[20rem] max-w-[20rem] border border-black1 rounded-lg flex flex-col overflow-hidden">
+                            <!-- Group Head -->
+                            <div class="bg-orange1 h-10 w-full flex justify-center items-center ">
+                                <span class="font-synemed text-black1 text-4xl">Group 1:</span>
+                            </div>
+  
+                            <!-- Group Body -->
+                            <div class="max-h-[24.9125rem] w-full">
+                                <!-- Each Member -->
+                                <div class="h-[6.22875rem] w-full flex">
+                                    <span class="w-6/12  border border-black1 flex items-center break-all p-1 font-synereg">Surname Firstwqewqewqewqewqewq</span>
+                                    <span class="w-6/12  border border-black1 flex justify-center items-center p-1 font-synemed text-2xl text-blue3">Leader</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NO GROUPS -->
+                <!-- <div class="flex flex-col items-center">
                     <span class="font-synebold text-4xl">You haven't grouped the class yet.</span>
                     <button class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </main>
