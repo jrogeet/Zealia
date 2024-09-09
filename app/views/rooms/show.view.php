@@ -3,24 +3,43 @@
 <body class="bg-white1 flex flex-col justify-between items-center">
     <?php view('partials/nav.view.php')?>
     <main class="flex flex-col h-[50rem] w-[87.5rem] mt-20">
-        <div id="roomName" class="flex h-8 my-6">
+        <div id="roomName" class="flex justify-between items-center h-8 my-6">
             <div class="max-w-[64rem] truncate">
                 <span class="font-synebold text-3xl text-black1 mr-1">Room Name that the instructor gave crazy newjeans ditto lalala young posse</span>
             </div>
             
-            <button class="h-4 w-4 rounded bg-grey2" onClick="show('changeRoomNameInput'); hide('roomName');"></button>
+            <button class="h-10 w-10 flex justify-center items-center rounded mr-2 border border-black1" onClick="show('changeRoomNameInput'); hide('roomName');">
+                <img class="h-8 w-8" src="assets/images/icons/settings.png">
+            </button>
         </div>
 
-        <div id="changeRoomNameInput" class="hidden h-12 w-[40rem] my-6 justify-evenly items-center">
-            <button class="bg-grey2 h-8 w-12 rounded" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
+        <div id="changeRoomNameInput" class="hidden h-12 flex items-center justify-between my-6">
+            <div class="w-[40rem] flex justify-evenly items-center ">
+                <button class="bg-grey2 h-8 w-12 rounded" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
 
-            <form class="flex w-[33rem] justify-between items-center">
-                <input class="h-12 w-96 border border-black1 rounded-lg px-4" placeholder="Change room name: Room Name">
-                <button class="bg-orange1 h-8 font-synemed border border-black1 rounded p-1" type="submit">Confirm Change</button>
-            </form>
+                <form action="" class="flex w-[33rem] justify-between items-center">
+                    <input class="h-10 w-96 border border-black1 rounded-lg px-4" placeholder="Change room name: Room Name">
+                    <button class="bg-orange1 h-8 font-synemed border border-black1 rounded p-1" type="submit">Confirm Change</button>
+                </form>
+            </div>
+
+            <button onClick="show('delRoomConfirmation');" class="bg-red1 h-8 p-2 flex items-center font-synereg text-white1 text-center border border-black1 rounded">Delete Room</button>
         </div>
 
-
+        <div id="delRoomConfirmation" class="hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
+            <div class="bg-white2 flex flex-col h-48 w-80 border border-black1 rounded-t-lg">
+                <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
+                    <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>
+                    <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('delRoomConfirmation'); enableScroll();">X</button>
+                </div>
+                <div class="flex flex-col items-center h-64 p-2">
+                    <span class="font-synebold text-red1 text-2xl">Delete:</span>
+                    <span class="font-synemed text-xl">Room name</span>
+                    <span class="font-synereg text-lg">FOREVER?</span>
+                    <button class="bg-red1 p-1 mt-2 text-white1 border border-black1 rounded">Delete Room Forever</button>
+                </div>
+            </div>
+        </div>
 
         <div class="flex justify-between">
             <!-- Class List & Requests -->
@@ -33,11 +52,11 @@
 
                 <!-- List -->
                 <div id="roomStudentList" class="h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
-                    <a href="#" class="flex justify-between h-[3.75rem] w-full bg-blue1 border border-black1 p-4">
-                        <span class="text-base font-synereg">Surname, First Name</span>
+                    <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border border-black1 p-4">
+                        <a href="#" class="text-base font-synereg">Surname, First Name</a>
 
-                        <button class="h-6 w-6 bg-red1 rounded" onClick="show('kickConfirmation'); disableScroll();"></button>
-                    </a>
+                        <img src="assets/images/icons/cross.png" class="h-6 w-6 cursor-pointer" onClick="show('kickConfirmation'); disableScroll();">
+                    </div>
                 </div>
                 
 
@@ -58,20 +77,20 @@
 
                 <!-- Requests -->
                 <div id="roomJoinRequest" class="hidden h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
-                    <a href="#" class="flex justify-between items-center h-20 w-full px-2 bg-blue1 border border-black1">
+                    <div class="flex justify-between items-center h-20 w-full px-2 bg-blue1 border border-black1">
                         <div class="w-52 flex flex-col">
-                            <span class="font-synereg text-base">Surname, First Name</span>
-                            <span class="font-synereg text-sm text-grey2">0123456789</span>
-                            <div class="truncate">
+                            <a href="#" class="font-synereg text-base">Surname, First Name</a>
+                            <a href="#" class="font-synereg text-sm text-grey2">0123456789</a>
+                            <a href="#" class="truncate">
                                 <span class="font-synereg text-sm text-grey2">studentsemail@student.fatima.edu.ph</span>
-                            </div>
+                            </a>
                         </div>
 
                         <div class="flex h-6 w-16 justify-evenly">
-                            <button class="h-6 w-6 bg-green1 rounded"></button>
-                            <button class="h-6 w-6 bg-red1 rounded"></button>
+                            <img src="assets/images/icons/check.png" class="h-6 w-6 cursor-pointer">
+                            <img src="assets/images/icons/cross.png" class="h-6 w-6 cursor-pointer">
                         </div>
-                    </a>
+                    </div>
                     
                 </div>
            </div>
