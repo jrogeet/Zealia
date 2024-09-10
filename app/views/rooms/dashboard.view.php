@@ -28,7 +28,8 @@
                     <?php elseif (isset($errors['is_joined'])) : ?>
                         <p class=""><?= $errors['is_joined'] ?></p>
                     <?php endif; ?>
-                    <input class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" type="number" placeholder="Enter room code">
+                    <input type="hidden" name="join" value="join">
+                    <input class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" type="number" id="room_code" name="room_code" placeholder="Enter room code">
                     <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg"  type="submit">Join</button>
                 </form>
 

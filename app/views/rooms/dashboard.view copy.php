@@ -53,9 +53,6 @@
 
                             <button type="submit" class="join-btn">Join</button>
                         </div>
-
-
-
                     </form>
                 <?php endif;?>
             </div>

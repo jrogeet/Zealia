@@ -57,23 +57,23 @@ if ($valid) {
 
     $encodedstu_info = json_encode($stu_info);
 
-    // ID and MBTI Type of student for GROUPINGS:
+    // ID and RIASEC Type of student for GROUPINGS:
     $idNtype = [];
     foreach ($stu_info as $stu) {
-        $idNtype[] = $db->query('select school_id, personality_type, l_name, f_name from accounts where school_id = :stu_id', [
+        $idNtype[] = $db->query('select school_id, result, l_name, f_name from accounts where school_id = :stu_id', [
             ':stu_id' => $stu['school_id'],
         ])->find();
     }
 
     // UNFILTERED ID and TYPES (with and without personality_type)
         // NO personality_type = "N/A"
-    $idNmbti = [];
+    $idNRiasec = [];
     foreach ($idNtype as $index) {
-        if($index['personality_type'] === null) {
+        if($index['result'] === null) {
             $type = "N/A";
-            $idNmbti[] = "{$index['school_id']} {$type}";
+            $idNRiasec[] = "{$index['school_id']} {$type}";
         } else {
-            $idNmbti[] = "{$index['school_id']} {$index['personality_type']}";
+            $idNRiasec[] = "{$index['school_id']} {$index['result']}";
         }
     }
 
@@ -81,24 +81,21 @@ if ($valid) {
     // FILTERED ID and Personality_type
         // $filteredidNmbti = students with personality_type
         // $stuNoType = students without personality_Type
-    $filteredidNmbti = [];
+    $filteredidNRiasec = [];
     $stuNoType = [];
     foreach($idNtype as $index) {
-        if($index['personality_type'] !== null) {
-            
-
-
-            $filteredidNmbti[] = "{$index['l_name']} {$index['f_name']}+{$index['personality_type']}";
+        if($index['result'] !== null) {
+            $filteredidNRiasec[] = "{$index['l_name']} {$index['f_name']}+{$index['result']}";
         } else {
             $stuNoType[] = "{$index['l_name']} {$index['f_name']}";
         }
     }
 
-    $encodedFilteredidNmbti = json_encode($filteredidNmbti);
+    $encodedFilteredidNRiasec = json_encode($filteredidNRiasec);
     $encodedStuNoType = json_encode($stuNoType);
 
 
-    $allfilteredidNmbti = [];
+    $allfilteredidNRiasec = [];
 
 
     // ROOM JOIN REQUESTS:
@@ -134,64 +131,41 @@ if ($valid) {
         ':room_id' => $_GET['room_id']
     ])->find();
 
-    $notifications = $db->query('SELECT * FROM notifications WHERE receiver_id = :user ORDER BY notif_time DESC', [
-        ':user'=>$currentUser
-    ])->findAll();
-
-    foreach($notifications as &$notification) {
-        $sender_name = $db->query('SELECT l_name, f_name from accounts where school_id = :id', [
-            ':id' => $notification['sender_id'] 
-        ])->find();
-
-        $room_name = $db->query('SELECT room_name from rooms where room_id = :room_id',[
-            'room_id' => $notification['room_id']
-        ])->find();
-
-        $notification['sender_name'] = "{$sender_name['f_name']} {$sender_name['l_name']}";
-        $notification['room_name'] = $room_name['room_name'];
-    }
-
-
-
     if ($roomHasGroup) {
         $decodedGroup = json_decode($roomHasGroup['groups_json'], true);
         $encodedGroup = json_encode($decodedGroup);
 
         view('rooms/show.view.php', [
-            'heading' => 'Show Room',
             'stu_info' => $stu_info, // STUDENTS LIST
             'encodedstu_info' => $encodedstu_info,
             'room_info' => $room_info,
             'prof_name' => $prof_name,
             'stu_id'=> $stu_id,
             'requests'=>$requests,
-            'idNmbti' => $idNmbti,
-            'filteredidNmbti' => $filteredidNmbti,
-            'encodedFilteredidNmbti' => $encodedFilteredidNmbti,
+            'idNmbti' => $idNRiasec,
+            'filteredidNmbti' => $filteredidNRiasec,
+            'encodedFilteredidNmbti' => $encodedFilteredidNRiasec,
             'stuNoType' => $stuNoType,
             'encodedStuNoType' => $encodedStuNoType,
             'decodedGroup' => $decodedGroup,
             'encodedGroup' =>$encodedGroup,
             'roomHasGroup' => $roomHasGroup,
             'idNtype' => $idNtype,
-            'notifications' => $notifications
         ]);
     } else {
         view('rooms/show.view.php', [
-            'heading' => 'Show Room',
             'stu_info' => $stu_info, // STUDENTS LIST
             'encodedstu_info' => $encodedstu_info,
             'room_info' => $room_info,
             'prof_name' => $prof_name,
             'stu_id'=> $stu_id,
             'requests'=>$requests,
-            'idNmbti' => $idNmbti,
-            'filteredidNmbti' => $filteredidNmbti,
-            'encodedFilteredidNmbti' => $encodedFilteredidNmbti,
+            'idNmbti' => $idNRiasec,
+            'filteredidNmbti' => $filteredidNRiasec,
+            'encodedFilteredidNmbti' => $encodedFilteredidNRiasec,
             'stuNoType' => $stuNoType,
             'encodedStuNoType' => $encodedStuNoType,
             'roomHasGroup' => $roomHasGroup,
-            'notifications' => $notifications
         ]);
     }
 

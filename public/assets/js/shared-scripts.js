@@ -28,9 +28,7 @@ function show(showID) {
     ];
 
     element.classList.remove(...displayClasses);
-    console.log('removed current SHOW', showID);
     element.classList.add("flex");
-    console.log('removed FLEX', showID);
 }
 
 function hide(hideID) {
@@ -49,9 +47,22 @@ function hide(hideID) {
     ];
 
     element.classList.remove(...displayClasses);
-    console.log('removed current HIDE', hideID);
     element.classList.add("hidden");
-    console.log('added HIDDEN', hideID);
+}
+
+function active(activeID,inactiveID, removeList, addList) {
+    const active = document.getElementById(activeID);
+    const inactive = document.getElementById(inactiveID);
+
+    for (let i = 0; i < removeList.length; i++) {
+        inactive.classList.remove(removeList[0][i]);
+        active.classList.remove(removeList[1][i]);
+    }
+
+    for (let i = 0; i < addList.length; i++) {
+        inactive.classList.add(addList[0][i]);
+        active.classList.add(addList[1][i]);
+    }
 }
 
 function disableScroll(){
