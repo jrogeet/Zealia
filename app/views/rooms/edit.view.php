@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <?php view('partials/nav.view.php', ['notifications' => $notifications])?>
+    <?php view('partials/nav.view.php')?>
 
     <main>
         <div class="heading-text">Edit Room</div>

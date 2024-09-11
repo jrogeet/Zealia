@@ -15,8 +15,8 @@ $room = $db->query('select * from rooms where room_id = :room_id', [
     ':room_id'=>$_POST['room_id']
 ])->findOrFail();
 
-dd($room);
-dd($_POST);
+// dd($room);
+// dd($_POST);
 
 // authorize that the current user can edit the room
 authorize($room['school_id'] === $currentUser);
@@ -30,8 +30,7 @@ if (! Validator::string($_POST['room_name'], 1, 100)) {
 
 // if no validation errors, update the record in the rooms database table
 if (count($errors)) {
-    return view('rooms/edit.view.php', [
-        'heading' => 'Edit Room',
+    return view('rooms/show.view.php', [
         'errors' => $errors,
         'room' => $room
     ]);

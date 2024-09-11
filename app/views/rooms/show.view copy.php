@@ -20,8 +20,7 @@
                 <ul class="student-name-list">
             <?php
                 // if ($curUInList === 1) {
-                    foreach($stu_info as $student) {    
-
+                    foreach($stu_info as $student) {
                         $stu_l = ucfirst($student['l_name']);
                         $stu_f = ucfirst($student['f_name']);
                     ?>
@@ -191,7 +190,6 @@
 
 
 <!-- STUDENT's VIEW -->
-
                 <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
                     <div>
 
@@ -213,9 +211,6 @@
                         </div>
                     
                 <?php endif;?>
-
-                
-
             </div>
         </div>
     </main>

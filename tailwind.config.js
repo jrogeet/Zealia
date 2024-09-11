@@ -9,10 +9,13 @@ module.exports = {
     extend: {
       backgroundImage: {
         'cropped-breakdance': "url('/assets/images/vectors/human/breakdance-whiteshade-cropped.png')",
-        'threshold-cropped-solid': "url('/assets/images/threshold-cropped-solid.png')",
-        'howtouse': "url('/assets/images/howtouse.png')",
+        'threshold-cropped-solid': "url('/assets/images/threshold-cropped-solid.webp')",
+        'howtouse': "url('/assets/images/howtouse.webp')",
+        'about': "url('/assets/images/about.webp')",
         'tiles': "url('/assets/images/vectors/icons/tiles.png')",
         'borger': "url('/assets/images/vectors/icons/borger.png')",
+        'cross': "url('/assets/images/icons/cross.png')",
+        'check': "url('/assets/images/icons/check.png')",
       },
 
       colors: {
@@ -58,6 +61,13 @@ module.exports = {
         '216': '54rem',
         '240': '60rem',
         'web': '1536px'
+      },
+
+      boxShadow: {
+        'inside': 'rgb(255, 200, 180) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.6) -3px -3px 6px 1px inset',
+        'inside1': 'rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;',
+        'inside2': 'rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;',
+        'inside3': 'rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;',
       },
 
       inset: {

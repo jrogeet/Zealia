@@ -9,9 +9,9 @@
             <div class="h-[3.75rem] border-black1 border-b-2 flex justify-between items-center px-5">
                 <div class="flex justify-between gap-4">
                     <div class="flex justify-between h-[2.25rem] w-[4.875rem]">
-                        <button class="bg-tiles h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg"></button>
+                        <button class="bg-tiles h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="show('dashboardTiles'); hide('dashboardTable');"></button>
 
-                        <button class="bg-borger h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg"></button>
+                        <button class="bg-borger h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="show('dashboardTable'); hide('dashboardTiles');"></button>
                     </div>
 
                     <form method="POST" action="/dashboard">
@@ -28,7 +28,8 @@
                     <?php elseif (isset($errors['is_joined'])) : ?>
                         <p class=""><?= $errors['is_joined'] ?></p>
                     <?php endif; ?>
-                    <input class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" type="number" placeholder="Enter room code">
+                    <input type="hidden" name="join" value="join">
+                    <input class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" type="number" id="room_code" name="room_code" placeholder="Enter room code">
                     <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg"  type="submit">Join</button>
                 </form>
 
@@ -50,7 +51,7 @@
             <!-- TILES  -->
             <div class="h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden">         
                 <?php if(! empty($room_info)): ?>
-                    <div class="flex flex-wrap gap-x-2.5 gap-y-10 min-h-[36rem] w-[84.5rem] m-4" id="rooms-default">
+                    <div id="dashboardTiles" class="flex flex-wrap gap-x-2.5 gap-y-10 min-h-[36rem] w-[84.5rem] m-4" id="rooms-default">
                     <!--  ROOMS  -->
                         <?php foreach($room_info as $rooms) { ?>
                         <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
@@ -100,7 +101,7 @@
             </div>
 
             <!-- TABLE -->
-            <div class="hidden h-[39.8rem] w-full overflow-y-auto overflow-x-hidden scrollbar-thumb-blue-500 scrollbar-thumb-rounded">
+            <div id="dashboardTable" class="hidden h-[39.8rem] w-full overflow-y-auto overflow-x-hidden scrollbar-thumb-blue-500 scrollbar-thumb-rounded">
                 <table class="max-h-full w-full">
                     <thead class="bg-blue3 h-10 font-synereg text-xl">
                         <tr class="">
