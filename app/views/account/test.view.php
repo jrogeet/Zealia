@@ -15,7 +15,7 @@
         <p class="text-lg mt-4 text-center px-18">Before you begin, we encourage you to take a moment to reflect on your personal interests, passions, and the activities that bring you joy.</p>
     </div></br>
 
-    <form class="relative top-[136.50rem] left-1/2 transform translate-x-[-50%] translate-y-[-50%] w-full h-fit mb-64">
+    <form method="POST" action="" class="relative top-[136.50rem] left-1/2 transform translate-x-[-50%] translate-y-[-50%] w-full h-fit mb-64">
 
         <div class="font-synemed bg-white1 relative mt-16 left-1/2 transform translate-x-[-50%] border border-black rounded-2xl shadow-2xl w-6/12 h-fit p-0 overflow-hidden">
 
