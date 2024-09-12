@@ -44,3 +44,25 @@
         border-color: rgba(255, 255, 255, 0.18);
     }
 }
+
+::-webkit-scrollbar {
+    width: 12px; 
+}
+
+::-webkit-scrollbar-track {
+    background: #E6DDD2;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #03346E; 
+    border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+* {
+    scrollbar-width: thin; 
+    scrollbar-color: #03346E #E6DDD2; 
+}
