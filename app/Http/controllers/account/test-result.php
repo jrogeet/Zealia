@@ -7,12 +7,12 @@ $db = App::resolve(Database::class);
 
 $currentUser = $_SESSION['user']['school_id'];
 
-$rCount = $_GET['r'];
-$iCount = $_GET['i'];
-$aCount = $_GET['a'];
-$sCount = $_GET['s'];
-$eCount = $_GET['e'];
-$cCount = $_GET['c'];
+$rCount = $_GET['R'];
+$iCount = $_GET['I'];
+$aCount = $_GET['A'];
+$sCount = $_GET['S'];
+$eCount = $_GET['E'];
+$cCount = $_GET['C'];
 $finalRes = $_GET['finalRes'];
 
 $notifications = $db->query('SELECT * FROM notifications WHERE receiver_id = :user ORDER BY notif_time DESC', [

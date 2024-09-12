@@ -33,9 +33,7 @@ function submit(){
               };
     cal();
 
-    console.log('DEBUG');
     if (tempRes.length > 3){
-        let count = tempRes.length;
         let container = '';
         for (let ind = tempRes.length-1; ind >= 0; ind--){
             if ( results[tempRes[ind]] == results[tempRes[ind+1]] ){
@@ -137,40 +135,40 @@ sub.addEventListener("click", submit);
 function onClick(){
 
     if (this.checked){
-        if(this.className == 'r'){
+        if(this.id == 'R'){
             rCount++;
-        }else if(this.className == 'i'){
+        }else if(this.id == 'I'){
             iCount++;
-        }else if(this.className == 'a'){
+        }else if(this.id == 'A'){
             aCount++;
-        }else if(this.className == 's'){
+        }else if(this.id == 'S'){
             sCount++;
-        }else if(this.className == 'e'){
+        }else if(this.id == 'E'){
             eCount++;
-        }else if(this.className == 'c'){
+        }else if(this.id == 'C'){
             cCount++;
         }
     }else if (!this.unchecked){
-        if(this.className == 'r'){
+        if(this.id == 'R'){
             rCount--;
-        }else if(this.className == 'i'){
+        }else if(this.id == 'I'){
             iCount--;
-        }else if(this.className == 'a'){
+        }else if(this.id == 'A'){
             aCount--;
-        }else if(this.className == 's'){
+        }else if(this.id == 'S'){
             sCount--;
-        }else if(this.className == 'e'){
+        }else if(this.id == 'E'){
             eCount--;
-        }else if(this.className == 'c'){
+        }else if(this.id == 'C'){
             cCount--;
         }
     }
-    console.log('r', rCount);
-    console.log('i', iCount);
-    console.log('a', aCount);
-    console.log('s', sCount);
-    console.log('e', eCount);
-    console.log('c', cCount);
+    console.log('R', rCount);
+    console.log('I', iCount);
+    console.log('A', aCount);
+    console.log('S', sCount);
+    console.log('E', eCount);
+    console.log('C', cCount);
         
 };
 

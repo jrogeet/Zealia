@@ -3,7 +3,7 @@
 <body class="font-synereg bg-white1">
     <?php view('partials/nav.view.php')?>
 
-    <div class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute left-[50%] top-[20%] transform translate-x-[-50%] w-[420px] h-fit"> 
+    <div class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute left-[50%] top-[20%] transform translate-x-[-50%] w-[26.25rem] h-fit"> 
 
         <!-- <div>
             <?php //if(isset($loginmessage)): ?>
