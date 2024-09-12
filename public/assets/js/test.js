@@ -33,9 +33,7 @@ function submit(){
               };
     cal();
 
-    console.log('DEBUG');
     if (tempRes.length > 3){
-        let count = tempRes.length;
         let container = '';
         for (let ind = tempRes.length-1; ind >= 0; ind--){
             if ( results[tempRes[ind]] == results[tempRes[ind+1]] ){

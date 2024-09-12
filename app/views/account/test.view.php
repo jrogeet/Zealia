@@ -443,7 +443,7 @@
 
     </div>
 
-    <button class="relative left-1/2 transform translate-x-[-50%] w-44 h-12 mt-[20rem] mb-[6rem] border border-black rounded-2xl bg-orange1" id="sub">Submit</button>
+    <button class="relative left-1/2 transform translate-x-[-50%] w-44 h-12 mt-[20rem] mb-[6rem] border border-grey2 rounded-2xl bg-orange1" id="sub">Submit</button>
 
 
     <?php view('partials/footer.view.php'); ?>
