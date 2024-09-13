@@ -95,7 +95,7 @@
                                     <span class="font-synebold text-red1 text-2xl">Remove:</span>
                                     <span class="font-synemed text-xl"><?= $student['l_name'], ", ", $student['f_name']?></span>
                                     <span class="font-synereg text-lg">from this room?</span>
-                                    <button type="submit" name="delete" value="<?php echo implode(',', [$student['school_id'], $_GET['room_id']]); ?>"  class="bg-red1 w-12 text-white1 border border-black1 rounded">Kick</button>
+                                    <button type="submit" name="delete" value="<?php echo implode(',', [$student['school_id'], $_GET['room_id']]); ?>"  class="bg-red1 w-16 text-white1 border border-black1 rounded">Confirm</button>
                                 </form>
                             </div>
                         </div>
