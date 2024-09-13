@@ -6,6 +6,7 @@ let eCount = 0;
 let cCount = 0;
 let finalRes = "";
 let tempRes = '';
+let tempArr = [];
 let topKeys = [];
 let topRes = {};
 let arrKeys = [];
@@ -22,6 +23,43 @@ let results = { r : rCount,
 const agrbut = document.querySelectorAll('input[type=checkbox]'); //selects checkbox element from html
 const sub = document.getElementById("sub");
 
+
+function cal(){
+    keySorted = Object.keys(results).sort(function(a,b){return results[a]-results[b]});
+    keySorted.reverse();
+
+    for (let x of keySorted){
+        arrKeys.push(x);
+    }
+
+    for (let x in arrKeys){
+        let counter = 0;
+        if (topKeys.length < 3){
+            topKeys.push(arrKeys[x]);
+            counter++;
+            continue;
+        }
+        if (results[arrKeys[x]] == results[arrKeys[+x-1]]){
+            topKeys.push(arrKeys[x]);
+            counter++;
+            continue;
+        }
+        if (counter == 0){
+            break;
+        }
+    }
+
+    for (let x of topKeys){
+        topRes[x] = results[x];
+        tempArr.push(x);
+    }
+
+    console.log("topKeys: ", topKeys);
+    console.log("topRes: ", topRes);
+    console.log("tempArr", tempArr);
+
+}
+
 function submit(){
     let location = '';
     results = { r : rCount,
@@ -33,17 +71,22 @@ function submit(){
               };
     cal();
 
-    if (tempRes.length > 3){
+    if (tempArr.length > 3){
         let container = '';
-        for (let ind = tempRes.length-1; ind >= 0; ind--){
-            if ( results[tempRes[ind]] == results[tempRes[ind+1]] ){
+        for (let x in tempArr){
+            let nextInd = parseInt(x)+1;
+            if ( (container.length == 0) && (results[tempArr[x]] > results[tempArr[nextInd]]) ){
+                container+=tempArr[x];
                 continue;
-            }else {
-                container = tempRes.slice(0, ind+1);
+            } else if (results[tempArr[x]] > results[tempArr[nextInd]] && container.length < 3){
+                container+=tempArr[x];
+                continue;
             }
         }
 
-        console.log('tempRes: ',tempRes,'container: ', container);
+        tempRes = tempArr.filter(letter => !container.includes(letter)).join('');
+
+        console.log('tempRes: ',tempRes,'|  container: ', container);
 
         if (container.length == 0){
             console.log("no cont");
@@ -79,7 +122,11 @@ function submit(){
 
     }else{
 
-        finalRes = tempRes.toUpperCase();
+        for (let i of tempArr){
+            finalRes+=i;
+        }
+
+        finalRes = finalRes.toUpperCase();
         location = 'result';
         url = '&r=' + rCount + 
               '&i=' + iCount +
@@ -92,41 +139,6 @@ function submit(){
 
     window.location.href = `${location}?id=${id}`+url;
 
-
-}
-
-function cal(){
-    keySorted = Object.keys(results).sort(function(a,b){return results[a]-results[b]});
-    keySorted.reverse();
-
-    for (let x of keySorted){
-        arrKeys.push(x);
-    }
-
-    for (let x in arrKeys){
-        let counter = 0;
-        if (topKeys.length < 3){
-            topKeys.push(arrKeys[x]);
-            counter++;
-            continue;
-        }
-        if (results[arrKeys[x]] == results[arrKeys[+x-1]]){
-            topKeys.push(arrKeys[x]);
-            counter++;
-            continue;
-        }
-        if (counter == 0){
-            break;
-        }
-    }
-
-    for (let x of topKeys){
-        topRes[x] = results[x];
-        tempRes = tempRes+x;
-    }
-
-    console.log("topKeys: ", topKeys);
-    console.log("topRes: ", topRes);
 
 }
 

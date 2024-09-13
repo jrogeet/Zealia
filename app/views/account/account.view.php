@@ -1,113 +1,45 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
 <?php view('partials/head.view.php'); ?>
-<body>
+
+<body class="static bg-white1 font-synereg min-w-[75rem]">
+
     <?php   view('partials/nav.view.php', ['notifications' => $notifications]) ?>
 
-    <main class="main-container">
-        <div class="profile-section">
-            <div class="profile-info-container">
-                <ul class="profile-info-ul">
-                    <li class="profile-info-li"><?php echo "{$_SESSION['user']['l_name']}, {$_SESSION['user']['f_name']}"; ?></li>
-                    <li class="profile-info-li"><?php echo "{$_SESSION['user']['school_id']}"; ?></li>
-                    <li class="profile-info-li"><?php echo "{$_SESSION['user']['email']}"; ?></li>
-                </ul>
-            </div>
+    <div class="relative w-full h-screen text-center top-[5.8rem] pt-8">
+        <h1 class="relative font-synebold text-3xl">Account & Profile Settings</h1>
 
-            <div class= "change-pass-container">
-                <form method="POST" action="/account">
-                    <ul class="change-pass-ul">
-                        <li class="change-pass-li">
-                            <label for="cur_pass">Current Password:</label>
-                            <input type="password" name="cur_pass" class="change-pass-input" placeholder="Current Password:" required>
-                        </li>
+        <div class="relative flex left-1/2 transform -translate-x-1/2 w-full h-5/6 px-6">
+            <!-- left box -->
+            <div class="block border border-black rounded-2xl w-5/12 h-5/6 m-auto mt-10 bg-white2 text-left p-6 pt-2 pl-16">
+                <h5 class="text-xl text-grey2 mt-24">Name</h5>
+                <h1 class="text-3xl ml-4 mb-4">First Name Surname</h1>
 
-                        <li class="change-pass-li">
-                            <label>New Password:</label>
-                            <input type="password" name="new_pass" class="change-pass-input" placeholder="New Password:" required>
-                        </li>
-                        <li class="change-pass-li">
-                            <label>Confirm New Password:</label>
-                            <input type="password" name="conew_pass" class="change-pass-input" placeholder="Confirm New Password:" required>
-                        </li>                    
-                    </ul>
+                <h5 class="text-xl text-grey2 mt-4">Student Number</h5>
+                <h1 class="text-3xl ml-4 mb-2">1234567890</h1>
 
-                    <?php if (isset($errors['cur_pass'])): ?>
-                            <p class=""><?= $errors['cur_pass'] ?></p>
-                    <?php elseif(isset($errors['password'])): ?>
-                        <p class=""><?= $errors['password'] ?></p>
-                    <?php elseif (isset($errors['new_pass'])):?>
-                            <p class=""><?= $errors['new_pass'] ?></p>
-                    <?php elseif (isset($errors['password-letter'])):?>
-                            <p class=""><?= $errors['password-letter'] ?></p>
-                    <?php elseif (isset($errors['password-number'])):?>
-                            <p class=""><?= $errors['password-number'] ?></p>
-                    <?php endif; ?>
+                <h5 class="text-xl text-grey2 mt-24">Change Password</h5>
+                <input class="border border-grey2 p-2 h-10 rounded-lg mt-2 ml-4" type="text" placeholder="Current Password"></input>
 
-                    <!-- <input type="submit" name="change_password"> -->
-                    <button type="submit" name="change_password" class="change-pass-btn">Change Password</button>
-                </form>
-            </div>
+                <div class="flex mt-2 ml-4">
 
-        </div>
-
-        <div class="mbti-test-section">
-            <?php if (isset($decodedData)):?>
-            <div class="type-graph-container">
-                <div class="result-page" id="resultPage">
-                    <div class="mbti-type-container">
-                        <h1 id="MBTI" class="mbti-type"><?= $decodedData['mbti']?></h1>
-                    </div>
-
-                    <img class="mbti-avatar" src="assets/images/mbti-avatars/png/<?= $decodedData['mbti']?>.png" alt="<?= $decodedData['mbti']?>">
-
-                    <div class="letter-bar-container">
-                        <div class="letter-bar">
-                            <span class="mbti-perc">E: <?= $decodedData['extroperc']?>%</span>
-                            <div class="result-bar" id="extroBar"> <!--EXTRO BAR-->
-                                <div class="fill" style="width: <?= $decodedData['extroperc']?>%;"></div>
-                            </div>
-                            <span class="mbti-perc">I: <?= $decodedData['introperc']?>%</span>
-                        </div>
-
-
-                        <div class="letter-bar">
-                            <span class="mbti-perc">N: <?= $decodedData['intuiperc']?>%</span>
-                            <div class="result-bar" id="extroBar"> <!--EXTRO BAR-->
-                                <div class="fill" style="width: <?= $decodedData['intuiperc']?>%;"></div>
-                            </div>
-                            <span class="mbti-perc">S: <?= $decodedData['sensperc']?>%</span>
-                        </div>
-
-                        <div class="letter-bar">
-                            <span class="mbti-perc">F: <?= $decodedData['feelperc']?>%</span>
-                            <div class="result-bar" id="extroBar"> <!--EXTRO BAR-->
-                                <div class="fill" style="width: <?= $decodedData['feelperc']?>%;"></div>
-                            </div>
-                            <span class="mbti-perc">T: <?= $decodedData['thinkperc']?>%</span>
-                        </div>
-
-                        <div class="letter-bar">
-                            <span class="mbti-perc">J: <?= $decodedData['judgeperc']?>%</span>
-                            <div class="result-bar" id="extroBar"> <!--EXTRO BAR-->
-                                <div class="fill" style="width: <?= $decodedData['judgeperc']?>%;"></div>
-                            </div>
-                            <span class="mbti-perc">P: <?= $decodedData['perceperc']?>%</span>
-                        </div>
-                    </div>
+                    <input class="border border-grey2 p-2 h-10 rounded-lg mt-2" type="text" placeholder="New Password"></input>
+                    <input class="border border-grey2 p-2 h-10 rounded-lg mt-2 ml-4" type="text" placeholder="Confirm New Password"></input>
+                
                 </div>
-                <a href="/test" >
-                    <button class="take-test-btn">Take test again</button>
-                </a>
+
             </div>
-            <?php else:?>
-            <div class="account-no-test-container">
-                <span class="account-no-test">You haven't taken the Personality Test yet!</span>
-                <button class="account-no-test-btn"><a class="account-no-test-btn-link" href="/test">Take test</a></button>
+
+            <!-- right box -->
+            <div class="block border border-black rounded-2xl w-5/12 h-5/6 m-auto mt-10 bg-white2">
+                <h1 class="relative top-64 transform -translate-y-1/2 font-synemed text-4xl">You haven't taken the test!</h1>
+                <a href="/test"><button class="relative top-72 border border-grey2 rounded-2xl w-40 h-12 bg-orange1 font-synemed text-xl">Take Test</button></a>
             </div>
-            <?php endif;?>
         </div>
-    </main>
-    <?php view('partials/footer.view.php'); ?>
+
+    </div>
+
 
     <script src="assets/js/shared-scripts.js"></script>
+
+    <?php view('partials/footer.view.php'); ?>
 </body>
