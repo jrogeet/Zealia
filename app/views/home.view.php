@@ -2,6 +2,7 @@
 
 <body class="bg-white1 flex flex-col justify-between">
     <?php view('partials/nav.view.php'); ?>
+    <?php //dd($userAgent);?>
     
     <div class="flex flex-col">
         <div class="h-[20.5625rem] flex justify-center items-center">
