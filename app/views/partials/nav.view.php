@@ -44,7 +44,7 @@
                         <!-- TEMPO -->
 
                         <div class="z-40 hidden absolute flex-col justify-evenly bg-white1 h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 border-black1 rounded-b-2xl" id="navDropDown">
-                            <a href="/account">
+                            <a href="<?php if($_SESSION['user']['account_type'] === 'admin'):?>/admin-settings<?php else: ?>/account<?php endif; ?>">
                                 <span class="">Account Settings</span>
                             </a>
 
