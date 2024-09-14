@@ -9,11 +9,11 @@
     
     <div class="relative block h-[90%] mt-8">
         <a href="/admin" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Dashboard</a>
-        <a href="/accounts" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Accounts</a>
-        <a href="#" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Rooms</a>
-        <a href="#" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Tickets</a>
-        <a href="#" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Logs</a>
-        <a href="#" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Settings</a>
+        <a href="/admin-accounts" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Accounts</a>
+        <a href="/admin-rooms" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Rooms</a>
+        <a href="/admin-tickets" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Tickets</a>
+        <a href="/admin-logs" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Logs</a>
+        <a href="/admin-settings" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Settings</a>
     </div>
 
 </div>
