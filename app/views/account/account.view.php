@@ -29,10 +29,40 @@
 
             </div>
 
-            <!-- right box -->
+            <!-- dalawa tong box, default na naka show is ung wala, check sa js if may result then i hide/unhide kung ano ung need -->
+
+            <!-- right box w/o result -->
             <div class="block border border-black rounded-2xl w-5/12 h-5/6 m-auto mt-10 bg-white2">
                 <h1 class="relative top-64 transform -translate-y-1/2 font-synemed text-4xl">You haven't taken the test!</h1>
                 <a href="/test"><button class="relative top-72 border border-grey2 rounded-2xl w-40 h-12 bg-orange1 font-synemed text-xl">Take Test</button></a>
+            </div>
+            
+            <!-- right box w/ result -->
+            <div class="hidden border border-black rounded-2xl w-5/12 h-5/6 m-auto mt-10 bg-white2">
+                <div class="relative flex pt-8">
+                    <h1 class="font-synemed text-xl text-grey2 ml-auto mt-1">RESULTS:</h1>
+                    <label class="font-syneboldextra text-4xl text-black top-12 mr-auto">IRC</label>
+                </div>
+                <div class="flex mt-20">
+                    <div class="relative text-left mx-auto w-[20rem] h-5/6 pl-24">
+                        <h1 class="font-synemed text-lg text-grey2 mb-4">REALISTIC</h1>
+                        <h1 class="font-synemed text-lg text-grey2 mb-4">INVESTIGATIVE</h1>
+                        <h1 class="font-synemed text-lg text-grey2 mb-4">ARTISTIC</h1>
+                        <h1 class="font-synemed text-lg text-grey2 mb-4">SOCIAL</h1>
+                        <h1 class="font-synemed text-lg text-grey2 mb-4">ENTERPRISING</h1>
+                        <h1 class="font-synemed text-lg text-grey2 mb-4">CONVENTIONAL</h1>
+                    </div>
+                    <div class="relative text-right mx-auto w-[20rem] h-5/6 pr-32">
+                        <h1 class="font-synemed text-xl text-black mb-4" id="r">5</h1>
+                        <h1 class="font-synemed text-xl text-black mb-4" id="i">7</h1>
+                        <h1 class="font-synemed text-xl text-black mb-4" id="a">1</h1>
+                        <h1 class="font-synemed text-xl text-black mb-4" id="s">2</h1>
+                        <h1 class="font-synemed text-xl text-black mb-4" id="e">4</h1>
+                        <h1 class="font-synemed text-xl text-black mb-4" id="c">4</h1>
+                    </div>
+                </div>
+
+                <a href="/test"><button class="relative mt-20 border border-grey2 rounded-2xl w-40 h-12 bg-orange1 font-synemed text-xl">Retake Test</button></a>
             </div>
         </div>
 
