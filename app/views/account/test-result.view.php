@@ -15,7 +15,7 @@
 
     </div>
 
-    <form method="post" action="/result" class="relative block left-1/2 top-32 transform translate-x-[-50%]">
+    <form method="post" action="/result" class="relative block left-1/2 top-28 transform translate-x-[-50%]">
         <input type="hidden" name="rCount" value="<?php echo $rCount; ?>">
         <input type="hidden" name="iCount" value="<?php echo $iCount; ?>">
         <input type="hidden" name="aCount" value="<?php echo $aCount; ?>">
@@ -23,8 +23,11 @@
         <input type="hidden" name="eCount" value="<?php echo $eCount; ?>">
         <input type="hidden" name="cCount" value="<?php echo $cCount; ?>">
         <input type="hidden" name="finalRes" value="<?php echo $finalRes; ?>">
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
-        <button class="relative left-1/2 w-64 h-12 transform translate-x-[-50%] mb-16 border border-grey2 rounded-2xl bg-blue3 text-white1">Go to Dashboard</button>
+        <input type="hidden" name="id" value="<?php echo $currentUser; ?>">
+        <div class="flex flex-col justify-center items-center">
+            <a href="/test" class="w-32 h-8 border border-grey2 rounded-lg text-black1 flex justify-center items-center hover:text-white1 hover:bg-grey1">Re-take Test</a>
+            <button type="submit" class="my-4 w-64 h-12 border border-grey2 rounded-2xl bg-blue3 text-white1 text-xl font-synereg hover:text-black1 hover:bg-orange1">Confirm Result</button>
+        </div>
     </form>
 
 

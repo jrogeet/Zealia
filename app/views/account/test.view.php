@@ -444,16 +444,15 @@
     </div>
 
     <button class="relative left-1/2 transform translate-x-[-50%] w-44 h-12 mt-[20rem] mb-[6rem] border border-grey2 rounded-2xl bg-orange1" id="sub">Submit</button>
-
-
+    
     <?php view('partials/footer.view.php'); ?>
 
     <!-- SEND TEST RESULT TO PHP: -->
     <script>
         let id = <?php echo json_encode($currentUser); ?>;
     </script>
-    <script src="../assets/js/test.js"></script>
-    <script src="../assets/js/shared-scripts.js"></script>
+    <script src="assets/js/test.js"></script>
+    <script src="assets/js/shared-scripts.js"></script>
 </body>
 </html>
 

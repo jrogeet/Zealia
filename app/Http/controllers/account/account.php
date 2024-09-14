@@ -14,7 +14,7 @@ $hasTypeAlr = $db->query('select result from accounts where school_id = :school_
 if (! is_null($hasTypeAlr['result'])) {
     // var_dump($hasTypeAlr['personality_type']);
 
-    $typeNperc = $db->query('select type_percentage from accounts where school_id = :school_id', [
+    $typeNperc = $db->query('select R, I, A, S, E, C, result from accounts where school_id = :school_id', [
         ':school_id' => $currentUser,
     ])->find();
 
@@ -25,12 +25,10 @@ if (! is_null($hasTypeAlr['result'])) {
     // var_dump($decodedData);
 
     view("account/account.view.php", [
-        'heading' =>'My Account',
         'decodedData' => $decodedData,
     ]);
     
 } else if (is_null($hasTypeAlr['result'])) {
     view("account/account.view.php", [
-        'heading' =>'My Account',
     ]);
 }
