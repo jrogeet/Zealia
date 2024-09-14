@@ -3,14 +3,14 @@
 <body class="w-full overflow-x-hidden static block">
     <?php view('partials/nav.view.php')?>
 
-    <div class="relative w-full h-[47rem] top-[5rem] pt-28 mb-44 block">
+    <div class="relative w-full h-[47rem] top-[5rem] pt-28 mb-44 block min-w-[62rem]">
 
         <div class="font-synesemi text-left relative w-8/12 h-fit left-[62%] mb-0 transform translate-x-[-50%] flex">
             <h1 class="text-3xl ml-4 text-grey2">RESULT:</h1>
             <h1 class="relative text-[5rem] font-syneboldextra top-[-2.2rem] ml-10" id="resultDisplay"></h1>
         </div>
 
-        <div class="absolute w-full h-fit left-1/2 py-10 top-[24rem] transform translate-x-[-50%] mb-12" id="tdCont"> 
+        <div class="absolute w-full h-fit left-1/2 py-10 top-[24rem] transform translate-x-[-50%] mb-12 min-w-[62rem]" id="tdCont"> 
         </div>
 
     </div>
