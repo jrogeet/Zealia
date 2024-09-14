@@ -45,9 +45,26 @@ $router->post('/forgot-password', 'model/session/login/forgot.php')->only('guest
 $router->get('/reset-password', 'Http/controllers/session/login/reset-password.php')->only('guest');
 $router->post('/reset-password', 'model/session/login/process-reset-password.php')->only('guest');
 
+// ADMIN
 
 $router->get('/admin', 'Http/controllers/admin/admin-dashboard.php')->only('auth');
-$router->post('/admin', 'model/admin/admin-modify.php')->only('auth');
+$router->get('/admin-settings', 'Http/controllers/admin/admin-settings.php')->only('auth');
+$router->post('/admin-settings', 'model/admin/admin-settings.php')->only('auth');
+
+$router->get('/admin-accounts', 'Http/controllers/admin/accounts/admin-accounts.php')->only('auth');
+$router->get('/admin-account-edit', 'Http/controllers/admin/accounts/admin-account-edit.php')->only('auth');
+$router->post('/admin-account-edit', 'Http/controllers/admin/accounts/admin-account-edit.php')->only('auth');
+
+$router->get('/admin-rooms', 'Http/controllers/admin/rooms/admin-rooms.php')->only('auth');
+$router->get('/admin-room-edit', 'Http/controllers/admin/rooms/admin-room-edit.php')->only('auth');
+$router->post('/admin-room-edit', 'model/admin/rooms/admin-room-edit.php')->only('auth');
+
+$router->get('/admin-tickets', 'Http/controllers/admin/tickets/admin-tickets.php')->only('auth');
+$router->get('/admin-view-ticket', 'Http/controllers/admin/tickets/admin-view-ticket.php')->only('auth');
+$router->post('/admin-view-ticket', 'model/admin/tickets/admin-view-ticket.php')->only('auth');
+
+$router->get('/admin-logs', 'Http/controllers/admin/logs/admin-logs.php')->only('auth');
+$router->get('/admin-view-log', 'Http/controllers/admin/logs/admin-view-log.php')->only('auth');
 
 $router->get('/submit-ticket', 'Http/controllers/admin/submit-ticket.php');
 $router->post('/submit-ticket', 'model/admin/submit-ticket.php');

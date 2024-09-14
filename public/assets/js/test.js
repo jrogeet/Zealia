@@ -138,8 +138,6 @@ function submit(){
     }
 
     window.location.href = `${location}?id=${id}`+url;
-
-
 }
 
 sub.addEventListener("click", submit);
