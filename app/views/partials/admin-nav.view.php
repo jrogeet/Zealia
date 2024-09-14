@@ -8,12 +8,12 @@
     </div>
     
     <div class="relative block h-[90%] mt-8">
-        <button class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Dashboard</button>
-        <button class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Accounts</button>
-        <button class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Rooms</button>
-        <button class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Tickets</button>
-        <button class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Logs</button>
-        <button class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Settings</button>
+        <a href="/admin" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Dashboard</a>
+        <a href="/accounts" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Accounts</a>
+        <a href="#" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Rooms</a>
+        <a href="#" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Tickets</a>
+        <a href="#" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Logs</a>
+        <a href="#" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Settings</a>
     </div>
 
 </div>
