@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white1">
+<body class="bg-white1 min-w-[75rem]">
     <?php view('partials/nav.view.php'); ?>
     
     <main>
@@ -16,11 +16,11 @@
             </div>
 
 
-            <div class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute inline-block w-[28%] h-[93%] right-0 mr-16 text-center object-center">
+            <div class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute inline-block w-[34rem] h-[93%] right-0 mr-16 text-center object-center min-w-[32rem]">
                 <h1 class="font-synemed mb-16 mx-12 text-4xl">Submit a Ticket</h1>
                 <div class="flex justify-between mx-16 mb-1">
-                    <input class="border border-black rounded-xl transform translate-x-[5%] text-left pl-4 mb-1 h-10 w-[46%] text-sm bg-white1" type="text" placeholder="First name" type="text" name="lname" required>
-                    <input class="border border-black rounded-xl transform translate-x-[-5%] text-left pl-4 mb-1 h-10 w-[46%] text-sm bg-white1" type="text" placeholder="Last name" type="text" name="fname" required>
+                    <input class="border border-black rounded-xl transform translate-x-[15%] text-left pl-4 mb-1 h-10 w-70 text-sm bg-white1" type="text" placeholder="First name" type="text" name="fname" required>
+                    <input class="border border-black rounded-xl transform translate-x-[-15%] text-left pl-4 mb-1 h-10 w-70 text-sm bg-white1" type="text" placeholder="Last name" type="text" name="lname" required>
                 </div>
 
                 <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative mb-2 bg-white1" placeholder="Student number" type="number" name="school_id" id="school_id" required></input></br>

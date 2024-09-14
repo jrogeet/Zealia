@@ -21,7 +21,7 @@
 
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -31,7 +31,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -41,7 +41,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2 
                         cursor-pointer
                         bg-white2 
@@ -51,7 +51,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -61,7 +61,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -71,7 +71,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -81,7 +81,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -91,7 +91,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -101,7 +101,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -111,7 +111,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -121,7 +121,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -131,7 +131,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -141,7 +141,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -151,7 +151,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -161,7 +161,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -171,7 +171,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -181,7 +181,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -191,7 +191,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -201,7 +201,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -211,7 +211,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -221,7 +221,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -231,7 +231,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 min-w-5 
                     border rounded border-grey2 
                     cursor-pointer
                     bg-white2 
@@ -241,7 +241,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -251,7 +251,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -261,7 +261,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -271,7 +271,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -281,7 +281,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -291,7 +291,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -301,7 +301,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -311,7 +311,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -321,7 +321,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -331,7 +331,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -341,7 +341,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -351,7 +351,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -361,7 +361,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -371,7 +371,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -381,7 +381,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="R" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -391,7 +391,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="C" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -401,7 +401,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="I" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -411,7 +411,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="S" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -421,7 +421,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="A" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
@@ -431,7 +431,7 @@
         </div>
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">
-                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 
+                <input type="checkbox" id="E" class="peer relative appearance-none w-5 h-5 min-w-5 
                         border rounded border-grey2
                         cursor-pointer
                         bg-white2
