@@ -11,6 +11,13 @@ function toggle(toggleID) {
     element.classList.toggle("flex");
 }
 
+function toggleHidden(toggleID) {
+    for (let i = 0; i < toggleID.length; i++) {
+        const element = document.getElementById(toggleID[i]);
+        element.classList.toggle("hidden");
+    }
+}
+
 function show(showID) {
     const element = document.getElementById(showID);
     const displayClasses = [

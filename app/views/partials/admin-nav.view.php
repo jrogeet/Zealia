@@ -1,5 +1,4 @@
 <div class="relative block bg-blue3 w-72 h-screen p-6 text-white2 font-synereg">
-
     <div class="relative">
         <a href="/">
             <img class="h-14" src="assets/images/zealia-logos/full/white.png" alt="Zealia Logo"/>
@@ -15,5 +14,4 @@
         <a href="/admin-logs" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Logs</a>
         <a href="/admin-settings" class="block py-10 pl-8 my-4 w-full text-3xl text-left hover:text-black">Settings</a>
     </div>
-
 </div>
