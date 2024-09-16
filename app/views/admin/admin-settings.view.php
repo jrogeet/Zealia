@@ -3,7 +3,7 @@
 <body class="static flex font-synereg bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
 
-    <div class="relative flex w-full h-32 py-12 px-6 min-w-[75rem]">
+    <div class="relative flex w-full h-fit py-12 px-6 min-w-[75rem]">
 
         <div class="relative block w-[70%] h-[40rem] mt-2">
             <h1 class="text-3xl font-synemed mb-12">Edit User Information</h1>

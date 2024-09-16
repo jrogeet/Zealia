@@ -29,7 +29,7 @@
                 <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
                 <tbody id="rcAccs"> 
                     <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="#" class="bg-blue3 text-white1 px-4 py-2 rounded-sm">EDIT</a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-room-edit" class="bg-blue3 text-white1 px-4 py-2 rounded-sm">EDIT</a></td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">43</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">CS Thesis 1</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Kanye</td>

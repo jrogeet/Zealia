@@ -33,7 +33,7 @@
                 <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
                 <tbody id="rcAccs"> 
                     <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="#" class="bg-orange1 text-black1 px-4 rounded-sm">Pending</a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-view-ticket" class="bg-orange1 text-black1 px-4 rounded-sm">Pending</a></td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">3</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Account</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Forgot...</td>
@@ -44,7 +44,7 @@
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2024-09-14 14:36</td>
                     </tr>
                     <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="#" class="bg-orange1 text-black1 px-4 rounded-sm">Pending</a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-view-ticket" class="bg-orange1 text-black1 px-4 rounded-sm">Pending</a></td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">4</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Account</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Forgot...</td>
@@ -85,7 +85,7 @@
                 <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
                 <tbody id="rcAccs"> 
                     <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="#" class="bg-green1 text-black1 px-4 rounded-sm">Solved</a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-view-ticket" class="bg-green1 text-black1 px-4 rounded-sm">Solved</a></td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Account</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Forgot...</td>
