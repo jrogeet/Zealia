@@ -18,7 +18,7 @@ function toggleHidden(toggleID) {
     }
 }
 
-function show(showID) {
+function show(showID, display = 'flex') {
     const element = document.getElementById(showID);
     const displayClasses = [
         "hidden",
@@ -35,7 +35,7 @@ function show(showID) {
     ];
 
     element.classList.remove(...displayClasses);
-    element.classList.add("flex");
+    element.classList.add(display);
 }
 
 function hide(hideID) {

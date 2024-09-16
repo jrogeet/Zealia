@@ -1,4 +1,4 @@
-<div class="relative block bg-blue3 w-72 h-[100vh] p-6 text-white2 font-synereg min-w-[18rem] min-h-[75rem]">
+<div class="z-50 fixed block bg-blue3 w-72 h-[100vh] p-6 text-white2 font-synereg min-w-[18rem] min-h-[75rem]">
 
     <div class="sticky top-8">
         <div class="relative">

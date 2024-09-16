@@ -10,7 +10,7 @@
         <!-- greeting -->
         <h1 class="text-4xl">Welcome back,</h1>
         <div class="flex">
-            <h1 class="text-4xl">Admin</h1><h1 class="ml-2 text-4xl" id="name">Renzo</h1>
+            <h1 class="text-4xl">Admin</h1><h1 class="ml-2 text-4xl" id="name"><?= $_SESSION['user']['f_name'] ?></h1>
         </div>
     
         <!-- counter -->

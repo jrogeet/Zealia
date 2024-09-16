@@ -3,12 +3,12 @@
 <body class="static flex font-synereg bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
 
-    <div class="relative block w-full h-32 py-12 px-6 min-w-[75rem]">
+    <div class="z-40 relative block w-full h-32 py-12 px-6 ml-80 min-w-[75rem]">
         <div class="relative flex mb-12">
             <h1 class="mx-auto font-synebold ml-6 text-3xl">Account List</h1>
             <div class="flex mx-auto w-64 font-synemed text-lg">
-                <button class="mx-auto border border-black rounded-lg p-auto w-28 text-center bg-blue2 hover:bg-blue3 hover:text-white1">Students</button>
-                <button class="mx-auto border border-black rounded-lg p-auto w-28 text-center bg-blue2 hover:bg-blue3 hover:text-white1">Instructors</button>
+                <button onclick="show('studentsList','table-row-group'); hide('profsList');" class="mx-auto border border-black rounded-lg p-auto w-28 text-center bg-blue2 hover:bg-blue3 hover:text-white1">Students</button>
+                <button onclick="show('profsList','table-row-group'); hide('studentsList');" class="mx-auto border border-black rounded-lg p-auto w-28 text-center bg-blue2 hover:bg-blue3 hover:text-white1">Instructors</button>
             </div>
             <div class="flex mx-auto w-fit">
                 <input type="text" class="border border-black rounded-lg mx-auto bg-white1 pl-4">
@@ -16,36 +16,67 @@
             </div>
         </div>
 
-        <table class="min-w-full leading-normal border border-black rounded-xl overflow-hidden">
-            <thead>
-                <tr>
-                <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Edit</th>
-                <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">School ID</th>
-                <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Surname</th>
-                <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">First name</th>
-                <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Email</th>
-                <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Results</th>
-                <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Registration Time</th>
-                <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Activation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                <tbody id="rcAccs"> 
+        <div class="max-h-[31.25rem] min-w-full border border-black rounded-xl overflow-x-hidden overflow-y-auto">
+            <table class="table-fixed w-full leading-normal rounded-xl">
+                <thead class="min-w-[74.9rem] ">
                     <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-account-edit" class="bg-blue3 text-white1 px-4 py-2 rounded-sm">EDIT</a></td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">12345</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Doe</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">John</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">john.doe@example.com</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">IRC</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2024-09-14 14:36</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Activated</td>
+                        <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Edit</th>
+                        <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">School ID</th>
+                        <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Surname</th>
+                        <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">First name</th>
+                        <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Email</th>
+                        <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Results</th>
+                        <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Registration Time</th>
+                        <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Activation</th>
                     </tr>
+                </thead>
+                    <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
+                <tbody class="table-row-group" id="studentsList"> 
+                    <?php foreach($students as $student): ?>
+                    <tr>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-account-edit?id=<?= $student['school_id'] ?>" class="bg-blue3 text-white1 px-4 py-2 rounded-sm">EDIT</a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $student['school_id'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $student['l_name'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $student['f_name'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm truncate border-l border-r border-black"><?= $student['email'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $student['result'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $student['reg_date'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm <?php if(isset($student['account_activation_hash'])): ?>text-red1<?php else:?>text-green1<?php endif; ?> border-l border-r border-black">
+                            <?php if(isset($student['account_activation_hash'])): ?>
+                                    Not Yet Activated
+                            <?php else:?>
+                                    Activated
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
                     <!-- Add more rows as needed -->
                 </tbody>
-            </tbody>
-        </table>
+
+                <tbody class="hidden" id="profsList"> 
+                    <?php foreach($professors as $professor): ?>
+                    <tr>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-account-edit?id=<?= $professor['school_id'] ?>" class="bg-blue3 text-white1 px-4 py-2 rounded-sm">EDIT</a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $professor['school_id'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm truncate  border-l border-r border-black"><?= $professor['l_name'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm truncate  border-l border-r border-black"><?= $professor['f_name'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm truncate  border-l border-r border-black"><?= $professor['email'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $professor['result'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $professor['reg_date'] ?></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm <?php if(isset($student['account_activation_hash'])): ?>text-red1<?php else:?>text-green1<?php endif; ?> border-l border-r border-black">
+                            <?php if(isset($student['account_activation_hash'])): ?>
+                                    Not Yet Activated
+                            <?php else:?>
+                                    Activated
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+        
 
         <div class="relative block w-full h-[40rem] mt-12">
 
@@ -92,4 +123,6 @@
 
     </div>
 
+
+    <script src="assets/js/shared-scripts.js"></script>
 </body>

@@ -16,7 +16,8 @@ module.exports = {
         'table': "url('/assets/images/vectors/icons/table.png')",
         'cross': "url('/assets/images/icons/cross.png')",
         'check': "url('/assets/images/icons/check.png')",
-        'sort': "url('/assets/images/icons/sorting.png')"
+        'sort': "url('/assets/images/icons/sorting.png')",
+        'search': "url('/assets/images/icons/search.png')",
       },
 
       colors: {
