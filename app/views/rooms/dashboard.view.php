@@ -113,7 +113,7 @@
                 </table>
            </div>
                 <?php else: ?>
-                    <div class="flex flex-col justify-center items-center h-full">
+                    <div class="flex flex-col justify-center items-center h-full w-full">
                         <span class="font-synebold text-4xl text-grey2">No room found</span>
                         
                         <?php if($_SESSION['user']['account_type'] === 'professor'):?>
