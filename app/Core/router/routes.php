@@ -26,8 +26,8 @@ $router->post('/room', 'model/rooms/request.php');
 $router->patch('/room', 'model/rooms/update.php');
 $router->delete('/room', 'model/rooms/destroy.php');
 
-$router->get('/groups', 'Http/controllers/rooms/group/results.php')->only('auth');
-$router->post('/groups', 'Http/controllers/rooms/group/results.php')->only('auth');
+$router->get('/groups', 'Http/controllers/rooms/group/groups-edit.php')->only('auth');
+$router->post('/groups', 'Http/controllers/rooms/group/groups-edit.php')->only('auth');
 $router->patch('/groups', 'Http/controllers/rooms/group/results.php')->only('auth');
 $router->delete('/groups', 'Http/controllers/rooms/group/results.php')->only('auth');
 

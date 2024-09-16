@@ -16,29 +16,29 @@
         <!-- counter -->
         <div class="flex w-full mt-8">
 
-            <div class="mx-auto ml-0 border border-black rounded-2xl h-52 w-[24%] bg-orange1 p-4">
+            <a href="/admin-accounts" class="mx-auto ml-0 border border-black rounded-2xl h-52 w-[24%] bg-orange1 p-4">
                 <h1 class="text-lg font-synemed text-grey-200">Total no. of</h1>
                 <h1 class="text-lg font-synemed text-grey-200">Users:</h1>
-                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="userCount">999</h1>
-            </div>
+                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="userCount"><?= count($accounts) ?></h1>
+            </a>
 
-            <div class="mx-auto border border-black rounded-2xl h-52 w-[24%] bg-blue2 p-4">
+            <a href="/admin-accounts" class="mx-auto border border-black rounded-2xl h-52 w-[24%] bg-blue2 p-4">
                 <h1 class="text-lg font-synemed text-grey-200">Total no. of</h1>
                 <h1 class="text-lg font-synemed text-grey-200">Students:</h1>
-                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="studCount">999</h1>
-            </div>
+                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="studCount"><?= count($students) ?> </h1>
+            </a>
 
-            <div class="mx-auto border border-black rounded-2xl h-52 w-[24%] bg-blue2 p-4">
+            <a href="/admin-accounts" class="mx-auto border border-black rounded-2xl h-52 w-[24%] bg-blue2 p-4">
                 <h1 class="text-lg font-synemed text-grey-200">Total no. of</h1>
                 <h1 class="text-lg font-synemed text-grey-200">Instructors:</h1>
-                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="insCount">999</h1>
-            </div>
+                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="insCount"><?= count($professors) ?></h1>
+            </a>
 
-            <div class="mx-auto mr-0 border border-black rounded-2xl h-52 w-[24%] bg-white2 p-4">
+            <a href="/admin-rooms" class="mx-auto mr-0 border border-black rounded-2xl h-52 w-[24%] bg-white2 p-4">
                 <h1 class="text-lg font-synemed text-grey-200">Total no. of</h1>
                 <h1 class="text-lg font-synemed text-grey-200">Rooms:</h1>
-                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="roomCount">999</h1>
-            </div>
+                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="roomCount"><?= count($rooms) ?></h1>
+            </a>
     
         </div>
 
@@ -61,15 +61,23 @@
                         </thead>
                         <tbody>
                             <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                            <tbody id="rcAccs"> 
+                            <tbody id="rcAccs">
+                            <?php foreach($recentAccounts as $account) {?>  
                                 <tr>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">12345</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">John Doe</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">john.doe@example.com</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Student</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2024-09-14 14:36</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Activated</td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['school_id'] ?></td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['l_name'] ?>, <?= $account['f_name'] ?></td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['email'] ?></td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['account_type'] ?></td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['daysAgo'] ?> days, <?= $account['hoursAgo'] ?> hours, <?= $account['minutesAgo'] ?> minutes ago</td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">
+                                        <?php if(isset($account['account_activation_hash'])): ?>
+                                                Not Yet Activated
+                                        <?php else:?>
+                                                Activated
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
+                            <?php }?>
                                 <!-- Add more rows as needed -->
                             </tbody>
                         </tbody>
@@ -96,14 +104,22 @@
                         <tbody>
                             <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
                             <tbody id="rcRoom"> 
+                            <?php foreach($recentRooms as $room) { ?>
                                 <tr>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">12345</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">BSCS 4-y1-1</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">john.doe@example.com</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">12344321</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">1234</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2024-09-14 14:36</td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_id'] ?></td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_name'] ?></td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">
+                                    <?php foreach($professors as $professor) { ?>
+                                        <?php if($professor['school_id'] == $room['school_id']) { ?>
+                                            <?= $professor['f_name'] . ' ' . $professor['l_name'] ?>
+                                        <?php } ?>
+                                    <?php } ?>
+                                    </td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['school_id'] ?></td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_code'] ?></td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['daysAgo'] ?> days, <?= $room['hoursAgo'] ?> hours, <?= $room['minutesAgo'] ?> minutes ago</td>
                                 </tr>
+                            <?php } ?>
                                 <!-- Add more rows as needed -->
                             </tbody>
                         </tbody>
