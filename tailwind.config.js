@@ -13,9 +13,10 @@ module.exports = {
         'howtouse': "url('/assets/images/howtouse.webp')",
         'about': "url('/assets/images/about.webp')",
         'tiles': "url('/assets/images/vectors/icons/tiles.png')",
-        'borger': "url('/assets/images/vectors/icons/borger.png')",
+        'table': "url('/assets/images/vectors/icons/table.png')",
         'cross': "url('/assets/images/icons/cross.png')",
         'check': "url('/assets/images/icons/check.png')",
+        'sort': "url('/assets/images/icons/sorting.png')"
       },
 
       colors: {

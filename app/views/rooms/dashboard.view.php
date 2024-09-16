@@ -11,7 +11,7 @@
                     <div class="flex justify-between h-[2.25rem] w-[4.875rem]">
                         <button class="bg-tiles h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="show('dashboardTiles'); hide('dashboardTable');"></button>
 
-                        <button class="bg-borger h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="show('dashboardTable'); hide('dashboardTiles');"></button>
+                        <button class="bg-table h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="show('dashboardTable'); hide('dashboardTiles');"></button>
                     </div>
 
                     <form method="POST" action="/dashboard">
@@ -19,6 +19,8 @@
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
                         <input class="h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg px-4" type="text" name="search_input" placeholder="Search Joined Room" required>
                     </form>
+
+                    <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
                 </div>
 
                 <?php if ($_SESSION['user']['account_type'] === 'student'):?>
@@ -49,24 +51,11 @@
             </div>
 
             <!-- TILES  -->
-            <div class="h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden">         
-                <?php if(! empty($room_info)): ?>
-                    <div id="dashboardTiles" class="flex flex-wrap gap-x-2.5 gap-y-10 min-h-[36rem] w-[84.5rem] m-4" id="rooms-default">
-                    <!--  ROOMS  -->
-                        <?php foreach($room_info as $rooms) { ?>
-                        <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                            <div>   
-                                <h1 class="font-synemed text-2xl"><?= $rooms['room_name'] ?></h1>
-                                <span class="text-grey2 text-base"><?= $rooms['prof_name'] ?></span>
-                            </div>
-                            <span class="text-grey2 text-base"><?= $rooms['room_code'] ?></span>
-                        </a>
-                        <?php } ?>
-                    </div>
-
+            <div id="dashboardTiles" class="h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden">         
+                <?php if(! empty($ascending_rooms)): ?>
                     <div class="flex flex-wrap gap-x-2.5 gap-y-10 min-h-[36rem] w-[84.5rem] m-4" id="rooms-ascending">
                     <!--  ROOMS  -->
-                        <?php foreach($room_info as $rooms) { ?>
+                        <?php foreach($ascending_rooms as $rooms) { ?>
                         <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
                             <div>   
                                 <h1 class="font-synemed text-2xl"><?= $rooms['room_name'] ?></h1>
@@ -77,9 +66,9 @@
                         <?php } ?>
                     </div>
 
-                    <div class="flex flex-wrap gap-x-2.5 gap-y-10 min-h-[36rem] w-[84.5rem] m-4" id="rooms-descending">
+                    <div class="hidden flex-wrap gap-x-2.5 gap-y-10 min-h-[36rem] w-[84.5rem] m-4" id="rooms-descending">
                     <!--  ROOMS  -->
-                        <?php foreach($room_info as $rooms) { ?>
+                        <?php foreach($descending_rooms as $rooms) { ?>
                         <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
                             <div>   
                                 <h1 class="font-synemed text-2xl"><?= $rooms['room_name'] ?></h1>
@@ -89,21 +78,12 @@
                         </a>
                         <?php } ?>
                     </div>
-                <?php else: ?>
-                        <span class="" style="<?php if($_SESSION['user']['account_type'] === 'professor'){ echo "color: black;"; }?>">No rooms found</span>
-                        
-                        <?php if($_SESSION['user']['account_type'] === 'professor'):?>
-                            <span class="">Create a room by clicking the "Create Room" button</span>
-                        <?php elseif($_SESSION['user']['account_type'] === 'student'): ?>
-                            <span class="">Join a room by entering the code above</span>
-                        <?php endif; ?>
-                <?php endif; ?>
             </div>
 
             <!-- TABLE -->
-            <div id="dashboardTable" class="hidden h-[39.8rem] w-full overflow-y-auto overflow-x-hidden scrollbar-thumb-blue-500 scrollbar-thumb-rounded">
-                <table class="max-h-full w-full">
-                    <thead class="bg-blue3 h-10 font-synereg text-xl">
+            <div id="dashboardTable" class="hidden h-[39.8rem] w-[87.5rem] overflow-y-auto overflow-x-hidden scrollbar-thumb-blue-500 scrollbar-thumb-rounded">
+                <table class="max-h-[39.8rem] w-full table-fixed">
+                    <thead class="bg-blue3 h-10 max-h-10 font-synereg text-xl">
                         <tr class="">
                             <th class="border-2 border-black1 text-white1 w-[29rem]">Room Name</th>
                             <th class="border-2 border-black1 text-white1 w-[29rem]">Instructor Name</th>
@@ -111,16 +91,38 @@
                         </tr>
                     </thead>
 
-                    <tbody class="">
-                        <tr class="h-40 max-h-40 w-full hover:bg-blue1">
-                            <td class="max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">Name that the Instructor gave to this roomwjerihjewurheworhewiorhoewirhjoewhrowqeqweqwewqewqewqewqiewh</td>
-                            <td class="max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words">Name of D. Instructor</td>
-                            <td class="max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2">123456</td>
+                    <tbody class="h-40 min-h-40 w-full" id="t-rooms-ascending">
+                    <?php foreach($ascending_rooms as $rooms) { ?>
+                        <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
+                            <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['room_name'] ?></a></td>
+                            <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['prof_name'] ?></a></td>
+                            <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['room_code'] ?></a></td>
                         </tr>
+                    <?php } ?>
+                    </tbody>
+                    <tbody class="hidden h-40 min-h-40 w-full" id="t-rooms-descending">
+                    <?php foreach($descending_rooms as $rooms) { ?>
+                        <tr class="h-40 max-h-[10rem] hover:bg-blue1">
+                            <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['room_name'] ?></a></td>
+                            <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['prof_name'] ?></a></td>
+                            <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['room_code'] ?></a></td>
+                        </tr>
+                    <?php } ?>
                     </tbody>
                 </table>
            </div>
-            
+                <?php else: ?>
+                    <div class="flex flex-col justify-center items-center h-full">
+                        <span class="font-synebold text-4xl text-grey2">No room found</span>
+                        
+                        <?php if($_SESSION['user']['account_type'] === 'professor'):?>
+                            <span class="font-synemed text-xl">Create a room by clicking the "<span class="text-orange2">Create Room</span>" button</span>
+                        <?php elseif($_SESSION['user']['account_type'] === 'student'): ?>
+                            <span class="font-synemed text-xl">Join a room by <span class="text-orange2">entering the code</span> above</span>
+                        <?php endif; ?>
+                    </div>
+
+                <?php endif; ?>
         </div>
     </main>
 

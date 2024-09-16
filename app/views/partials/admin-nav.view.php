@@ -17,5 +17,4 @@
             <a href="/admin-settings"   class="block py-6 pl-4 my-5 w-full text-3xl text-left hover:text-black">Settings</a>
         </div>
     </div>
-
 </div>
