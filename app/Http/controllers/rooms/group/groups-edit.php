@@ -7,8 +7,8 @@ $db = App::resolve(Database::class);
 
 $currentUser = $_SESSION['user']['school_id'];
 
-$rows = $db->query('SELECT * FROM accounts', [])->findAll();
+$grouped = json_encode($_POST['grouped']);
 
-view("group/group-results.view.php", [
-    'rows' => $rows
+view("rooms/groups/groups-edit.view.php", [
+    'grouped' => $grouped,
 ]);

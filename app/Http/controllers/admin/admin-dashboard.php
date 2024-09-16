@@ -89,14 +89,6 @@ if ($_SESSION['user']['account_type'] === "admin") {
         $recentRooms[$index]['minutesAgo'] = $minutesAgo;
     }
 
-    $tickets = $db->query('SELECT * FROM ticket', [
-
-    ])->findAll();
-
-    $logs = $db->query("SELECT * FROM log_trails", [
-
-    ])->findAll();
-
     view('admin/admin-dashboard.view.php', [
         'accounts' => $accounts,
         'students' => $students,
@@ -104,8 +96,6 @@ if ($_SESSION['user']['account_type'] === "admin") {
         'rooms' => $rooms,
         'recentAccounts' => $recentAccounts,
         'recentRooms' => $recentRooms,
-        'tickets' => $tickets,
-        'logs' => $logs
     ]);
 } else {
     abort(403);
