@@ -1,11 +1,11 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg">
+<body class="static flex font-synereg bg-white2">
 
     <?php view('partials/admin-nav.view.php'); ?>
 
     <!-- content -->
-    <div class="relative block w-[85%] p-12">
+    <div class="relative block w-full p-12 pl-[1%] min-w-[78rem]">
 
         <!-- greeting -->
         <h1 class="text-4xl">Welcome back,</h1>
@@ -43,20 +43,20 @@
         </div>
 
         <!-- lists -->
-        <div class="flex mt-14">
+        <div class="relative flex mt-14 w-full">
             <!-- left -->
-            <div class="mx-auto ml-0 w-[97%]">
+            <div class="mx-auto ml-0 w-[50%] min-w-[37.5rem]">
                 <h2 class="text-xl font-synebold text-grey2 mb-4 text-left">Recently Created Accounts</h2>
                 <div class="container mx-auto my-6 bg-white shadow-lg rounded-lg border border-black mr-2 overflow-hidden">
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">School No.</th>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Name</th>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Email</th>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Type</th>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Timestamp</th>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Activation</th>
+                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">School No.</th>
+                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Name</th>
+                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Email</th>
+                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Type</th>
+                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Timestamp</th>
+                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Activation</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,7 +87,7 @@
             
 
             <!-- Right -->
-            <div class="mx-auto mr-0 w-[97%]">
+            <div class="mx-auto mr-0 w-[50%] min-w-[37.5rem]">
                 <h2 class="text-xl font-synebold text-grey2 mb-4 text-left">Recently Created Rooms</h2>
                 <div class="container mx-auto my-6 bg-white shadow-lg rounded-lg border border-black ml-2 overflow-hidden">
                     <table class="min-w-full leading-normal">

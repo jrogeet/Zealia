@@ -4,7 +4,7 @@
     <?php view('partials/nav.view.php'); ?>
     
     <main>
-        <div class="font-synereg relative flex h-[86vh] w-full top-0 left-[50%] transform translate-x-[-50%] mt-14 mb-12 py-16">
+        <div class="font-synereg relative flex h-[86vh] w-full top-0 left-[50%] transform translate-x-[-50%] mt-14 mb-12 py-[7vh] min-h-[42rem]">
             <div class="absolute inline-block w-fit h-fit left-6 ml-16">
 
                 <h1 class="mt-14 mb-0 text-6xl font-synemed">Need a help?</h1></br>
@@ -16,7 +16,7 @@
             </div>
 
 
-            <div class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute inline-block w-[34rem] h-[93%] right-0 mr-16 text-center object-center min-w-[32rem]">
+            <div class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute inline-block w-[34rem] h-[96%] right-0 mr-16 text-center object-center min-w-[32rem] min-h-[39rem] max-h-[50rem]">
                 <h1 class="font-synemed mb-16 mx-12 text-4xl">Submit a Ticket</h1>
                 <div class="flex justify-between mx-16 mb-1">
                     <input class="border border-black rounded-xl transform translate-x-[15%] text-left pl-4 mb-1 h-10 w-70 text-sm bg-white1" type="text" placeholder="First name" type="text" name="fname" required>

@@ -1,17 +1,17 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
 <?php view('partials/head.view.php'); ?>
 
-<body class="static bg-white1 font-synereg min-w-[75rem]">
+<body class="static bg-white1 font-synereg min-w-[78rem]">
 
     <?php  view('partials/nav.view.php') ?>
 
-    <div class="relative w-full h-screen text-center top-[5.8rem] pt-8">
+    <div class="relative w-full h-full text-center top-[5.8rem] pt-8 mb-32                    ">
         <h1 class="relative font-synebold text-3xl">Account Settings</h1>
 
-        <div class="relative flex left-1/2 transform -translate-x-1/2 w-full h-5/6 px-6">
+        <div class="relative flex left-1/2 transform -translate-x-1/2 w-full h-5/6 min-h-[47rem] px-6">
             <!-- left box -->
-            <div class="block border border-black rounded-2xl w-5/12 h-5/6 m-auto mt-10 bg-white2 text-left p-6 pt-2 pl-16">
-                <h5 class="text-xl text-grey2 mt-24">Name</h5>
+            <div class="block border border-black rounded-2xl w-5/12 h-[75vh] m-auto mt-10 bg-white2 text-left p-[4%] pt-2 pl-[4%]  min-h-[32rem] max-h-[45rem]">
+                <h5 class="text-xl text-grey2 mt-[8%]">Name</h5>
                 <h1 class="text-3xl ml-4 mb-4"><?php echo "{$_SESSION['user']['f_name']} {$_SESSION['user']['l_name']}"; ?></h1>
 
                 <h5 class="text-xl text-grey2 mt-4">Student Number</h5>
@@ -27,16 +27,14 @@
 
             </div>
 
-            <!-- dalawa tong box, default na naka show is ung wala, check sa js if may result then i hide/unhide kung ano ung need -->
-
-            <!-- right box w/o result -->
-            <div class="block border border-black rounded-2xl w-5/12 h-5/6 m-auto mt-10 bg-white2">
+            <!-- right box -->
+            <div class="block border border-black rounded-2xl w-5/12 h-[75vh] m-auto mt-10 bg-white2 text-left py-2 min-h-[32rem] max-h-[45rem]">
                 <?php if (isset($typeNscores)):?>
-                    <div class="relative flex pt-8">
+                    <div class="relative flex mt-[8%]">
                         <h1 class="font-synemed text-xl text-grey2 ml-auto mt-1">RESULTS:</h1>
                         <label class="font-syneboldextra text-4xl text-black top-12 mr-auto"><?= $typeNscores['result'] ?></label>
                     </div>
-                    <div class="flex mt-20">
+                    <div class="flex my-[5%]">
                         <div class="relative text-left mx-auto w-[20rem] h-5/6 pl-24">
                             <h1 class="font-synemed text-lg text-grey2 mb-4">REALISTIC</h1>
                             <h1 class="font-synemed text-lg text-grey2 mb-4">INVESTIGATIVE</h1>
@@ -55,7 +53,7 @@
                         </div>
                     </div>
 
-                    <a href="/test"><button class="relative mt-20 border border-grey2 rounded-2xl w-40 h-12 bg-orange1 font-synemed text-xl">Retake Test</button></a>
+                    <a href="/test"><button class="relative left-1/2 transform -translate-x-1/2 border border-grey2 rounded-2xl w-40 h-12 bg-orange1 font-synemed text-xl">Retake Test</button></a>
                 <?php else:?>
                     <h1 class="relative top-64 transform -translate-y-1/2 font-synemed text-4xl">You haven't taken the test!</h1>
                     <a href="/test"><button class="relative top-72 border border-grey2 rounded-2xl w-40 h-12 bg-orange1 font-synemed text-xl">Take Test</button></a>
