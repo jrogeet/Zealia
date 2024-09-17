@@ -50,6 +50,10 @@ if (isset($_POST['email'])) {
 
     }
 
-    echo "Message sent, please check your inbox. <br>If you can't find the email, please check your spam folder.";
+    $sent = true;
+
+    view('session/login/forgot.view.php', [
+        'sent' => $sent
+    ]);
 }
 

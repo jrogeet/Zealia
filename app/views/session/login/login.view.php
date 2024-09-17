@@ -18,7 +18,7 @@
             <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-4 bg-white1" placeholder="Student Number" type="number" name="school_id" value="<?= old('school_id') ?>" required></input></br>
             <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-0 bg-white1" placeholder="Password" type="password"  name="password" required></input></br>
 
-            <a class="text-xs relative right-[-60%] top-1 my-0 text-red-600" href="/reset-password">Forgot password?</a></br>
+            <a class="text-xs relative right-[-60%] top-1 my-0 text-red-600" href="/forgot">Forgot password?</a></br>
             
             <?php if (isset($errors['password'])): ?>
                 <p class="text-center text-sm text-red-600 my-0"><?= $errors['password'] ?></p>

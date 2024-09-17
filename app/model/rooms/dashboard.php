@@ -13,6 +13,8 @@ $currentUser = $_SESSION['user']['school_id'];
 
 if (isset($_POST['create'])) {
     $room_info = json_decode($_POST['encoded_room_info'], true);
+    $ascending_rooms = json_decode($_POST['asc'], true);
+    $descending_rooms = json_decode($_POST['desc'], true);
     
     $errors = [];
 
@@ -22,9 +24,10 @@ if (isset($_POST['create'])) {
 
     if(! empty($errors)) {
         return view('rooms/dashboard.view.php', [
-            'heading' => 'Create Room',
             'errors' => $errors,
-            'room_info' => $room_info
+            'room_info' => $room_info,
+            'descending_rooms' => $descending_rooms,
+            'ascending_rooms' => $ascending_rooms,
         ]);
     }
 
