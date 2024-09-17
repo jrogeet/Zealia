@@ -5,7 +5,7 @@
     <?php view('partials/admin-nav.view.php'); ?>
 
     <!-- content -->
-    <div class="relative block w-full p-12 pl-[1%] min-w-[78rem]">
+    <div class="relative block w-full p-12 pl-[1%] min-w-[73rem]">
 
         <!-- greeting -->
         <h1 class="text-4xl">Welcome back,</h1>
@@ -51,12 +51,12 @@
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
-                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">School No.</th>
-                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Name</th>
-                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Email</th>
-                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Type</th>
-                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Timestamp</th>
-                            <th class="px-0 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Activation</th>
+                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">School No.</th>
+                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Name</th>
+                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Email</th>
+                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Type</th>
+                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Timestamp</th>
+                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Activation</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,12 +64,12 @@
                             <tbody id="rcAccs">
                             <?php foreach($recentAccounts as $account) {?>  
                                 <tr>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['school_id'] ?></td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['l_name'] ?>, <?= $account['f_name'] ?></td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['email'] ?></td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['account_type'] ?></td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['daysAgo'] ?> days, <?= $account['hoursAgo'] ?> hours, <?= $account['minutesAgo'] ?> minutes ago</td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['school_id'] ?></td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['l_name'] ?>, <?= $account['f_name'] ?></td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate max-w-[8rem]"><?= $account['email'] ?></td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['account_type'] ?></td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate max-w-[8rem]"><?= $account['daysAgo'] ?> days, <?= $account['hoursAgo'] ?> hours, <?= $account['minutesAgo'] ?> minutes ago</td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">
                                         <?php if(isset($account['account_activation_hash'])): ?>
                                                 Not Yet Activated
                                         <?php else:?>
@@ -93,12 +93,12 @@
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Room ID</th>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Room Name</th>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Instructor</th>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Instructor ID</th>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Room Code</th>
-                            <th class="px-1 pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Timestamp</th>
+                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Room ID</th>
+                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Room Name</th>
+                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Instructor</th>
+                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Instructor ID</th>
+                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Room Code</th>
+                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Timestamp</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,18 +106,18 @@
                             <tbody id="rcRoom"> 
                             <?php foreach($recentRooms as $room) { ?>
                                 <tr>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_id'] ?></td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_name'] ?></td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_id'] ?></td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_name'] ?></td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">
                                     <?php foreach($professors as $professor) { ?>
                                         <?php if($professor['school_id'] == $room['school_id']) { ?>
                                             <?= $professor['f_name'] . ' ' . $professor['l_name'] ?>
                                         <?php } ?>
                                     <?php } ?>
                                     </td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['school_id'] ?></td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_code'] ?></td>
-                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['daysAgo'] ?> days, <?= $room['hoursAgo'] ?> hours, <?= $room['minutesAgo'] ?> minutes ago</td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['school_id'] ?></td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_code'] ?></td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['daysAgo'] ?> days, <?= $room['hoursAgo'] ?> hours, <?= $room['minutesAgo'] ?> minutes ago</td>
                                 </tr>
                             <?php } ?>
                                 <!-- Add more rows as needed -->

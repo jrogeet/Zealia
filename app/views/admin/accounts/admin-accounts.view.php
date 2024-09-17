@@ -3,7 +3,7 @@
 <body class="static flex font-synereg bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
 
-    <div class="z-40 relative block w-full h-32 py-12 px-6 ml-80 min-w-[75rem]">
+    <div class="z-40 relative block w-full h-fit py-12 px-6 min-w-[75rem] mb-16">
         <div class="relative flex mb-12">
             <h1 class="mx-auto font-synebold ml-6 text-3xl">Account List</h1>
             <div class="flex mx-auto w-64 font-synemed text-lg">

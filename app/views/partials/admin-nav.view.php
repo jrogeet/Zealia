@@ -1,6 +1,6 @@
-<div class="z-50 fixed block bg-blue3 w-72 h-[100vh] p-6 text-white2 font-synereg min-w-[18rem] min-h-[75rem]">
+<div class="z-10 relative block w-72 h-[100vh] text-white2 font-synereg min-w-[18rem] min-h-[75rem]">
 
-    <div class="sticky top-8">
+    <div class="fixed bg-blue3 p-6 w-72 h-screen">
         <div class="relative">
             <a href="/">
                 <img class="h-14" src="assets/images/zealia-logos/full/white.png" alt="Zealia Logo"/>
