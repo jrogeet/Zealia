@@ -1,29 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<?php view('partials/head.view.php'); ?>
 
-    <title>Forgot Password</title>
-
-    <link rel="stylesheet" type="text/css" href="assets/css/partials/navbar.css">
-    <link rel="stylesheet" type="text/css"  href="assets/css/session/forgot.css">
-</head>
-
-<style> <?php  include base_path('public/assets/css/shared-styles.css');?> </style>
-
-<body>
+<body class="bg-white1 flex flex-col justify-between items-center">
     <?php view('partials/nav.view.php')?>
 
-    <main>
-        <h1 class="forgot-header">Forgot Password</h1>
-        <form method="post" action="/forgot-password">
-            <div class="forgot-form-container">
-                <label class="email-label" for="email">EMAIL</label>
-                <input class="forgot-input" type="email" name="email" placeholder="Email" required>
-                <input class="forgot-submit" type="submit" value="Send Reset Email">
+    <main class="h-[41rem] w-[87.5rem] flex space-between">
+        <?php if(isset($sent)): ?>
+            <?php echo '<script type="text/javascript">disableScroll();</script>'; ?>
+            <div id="resetSent" class=" flex bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
+                <div class="bg-white1 flex flex-col justify-between h-48 w-90 border border-black1 rounded-t-lg">
+                    <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
+                        <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Reset Sent</span>
+                        <button class="bg-red1 h-full w-10 rounded" onClick="hide('resetSent'); enableScroll();">X</button>
+                    </div>
+                
+                    <div class="h-5/6 flex flex-col justify-center items-center  p-4 ">
+                        <p class="font-synemed text-black">The reset link was <span class="text-green1">successfully</span> sent to your email,</p>
+                        <p class="font-synemed mb-3">please check your inbox.</p>
+                        <p class="text-sm font-synereg text-grey2">If you can't find the email, please check your spam folder.</p>
+                    </div>
+                </div>
             </div>
+        <?php endif; ?>
 
-        </form>
+        <div class="bg-blue1 h-[30rem] w-[26rem] flex flex-col justify-between items-center mt-32 mb-20 border border-black1 rounded-lg px-4">
+            <h1 class="flex flex-col font-synemed text-4xl text-center text-black1 mt-14">Forgot your<span class="text-3xl text-red1">Password?</span></h1>
+            <form method="post" action="/forgot" class="h-4/6 w-full mb-6 flex flex-col justify-evenly items-center">
+                <div class="w-5/6 flex flex-col">
+                    <label class="font-synereg text-lg text-grey2" for="email">Enter Account's email</label>
+                    <input class="w-full border border-black1 rounded-lg mt-2 p-2" type="email" name="email" placeholder="Email" required>
+                </div>
+                <button class="bg-blue3 hover:bg-orange1 hover:text-black1 w-3/6 py-2 border border-blue3 rounded-xl font-synereg text-xl text-white1" type="submit">Send Reset Link</button>
+            </form>
+        </div>
     </main>
+    <?php view('partials/footer.view.php')?>
+    <script src="assets/js/shared-scripts.js"></script>
 </body>

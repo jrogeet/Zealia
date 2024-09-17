@@ -19,7 +19,7 @@ $router->get('/sample-grouping', 'Http/controllers/account/sample-grouping.php')
 $router->get('/profile', 'Http/controllers/account/profile.php')->only('auth');
 
 $router->get('/dashboard', 'Http/controllers/rooms/dashboard.php')->only('auth');
-$router->post('/dashboard', 'model/rooms/create.php')->only('auth');
+$router->post('/dashboard', 'model/rooms/dashboard.php')->only('auth');
 
 $router->get('/room', 'Http/controllers/rooms/show.php')->only('auth');
 $router->post('/room', 'model/rooms/request.php');
@@ -40,10 +40,10 @@ $router->get('/login', 'Http/controllers/session/login/login.php')->only('guest'
 $router->post('/login', 'model/session/login/store.php')->only('guest');
 $router->delete('/login', 'model/session/login/destroy.php')->only('auth');
 
-$router->get('/forgot-password', 'Http/controllers/session/login/forgot.php')->only('guest');
-$router->post('/forgot-password', 'model/session/login/forgot.php')->only('guest');
-$router->get('/reset-password', 'Http/controllers/session/login/reset-password.php')->only('guest');
-$router->post('/reset-password', 'model/session/login/process-reset-password.php')->only('guest');
+$router->get('/forgot', 'Http/controllers/session/login/forgot.php')->only('guest');
+$router->post('/forgot', 'model/session/login/forgot.php')->only('guest');
+$router->get('/reset', 'Http/controllers/session/login/reset-password.php')->only('guest');
+$router->post('/reset', 'model/session/login/process-reset-password.php')->only('guest');
 
 // ADMIN
 
