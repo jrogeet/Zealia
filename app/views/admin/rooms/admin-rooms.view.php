@@ -2,7 +2,6 @@
 
 <body class="static flex font-synereg bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
-    
     <div class="relative block w-full h-fit py-12 px-6 min-w-[75rem]">
 
         <div class="relative flex mb-12">
@@ -13,7 +12,7 @@
             </div>
         </div>
 
-        <table class="min-w-full leading-normal border border-black rounded-xl overflow-hidden">
+        <table class="table-fixed min-w-full leading-normal border border-black rounded-xl overflow-hidden">
             <thead>
                 <tr>
                 <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Edit</th>
@@ -25,20 +24,20 @@
                 <th class="px-0 text-center py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Time Created</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                <tbody id="rcAccs"> 
-                    <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-room-edit" class="bg-blue3 text-white1 px-4 py-2 rounded-sm">EDIT</a></td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">43</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">CS Thesis 1</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Kanye</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">1234</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">4321</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2024-09-14 14:36</td>
-                    </tr>
-                    <!-- Add more rows as needed -->
-                </tbody>
+            <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
+            <tbody> 
+                <?php foreach($rooms as $room): ?>
+                <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-room-edit?room_id=<?= $room['room_id'] ?>" class="bg-blue3 text-white1 px-4 py-2 rounded-sm">EDIT</a></td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_id'] ?></td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><?= $room['room_name'] ?></td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><?= $room['f_name'] ?> <?= $room['l_name'] ?></td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['school_id'] ?></td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_code'] ?></td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['created_date'] ?></td>
+                </tr>
+                <?php endforeach; ?>
+                <!-- Add more rows as needed -->
             </tbody>
         </table>
     </div>

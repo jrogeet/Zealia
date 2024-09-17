@@ -13,8 +13,11 @@ if ($_SESSION['user']['account_type'] === "admin") {
         'id'=>$_GET['id'],
     ])->find();
 
+    $encoded_allUserInfo = json_encode($allUserInfo);
+
     view('admin/accounts/admin-account-edit.view.php', [
-        'allUserInfo' => $allUserInfo
+        'allUserInfo' => $allUserInfo,
+        'encoded_allUserInfo' => $encoded_allUserInfo,
     ]);
 } else {
     abort(403);

@@ -52,8 +52,10 @@ $router->get('/admin-settings', 'Http/controllers/admin/admin-settings.php')->on
 $router->post('/admin-settings', 'model/admin/admin-settings.php')->only('auth');
 
 $router->get('/admin-accounts', 'Http/controllers/admin/accounts/admin-accounts.php')->only('auth');
+$router->post('/admin-accounts', 'model/admin/accounts/admin-accounts.php')->only('auth');
+
 $router->get('/admin-account-edit', 'Http/controllers/admin/accounts/admin-account-edit.php')->only('auth');
-$router->post('/admin-account-edit', 'Http/controllers/admin/accounts/admin-account-edit.php')->only('auth');
+$router->post('/admin-account-edit', 'model/admin/accounts/admin-account-edit.php')->only('auth');
 
 $router->get('/admin-rooms', 'Http/controllers/admin/rooms/admin-rooms.php')->only('auth');
 $router->get('/admin-room-edit', 'Http/controllers/admin/rooms/admin-room-edit.php')->only('auth');
