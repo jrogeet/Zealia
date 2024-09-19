@@ -7,8 +7,11 @@ $db = App::resolve(Database::class);
 
 $currentUser = $_SESSION['user']['school_id'];
 
-$grouped = json_encode($_POST['grouped']);
+
+$groups_json = $_POST['grouped'];
+$groups = json_decode($groups_json, true);
 
 view("rooms/groups/groups-edit.view.php", [
-    'grouped' => $grouped,
+    'groups' => $groups,
+    'groups_json' => $groups_json
 ]);
