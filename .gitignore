@@ -3,3 +3,5 @@ public/assets/css/output.css
 package-lock.json
 package.json
 *.json
+package.json
+package-lock.json
