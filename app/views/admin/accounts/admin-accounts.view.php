@@ -10,10 +10,14 @@
                 <button onclick="show('studentsList','table-row-group'); hide('profsList');" class="mx-auto border border-black rounded-lg p-auto w-28 text-center bg-blue2 hover:bg-blue3 hover:text-white1">Students</button>
                 <button onclick="show('profsList','table-row-group'); hide('studentsList');" class="mx-auto border border-black rounded-lg p-auto w-28 text-center bg-blue2 hover:bg-blue3 hover:text-white1">Instructors</button>
             </div>
-            <div class="flex mx-auto w-fit">
-                <input type="text" class="border border-black rounded-lg mx-auto bg-white1 pl-4">
-                <button class="mx-auto border border-grey2 rounded-lg bg-orange1 w-28 ml-4 text-black1">Search</button>
-            </div>
+            <form method="POST" action="/admin-accounts" class="flex mx-auto w-fit">
+                <input name="search_input" type="text" placeholder="Search..." class="border border-black rounded-lg mx-auto bg-white1 pl-4" required>
+                <input type="hidden" name="search">
+                <input type="hidden" name="encoded_students" value="<?= htmlspecialchars($encoded_students, ENT_QUOTES, 'UTF-8')?>">
+                <input type="hidden" name="encoded_professors" value="<?= htmlspecialchars($encoded_professors, ENT_QUOTES, 'UTF-8')?>">
+                <input type="hidden" name="encoded_accounts" value="<?= htmlspecialchars($encoded_accounts, ENT_QUOTES, 'UTF-8')?>">
+                <button type="submit" class="mx-auto border border-grey2 rounded-lg bg-orange1 w-28 ml-4 text-black1">Search</button>
+            </form>
         </div>
 
         <div class="max-h-[31.25rem] min-w-full border border-black rounded-xl overflow-x-hidden overflow-y-auto">
@@ -77,17 +81,67 @@
             </table>
         </div>
         
+        <!-- MODALS -->
+        <?php if(isset($success)): ?>
+        <div id="success" class="z-50 flex bg-glassmorphism fixed top-0 left-0  h-screen w-screen pt-56 justify-center">
+            <div class="bg-white1 flex flex-col justify-between h-48 w-90 border border-black1 rounded-t-lg">
+                <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
+                    <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Account created</span>
+                    <button class="bg-red1 h-full w-10 rounded" onClick="hide('success'); enableScroll();">X</button>
+                </div>
+            
+                <div class="h-5/6 flex flex-col justify-center items-center  p-4 ">
+                    <p class="font-synemed text-black">Account <span class="text-green1">successfully</span> created,</p>
+                    <p class="font-synemed mb-3"></p>
+                    <p class="text-2xl font-synereg text-grey2">=)</p>
+                </div>
+            </div>
+        </div>
+        <?php elseif(isset($idExists)): ?>
+            <div id="idExists" class="z-50 flex bg-glassmorphism fixed top-0 left-0  h-screen w-screen pt-56 justify-center">
+                <div class="bg-white1 flex flex-col justify-between h-48 w-90 border border-black1 rounded-t-lg">
+                    <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
+                        <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Ticket Sent</span>
+                        <button class="bg-red1 h-full w-10 rounded" onClick="hide('idExists'); enableScroll();">X</button>
+                    </div>
+                
+                    <div class="h-5/6 flex flex-col justify-center items-center  p-4 ">
+                        <p class="font-synemed text-black">Your concern was <span class="text-green1">successfully</span> sent to us,</p>
+                        <p class="font-synemed mb-3">please wait for an email for our response.</p>
+                        <p class="text-2xl font-synereg text-grey2">=)</p>
+                    </div>
+                </div>
+            </div>
+        <?php elseif(isset($emailExists)): ?>
+            <div id="emailExists" class="z-50 flex bg-glassmorphism fixed top-0 left-0  h-screen w-screen pt-56 justify-center">
+                <div class="bg-white1 flex flex-col justify-between h-48 w-90 border border-black1 rounded-t-lg">
+                    <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
+                        <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Ticket Sent</span>
+                        <button class="bg-red1 h-full w-10 rounded" onClick="hide('emailExists'); enableScroll();">X</button>
+                    </div>
+                
+                    <div class="h-5/6 flex flex-col justify-center items-center  p-4 ">
+                        <p class="font-synemed text-black">Your concern was <span class="text-green1">successfully</span> sent to us,</p>
+                        <p class="font-synemed mb-3">please wait for an email for our response.</p>
+                        <p class="text-2xl font-synereg text-grey2">=)</p>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
 
         <div class="relative block w-full h-[40rem] mt-12">
-
+            
             <h1 class="text-3xl font-synemed mb-12">Create User Account</h1>
 
-            <div class="flex w-[60%] h-[90%] border border-black  rounded-2xl mx-auto p-6 pl-8">
-
+            <form method="POST" action="/admin-accounts" class="flex w-[60%] h-[90%] border border-black  rounded-2xl mx-auto p-6 pl-8">
+                <input type="hidden" name="encoded_accounts" value="<?= htmlspecialchars($encoded_accounts, ENT_QUOTES, 'UTF-8')?>">
+                <input type="hidden" name="encoded_students" value="<?= htmlspecialchars($encoded_students, ENT_QUOTES, 'UTF-8')?>">
+                <input type="hidden" name="encoded_professors" value="<?= htmlspecialchars($encoded_professors, ENT_QUOTES, 'UTF-8')?>">
+                
                 <div class="block w-[70%] h-full mx-auto">
 
                     <h1 class="text-grey2 mt-[5%]">User Type</h1>
-                    <select class="text-sm h-10 w-1/3 pl-4 border border-black rounded-lg relative mb-2 bg-blue2" name="category" id="reason" placeholder="Select Category" required>
+                    <select name="account_type" class="text-sm h-10 w-1/3 pl-4 border border-black rounded-lg relative mb-2 bg-blue2" name="category" id="reason" placeholder="Select Category" required>
                         <option class="bg-white2" value="">Select User Type:</option>
                         <option class="bg-white2" value="account">Admin</option>
                         <option class="bg-white2" value="rooms">Professor</option>
@@ -96,29 +150,28 @@
                     
                     <h1 class="text-grey2 mt-[5%] mt-4">Name</h1>
                     <div class="flex">
-                        <input type="text" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="First Name"></input>
-                        <input type="text" class="ml-4 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Last Name"></input>
+                        <input name="f_name" type="text" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="First Name" required></input>
+                        <input name="l_name" type="text" class="ml-4 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Last Name" required></input>
                     </div>
 
                     <h1 class="text-grey2 mt-[5%] mt-4">School number</h1>
-                    <input type="text" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="ID number"></input>
+                    <input name="school_id" type="number" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="ID number" required></input>
 
                     <h1 class="text-grey2 mt-[5%] mt-4">Email</h1>
-                    <input type="text" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Email"></input>
+                    <input name="email" type="email" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Email" required></input>
                     
                     <h1 class="text-grey2 mt-[5%] mt-4">Set Password</h1>
                     <div class="flex">
-                        <input type="text" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Password"></input>
-                        <input type="text" class="ml-4 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Confirm Password"></input>
+                        <input name="password" type="text" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Password" required></input>
+                        <input name="c_password" type="text" class="ml-4 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Confirm Password" required></input>
                     </div>
                 </div>
 
                 <div class="block w-[30%] h-full mx-auto">
-                    <button class="mx-auto border border-black rounded-lg w-full h-10 mt-8 bg-blue3 text-white">Activate Account</button>
-                    <button class="mx-auto border border-black rounded-lg w-full h-10 mt-96 bg-orange1 text-black1">Create Account</button>
+                    <button type="submit" class="mx-auto border border-black rounded-lg w-full h-10 mt-96 bg-orange1 text-black1">Create Account</button>
                 </div>
                 
-            </div>
+            </form>
         </div>
 
     </div>

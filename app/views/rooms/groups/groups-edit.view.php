@@ -4,7 +4,11 @@
     <?php view('partials/nav.view.php')?>
     
     <main class="flex flex-col h-[50rem] w-[87.5rem] mt-20">
-        <?= $grouped ?>
+        <?php dd($groups);?>
+
+        <?php foreach($groups as $group): ?>
+            <?php dd($group); ?>
+        <?php endforeach; ?>
     </main>
 
 

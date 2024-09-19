@@ -20,11 +20,18 @@ if ($_SESSION['user']['account_type'] === "admin") {
             $professors[] = $account;
         }
     }
+
+    $encoded_accounts = json_encode($accounts);
+    $encoded_students = json_encode($students);
+    $encoded_professors = json_encode($professors);
     
     view('admin/accounts/admin-accounts.view.php', [
         'accounts' => $accounts,
         'students' => $students,
         'professors' => $professors,
+        'encoded_accounts' => $encoded_accounts,
+        'encoded_students' => $encoded_students,
+        'encoded_professors' => $encoded_professors,
     ]);
 
 } else {
