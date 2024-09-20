@@ -6,51 +6,69 @@
     <div class="block w-full h-fit p-12 min-w-[75rem]">
         <h1 class="font-synebold text-black text-3xl">Ticket ID:</h1>
 
-        <select class="text-sm h-10 w-1/6 pl-4 border border-black rounded-xl relative mb-2 bg-blue2 mt-12" name="category" id="reason" placeholder="Select Category" required>
-            <option class="bg-white2" value="">Change Status:</option>
-            <option class="bg-white2" value="account">Pending</option>
-            <option class="bg-white2" value="rooms">Solved</option>
-            <option class="bg-white2" value="groups">Unresolved</option>
-        </select>
+        <div class=" relative text-sm h-10 w-1/6 mb-2 mt-12">
+            <div onclick="toggle('statusDD');" class="relative z-50 <?php echo ($ticket['status'] == 'pending') ? 'bg-orange1' : (($ticket['status'] == 'solved') ? 'bg-green-500' : 'bg-red1');?> group border border-black rounded-xl  flex justify-evenly items-center h-full w-full">
+                <button class="group-hover:block  hidden h-full w-4/5 text-white1 text-lg">Change Status:</button>
+                <button class="group-hover:hidden h-full w-4/5 text-white1 text-lg"><?= ucfirst($ticket['status']) ?></button>
+                <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white1"></div>
+            </div>
+            
+            <div id="statusDD" class="bg-white1 hidden absolute z-40 top-6 flex flex-col w-full border border-black1 rounded">
+                <form method="POST" action="/admin-view-ticket">
+                    <input type="hidden" name="solved" value="solved">
+                    <input type="hidden" name="ticket_id" value="<?= $_GET['id'] ?>">
+                    <button type="submit" class="h-full w-full text-lg pt-4 pb-2 border border-b-black1 text-green-500">Solved</button>
+                </form>
+                <form method="POST" action="/admin-view-ticket" class="">
+                    <input type="hidden" name="unresolved" value="unresolved">
+                    <input type="hidden" name="ticket_id" value="<?= $_GET['id'] ?>">
+                    <button type="submit" class="h-full w-full text-lg p-2 border border-b-black1 text-red1">Unresolved</button>
+                </form>
+                <form method="POST" action="/admin-view-ticket">
+                    <input type="hidden" name="pending" value="pending">
+                    <input type="hidden" name="ticket_id" value="<?= $_GET['id'] ?>">
+                    <button type="submit" class="h-full w-full text-lg p-2 text-orange2">Pending</button>
+                </form>
+            </div>
+        </div>
 
         <div class="w-[70%] h-fit border border-black1 rounded-2xl p-6 mt-12">
 
             <h1 class="font-synemed text-grey2 mt-2">Category</h1>
-            <h1 class="font-synebold text-black1 text-2xl">Account</h1>
+            <h1 class="font-synebold text-black1 text-2xl"><?= ucfirst($ticket['category']) ?></h1>
 
             <div class="flex mt-12">
                 <div class="w-1/3 block">        
                     <h1 class="font-synemed text-grey2">ID Number</h1>
-                    <h1 class="font-synebold text-black1 text-2xl">1234567890</h1>
+                    <h1 class="font-synebold text-black1 text-2xl"><?= $ticket['school_id'] ?></h1>
                 </div>
                 <div class="block">        
                     <h1 class="font-synemed text-grey2">Email</h1>
-                    <h1 class="font-synebold text-black1 text-2xl">studentEmail@student.fatima.edu.ph</h1>
+                    <h1 class="font-synebold text-black1 text-2xl"><?= $ticket['email'] ?></h1>
                 </div>
             </div>
             
             <div class="flex mt-12">
                 <div class="w-1/3 block">        
                     <h1 class="font-synemed text-grey2">First Name</h1>
-                    <h1 class="font-synebold text-black1 text-2xl">John</h1>
+                    <h1 class="font-synebold text-black1 text-2xl"><?= $ticket['f_name'] ?></h1>
                 </div>
                 <div class="block">        
                     <h1 class="font-synemed text-grey2">Last Name</h1>
-                    <h1 class="font-synebold text-black1 text-2xl">Doe</h1>
+                    <h1 class="font-synebold text-black1 text-2xl"><?= $ticket['l_name'] ?></h1>
                 </div>
             </div>
 
             
             <h1 class="font-synemed text-grey2 mt-12">Timestamp</h1>
-            <h1 class="font-synebold text-black1 text-2xl">yesyes</h1>
+            <h1 class="font-synebold text-black1 text-2xl"><?= $ticket['ticket_date'] ?></h1>
 
             <h1 class="font-synemed text-grey2 mt-12">Message</h1>
             <div class="w-[70%] h-fit border border-black1 rounded-2xl p-6 mb-6 mt-4">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p><?= $ticket['message'] ?></p>
             </div>
-
         </div>
-
-
     </div>
+
+    <script src="assets/js/shared-scripts.js"></script>
 </body>

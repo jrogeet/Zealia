@@ -162,7 +162,7 @@
 
 
     </script>
-    <script src="assets/js/edit-groups.js"></script>
+    <!-- <script src="assets/js/edit-groups.js"></script> -->
     <script src="assets/js/shared-scripts.js"></script>
 </body>
 </html>

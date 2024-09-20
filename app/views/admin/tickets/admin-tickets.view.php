@@ -31,36 +31,27 @@
             </thead>
             <tbody>
                 <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                <tbody id="rcAccs"> 
+                <tbody id="rcAccs">
+                    <?php foreach($pending as $each_pending): ?>
                     <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-view-ticket" class="bg-orange1 text-black1 px-4 rounded-sm">Pending</a></td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">3</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Account</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Forgot...</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Nikocado</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Abogado</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">1234</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">nfabogado@student.fatima.edu.ph</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2024-09-14 14:36</td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-view-ticket?id=<?= $each_pending['ticket_id'] ?>" class="bg-orange1 text-black1 px-4 rounded-sm">Pending</a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><a href="/admin-view-ticket?id=<?= $each_pending['ticket_id'] ?>"><?= $each_pending['ticket_id'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><a href="/admin-view-ticket?id=<?= $each_pending['ticket_id'] ?>"><?= $each_pending['category'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_pending['ticket_id'] ?>"><?= $each_pending['message'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_pending['ticket_id'] ?>"><?= $each_pending['f_name'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_pending['ticket_id'] ?>"><?= $each_pending['l_name'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_pending['ticket_id'] ?>"><?= $each_pending['school_id'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_pending['ticket_id'] ?>"><?= $each_pending['email'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><a href="/admin-view-ticket?id=<?= $each_pending['ticket_id'] ?>"><?= $each_pending['ticket_date'] ?></a></td>
                     </tr>
-                    <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-view-ticket" class="bg-orange1 text-black1 px-4 rounded-sm">Pending</a></td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">4</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Account</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Forgot...</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Nikocado</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Abogado</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">1234</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">nfabogado@student.fatima.edu.ph</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2024-09-14 14:36</td>
-                    </tr>
+                    <?php endforeach; ?>
                     <!-- Add more rows as needed -->
                 </tbody>
             </tbody>
         </table>
 
         <div class="relative flex mb-4 mt-24">
-            <h1 class="mx-auto font-synemed text-grey2 ml-0 text-2xl">Pending Tickets</h1>
+            <h1 class="mx-auto font-synemed text-grey2 ml-0 text-2xl">Solved Tickets</h1>
             <div class="flex w-fit mr-6">
                 <input type="text" class="border border-black rounded-lg mx-auto bg-white1 pl-4">
                 <button class="mx-auto border border-grey2 rounded-lg bg-orange1 w-28 ml-4 text-black1">Search</button>
@@ -84,17 +75,19 @@
             <tbody>
                 <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
                 <tbody id="rcAccs"> 
+                    <?php foreach($solved as $each_solved): ?>
                     <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-view-ticket" class="bg-green1 text-black1 px-4 rounded-sm">Solved</a></td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Account</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Forgot...</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Nikocado</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Abogado</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">1234</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">nfabogado@student.fatima.edu.ph</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2024-09-14 14:36</td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-view-ticket?id=<?= $each_solved['ticket_id'] ?>" class="bg-green1 text-black1 px-4 rounded-sm">Solved</a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><a href="/admin-view-ticket?id=<?= $each_solved['ticket_id'] ?>"><?= $each_solved['ticket_id'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><a href="/admin-view-ticket?id=<?= $each_solved['ticket_id'] ?>"><?= $each_solved['category'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_solved['ticket_id'] ?>"><?= $each_solved['message'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_solved['ticket_id'] ?>"><?= $each_solved['f_name'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_solved['ticket_id'] ?>"><?= $each_solved['l_name'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_solved['ticket_id'] ?>"><?= $each_solved['school_id'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_solved['ticket_id'] ?>"><?= $each_solved['email'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><a href="/admin-view-ticket?id=<?= $each_solved['ticket_id'] ?>"><?= $each_solved['ticket_date'] ?></a></td>
                     </tr>
+                    <?php endforeach; ?>
                     <!-- Add more rows as needed -->
                 </tbody>
             </tbody>
@@ -125,17 +118,19 @@
             <tbody>
                 <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
                 <tbody id="rcAccs"> 
+                    <?php foreach($unresolved as $each_unresolved): ?>
                     <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="#" class="bg-red1 text-white1 px-4 rounded-sm">Unresolved</a></td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">1</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Account</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Forgot...</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Nikocado</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">Abogado</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">1234</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">nfabogado@student.fatima.edu.ph</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">2024-09-14 14:36</td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><a href="/admin-view-ticket?id=<?= $each_unresolved['ticket_id'] ?>" class="bg-red1 text-white1 px-4 rounded-sm">Unresolved</a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><a href="/admin-view-ticket?id=<?= $each_unresolved['ticket_id'] ?>"><?= $each_unresolved['ticket_id'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><a href="/admin-view-ticket?id=<?= $each_unresolved['ticket_id'] ?>"><?= $each_unresolved['category'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_unresolved['ticket_id'] ?>"><?= $each_unresolved['message'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_unresolved['ticket_id'] ?>"><?= $each_unresolved['f_name'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_unresolved['ticket_id'] ?>"><?= $each_unresolved['l_name'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_unresolved['ticket_id'] ?>"><?= $each_unresolved['school_id'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate"><a href="/admin-view-ticket?id=<?= $each_unresolved['ticket_id'] ?>"><?= $each_unresolved['email'] ?></a></td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><a href="/admin-view-ticket?id=<?= $each_unresolved['ticket_id'] ?>"><?= $each_unresolved['ticket_date'] ?></a></td>
                     </tr>
+                    <?php endforeach; ?>
                     <!-- Add more rows as needed -->
                 </tbody>
             </tbody>
