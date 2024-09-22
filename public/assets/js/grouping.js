@@ -109,7 +109,6 @@ function groupRoles(role){ // add user to group
         case des:
             roleName = 'System Designer';
             break;
-        
 
     }
 
@@ -154,26 +153,26 @@ function display(){ //MOSTLY
     
     for (let group of groups) {// Iterate over the groups
     
-    let groupElement = document.createElement('div');// Create a new HTML element for the group
-    groupElement.className = "group";
-    
-    for (let user of group) {// Iterate over the users in the group
+        let groupElement = document.createElement('div');// Create a new HTML element for the group
+        groupElement.className = "group";
         
-        let userElement = document.createElement('p');// Create a new HTML element for the user
-        userElement.textContent = [`User${user[1]} ${user[2]}`];
+        for (let user of group) {// Iterate over the users in the group
+            
+            let userElement = document.createElement('p');// Create a new HTML element for the user
+            userElement.textContent = [`User${user[1]} ${user[2]}`];
+            
+            
+            groupElement.appendChild(userElement);// Insert the user element into the group element
+        }
+        if (group.length < 4){
+            let userElement = document.createElement('p');// Create a new HTML element for the user
+            userElement.textContent = ['Empty slot'];
+            
+            groupElement.appendChild(userElement);// Insert the user element into the group element
+        }
         
         
-        groupElement.appendChild(userElement);// Insert the user element into the group element
-    }
-    if (group.length < 4){
-        let userElement = document.createElement('p');// Create a new HTML element for the user
-        userElement.textContent = ['Empty slot'];
-        
-        groupElement.appendChild(userElement);// Insert the user element into the group element
-    }
-    
-    
-    container.appendChild(groupElement);// Insert the group element into the container
+        container.appendChild(groupElement);// Insert the group element into the container
     }
 
 }

@@ -1,3 +1,5 @@
+// groupings.js yung gamit diba?
+
 const piPrio = ['R', 'A', 'S', 'C', 'E', 'I']; //index 0 is lowest rank
 const writerPrio = ['R', 'E', 'S', 'C', 'A', 'I'];
 const devPrio = ['S', 'A', 'E', 'C', 'I', 'R'];
