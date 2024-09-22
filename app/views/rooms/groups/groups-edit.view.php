@@ -6,13 +6,15 @@
     <!-- groups -->
     <div class="relative flex flex-wrap w-full h-fit p-6 mt-24 justify-center" id="container">
     </div>
-    <form>
-        <button class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-synemed h-8 rounded-lg mb-16">Submit</button>
+    <form action="/groups" method="post">
+        <input type="hidden" name="grouped" value="<?php echo $grouped; ?>">
+        <button href="/room" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-synemed h-8 rounded-lg mb-16">Submit</button>
     </form>
 
 
     <?php view('partials/footer.view.php')?>
     <script>
+        let jsonString
         const div = document.getElementById('container');
         
         var divContent = '';
@@ -47,39 +49,44 @@
             start-=1 // to turn it from group number to group index
             end-=1
 
-            // console.log('path:', name, start, end);
-            // console.log('initial starting group:',groups[start]);
+            if(start == end){
+                console.log("same group");
+            }else{
+                // console.log('path:', name, start, end);
+                // console.log('initial starting group:',groups[start]);
 
-            for (let member of groups[start]){
-                if(member.includes(name)){
-                    // console.log('happens');
-                    // console.log('member index:',memInd);
-                    user = groups[start][memInd];
-                    // console.log('user:',user);
-                    break;
+                for (let member of groups[start]){
+                    if(member.includes(name)){
+                        // console.log('happens');
+                        // console.log('member index:',memInd);
+                        user = groups[start][memInd];
+                        // console.log('user:',user);
+                        break;
+                    }
+                    memInd+=1;
                 }
-                memInd+=1;
+
+                trash = groups[start].splice(memInd,1); //removes user from old group
+                // console.log('post removal starting group:',groups[start]);
+
+                groups[end].push(user);
+                let oldG = start+1;
+                let newG = end+1;
+                let oldID = `${name} ${oldG}`;
+                let newID = `${name} ${newG}`;
+                // console.log(oldID);
+                // console.log(newID);
+                // console.log(`test: ${name} ${start}`);
+
+                // run twice; one for draggable and another for dropDown
+                let el = document.getElementById(oldID);
+                el.id = newID;
+                el = document.getElementById(oldID);
+                el.id = newID;
+                // console.log('new group:',groups[end]);
+                // console.log(groups);
+                jsonString = groups;
             }
-
-            trash = groups[start].splice(memInd,1); //removes user from old group
-            // console.log('post removal starting group:',groups[start]);
-
-            groups[end].push(user);
-            let oldG = start+1;
-            let newG = end+1;
-            let oldID = `${name} ${oldG}`;
-            let newID = `${name} ${newG}`;
-            // console.log(oldID);
-            // console.log(newID);
-            // console.log(`test: ${name} ${start}`);
-
-            // run twice; one for draggable and another for dropDown
-            let el = document.getElementById(oldID);
-            el.id = newID;
-            el = document.getElementById(oldID);
-            el.id = newID;
-            // console.log('new group:',groups[end]);
-            // console.log(groups);
 
         }
 
@@ -152,6 +159,8 @@
                 endGroup = index
                 changeGroup(name,inGroup,endGroup)
                 console.log(groups);
+                
+                jsonString = groups;
             });
         });
 
@@ -176,6 +185,7 @@
 
 
                 console.log(groups);
+                jsonString = groups;
             })
         });
         
