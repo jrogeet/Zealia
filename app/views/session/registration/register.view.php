@@ -21,7 +21,7 @@
                     <p class="text-center text-sm text-red-600 my-1"><?= $errors['names'] ?></p>
                 <?php endif; ?>
 
-            <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-2 bg-white1" placeholder="Student number" type="number" name="school_id" id="school_id" required></input></br>
+            <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-2 bg-white1" placeholder="School number" type="number" name="school_id" id="school_id" required></input></br>
             <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-2 bg-white1" placeholder="Fatima Email" type="email" name="email" required></input></br>
             <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-2 bg-white1" placeholder="Password" type="password" name="password" required></input></br>
                 

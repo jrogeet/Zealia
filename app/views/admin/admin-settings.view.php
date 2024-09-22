@@ -6,7 +6,7 @@
     <div class="relative flex w-full h-fit py-12 px-6 min-w-[75rem]">
 
         <div class="relative block w-[70%] h-[40rem] mt-2">
-            <h1 class="text-3xl font-synemed mb-12">Edit User Information</h1>
+            <h1 class="text-3xl font-synemed mb-12">Change Admin Information</h1>
 
             <div class="flex w-[80%] h-[90%] border border-black  rounded-2xl ml-12 p-6 pl-8">
                 <div class="block w-[70%] h-full mx-auto">

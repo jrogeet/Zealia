@@ -19,20 +19,22 @@
         var groupContent = '';
 
         var groups = <?php echo json_encode($groups); ?>;
-        groups = [[["Miller James Carlo Pablo", "ESTJ", "Leader"], //nag lagay ako new groups kasi nag iinterfere ung same names bale need natin talaga full name sa groups for reliability ng adjustments, same name = conflicts
-                ["Thomas Barbara", "ENFJ", "Analyst"],
-                ["Jones David", "ISTJ", "Programmer"],
-                ["Johnson Jane", "INTJ", "Designer"]],
+        
 
-                [["r John", "ENFP", "Leader"],
-                ["e Maria", "INFJ", "Analyst"],
-                ["n Michael", "ISTP", "Programmer"],
-                ["z Emily", "ENTP", "Designer"]],
+        // groups = [[["Miller James Carlo Pablo", "ESTJ", "Leader"], //nag lagay ako new groups kasi nag iinterfere ung same names bale need natin talaga full name sa groups for reliability ng adjustments, same name = conflicts
+        //         ["Thomas Barbara", "ENFJ", "Analyst"],
+        //         ["Jones David", "ISTJ", "Programmer"],
+        //         ["Johnson Jane", "INTJ", "Designer"]],
 
-                [["Smith John", "ENFP", "Leader"],
-                ["Garcia Maria", "INFJ", "Analyst"],
-                ["Brown Michael", "ISTP", "Programmer"],
-                ["Davis Emily", "ENTP", "Designer"]]];
+        //         [["r John", "ENFP", "Leader"],
+        //         ["e Maria", "INFJ", "Analyst"],
+        //         ["n Michael", "ISTP", "Programmer"],
+        //         ["z Emily", "ENTP", "Designer"]],
+
+        //         [["Smith John", "ENFP", "Leader"],
+        //         ["Garcia Maria", "INFJ", "Analyst"],
+        //         ["Brown Michael", "ISTP", "Programmer"],
+        //         ["Davis Emily", "ENTP", "Designer"]]];
                     
 
         console.log('initial groups:',groups);
