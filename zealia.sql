@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2024 at 03:15 AM
+-- Generation Time: Sep 22, 2024 at 06:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,52 +52,122 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`school_id`, `email`, `password`, `l_name`, `f_name`, `account_type`, `reg_date`, `reset_token_hash`, `reset_token_expires_at`, `account_activation_hash`, `R`, `I`, `A`, `S`, `E`, `C`, `result`) VALUES
-('00000000000', 'ambitionxmbti@gmail.com', '$2y$10$vEeCTtZ1BgAGC.wCCy/YaeGsxh6uFeAq8q2n/hkr4Y/U9oziCSnYi', 'Admin', 'Super', 'admin', '2024-04-21 05:50:26', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('01210011110', 'juanrogelio@student.fatima.edu.ph', '$2y$10$RWqGnR59Q7xVj4MO/x2Hc.vhuOOO4T4PaqUR1cBgCx398eSXNnu.C', 'Lean', 'Joanma', 'student', '2024-05-21 10:21:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('01210011111', 'juarogeliioturkesa@student.fatima.edu.ph', '$2y$10$dwrryvCnsTs.0WCvEj1WLutA/buxLeL83zEjUh5r7RgegnP9m3xTi', 'Turkesa', 'Juan Rogelio', 'student', '2024-05-22 01:54:08', NULL, NULL, NULL, '3', '7', '1', '5', '3', '5', 'ICS'),
-('01210011113', 'sampleprofessor@fatima.edu.ph', '$2y$10$0qe/G8.WDZM6xmPoMoFG3./rf.VEkYxtLShuKrpGteeQgcqLVQC8q', 'Robart', 'Mozambique', 'professor', '2024-05-21 04:19:08', NULL, NULL, NULL, '3', '1', '2', '4', '3', '2', 'SER'),
-('01210011114', 'jmturqueza1114val@student.fatima.edu.ph', '$2y$10$A8uecM1zkl2xwRID4nXyHObabEJXgT1Azh4a53T6IUQV.fJxQQAXO', 'Turqueza', 'John Rogee', 'admin', '2024-09-05 09:00:01', '4d25d6400875dc23b008d70c83c4c1c42332805c17b6b38d7eb5d5ff5af0fb10', '2024-09-17 14:24:13', NULL, '2', '3', '5', '3', '2', '4', 'ACI'),
-('01210011115', 'jmturqueza1115@student.fatima.edu.ph', '$2y$10$r5BfLqCrCES4VmNkOxC9LO20BMrIv52qiSE88bNwICBdcrt7BBYoS', 'Turquoise', 'Jean Regine', 'student', '2024-09-09 05:59:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('01210011119', 'instructornamez@fatima.edu.ph', '$2y$10$.Ko3xuNRPfKapMHVCdtZMO5.NSuKnlmPLRITo8V3iv5zNRSgmsczC', 'Name', 'Instructor', 'professor', '2024-09-18 01:26:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('0121001113', 'jmturqueza2@student.fatima.edu.ph', '$2y$10$D7B/Uzkrr/U6oFuc/g0Veuhj8BlWvrEBNRCCK3m6mJ6T9m1MrMpxS', 'Torquoise', 'Juan Rogelio', 'student', '2024-09-05 05:17:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('01234567890', 'user10@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Martinez', 'Laura', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('11234567890', 'user11@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Hernandez', 'Robert', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('12345678901', 'user1@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Smith', 'John', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('13234567890', 'user13@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Gonzalez', 'William', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('14234567890', 'user14@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Wilson', 'Linda', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('15234567890', 'user15@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Anderson', 'Joseph', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('16234567890', 'user16@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Thomas', 'Barbara', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('17234567890', 'user17@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Taylor', 'Charles', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('18234567890', 'user18@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Moore', 'Susan', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('19234567890', 'user19@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Jackson', 'Christopher', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, '2', '7', '3', '1', '5', '7', 'ICE'),
-('20234567890', 'user20@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Martin', 'Karen', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, '5', '5', '2', '2', '2', '5', 'RIC'),
-('21234567890', 'user21@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Lee', 'Matthew', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('22234567890', 'user22@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Perez', 'Nancy', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('23234567890', 'user23@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'White', 'Joshua', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('23456789012', 'user2@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Johnson', 'Jane', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('24234567890', 'user24@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Harris', 'Betty', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('25234567890', 'user25@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Sanchez', 'Steven', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('26234567890', 'user26@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Clark', 'Donna', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('27234567890', 'user27@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Ramirez', 'Kevin', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('28234567890', 'user28@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Lewis', 'Sandra', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('30234567890', 'user30@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Walker', 'Ashley', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('31234567890', 'user31@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Young', 'Brian', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, '1', '7', '6', '1', '7', '7', 'ICE'),
-('32234567890', 'user32@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Allen', 'Dorothy', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('33234567890', 'user33@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'King', 'Ronald', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, '1', '7', '7', '2', '7', '3', 'AEI'),
-('34234567890', 'user34@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Wright', 'Cynthia', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, '1', '2', '7', '3', '1', '5', 'ICE'),
-('34567890123', 'user3@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Williams', 'Michael', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('35234567890', 'user35@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Scott', 'Jason', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('36234567890', 'user36@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Torres', 'Rebecca', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('37234567890', 'user37@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Nguyen', 'Gary', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('38234567890', 'user38@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Hill', 'Sharon', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('39234567890', 'user39@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Flores', 'Frank', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('40234567890', 'user40@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Green', 'Michelle', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('45678901234', 'user4@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Brown', 'Emily', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('56789012345', 'user5@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Jones', 'David', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, '7', '7', '2', '4', '7', '3', 'IRE'),
-('67890123456', 'user6@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Garcia', 'Sarah', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, '2', '6', '5', '2', '5', '2', 'AEI'),
-('78901234567', 'user7@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Miller', 'James', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('89012345678', 'user8@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Davis', 'Jessica', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('90123456789', 'user9@student.fatima.edu.ph', '$2y$10$abcdefghijklmnopqrstuv', 'Rodriguez', 'Daniel', 'student', '2024-05-22 00:04:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+('01210011114', 'jmturqueza1114val@student.fatima.edu.ph', '$2y$10$6WT4Ev44YyuyiMR/8aXfT.C0.02U4IZl25S7zYhlDfGx5vuao/uoO', 'Turqueza', 'John Rogee', 'professor', '2024-09-20 14:13:07', NULL, NULL, NULL, '3', '3', '5', '2', '2', '3', 'AIR'),
+('12345678901', 'john.doe@student.fatima.edu.ph', '', 'Doe', 'John', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '3', '4', '6', '2', '0', '1', 'AIR'),
+('12345678902', 'jane.smith@student.fatima.edu.ph', '', 'Smith', 'Jane', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '4', '6', '2', '1', '0', '3', 'CAI'),
+('12345678903', 'bob.jones@student.fatima.edu.ph', '', 'Jones', 'Bob', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '6', '4', '5', '2', '1', '0', 'RIA'),
+('12345678904', 'emma.james@student.fatima.edu.ph', '', 'James', 'Emma', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '1', '2', '6', '4', '5', 'SCE'),
+('12345678905', 'alice.brown@student.fatima.edu.ph', '', 'Brown', 'Alice', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '1', '5', '0', '6', '4', '2', 'EIS'),
+('12345678906', 'michael.davis@student.fatima.edu.ph', '', 'Davis', 'Michael', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '5', '4', '6', '2', '1', '0', 'ARI'),
+('12345678907', 'sarah.wilson@student.fatima.edu.ph', '', 'Wilson', 'Sarah', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '1', '2', '5', '4', '6', 'SEC'),
+('12345678908', 'tom.taylor@student.fatima.edu.ph', '', 'Taylor', 'Tom', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '4', '5', '2', '6', '1', '0', 'SIR'),
+('12345678909', 'emily.clark@student.fatima.edu.ph', '', 'Clark', 'Emily', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '6', '2', '4', '0', '5', '1', 'RAE'),
+('12345678910', 'george.martin@student.fatima.edu.ph', '', 'Martin', 'George', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '4', '5', '2', '1', '0', '6', 'CIR'),
+('12345678911', 'chris.evans@student.fatima.edu.ph', '', 'Evans', 'Chris', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '4', '5', '1', '6', '0', '2', 'ISR'),
+('12345678912', 'anna.kim@student.fatima.edu.ph', '', 'Kim', 'Anna', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '6', '0', '4', '1', '5', '2', 'EAR'),
+('12345678913', 'oliver.lewis@student.fatima.edu.ph', '', 'Lewis', 'Oliver', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '6', '5', '1', '0', '4', '2', 'RIE'),
+('12345678914', 'lucy.thomas@student.fatima.edu.ph', '', 'Thomas', 'Lucy', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '4', '5', '6', '1', '0', '2', 'CIA'),
+('12345678915', 'jack.johnson@student.fatima.edu.ph', '', 'Johnson', 'Jack', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '1', '0', '5', '6', '4', '2', 'ESA'),
+('12345678916', 'olivia.white@student.fatima.edu.ph', '', 'White', 'Olivia', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '4', '6', '5', '1', '2', 'AIS'),
+('12345678917', 'liam.harris@student.fatima.edu.ph', '', 'Harris', 'Liam', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '5', '1', '6', '4', '0', '2', 'RSA'),
+('12345678918', 'ella.moore@student.fatima.edu.ph', '', 'Moore', 'Ella', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '6', '2', '1', '5', '4', 'EIC'),
+('12345678919', 'noah.wright@student.fatima.edu.ph', '', 'Wright', 'Noah', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '5', '6', '1', '0', '4', '2', 'IRE'),
+('12345678920', 'sophia.hall@student.fatima.edu.ph', '', 'Hall', 'Sophia', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '6', '1', '5', '2', '4', '0', 'REA'),
+('12345678921', 'mason.king@student.fatima.edu.ph', '', 'King', 'Mason', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '1', '0', '5', '6', '4', '2', 'SCA'),
+('12345678922', 'mia.scott@student.fatima.edu.ph', '', 'Scott', 'Mia', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '5', '1', '6', '4', '2', 'SIE'),
+('12345678923', 'james.green@student.fatima.edu.ph', '', 'Green', 'James', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '1', '2', '4', '6', '5', 'ERC'),
+('12345678924', 'isabella.baker@student.fatima.edu.ph', '', 'Baker', 'Isabella', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '5', '6', '4', '1', '2', 'AIS'),
+('12345678925', 'logan.adams@student.fatima.edu.ph', '', 'Adams', 'Logan', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '1', '5', '2', '6', '4', 'CEA'),
+('12345678926', 'grace.carter@student.fatima.edu.ph', '', 'Carter', 'Grace', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '5', '6', '4', '0', '2', '1', 'AIR'),
+('12345678927', 'benjamin.morris@student.fatima.edu.ph', '', 'Morris', 'Benjamin', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '5', '6', '1', '4', '2', '0', 'SIR'),
+('12345678928', 'zoe.murphy@student.fatima.edu.ph', '', 'Murphy', 'Zoe', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '1', '2', '6', '4', '5', 'CSE'),
+('12345678929', 'lucas.cooper@student.fatima.edu.ph', '', 'Cooper', 'Lucas', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '6', '5', '4', '0', '1', '2', 'IRA'),
+('12345678930', 'charlotte.reed@student.fatima.edu.ph', '', 'Reed', 'Charlotte', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '4', '5', '1', '6', '2', '0', 'SIR'),
+('12345678931', 'ella.lee@student.fatima.edu.ph', '', 'Lee', 'Ella', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '6', '5', '4', '1', '0', '2', 'RIC'),
+('12345678932', 'ethan.martin@student.fatima.edu.ph', '', 'Martin', 'Ethan', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '4', '5', '6', '0', '1', '2', 'CIA'),
+('12345678933', 'emma.jackson@student.fatima.edu.ph', '', 'Jackson', 'Emma', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '6', '0', '4', '1', '5', '2', 'ERA'),
+('12345678934', 'jackson.roberts@student.fatima.edu.ph', '', 'Roberts', 'Jackson', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '1', '2', '6', '5', '4', 'SEC'),
+('12345678935', 'olivia.morgan@student.fatima.edu.ph', '', 'Morgan', 'Olivia', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '5', '6', '4', '1', '2', 'AIS'),
+('12345678936', 'liam.bennett@student.fatima.edu.ph', '', 'Bennett', 'Liam', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '1', '5', '6', '0', '4', '2', 'AIE'),
+('12345678937', 'lucy.gray@student.fatima.edu.ph', '', 'Gray', 'Lucy', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '6', '5', '4', '0', '1', '2', 'RIA'),
+('12345678938', 'noah.cook@student.fatima.edu.ph', '', 'Cook', 'Noah', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '6', '0', '5', '4', '1', '2', 'SRA'),
+('12345678939', 'sophie.wood@student.fatima.edu.ph', '', 'Wood', 'Sophie', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '5', '4', '6', '0', '1', '2', 'CIA'),
+('12345678940', 'william.jones@student.fatima.edu.ph', '', 'Jones', 'William', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '0', '2', '4', '6', '5', '1', 'SCE'),
+('12345678941', 'henry.collins@student.fatima.edu.ph', '', 'Collins', 'Henry', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '2', '5', '4', '0', '1', 'RAS'),
+('12345678942', 'amelia.jones@student.fatima.edu.ph', '', 'Jones', 'Amelia', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '5', '6', '1', '0', '4', '2', 'IRE'),
+('12345678943', 'daniel.bell@student.fatima.edu.ph', '', 'Bell', 'Daniel', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '4', '6', '1', '5', '0', '2', 'CIS'),
+('12345678944', 'chloe.anderson@student.fatima.edu.ph', '', 'Anderson', 'Chloe', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '2', '4', '1', '5', '0', 'RCE'),
+('12345678945', 'jacob.turner@student.fatima.edu.ph', '', 'Turner', 'Jacob', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '5', '6', '4', '0', '2', '1', 'AIR'),
+('12345678946', 'ava.hill@student.fatima.edu.ph', '', 'Hill', 'Ava', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '4', '6', '5', '0', '1', '2', 'SIA'),
+('12345678947', 'david.moore@student.fatima.edu.ph', '', 'Moore', 'David', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '0', '1', '2', 'RIC'),
+('12345678948', 'mila.young@student.fatima.edu.ph', '', 'Young', 'Mila', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '1', '4', '2', '5', '0', 'ERA'),
+('12345678949', 'ryan.wright@student.fatima.edu.ph', '', 'Wright', 'Ryan', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '4', '2', '1', '0', '6', '5', 'CAE'),
+('12345678950', 'sophie.bryant@student.fatima.edu.ph', '', 'Bryant', 'Sophie', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '1', '2', '5', '4', '0', 'RES'),
+('12345678951', 'jackson.mitchell@student.fatima.edu.ph', '', 'Mitchell', 'Jackson', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '1', '2', '6', '5', '4', 'SEC'),
+('12345678952', 'natalie.perry@student.fatima.edu.ph', '', 'Perry', 'Natalie', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '0', '1', '2', 'IRA'),
+('12345678953', 'lucas.davis@student.fatima.edu.ph', '', 'Davis', 'Lucas', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '4', '5', '2', '6', '1', '0', 'SIR'),
+('12345678954', 'emily.kelly@student.fatima.edu.ph', '', 'Kelly', 'Emily', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '1', '2', '0', 'RIA'),
+('12345678955', 'logan.cox@student.fatima.edu.ph', '', 'Cox', 'Logan', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '1', '6', '2', '5', '4', 'AEC'),
+('12345678956', 'sophia.edwards@student.fatima.edu.ph', '', 'Edwards', 'Sophia', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '4', '6', '5', '1', '2', 'AIS'),
+('12345678957', 'grace.morgan@student.fatima.edu.ph', '', 'Morgan', 'Grace', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '0', '5', '4', '1', '2', 'SRA'),
+('12345678958', 'benjamin.watson@student.fatima.edu.ph', '', 'Watson', 'Benjamin', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '0', '2', '1', 'IRA'),
+('12345678959', 'zoe.morris@student.fatima.edu.ph', '', 'Morris', 'Zoe', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '1', '5', '0', '6', '4', '2', 'EIS'),
+('12345678960', 'matthew.green@student.fatima.edu.ph', '', 'Green', 'Matthew', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '1', '0', '2', 'RIE'),
+('12345678961', 'amelia.jenkins@student.fatima.edu.ph', '', 'Jenkins', 'Amelia', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '5', '4', '6', '0', '1', '2', 'SCA'),
+('12345678962', 'oliver.patterson@student.fatima.edu.ph', '', 'Patterson', 'Oliver', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '5', '6', '4', '0', '1', '2', 'AIR'),
+('12345678963', 'lily.hughes@student.fatima.edu.ph', '', 'Hughes', 'Lily', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '4', '6', '5', '1', '2', 'AIS'),
+('12345678964', 'jackson.henderson@student.fatima.edu.ph', '', 'Henderson', 'Jackson', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '2', '4', '6', '5', '1', 'SEC'),
+('12345678965', 'grace.barnes@student.fatima.edu.ph', '', 'Barnes', 'Grace', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '4', '5', '2', '6', '1', '0', 'SIR'),
+('12345678966', 'michael.evans@student.fatima.edu.ph', '', 'Evans', 'Michael', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '1', '5', '0', '4', '2', 'EAR'),
+('12345678967', 'hannah.williams@student.fatima.edu.ph', '', 'Williams', 'Hannah', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '1', '5', '0', '4', '2', 'ERA'),
+('12345678968', 'noah.turner@student.fatima.edu.ph', '', 'Turner', 'Noah', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '4', '6', '1', '5', '2', '0', 'CIS'),
+('12345678969', 'amelia.carter@student.fatima.edu.ph', '', 'Carter', 'Amelia', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '2', '5', '4', '0', '1', 'RES'),
+('12345678970', 'jackson.robinson@student.fatima.edu.ph', '', 'Robinson', 'Jackson', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '5', '6', '4', '1', '2', '0', 'AIR'),
+('12345678971', 'lucy.bailey@student.fatima.edu.ph', '', 'Bailey', 'Lucy', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '4', '6', '5', '1', '2', 'AIS'),
+('12345678972', 'daniel.martin@student.fatima.edu.ph', '', 'Martin', 'Daniel', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '1', '2', '0', 'RIA'),
+('12345678973', 'ava.rogers@student.fatima.edu.ph', '', 'Rogers', 'Ava', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '4', '5', '6', '1', '0', '2', 'CIR'),
+('12345678974', 'lucas.sanders@student.fatima.edu.ph', '', 'Sanders', 'Lucas', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '1', '2', '0', 'RIA'),
+('12345678975', 'grace.mitchell@student.fatima.edu.ph', '', 'Mitchell', 'Grace', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '1', '2', '6', '4', '5', 'SEC'),
+('12345678976', 'liam.pierce@student.fatima.edu.ph', '', 'Pierce', 'Liam', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '4', '6', '5', '1', '2', 'AIS'),
+('12345678977', 'emily.ross@student.fatima.edu.ph', '', 'Ross', 'Emily', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '1', '5', '0', '4', '2', 'ERA'),
+('12345678978', 'jackson.richardson@student.fatima.edu.ph', '', 'Richardson', 'Jackson', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '1', '2', '0', 'RIC'),
+('12345678979', 'sophie.brooks@student.fatima.edu.ph', '', 'Brooks', 'Sophie', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '0', '5', '4', '1', '2', 'SRA'),
+('12345678980', 'lucas.perry@student.fatima.edu.ph', '', 'Perry', 'Lucas', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '4', '6', '2', '1', '0', '5', 'CIS'),
+('12345678981', 'sarah.reed@student.fatima.edu.ph', '', 'Reed', 'Sarah', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '0', '1', '2', 'RIA'),
+('12345678982', 'jack.thomas@student.fatima.edu.ph', '', 'Thomas', 'Jack', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '6', '4', '1', '2', '5', 'EIS'),
+('12345678983', 'amelia.cox@student.fatima.edu.ph', '', 'Cox', 'Amelia', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '4', '5', '1', '6', '2', '0', 'SIR'),
+('12345678984', 'daniel.davis@student.fatima.edu.ph', '', 'Davis', 'Daniel', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '5', '6', '1', '2', '4', 'AIS'),
+('12345678985', 'lucy.baker@student.fatima.edu.ph', '', 'Baker', 'Lucy', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '0', '2', '1', 'RIA'),
+('12345678986', 'jackson.williams@student.fatima.edu.ph', '', 'Williams', 'Jackson', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '1', '5', '0', '4', '2', 'ERA'),
+('12345678987', 'grace.hughes@student.fatima.edu.ph', '', 'Hughes', 'Grace', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '0', '5', '6', '4', '1', '2', 'AIS'),
+('12345678988', 'liam.morris@student.fatima.edu.ph', '', 'Morris', 'Liam', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '5', '4', '0', '1', '2', 'IRA'),
+('12345678989', 'lucas.cox@student.fatima.edu.ph', '', 'Cox', 'Lucas', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '4', '5', '6', '0', '2', '1', 'SIR'),
+('12345678990', 'sophie.watson@student.fatima.edu.ph', '', 'Watson', 'Sophie', 'student', '2024-09-22 15:55:51', NULL, NULL, NULL, '6', '1', '5', '0', '4', '2', 'SRA'),
+('12345678991', 'hannah.king@student.fatima.edu.ph', '', 'King', 'Hannah', 'student', '2024-09-22 15:56:56', NULL, NULL, NULL, '6', '0', '5', '4', '1', '2', 'SRA'),
+('12345678992', 'oliver.fisher@student.fatima.edu.ph', '', 'Fisher', 'Oliver', 'student', '2024-09-22 15:56:56', NULL, NULL, NULL, '6', '5', '4', '1', '2', '0', 'IRA'),
+('12345678993', 'emma.ward@student.fatima.edu.ph', '', 'Ward', 'Emma', 'student', '2024-09-22 15:56:56', NULL, NULL, NULL, '6', '1', '5', '0', '4', '2', 'ERA'),
+('12345678994', 'william.dixon@student.fatima.edu.ph', '', 'Dixon', 'William', 'student', '2024-09-22 15:56:56', NULL, NULL, NULL, '0', '1', '2', '6', '5', '4', 'SEC'),
+('12345678995', 'chloe.bell@student.fatima.edu.ph', '', 'Bell', 'Chloe', 'student', '2024-09-22 15:56:56', NULL, NULL, NULL, '5', '6', '4', '0', '2', '1', 'AIR'),
+('12345678996', 'lucas.russell@student.fatima.edu.ph', '', 'Russell', 'Lucas', 'student', '2024-09-22 15:56:56', NULL, NULL, NULL, '4', '5', '6', '1', '2', '0', 'SIR'),
+('12345678997', 'ava.walker@student.fatima.edu.ph', '', 'Walker', 'Ava', 'student', '2024-09-22 15:56:56', NULL, NULL, NULL, '6', '5', '4', '0', '1', '2', 'RIA'),
+('12345678998', 'jackson.cook@student.fatima.edu.ph', '', 'Cook', 'Jackson', 'student', '2024-09-22 15:56:56', NULL, NULL, NULL, '0', '4', '6', '5', '1', '2', 'AIS'),
+('12345678999', 'emma.martin@student.fatima.edu.ph', '', 'Martin', 'Emma', 'student', '2024-09-22 15:56:56', NULL, NULL, NULL, '4', '6', '1', '5', '0', '2', 'CIS'),
+('12345679000', 'sophia.james@student.fatima.edu.ph', '', 'James', 'Sophia', 'student', '2024-09-22 15:56:56', NULL, NULL, NULL, '6', '2', '5', '4', '1', '0', 'RES');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group_edit_history`
+--
+
+CREATE TABLE `group_edit_history` (
+  `id` int(11) NOT NULL,
+  `room_id` int(10) UNSIGNED NOT NULL,
+  `school_id` varchar(50) NOT NULL,
+  `groups_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`groups_json`)),
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `reason` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -143,142 +213,6 @@ CREATE TABLE `notifications` (
   `notif_type` enum('join_room','room_accept','room_decline','group_create','group_modify','account','prejoin') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `notifications`
---
-
-INSERT INTO `notifications` (`sender_id`, `receiver_id`, `room_id`, `notif_time`, `notif_id`, `is_read`, `notif_type`) VALUES
-('01210011113', '12345678901', 100, '2024-05-22 00:09:25', 80, 0, 'group_modify'),
-('01210011113', '23456789012', 100, '2024-05-22 00:09:25', 81, 0, 'group_modify'),
-('01210011113', '34567890123', 100, '2024-05-22 00:09:25', 82, 0, 'group_modify'),
-('01210011113', '45678901234', 100, '2024-05-22 00:09:25', 83, 0, 'group_modify'),
-('01210011113', '56789012345', 100, '2024-05-22 00:09:25', 84, 0, 'group_modify'),
-('01210011113', '67890123456', 100, '2024-05-22 00:09:25', 85, 0, 'group_modify'),
-('01210011113', '78901234567', 100, '2024-05-22 00:09:25', 86, 0, 'group_modify'),
-('01210011113', '89012345678', 100, '2024-05-22 00:09:25', 87, 0, 'group_modify'),
-('01210011113', '90123456789', 100, '2024-05-22 00:09:25', 88, 0, 'group_modify'),
-('01210011113', '01234567890', 100, '2024-05-22 00:09:25', 89, 0, 'group_modify'),
-('01210011113', '11234567890', 100, '2024-05-22 00:09:25', 90, 0, 'group_modify'),
-('01210011113', '13234567890', 100, '2024-05-22 00:09:25', 92, 0, 'group_modify'),
-('01210011113', '14234567890', 100, '2024-05-22 00:09:25', 93, 0, 'group_modify'),
-('01210011113', '15234567890', 100, '2024-05-22 00:09:25', 94, 0, 'group_modify'),
-('01210011113', '16234567890', 100, '2024-05-22 00:09:25', 95, 0, 'group_modify'),
-('01210011113', '17234567890', 100, '2024-05-22 00:09:25', 96, 0, 'group_modify'),
-('01210011113', '18234567890', 100, '2024-05-22 00:09:25', 97, 0, 'group_modify'),
-('01210011113', '19234567890', 100, '2024-05-22 00:09:25', 98, 0, 'group_modify'),
-('01210011113', '20234567890', 100, '2024-05-22 00:09:25', 99, 0, 'group_modify'),
-('01210011113', '12345678901', 100, '2024-05-22 00:09:39', 101, 0, 'group_modify'),
-('01210011113', '23456789012', 100, '2024-05-22 00:09:39', 102, 0, 'group_modify'),
-('01210011113', '34567890123', 100, '2024-05-22 00:09:39', 103, 0, 'group_modify'),
-('01210011113', '56789012345', 100, '2024-05-22 00:09:39', 104, 0, 'group_modify'),
-('01210011113', '67890123456', 100, '2024-05-22 00:09:39', 105, 0, 'group_modify'),
-('01210011113', '78901234567', 100, '2024-05-22 00:09:39', 106, 0, 'group_modify'),
-('01210011113', '89012345678', 100, '2024-05-22 00:09:39', 107, 0, 'group_modify'),
-('01210011113', '90123456789', 100, '2024-05-22 00:09:39', 108, 0, 'group_modify'),
-('01210011113', '01234567890', 100, '2024-05-22 00:09:39', 109, 0, 'group_modify'),
-('01210011113', '11234567890', 100, '2024-05-22 00:09:39', 110, 0, 'group_modify'),
-('01210011113', '13234567890', 100, '2024-05-22 00:09:39', 112, 0, 'group_modify'),
-('01210011113', '14234567890', 100, '2024-05-22 00:09:39', 113, 0, 'group_modify'),
-('01210011113', '15234567890', 100, '2024-05-22 00:09:39', 114, 0, 'group_modify'),
-('01210011113', '16234567890', 100, '2024-05-22 00:09:39', 115, 0, 'group_modify'),
-('01210011113', '17234567890', 100, '2024-05-22 00:09:39', 116, 0, 'group_modify'),
-('01210011113', '18234567890', 100, '2024-05-22 00:09:39', 117, 0, 'group_modify'),
-('01210011113', '19234567890', 100, '2024-05-22 00:09:39', 118, 0, 'group_modify'),
-('01210011113', '20234567890', 100, '2024-05-22 00:09:39', 119, 0, 'group_modify'),
-('01210011113', '13234567890', 99, '2024-05-22 00:18:34', 120, 0, 'group_modify'),
-('01210011113', '34234567890', 99, '2024-05-22 00:18:34', 121, 0, 'group_modify'),
-('01210011113', '25234567890', 99, '2024-05-22 00:18:34', 123, 0, 'group_modify'),
-('01210011113', '19234567890', 99, '2024-05-22 00:18:34', 124, 0, 'group_modify'),
-('01210011113', '30234567890', 99, '2024-05-22 00:18:34', 125, 0, 'group_modify'),
-('01210011113', '17234567890', 99, '2024-05-22 00:18:34', 126, 0, 'group_modify'),
-('01210011113', '22234567890', 99, '2024-05-22 00:18:34', 127, 0, 'group_modify'),
-('01210011113', '15234567890', 99, '2024-05-22 00:18:34', 128, 0, 'group_modify'),
-('01210011113', '38234567890', 99, '2024-05-22 00:18:34', 129, 0, 'group_modify'),
-('01210011113', '11234567890', 99, '2024-05-22 00:18:34', 130, 0, 'group_modify'),
-('01210011113', '27234567890', 99, '2024-05-22 00:18:34', 131, 0, 'group_modify'),
-('01210011113', '36234567890', 99, '2024-05-22 00:18:34', 132, 0, 'group_modify'),
-('01210011113', '21234567890', 99, '2024-05-22 00:18:34', 133, 0, 'group_modify'),
-('01210011113', '23234567890', 99, '2024-05-22 00:18:34', 134, 0, 'group_modify'),
-('01210011113', '16234567890', 99, '2024-05-22 00:18:34', 135, 0, 'group_modify'),
-('01210011113', '40234567890', 99, '2024-05-22 00:18:34', 137, 0, 'group_modify'),
-('01210011113', '20234567890', 99, '2024-05-22 00:18:34', 138, 0, 'group_modify'),
-('01210011113', '31234567890', 99, '2024-05-22 00:18:34', 139, 0, 'group_modify'),
-('01210011113', '35234567890', 99, '2024-05-22 00:18:34', 140, 0, 'group_modify'),
-('01210011113', '37234567890', 99, '2024-05-22 00:18:34', 141, 0, 'group_modify'),
-('01210011113', '19234567890', 99, '2024-05-22 00:18:34', 142, 0, 'group_modify'),
-('01210011113', '22234567890', 99, '2024-05-22 00:18:34', 143, 0, 'group_modify'),
-('01210011113', '13234567890', 99, '2024-05-22 00:18:34', 144, 0, 'group_modify'),
-('01210011113', '34234567890', 99, '2024-05-22 00:18:34', 145, 0, 'group_modify'),
-('01210011113', '25234567890', 99, '2024-05-22 00:18:34', 147, 0, 'group_modify'),
-('01210011113', '19234567890', 99, '2024-05-22 00:18:34', 148, 0, 'group_modify'),
-('01210011113', '30234567890', 99, '2024-05-22 00:18:34', 149, 0, 'group_modify'),
-('01210011113', '17234567890', 99, '2024-05-22 00:18:34', 150, 0, 'group_modify'),
-('01210011113', '22234567890', 99, '2024-05-22 00:18:34', 151, 0, 'group_modify'),
-('01210011113', '15234567890', 99, '2024-05-22 02:01:14', 153, 0, 'group_modify'),
-('01210011113', '38234567890', 99, '2024-05-22 02:01:14', 154, 0, 'group_modify'),
-('01210011113', '11234567890', 99, '2024-05-22 02:01:14', 155, 0, 'group_modify'),
-('01210011113', '36234567890', 99, '2024-05-22 02:01:14', 156, 0, 'group_modify'),
-('01210011113', '21234567890', 99, '2024-05-22 02:01:14', 157, 0, 'group_modify'),
-('01210011113', '16234567890', 99, '2024-05-22 02:01:14', 158, 0, 'group_modify'),
-('01210011113', '40234567890', 99, '2024-05-22 02:01:14', 160, 0, 'group_modify'),
-('01210011113', '20234567890', 99, '2024-05-22 02:01:14', 161, 0, 'group_modify'),
-('01210011113', '31234567890', 99, '2024-05-22 02:01:14', 162, 0, 'group_modify'),
-('01210011113', '35234567890', 99, '2024-05-22 02:01:14', 163, 0, 'group_modify'),
-('01210011113', '37234567890', 99, '2024-05-22 02:01:14', 164, 0, 'group_modify'),
-('01210011113', '19234567890', 99, '2024-05-22 02:01:14', 165, 0, 'group_modify'),
-('01210011113', '22234567890', 99, '2024-05-22 02:01:14', 166, 0, 'group_modify'),
-('01210011113', '13234567890', 99, '2024-05-22 02:01:14', 167, 0, 'group_modify'),
-('01210011113', '34234567890', 99, '2024-05-22 02:01:14', 168, 0, 'group_modify'),
-('01210011113', '25234567890', 99, '2024-05-22 02:01:14', 170, 0, 'group_modify'),
-('01210011113', '19234567890', 99, '2024-05-22 02:01:14', 171, 0, 'group_modify'),
-('01210011113', '17234567890', 99, '2024-05-22 02:01:14', 172, 0, 'group_modify'),
-('01210011113', '22234567890', 99, '2024-05-22 02:01:14', 173, 0, 'group_modify'),
-('01210011113', '13234567890', 99, '2024-05-22 02:36:54', 174, 0, 'group_modify'),
-('01210011113', '34234567890', 99, '2024-05-22 02:36:54', 175, 0, 'group_modify'),
-('01210011113', '25234567890', 99, '2024-05-22 02:36:54', 177, 0, 'group_modify'),
-('01210011113', '30234567890', 99, '2024-05-22 02:36:54', 178, 0, 'group_modify'),
-('01210011113', '17234567890', 99, '2024-05-22 02:36:54', 179, 0, 'group_modify'),
-('01210011113', '15234567890', 99, '2024-05-22 02:36:54', 180, 0, 'group_modify'),
-('01210011113', '38234567890', 99, '2024-05-22 02:36:54', 181, 0, 'group_modify'),
-('01210011113', '11234567890', 99, '2024-05-22 02:36:54', 182, 0, 'group_modify'),
-('01210011113', '27234567890', 99, '2024-05-22 02:36:54', 183, 0, 'group_modify'),
-('01210011113', '36234567890', 99, '2024-05-22 02:36:54', 184, 0, 'group_modify'),
-('01210011113', '14234567890', 99, '2024-05-22 02:36:54', 185, 0, 'group_modify'),
-('01210011113', '21234567890', 99, '2024-05-22 02:36:54', 186, 0, 'group_modify'),
-('01210011113', '18234567890', 99, '2024-05-22 02:36:54', 187, 0, 'group_modify'),
-('01210011113', '23234567890', 99, '2024-05-22 02:36:54', 188, 0, 'group_modify'),
-('01210011113', '16234567890', 99, '2024-05-22 02:36:54', 189, 0, 'group_modify'),
-('01210011113', '40234567890', 99, '2024-05-22 02:36:54', 191, 0, 'group_modify'),
-('01210011113', '20234567890', 99, '2024-05-22 02:36:54', 192, 0, 'group_modify'),
-('01210011113', '31234567890', 99, '2024-05-22 02:36:54', 193, 0, 'group_modify'),
-('01210011113', '35234567890', 99, '2024-05-22 02:36:54', 194, 0, 'group_modify'),
-('01210011113', '37234567890', 99, '2024-05-22 02:36:54', 195, 0, 'group_modify'),
-('01210011113', '19234567890', 99, '2024-05-22 02:36:54', 196, 0, 'group_modify'),
-('01210011113', '22234567890', 99, '2024-05-22 02:36:54', 197, 0, 'group_modify'),
-('01210011113', '13234567890', 99, '2024-05-23 02:53:35', 198, 0, 'group_modify'),
-('01210011113', '34234567890', 99, '2024-05-23 02:53:35', 199, 0, 'group_modify'),
-('01210011113', '25234567890', 99, '2024-05-23 02:53:35', 201, 0, 'group_modify'),
-('01210011113', '19234567890', 99, '2024-05-23 02:53:35', 202, 0, 'group_modify'),
-('01210011113', '30234567890', 99, '2024-05-23 02:53:35', 203, 0, 'group_modify'),
-('01210011113', '17234567890', 99, '2024-05-23 02:53:35', 204, 0, 'group_modify'),
-('01210011113', '15234567890', 99, '2024-05-23 02:53:35', 205, 0, 'group_modify'),
-('01210011113', '38234567890', 99, '2024-05-23 02:53:35', 206, 0, 'group_modify'),
-('01210011113', '11234567890', 99, '2024-05-23 02:53:35', 207, 0, 'group_modify'),
-('01210011113', '27234567890', 99, '2024-05-23 02:53:35', 208, 0, 'group_modify'),
-('01210011113', '36234567890', 99, '2024-05-23 02:53:35', 209, 0, 'group_modify'),
-('01210011113', '14234567890', 99, '2024-05-23 02:53:35', 210, 0, 'group_modify'),
-('01210011113', '21234567890', 99, '2024-05-23 02:53:35', 211, 0, 'group_modify'),
-('01210011113', '18234567890', 99, '2024-05-23 02:53:35', 212, 0, 'group_modify'),
-('01210011113', '23234567890', 99, '2024-05-23 02:53:35', 213, 0, 'group_modify'),
-('01210011113', '16234567890', 99, '2024-05-23 02:53:35', 214, 0, 'group_modify'),
-('01210011113', '40234567890', 99, '2024-05-23 02:53:35', 216, 0, 'group_modify'),
-('01210011113', '20234567890', 99, '2024-05-23 02:53:35', 217, 0, 'group_modify'),
-('01210011113', '31234567890', 99, '2024-05-23 02:53:35', 218, 0, 'group_modify'),
-('01210011113', '35234567890', 99, '2024-05-23 02:53:35', 219, 0, 'group_modify'),
-('01210011113', '37234567890', 99, '2024-05-23 02:53:35', 220, 0, 'group_modify'),
-('01210011114', '01210011115', 99, '2024-09-09 10:13:44', 232, 0, 'room_accept'),
-('01210011114', '01210011114', 102, '2024-09-17 09:39:14', 235, 0, 'room_accept');
-
 -- --------------------------------------------------------
 
 --
@@ -298,10 +232,7 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`room_id`, `room_name`, `school_id`, `room_code`, `created_date`) VALUES
-(99, 'BSCS 4-Y1-1 OPS411', '01210011119', '169942', '2024-05-21 05:33:00'),
-(100, 'BSCS 2-Y1-1 IMGT', '01210011119', '835081', '2024-05-21 05:33:16'),
-(101, 'NewJeans', '01210011113', '911189', '2024-07-24 11:33:49'),
-(102, 'Famous Devil in a new dress by Kanye West and Taylor Swift ft. Ex Battalion', '01210011114', '123566', '2024-09-17 06:00:45');
+(1, 'ARTA111 BSCS 4-Y1-1', '01210011114', '646733', '2024-09-22 15:58:14');
 
 -- --------------------------------------------------------
 
@@ -313,14 +244,6 @@ CREATE TABLE `room_groups` (
   `room_id` int(10) UNSIGNED NOT NULL,
   `groups_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`groups_json`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `room_groups`
---
-
-INSERT INTO `room_groups` (`room_id`, `groups_json`) VALUES
-(99, '[[[\"Lee Matthew\", \"ESTJ\", \"Leader\"], [\"Walker Ashley\", \"ENFJ\", \"Analyst\"], [\"Jackson Christopher\", \"ISTJ\", \"Programmer\"], [\"Hill Sharon\", \"INTP\", \"Designer\"]], [[\"Scott Jason\", \"ESTJ\", \"Leader\"], [\"Thomas Barbara\", \"ENFJ\", \"Analyst\"], [\"Lopez Mary\", \"ISTP\", \"Programmer\"], [\"White Joshua\", \"ENTJ\", \"Designer\"]], [[\"Jackson Christopher\", \"ISTJ\", \"Leader\"], [\"White Joshua\", \"ENTJ\", \"Analyst\"], [\"Lee Matthew\", \"ESTJ\", \"Programmer\"], [\"Moore Susan\", \"ENTP\", \"Designer\"]], [[\"White Joshua\", \"ENTJ\", \"Leader\"], [\"Moore Susan\", \"ENTP\", \"Analyst\"], [\"Scott Jason\", \"ESTJ\", \"Programmer\"], [\"Jackson Christopher\", \"ISTJ\", \"Designer\"]], [[\"Nguyen Gary\", \"ENTJ\", \"Leader\"], [\"Taylor Charles\", \"INFJ\", \"Analyst\"], [\"Green Michelle\", \"ISTP\", \"Programmer\"], [\"Wright Cynthia\", \"ISFJ\", \"Designer\"]], [[\"Moore Susan\", \"ENTP\", \"Leader\"], [\"Nguyen Gary\", \"ENTJ\", \"Analyst\"], [\"Wilson Linda\", \"ESTP\", \"Programmer\"], [\"Nguyen Gary\", \"ENTJ\", \"Designer\"]]]'),
-(100, '[[[\"Miller James\", \"ESTJ\", \"Leader\"], [\"Thomas Barbara\", \"ENFJ\", \"Analyst\"], [\"Jones David\", \"ISTJ\", \"Programmer\"], [\"Johnson Jane\", \"INTJ\", \"Designer\"]], [[\"Jones David\", \"ISTJ\", \"Leader\"], [\"Smith John\", \"ENFP\", \"Analyst\"], [\"Johnson Jane\", \"INTJ\", \"Programmer\"], [\"Martinez Laura\", \"INTP\", \"Designer\"]], [[\"Jackson Christopher\", \"ISTJ\", \"Leader\"], [\"Rodriguez Daniel\", \"ENTJ\", \"Analyst\"], [\"Miller James\", \"ESTJ\", \"Programmer\"], [\"Moore Susan\", \"ENTP\", \"Designer\"]], [[\"Rodriguez Daniel\", \"ENTJ\", \"Leader\"], [\"Moore Susan\", \"ENTP\", \"Analyst\"], [\"Jackson Christopher\", \"ISTJ\", \"Programmer\"], [\"Rodriguez Daniel\", \"ENTJ\", \"Designer\"]], [[\"Johnson Jane\", \"INTJ\", \"Leader\"], [\"Turqueza John Rogee\", \"INFJ\", \"Analyst\"], [\"Lopez Mary\", \"ISTP\", \"Programmer\"], [\"Jones David\", \"ISTJ\", \"Designer\"]]]');
 
 -- --------------------------------------------------------
 
@@ -338,39 +261,46 @@ CREATE TABLE `room_list` (
 --
 
 INSERT INTO `room_list` (`room_id`, `school_id`) VALUES
-(99, '11234567890'),
-(99, '36234567890'),
-(99, '14234567890'),
-(99, '21234567890'),
-(99, '23234567890'),
-(99, '31234567890'),
-(99, '37234567890'),
-(100, '13234567890'),
-(100, '34234567890'),
-(100, '25234567890'),
-(100, '19234567890'),
-(100, '30234567890'),
-(100, '17234567890'),
-(100, '22234567890'),
-(100, '15234567890'),
-(100, '38234567890'),
-(100, '11234567890'),
-(100, '27234567890'),
-(100, '36234567890'),
-(100, '14234567890'),
-(100, '21234567890'),
-(100, '18234567890'),
-(100, '23234567890'),
-(100, '16234567890'),
-(100, '40234567890'),
-(100, '20234567890'),
-(100, '31234567890'),
-(100, '35234567890'),
-(100, '37234567890'),
-(101, '01210011114'),
-(101, '01210011114'),
-(99, '01210011115'),
-(102, '01210011114');
+(1, '12345678901'),
+(1, '12345678902'),
+(1, '12345678903'),
+(1, '12345678904'),
+(1, '12345678905'),
+(1, '12345678906'),
+(1, '12345678907'),
+(1, '12345678908'),
+(1, '12345678909'),
+(1, '12345678910'),
+(1, '12345678911'),
+(1, '12345678912'),
+(1, '12345678913'),
+(1, '12345678914'),
+(1, '12345678915'),
+(1, '12345678916'),
+(1, '12345678917'),
+(1, '12345678918'),
+(1, '12345678919'),
+(1, '12345678920'),
+(1, '12345678921'),
+(1, '12345678922'),
+(1, '12345678923'),
+(1, '12345678924'),
+(1, '12345678925'),
+(1, '12345678926'),
+(1, '12345678927'),
+(1, '12345678928'),
+(1, '12345678929'),
+(1, '12345678930'),
+(1, '12345678931'),
+(1, '12345678932'),
+(1, '12345678933'),
+(1, '12345678934'),
+(1, '12345678935'),
+(1, '12345678936'),
+(1, '12345678937'),
+(1, '12345678938'),
+(1, '12345678939'),
+(1, '12345678940');
 
 -- --------------------------------------------------------
 
@@ -380,34 +310,15 @@ INSERT INTO `room_list` (`room_id`, `school_id`) VALUES
 
 CREATE TABLE `ticket` (
   `ticket_id` int(10) UNSIGNED NOT NULL,
+  `status` enum('pending','solved','unresolved') DEFAULT NULL,
   `f_name` varchar(255) NOT NULL,
   `l_name` varchar(255) NOT NULL,
   `school_id` varchar(255) DEFAULT NULL,
   `message` varchar(255) NOT NULL,
-  `year_section` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `category` enum('rooms','groups','account','others') NOT NULL,
   `ticket_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ticket`
---
-
-INSERT INTO `ticket` (`ticket_id`, `f_name`, `l_name`, `school_id`, `message`, `year_section`, `email`, `category`, `ticket_date`) VALUES
-(4, 'Juan', 'Rogue', '01210011114', 'I forgor...', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:21:36'),
-(5, 'Johhn ', 'rOGHWQ', '01210011115', 'A life lived in fear is a life half lived.', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:27:14'),
-(6, 'Juan', 'Rogue', '01210011114', 'I forgor...', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:27:48'),
-(7, 'Juan', 'Rogue', '01210011114', 'I forgor...', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:28:09'),
-(8, 'Juan', 'Rogue', '01210011114', 'I forgor...', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:29:07'),
-(9, 'Juan', 'Rogue', '01210011114', 'I forgor...', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:29:22'),
-(10, 'Juan', 'Rogue', '01210011114', 'I forgor...', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:30:09'),
-(11, 'Juan', 'Rogue', '01210011114', 'I forgor...', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:30:22'),
-(12, 'Juan', 'Rogue', '01210011114', 'I forgor...', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:30:38'),
-(13, 'Juan', 'Rogue', '01210011114', 'I forgor...', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:30:42'),
-(14, 'Juan', 'Rogue', '01210011114', 'I forgor...', NULL, 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-09-17 12:34:53'),
-(15, 'ui21h4io21', 'hiwqh', '01210011114', 'wqewqe', NULL, 'qwoejwqo@gmail.com', 'account', '2024-09-17 12:35:32'),
-(16, 'ui21h4io21', 'hiwqh', '01210011114', 'wqewqe', NULL, 'qwoejwqo@gmail.com', 'account', '2024-09-17 12:36:11');
 
 --
 -- Indexes for dumped tables
@@ -421,6 +332,14 @@ ALTER TABLE `accounts`
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `reset_token_hash` (`reset_token_hash`),
   ADD UNIQUE KEY `account_activation_hash` (`account_activation_hash`);
+
+--
+-- Indexes for table `group_edit_history`
+--
+ALTER TABLE `group_edit_history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `roomid_fk` (`room_id`),
+  ADD KEY `schoolid_fk` (`school_id`);
 
 --
 -- Indexes for table `join_room_requests`
@@ -476,6 +395,12 @@ ALTER TABLE `ticket`
 --
 
 --
+-- AUTO_INCREMENT for table `group_edit_history`
+--
+ALTER TABLE `group_edit_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `log_trails`
 --
 ALTER TABLE `log_trails`
@@ -485,35 +410,42 @@ ALTER TABLE `log_trails`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notif_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=236;
+  MODIFY `notif_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `room_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `room_groups`
 --
 ALTER TABLE `room_groups`
-  MODIFY `room_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `room_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `room_list`
 --
 ALTER TABLE `room_list`
-  MODIFY `room_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `room_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `ticket_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ticket_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `group_edit_history`
+--
+ALTER TABLE `group_edit_history`
+  ADD CONSTRAINT `group_edit_history_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `accounts` (`school_id`),
+  ADD CONSTRAINT `group_edit_history_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`);
 
 --
 -- Constraints for table `join_room_requests`
