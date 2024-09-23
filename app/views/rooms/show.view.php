@@ -9,6 +9,7 @@
         <?php //dd($encodedFilteredidNRiasec) ?>
         <?php //dd($stuNoType) ?>
         <?php //dd($idNRiasec); ?>
+        <?php //dd($decodedGroup); ?>
 
         <?php if (isset($errors['room_name'])) : ?>
             <p class="h-12 flex justify-center items-center font-synemed text-red1 text-2xl"><?= $errors['room_name'] ?></p>
@@ -143,11 +144,14 @@
                         
                         <!-- edit groups btn -->
                         <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
-                            <form id="groupings" action="/groups" method="post">
+
+                            <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="bg-blue2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg">Edit Groups</a>
+
+                            <!-- <form id="groupings" action="/groups" method="get">
                                 <input type="hidden" name="grouped" id="grouped" value="<?= htmlspecialchars($encodedGroup, ENT_QUOTES, 'UTF-8') ?>">
                                 <input type="hidden" name="room_id" value="<?= $room_id ?>">
                                 <button type="submit" class="bg-blue2 h-10 w-36 font-synereg text-lg border border-black1 rounded-lg">Edit Groups</button>
-                            </form>
+                            </form> -->
                         <?php endif;?>
                     </div>
 

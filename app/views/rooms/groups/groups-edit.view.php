@@ -6,11 +6,12 @@
     <!-- groups -->
     <div class="relative flex flex-wrap w-full h-fit p-6 mt-24 justify-center" id="container">
     </div>
-    <form method="POST" action="/groups">
-        <input type="hidden" name="grouped" value="<?php echo $grouped; ?>">
-        <button type="submit" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-synemed h-8 rounded-lg mb-16">Submit</button>
+    <form id="submitMods" method="POST" action="/groups">
+        <input type="hidden" name="modGroups" id="modGroups" value="">
+        <input type="hidden" name="room_id" value="<?= $_GET['room_id'] ?>">
     </form>
 
+    <button onclick="checkGroups();" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-synemed h-8 rounded-lg mb-16">Submit</button>
 
     <?php view('partials/footer.view.php')?>
     <script>
@@ -21,20 +22,20 @@
         var groupContent = '';
 
         var groups = <?php echo json_encode($groups); ?>;
-        groups = [[["Miller James Carlo Pablo", "ESTJ", "Leader"], //nag lagay ako new groups kasi nag iinterfere ung same names bale need natin talaga full name sa groups for reliability ng adjustments, same name = conflicts
-                ["Thomas Barbara", "ENFJ", "Analyst"],
-                ["Jones David", "ISTJ", "Programmer"],
-                ["Johnson Jane", "INTJ", "Designer"]],
+        // groups = [[["Miller James Carlo Pablo", "ESTJ", "Leader"], //nag lagay ako new groups kasi nag iinterfere ung same names bale need natin talaga full name sa groups for reliability ng adjustments, same name = conflicts
+        //         ["Thomas Barbara", "ENFJ", "Analyst"],
+        //         ["Jones David", "ISTJ", "Programmer"],
+        //         ["Johnson Jane", "INTJ", "Designer"]],
 
-                [["r John", "ENFP", "Leader"],
-                ["e Maria", "INFJ", "Analyst"],
-                ["n Michael", "ISTP", "Programmer"],
-                ["z Emily", "ENTP", "Designer"]],
+        //         [["r John", "ENFP", "Leader"],
+        //         ["e Maria", "INFJ", "Analyst"],
+        //         ["n Michael", "ISTP", "Programmer"],
+        //         ["z Emily", "ENTP", "Designer"]],
 
-                [["Smith John", "ENFP", "Leader"],
-                ["Garcia Maria", "INFJ", "Analyst"],
-                ["Brown Michael", "ISTP", "Programmer"],
-                ["Davis Emily", "ENTP", "Designer"]]];
+        //         [["Smith John", "ENFP", "Leader"],
+        //         ["Garcia Maria", "INFJ", "Analyst"],
+        //         ["Brown Michael", "ISTP", "Programmer"],
+        //         ["Davis Emily", "ENTP", "Designer"]]];
                     
 
         console.log('initial groups:',groups);
@@ -189,7 +190,15 @@
             })
         });
         
+        function checkGroups(){
+            // for(let group of groups) {
 
+            // }
+            console.log(typeof(groups));
+            document.getElementById('modGroups').value = JSON.stringify(groups);
+            console.log(typeof(JSON.stringify(groups)));
+            document.getElementById('submitMods').submit();
+        }
 
     </script>
     <!-- <script src="assets/js/edit-groups.js"></script> -->

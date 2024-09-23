@@ -74,7 +74,7 @@ if ($valid) {
         } else {
             $idNRiasec[$index]['school_id'] = $student['school_id'];
             $idNRiasec[$index]['result'] = $student['result'];
-            $idNRiasec[$index]['name'] = "{$student['f_name']}{$student['l_name']}";
+            $idNRiasec[$index]['name'] = "{$student['f_name']}+{$student['l_name']}";
             $idNRiasec[$index][$student['result'][0]] = $student[strtolower($student['result'][0])];
             $idNRiasec[$index][$student['result'][1]] = $student[strtolower($student['result'][1])];
             $idNRiasec[$index][$student['result'][2]] = $student[strtolower($student['result'][2])];
@@ -137,6 +137,15 @@ if ($valid) {
     if ($roomHasGroup) {
         $decodedGroup = json_decode($roomHasGroup['groups_json'], true);
         $encodedGroup = json_encode($decodedGroup);
+
+        foreach($decodedGroup as &$group) {
+            foreach($group as &$member){
+                if (str_contains($member[0], '+')) {
+                    $names = explode("+", $member[0]);
+                    $member[0] = "{$names[0]} {$names[1]}";
+                }
+            }
+        }
 
         view('rooms/show.view.php', [
             'stu_info' => $stu_info, // STUDENTS LIST
