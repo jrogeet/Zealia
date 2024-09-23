@@ -5,10 +5,10 @@
 
     <?php  view('partials/nav.view.php') ?>
 
-    <div class="relative w-full h-full text-center top-[5rem] pt-8 mb-32                    ">
+    <div class="relative w-full h-full text-center top-[5rem] pt-8 mb-32">
         <h1 class="relative font-synebold text-3xl">Account Settings</h1>
 
-        <div class="relative flex left-1/2 transform -translate-x-1/2 w-full h-fit px-6 bg-red-300">
+        <div class="relative flex left-1/2 transform -translate-x-1/2 w-full h-fit px-6">
             <!-- left box -->
             <div class="block border border-black rounded-2xl w-5/12 h-[70vh] min-h-[37rem] m-auto mt-6 bg-white2 text-left p-[4%] pt-2 pl-[3%]">
                 <h5 class="text-xl text-grey2 mt-[6%]">Name</h5>
@@ -51,11 +51,11 @@
                             <h1 class="font-synemed text-xl text-black mb-4" id="a"><?= $typeNscores['A'] ?></h1>
                             <h1 class="font-synemed text-xl text-black mb-4" id="s"><?= $typeNscores['S'] ?></h1>
                             <h1 class="font-synemed text-xl text-black mb-4" id="e"><?= $typeNscores['E'] ?></h1>
-                            <h1 class="font-synemed text-xl text-black mb-4" id="c"><?= $typeNscores['C'] ?></h1>
+                            <h1 class="font-synemed text-xl text-black mb-2" id="c"><?= $typeNscores['C'] ?></h1>
                         </div>
                     </div>
 
-                    <a href="/test"><button class="relative left-1/2 transform -translate-x-1/2 border border-black1 rounded-lg px-8 h-10 mt-32 bg-orange1 text-black1">Retake Test</button></a>
+                    <a href="/test"><button class="relative left-1/2 transform -translate-x-1/2 border border-black1 rounded-lg px-8 h-10 mt-24 bg-orange1 text-black1">Retake Test</button></a>
                 <?php else:?>
                     <h1 class="relative top-1/2 transform -translate-y-1/2 font-synemed text-4xl text-center">You haven't taken the test!</h1>
                     <a href="/test"><button class="relative top-1/2 border border-grey2 rounded-2xl w-40 h-12 bg-orange1 font-synemed text-xl left-1/2 transform -translate-x-1/2">Take Test</button></a>
