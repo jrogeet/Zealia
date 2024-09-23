@@ -21,6 +21,7 @@
             </div>
         </div>
     </div>
+    
     <div class="flex justify-center items-center my-8 min-h-[112.5rem]">
         <div class="flex flex-col justify-evenly bg-howtouse bg-no-repeat bg-cover min-h-[106.25rem] w-[72rem] border-2 border-black1 rounded-2xl selection:bg-blue3 selection:text-white1">
             <div class="flex flex-col justify-between -mt-20 ml-24 h-[17.3125rem] w-[27.0625rem]">
