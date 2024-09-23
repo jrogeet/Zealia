@@ -57,25 +57,25 @@
 
         <div class="flex justify-between">
             <!-- Class List & Requests -->
-           <div class="h-[37.5rem] w-[18.75rem] border border-black1 rounded-xl">
+           <div class="h-[37.5rem] w-[18.75rem] border border-black1 rounded-xl overflow-hidden">
                 <!-- Tabs -->
                 <div class="flex">
-                    <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-[9.37rem] font-synereg text-white1 border border-black1 rounded-tl-xl">Students</button>
+                    <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-[9.37rem] font-synereg text-white1">Students</button>
                     <?php if($_SESSION['user']['account_type'] === 'professor'):?>
-                    <button id="reqListTab" onClick="show('roomJoinRequest'); hide('roomStudentList'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-[9.37rem] font-synereg text-black1 border border-black1 rounded-tr-xl">Join Requests</button>
+                    <button id="reqListTab" onClick="show('roomJoinRequest'); hide('roomStudentList'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-[9.37rem] font-synereg text-black1">Join Requests</button>
                     <?php endif; ?>
                 </div>
 
                 <!-- Students List -->
-                <div id="roomStudentList" class="h-[34.5rem] flex flex-col  overflow-y-auto overflow-x-hidden rounded-b-xl">
-                    <div class="h-12 w-full p-4 flex justify-center items-center border-b-2 border-black1">
+                <div id="roomStudentList" class="h-[34.5rem] flex flex-col overflow-y-auto overflow-x-hidden rounded-b-xl">
+                    <div class="h-12 w-full p-4 flex justify-center items-center border-b border-black1">
                         <span class="font-synemed text-lg">Total: </span>
                         <span class="font-synemed text-blue3 text-xl mx-1"><?= count($stu_info) ?> </span>
                         <span class="font-synemed text-lg">students.</span>
                     </div>
                         
                     <?php foreach($stu_info as $student): ?>
-                        <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border border-black1 p-4">
+                        <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-b border-black1 p-4">
                             <a href="#" class="text-base font-synereg"><?= $student['l_name'], ", ", $student['f_name'] ?></a>
 
                             <?php if($_SESSION['user']['account_type'] === 'professor'):?>
@@ -127,7 +127,7 @@
            </div>
 
            <!-- Groups Area -->
-           <div class="shadow-inside1  h-[37.5rem] w-[67.5rem] rounded-xl flex justify-center items-center">
+           <div class="shadow-inside1  h-[37.5rem] w-[67.5rem] rounded-xl border border-black1 flex justify-center items-center">
                 <!-- Has Groups -->
                 <?php if($roomHasGroup):?>
                 <div class=" h-full w-full flex flex-col items-center overflow-y-auto">
