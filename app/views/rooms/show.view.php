@@ -4,6 +4,12 @@
 <body class="bg-white1 flex flex-col justify-between items-center">
     <?php view('partials/nav.view.php')?>
     <main class="flex flex-col h-[50rem] w-[87.5rem] mt-20">
+        
+        <?php //dd($stu_info); ?>
+        <?php //dd($encodedFilteredidNRiasec) ?>
+        <?php //dd($stuNoType) ?>
+        <?php //dd($idNRiasec); ?>
+
         <?php if (isset($errors['room_name'])) : ?>
             <p class="h-12 flex justify-center items-center font-synemed text-red1 text-2xl"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
@@ -27,7 +33,8 @@
 
                 <form method="POST" action="/room" class="flex w-[33rem] justify-between items-center">
                     <input type="hidden" name="_method" value="PATCH">
-                    <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
+                    <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
+                    <input type="hidden" name="edit" value="edit">
                     <input type="text" name="room_name"  class="h-10 w-96 border border-black1 rounded-lg px-4" placeholder="Change room name: <?= $room_info['room_name'] ?>" required>
                     <button class="bg-orange1 h-8 font-synemed border border-black1 rounded p-1" type="submit">Confirm Change</button>
                 </form>
@@ -176,7 +183,17 @@
                     <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
                     <div class="flex flex-col items-center">
                         <span class="font-synebold text-4xl">You haven't grouped the class yet.</span>
-                        <button class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+
+                            <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+                            <form id="submitGroups" action="/room" method="POST">
+                                <input type="hidden" name="_method" value="PATCH">
+                                <input type="hidden" name="grouped" value="grouped">
+                                <input type="hidden" name="genGroups" value="" id="genGroups">
+
+                                <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
+                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="<?= htmlspecialchars($encodedFilteredidNRiasec, ENT_QUOTES, 'UTF-8') ?>"> 
+                                <input type="hidden" name="stunotype" id="stunotype" value="<?= count($stuNoType) ?>">
+                            </form>
                     </div>
                     <?php else: ?>
                     <div class="flex flex-col items-center">
@@ -188,6 +205,21 @@
         </div>
     </main>
     <?php view('partials/footer.view.php')?>
-    <script src="assets/js/shared-scripts.js"></script>
+
+    <script src="assets/js/grouping.js"></script>
+
+    <script>
+        function generateGroups() {
+            // const rows = <?php //echo $encodedFilteredidNRiasec; ?>;
+            createList(<?php echo $encodedFilteredidNRiasec; ?>)
+            groupRoles(PI)
+            groupRoles(writer)
+            groupRoles(dev)
+            groupRoles(des)
+            distributeRoles()
+
+            // display()
+        }
+    </script>
 </body>
 </html>

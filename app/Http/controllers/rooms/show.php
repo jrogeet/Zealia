@@ -23,9 +23,6 @@ if ($_SESSION['user']['account_type'] === 'student') {
 }
 
 
-
-
-
 if ($valid) {
         // Room Infos: Room Name, Professor ID, Room Code
         // room_name, school_id, room_code
@@ -44,6 +41,7 @@ if ($valid) {
     ])->find();
 
 
+    $encodedRoomInfo = json_encode($room_info);
 
     // List of Students included in the Room
     // store each student school_id in $stu_id:
@@ -60,7 +58,7 @@ if ($valid) {
     // ID and RIASEC Type of student for GROUPINGS:
     $idNtype = [];
     foreach ($stu_info as $stu) {
-        $idNtype[] = $db->query('select school_id, result, l_name, f_name from accounts where school_id = :stu_id', [
+        $idNtype[] = $db->query('select school_id, l_name, f_name, result, r, i, a, s, e, c from accounts where school_id = :stu_id', [
             ':stu_id' => $stu['school_id'],
         ])->find();
     }
@@ -68,32 +66,37 @@ if ($valid) {
     // UNFILTERED ID and TYPES (with and without personality_type)
         // NO personality_type = "N/A"
     $idNRiasec = [];
-    foreach ($idNtype as $index) {
-        if($index['result'] === null) {
+    foreach ($idNtype as $index => $student) {
+        if($student['result'] === null) {
             $type = "N/A";
-            $idNRiasec[] = "{$index['school_id']} {$type}";
+            $idNRiasec[$index] = $student['school_id'];
+            $idNRiasec[$index] = $student['result'] = "N/A";
         } else {
-            $idNRiasec[] = "{$index['school_id']} {$index['result']}";
+            $idNRiasec[$index]['school_id'] = $student['school_id'];
+            $idNRiasec[$index]['result'] = $student['result'];
+            $idNRiasec[$index]['name'] = "{$student['f_name']}{$student['l_name']}";
+            $idNRiasec[$index][$student['result'][0]] = $student[strtolower($student['result'][0])];
+            $idNRiasec[$index][$student['result'][1]] = $student[strtolower($student['result'][1])];
+            $idNRiasec[$index][$student['result'][2]] = $student[strtolower($student['result'][2])];
         }
     }
 
     
     // FILTERED ID and Personality_type
-        // $filteredidNmbti = students with personality_type
+        // $filteredidNRiasec = students with personality_type
         // $stuNoType = students without personality_Type
     $filteredidNRiasec = [];
     $stuNoType = [];
-    foreach($idNtype as $index) {
-        if($index['result'] !== null) {
-            $filteredidNRiasec[] = "{$index['l_name']} {$index['f_name']}+{$index['result']}";
+    foreach($idNRiasec as $index => $student) {
+        if($student['result'] !== null) {
+            $filteredidNRiasec[] = $student;
         } else {
-            $stuNoType[] = "{$index['l_name']} {$index['f_name']}";
+            $stuNoType[] = $student;
         }
     }
 
     $encodedFilteredidNRiasec = json_encode($filteredidNRiasec);
     $encodedStuNoType = json_encode($stuNoType);
-
 
     $allfilteredidNRiasec = [];
 
@@ -139,12 +142,13 @@ if ($valid) {
             'stu_info' => $stu_info, // STUDENTS LIST
             'encodedstu_info' => $encodedstu_info,
             'room_info' => $room_info,
+            'encodedRoomInfo' => $encodedRoomInfo,
             'prof_name' => $prof_name,
             'stu_id'=> $stu_id,
             'requests'=>$requests,
-            'idNmbti' => $idNRiasec,
-            'filteredidNmbti' => $filteredidNRiasec,
-            'encodedFilteredidNmbti' => $encodedFilteredidNRiasec,
+            'idNRiasec' => $idNRiasec,
+            'filteredidNRiasec' => $filteredidNRiasec,
+            'encodedFilteredidNRiasec' => $encodedFilteredidNRiasec,
             'stuNoType' => $stuNoType,
             'encodedStuNoType' => $encodedStuNoType,
             'decodedGroup' => $decodedGroup,
@@ -157,19 +161,19 @@ if ($valid) {
             'stu_info' => $stu_info, // STUDENTS LIST
             'encodedstu_info' => $encodedstu_info,
             'room_info' => $room_info,
+            'encodedRoomInfo' => $encodedRoomInfo,
             'prof_name' => $prof_name,
             'stu_id'=> $stu_id,
             'requests'=>$requests,
-            'idNmbti' => $idNRiasec,
-            'filteredidNmbti' => $filteredidNRiasec,
-            'encodedFilteredidNmbti' => $encodedFilteredidNRiasec,
+            'idNRiasec' => $idNRiasec,
+            'filteredidNRiasec' => $filteredidNRiasec,
+            'encodedFilteredidNRiasec' => $encodedFilteredidNRiasec,
             'stuNoType' => $stuNoType,
             'encodedStuNoType' => $encodedStuNoType,
             'roomHasGroup' => $roomHasGroup,
+            'idNtype' => $idNtype,
         ]);
     }
-
-
 
 } else {
     abort(403);

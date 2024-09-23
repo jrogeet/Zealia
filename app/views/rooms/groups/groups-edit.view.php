@@ -6,8 +6,9 @@
     <!-- groups -->
     <div class="relative flex flex-wrap w-full h-fit p-6 mt-24 justify-center" id="container">
     </div>
-    <form>
-        <button class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-synemed h-8 rounded-lg mb-16">Submit</button>
+    <form method="POST" action="/groups">
+        <input type="hidden" name="grouped" value="<?php echo $grouped; ?>">
+        <button type="submit" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-synemed h-8 rounded-lg mb-16">Submit</button>
     </form>
 
 
