@@ -7,17 +7,18 @@
     <ul id="dropdown" class="hidden fixed z-50 block w-full bg-white2 font-synemed top-10">
         
         <a href="/" class="py-2 w-screen"><li class="w-auto h-fit border-b border-t border-black1 shadow-sm py-2 pl-2">Home</li></a>
+        
         <a href="<?php if (isset($_SESSION['user'])) {
             if ($_SESSION['user']['account_type'] == 'admin') {
-                echo '/';
+                echo '/admin';
             } else {
-                echo '/';
+                echo '/dashboard';
             }
         } else {
-            echo '/';
+            echo '/login';
         } ?>" class="py-2 w-screen"><li class="w-auto h-fit border-b border-black1 shadow-sm py-2 pl-2">Dashboard</li></a>
-        <a href="/" class="py-2 w-screen"><li class="w-auto h-fit border-b border-black1 shadow-sm py-2 pl-2">About</li></a>
-        <a href="/" class="py-2 w-screen"><li class="w-auto h-fit border-b border-black1 shadow-sm py-2 pl-2">Contact</li></a>
+        <a href="/about" class="py-2 w-screen"><li class="w-auto h-fit border-b border-black1 shadow-sm py-2 pl-2">About</li></a>
+        <a href="/submit-ticket" class="py-2 w-screen"><li class="w-auto h-fit border-b border-black1 shadow-sm py-2 pl-2">Contact</li></a>
         
     </ul>
 </header>
