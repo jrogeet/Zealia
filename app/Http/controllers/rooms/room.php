@@ -147,7 +147,7 @@ if ($valid) {
             }
         }
 
-        view('rooms/show.view.php', [
+        view('rooms/room.view.php', [
             'stu_info' => $stu_info, // STUDENTS LIST
             'encodedstu_info' => $encodedstu_info,
             'room_info' => $room_info,
@@ -166,7 +166,7 @@ if ($valid) {
             'idNtype' => $idNtype,
         ]);
     } else {
-        view('rooms/show.view.php', [
+        view('rooms/room.view.php', [
             'stu_info' => $stu_info, // STUDENTS LIST
             'encodedstu_info' => $encodedstu_info,
             'room_info' => $room_info,

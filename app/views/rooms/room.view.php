@@ -134,7 +134,7 @@
                 <?php endif; ?>
            </div>
 
-           <!-- Groups Area -->
+           <!-- GROUPS AREA -->
            <div class="shadow-inside1  h-[37.5rem] w-[67.5rem] rounded-xl flex justify-center items-center">
                 <!-- Has Groups -->
                 <?php if($roomHasGroup):?>
@@ -154,8 +154,6 @@
                             </form> -->
                         <?php endif;?>
                     </div>
-
-<!-- TO DO: ROW & COLUMN FLEX??? -->
                     
                     <!-- Groups Container -->
                     <div class="h-auto w-full flex flex-wrap gap-y-5 justify-evenly p-6">
@@ -182,22 +180,25 @@
                         <?php }?>
                     </div>
                 </div>
+
+
+                
                 <?php else: ?>
                 <!-- NO GROUPS -->
                     <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
                     <div class="flex flex-col items-center">
                         <span class="font-synebold text-4xl">You haven't grouped the class yet.</span>
 
-                            <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
-                            <form id="submitGroups" action="/room" method="POST">
-                                <input type="hidden" name="_method" value="PATCH">
-                                <input type="hidden" name="grouped" value="grouped">
-                                <input type="hidden" name="genGroups" value="" id="genGroups">
+                        <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+                        <form id="submitGroups" action="/room" method="POST">
+                            <input type="hidden" name="_method" value="PATCH">
+                            <input type="hidden" name="grouped" value="grouped">
+                            <input type="hidden" name="genGroups" value="" id="genGroups">
 
-                                <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
-                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="<?= htmlspecialchars($encodedFilteredidNRiasec, ENT_QUOTES, 'UTF-8') ?>"> 
-                                <input type="hidden" name="stunotype" id="stunotype" value="<?= count($stuNoType) ?>">
-                            </form>
+                            <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="<?= htmlspecialchars($encodedFilteredidNRiasec, ENT_QUOTES, 'UTF-8') ?>"> 
+                            <input type="hidden" name="stunotype" id="stunotype" value="<?= count($stuNoType) ?>">
+                        </form>
                     </div>
                     <?php else: ?>
                     <div class="flex flex-col items-center">
@@ -206,10 +207,12 @@
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
+
         </div>
     </main>
     <?php view('partials/footer.view.php')?>
 
+    <script src="assets/js/shared-scripts.js"></script>
     <script src="assets/js/grouping.js"></script>
 
     <script>
@@ -221,7 +224,6 @@
             groupRoles(dev)
             groupRoles(des)
             distributeRoles()
-
             // display()
         }
     </script>

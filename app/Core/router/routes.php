@@ -6,9 +6,11 @@ $router->get('/about', 'Http/controllers/about.php');
 
 $router->post('/nav', 'model/clear-notifications.php');
 
+// ACCOUNT PAGE
 $router->get('/account', 'Http/controllers/account/account.php')->only('auth');
 $router->post('/account', 'model/account/change.php')->only('auth');
 
+// TEST PAGEs
 $router->get('/test', 'Http/controllers/account/test.php')->only('auth');
 $router->post('/test', 'model/account/test-page.php')->only('auth');
 $router->get('/tieOpt', 'Http/controllers/account/test-tieOpt.php')->only('auth');
@@ -18,24 +20,29 @@ $router->get('/sample-grouping', 'Http/controllers/account/sample-grouping.php')
 
 $router->get('/profile', 'Http/controllers/account/profile.php')->only('auth');
 
+// DASHBOARD PAGE
 $router->get('/dashboard', 'Http/controllers/rooms/dashboard.php')->only('auth');
 $router->post('/dashboard', 'model/rooms/dashboard.php')->only('auth');
 
-$router->get('/room', 'Http/controllers/rooms/show.php')->only('auth');
+// ROOM PAGE
+$router->get('/room', 'Http/controllers/rooms/room.php')->only('auth');
 $router->post('/room', 'model/rooms/request.php');
 $router->patch('/room', 'model/rooms/update.php');
 $router->delete('/room', 'model/rooms/destroy.php');
 
+// EDIT GROUP PAGE
 $router->get('/groups', 'Http/controllers/rooms/group/groups-edit.php')->only('auth');
 $router->post('/groups', 'model/rooms/group/groups-edit.php')->only('auth');
 $router->patch('/groups', 'Http/controllers/rooms/group/results.php')->only('auth');
 $router->delete('/groups', 'Http/controllers/rooms/group/results.php')->only('auth');
 
+// REGISTER PAGE
 $router->get('/register', 'Http/controllers/session/registration/register.php')->only('guest');
 $router->post('/register', 'model/session/registration/store.php')->only('guest');
 $router->get('/activate-account', 'Http/controllers/session/registration/success-signup.php')->only('guest');
 $router->get('/active-success', '/model/session/registration/success-activation.php')->only('guest');
 
+// LOGIN PAGE
 $router->get('/login', 'Http/controllers/session/login/login.php')->only('guest');
 $router->post('/login', 'model/session/login/store.php')->only('guest');
 $router->delete('/login', 'model/session/login/destroy.php')->only('auth');
