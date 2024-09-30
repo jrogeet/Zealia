@@ -128,6 +128,12 @@
                 console.log('InputID:',inputID);
                 inputID.id = newInputID;
 
+                // changing custom role input's ONINPUT function
+                const inputElement = document.getElementById(newInputID);
+                inputElement.oninput = function() {
+                    capitalizeWords(newInputID);
+                };
+
                 // changing ID of confirm button
                 let oldConfirmID = `confirmCustom ${oldID}`;
                 let newConfirmID = `confirmCustom ${newID}`;
@@ -374,6 +380,7 @@
         });
         
         function capitalizeWords(customInput) {
+            // console.log(customInput);
             let input = document.getElementById(customInput);
             input.value = input.value
                 .replace(/\b\w/g, function(letter) {
