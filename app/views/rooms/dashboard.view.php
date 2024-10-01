@@ -4,7 +4,7 @@
     <?php view('partials/nav.view.php')?>
 
     <!-- desktop -->
-    <main class="hidden lg:block relative left-1/2 transform -translate-x-1/2 h-[41rem] w-[97%] mt-10 mb-40">
+    <main class="hidden lg:block relative left-1/2 transform -translate-x-1/2 h-[41rem] w-[97%] mb-40 top-32">
         <span class="relative block left-[3vw] font-synebold text-5xl text-black1">Dashboard</span>
         <div class="block relative left-1/2 transform -translate-x-1/2 h-[43.75rem] w-[97%] min-w-[65rem] border-black1 border-2 rounded-t-[1.25rem] mt-4">
             <div class="h-[3.75rem] border-black1 border-b-2 flex justify-between items-center px-5">

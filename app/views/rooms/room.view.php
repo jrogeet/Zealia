@@ -5,7 +5,7 @@
     <?php view('partials/nav.view.php')?>
 
     <!-- desktop -->
-    <main class="relative hidden 2xl:block left-1/2 transform -translate-x-1/2 h-[50rem] w-[87.5rem] mt-12">
+    <main class="relative hidden 2xl:block left-1/2 transform -translate-x-1/2 h-[50rem] w-[87.5rem] mt-20 top-10">
         
         <?php //dd($stu_info); ?>
         <?php //dd($encodedFilteredidNRiasec) ?>
