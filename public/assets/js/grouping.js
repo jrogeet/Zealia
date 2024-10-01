@@ -15,15 +15,13 @@ let grCount = 0;
 
 let groups = [];
 
-console.log(rows)
-
-function createList(){ // ADD USERS TO userlist
-    
-
+function createList(rows){ // ADD USERS TO userlist
+    console.log('ROWS:',rows)
     for (let row of rows){ // iterate over each person(row) in section(rows)
         let result = row['result'];
         let id = row['school_id'];
-        let name = row['f_name'];
+        let name = row['name'];
+        // let name = row['f_name'];
         
         let arr = []; //container for [name, id, role1, role2, role3, role4];
 
@@ -141,47 +139,48 @@ function distributeRoles(){
         }
     }
 
-    console.log(groups);
+    console.log('GROUPS:', typeof(groups),groups);
+    // console.log(JSON.stringify(groups));
 
+    document.getElementById('genGroups').value = JSON.stringify(groups);
+    document.getElementById('submitGroups').submit();
 }
 
-function display(){ //MOSTLY 
+// function display(){ //MOSTLY 
     
+//     let container = document.getElementById('groups');// Get the existing HTML element where you want to insert the users
     
-    let container = document.getElementById('groups');// Get the existing HTML element where you want to insert the users
-
+//     for (let group of groups) {// Iterate over the groups
     
-    for (let group of groups) {// Iterate over the groups
-    
-        let groupElement = document.createElement('div');// Create a new HTML element for the group
-        groupElement.className = "group";
+//         let groupElement = document.createElement('div');// Create a new HTML element for the group
+//         groupElement.className = "group";
         
-        for (let user of group) {// Iterate over the users in the group
+//         for (let user of group) {// Iterate over the users in the group
             
-            let userElement = document.createElement('p');// Create a new HTML element for the user
-            userElement.textContent = [`User${user[1]} ${user[2]}`];
+//             let userElement = document.createElement('p');// Create a new HTML element for the user
+//             userElement.textContent = [`User${user[1]} ${user[2]}`];
             
             
-            groupElement.appendChild(userElement);// Insert the user element into the group element
-        }
-        if (group.length < 4){
-            let userElement = document.createElement('p');// Create a new HTML element for the user
-            userElement.textContent = ['Empty slot'];
+//             groupElement.appendChild(userElement);// Insert the user element into the group element
+//         }
+//         if (group.length < 4){
+//             let userElement = document.createElement('p');// Create a new HTML element for the user
+//             userElement.textContent = ['Empty slot'];
             
-            groupElement.appendChild(userElement);// Insert the user element into the group element
-        }
+//             groupElement.appendChild(userElement);// Insert the user element into the group element
+//         }
         
         
-        container.appendChild(groupElement);// Insert the group element into the container
-    }
+//         container.appendChild(groupElement);// Insert the group element into the container
+//     }
 
-}
+// }
 
-createList()
-groupRoles(PI)
-groupRoles(writer)
-groupRoles(dev)
-groupRoles(des)
-distributeRoles()
+// createList()
+// groupRoles(PI)
+// groupRoles(writer)
+// groupRoles(dev)
+// groupRoles(des)
+// distributeRoles()
 
-display()
+// display()

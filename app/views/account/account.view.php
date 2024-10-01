@@ -3,7 +3,9 @@
 
 <body class="static bg-white1 font-synereg min-w-[78rem]">
 
-    <?php  view('partials/nav.view.php') ?>
+    <?php view('partials/nav.view.php') ?>
+
+    <?php //dd($_SESSION['user']['result'])?>
 
     <div class="relative w-full h-full text-center top-[5rem] pt-8 mb-32">
         <h1 class="relative font-synebold text-3xl">Account Settings</h1>
