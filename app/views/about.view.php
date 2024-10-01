@@ -2,7 +2,7 @@
 
 <body class="bg-white1 flex flex-col justify-between items-center overflow-x-hidden">
     <?php view('partials/nav.view.php'); ?>
-    <main class="flex flex-col items-center h-[90rem] w-[96rem] mt-20">
+    <main class="flex flex-col items-center h-[90rem] w-[96rem]">
         <div class="bg-about bg-cover bg-no-repeat min-h-[40.94rem] w-full">
             <div class="flex flex-col h-2/4 p-24 mb-14">
                 <span class="font-syneboldextra text-4xl mb-9">RIASEC</span>

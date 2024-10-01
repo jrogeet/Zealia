@@ -3,7 +3,7 @@
  <!-- CHANGE NAME ERROR FIX -->
 <body class="bg-white1 flex flex-col justify-between items-center">
     <?php view('partials/nav.view.php')?>
-    <main class="flex flex-col h-[50rem] w-[87.5rem] mt-20">
+    <main class="flex flex-col h-[50rem] w-[87.5rem]">
         
         <?php //dd($stu_info); ?>
         <?php //dd($encodedFilteredidNRiasec) ?>

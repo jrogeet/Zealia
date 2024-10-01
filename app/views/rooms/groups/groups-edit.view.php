@@ -4,7 +4,7 @@
     <?php view('partials/nav.view.php')?>
 
     <!-- groups -->
-    <div class="relative flex flex-wrap w-full h-fit p-6 mt-24 justify-center" id="container">
+    <div class="relative flex flex-wrap w-full h-fit p-6 justify-center" id="container">
 
     </div>
 
