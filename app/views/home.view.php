@@ -21,7 +21,7 @@
     </div>
 
     <!-- first part desktop -->
-    <div class="hidden sm:flex flex-col">
+    <div class="hidden sm:flex flex-col mt-10">
         <div class="h-[20.5625rem] flex justify-center items-center">
             <div class=" h-full w-[63.9375rem] flex justify-center items-center bg-cropped-breakdance bg-cover bg-no-repeat">
                 <div class="relative flex justify-center items-center">

@@ -66,7 +66,7 @@
 </header>
 
 <!-- desktop nav -->
-<header class="fixed block bg-white1 z-50 shadow-md h-20 w-full content-center" id="navbar">
+<header class="fixed block bg-white1 z-50 shadow-md h-20 w-full content-center top-0" id="navbar">
     <!-- object container -->
     <div class="flex h-fit w-full justify-between font-synesemi text-xl text-black1 mx-auto px-[1rem]">
         <!-- Main NavBar -->

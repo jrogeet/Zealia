@@ -7,7 +7,7 @@
 
     <?php //dd($_SESSION['user']['result'])?>
 
-    <div class="relative w-full h-full text-center top-0 pt-8 mb-32">
+    <div class="relative w-full h-full text-center top-32 pt-8 mb-32">
         <h1 class="relative font-synebold text-3xl">Account Settings</h1>
 
         <div class="relative flex left-1/2 transform -translate-x-1/2 w-full h-fit px-6">
