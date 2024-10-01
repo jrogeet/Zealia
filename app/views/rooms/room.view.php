@@ -161,7 +161,7 @@
                     <div class="h-auto w-full flex flex-wrap gap-y-5 justify-evenly p-6">
                         <!-- Each Boxes -->
                         <?php foreach ($decodedGroup as $index => $group) {?>
-                        <div class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
+                        <a href="/view-group?room_id=<?= $room_info['room_id'] ?>&group=<?= $index ?>" class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
                             <!-- Group Head -->
                             <div class="bg-black1 h-10 w-full flex justify-center items-center ">
                                 <span class="font-synemed text-white1 text-4xl">Group</span>
@@ -178,7 +178,7 @@
                                 </div>
                                 <?php } ?>
                             </div>
-                        </div>
+                        </a>
                         <?php }?>
                     </div>
                 </div>

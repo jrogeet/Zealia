@@ -33,8 +33,7 @@ $router->delete('/room', 'model/rooms/destroy.php');
 // EDIT GROUP PAGE
 $router->get('/groups', 'Http/controllers/rooms/group/groups-edit.php')->only('auth');
 $router->post('/groups', 'model/rooms/group/groups-edit.php')->only('auth');
-$router->patch('/groups', 'Http/controllers/rooms/group/results.php')->only('auth');
-$router->delete('/groups', 'Http/controllers/rooms/group/results.php')->only('auth');
+$router->get('/view-group', 'Http/controllers/rooms/group/view-group.php')->only('auth');
 
 // REGISTER PAGE
 $router->get('/register', 'Http/controllers/session/registration/register.php')->only('guest');
