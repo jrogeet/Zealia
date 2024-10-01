@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2024 at 06:01 PM
+-- Generation Time: Sep 23, 2024 at 01:44 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -331,7 +331,8 @@ ALTER TABLE `accounts`
   ADD PRIMARY KEY (`school_id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `reset_token_hash` (`reset_token_hash`),
-  ADD UNIQUE KEY `account_activation_hash` (`account_activation_hash`);
+  ADD UNIQUE KEY `account_activation_hash` (`account_activation_hash`),
+  ADD KEY `idx_school_id` (`school_id`);
 
 --
 -- Indexes for table `group_edit_history`
@@ -460,7 +461,9 @@ ALTER TABLE `join_room_requests`
 ALTER TABLE `notifications`
   ADD CONSTRAINT `FK_notifications_accounts` FOREIGN KEY (`sender_id`) REFERENCES `accounts` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_notifications_accounts_2` FOREIGN KEY (`receiver_id`) REFERENCES `accounts` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_notifications_rooms` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_notifications_receiver` FOREIGN KEY (`receiver_id`) REFERENCES `accounts` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_notifications_rooms` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_notifications_sender` FOREIGN KEY (`sender_id`) REFERENCES `accounts` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rooms`

@@ -8,4 +8,6 @@
     <!-- <link rel="stylesheet" type="text/css"  href="assets/css/output.css"> -->
     <link rel="icon" href="assets/images/faveicon.ico">
     <link rel="stylesheet" href="assets/css/output.css">
+
+    <script src="assets/js/shared-scripts.js"></script>
 </head>
