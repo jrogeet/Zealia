@@ -24,7 +24,7 @@ const agrbut = document.querySelectorAll('input[type=checkbox]'); //selects chec
 const sub = document.getElementById("sub");
 
 
-function cal(){
+function cal(){ //sorts from highest score to lowest score
     keySorted = Object.keys(results).sort(function(a,b){return results[a]-results[b]});
     keySorted.reverse();
 

@@ -7,12 +7,12 @@
 
     <?php //dd($_SESSION['user']['result'])?>
 
-    <div class="relative w-full h-full text-center top-[5rem] pt-8 mb-32">
+    <div class="relative w-full h-full text-center top-0 pt-8 mb-32">
         <h1 class="relative font-synebold text-3xl">Account Settings</h1>
 
         <div class="relative flex left-1/2 transform -translate-x-1/2 w-full h-fit px-6">
             <!-- left box -->
-            <div class="block border border-black rounded-2xl w-5/12 h-[70vh] min-h-[37rem] m-auto mt-6 bg-white2 text-left p-[4%] pt-2 pl-[3%]">
+            <div class="relative block border border-black rounded-2xl w-5/12 h-[70vh] min-h-[37rem] m-auto mt-6 bg-white2 text-left p-[4%] pt-2 pl-[3%]">
                 <h5 class="text-xl text-grey2 mt-[6%]">Name</h5>
                 <h1 class="text-3xl ml-4 mb-6"><?php echo "{$_SESSION['user']['f_name']} {$_SESSION['user']['l_name']}"; ?></h1>
 
@@ -32,7 +32,7 @@
             </div>
 
             <!-- right box -->
-            <div class="block border border-black rounded-2xl w-5/12 h-[70vh] min-h-[37rem] m-auto mt-6 bg-white2 text-left p-[4%] pt-2 pl-[4%]">
+            <div class="relative block border border-black rounded-2xl w-5/12 h-[70vh] min-h-[37rem] m-auto mt-6 bg-white2 text-left p-[4%] pt-2 pl-[4%]">
                 <?php if (isset($typeNscores)):?>
                     <div class="relative flex mt-16">
                         <h1 class="font-synemed text-xl text-grey2 ml-auto mt-1">RESULTS:</h1>
