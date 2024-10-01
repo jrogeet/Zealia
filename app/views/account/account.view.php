@@ -5,10 +5,10 @@
 
     <?php  view('partials/nav.view.php') ?>
 
-    <div class="relative w-full h-full text-center top-[5rem] pt-8 mb-32">
+    <div class="relative w-full h-full text-center top-0 pt-8 mb-32">
         <h1 class="relative font-synebold text-3xl">Account Settings</h1>
 
-        <div class="relative flex left-1/2 transform -translate-x-1/2 w-full h-fit px-6 bg-red-300">
+        <div class="relative flex left-1/2 transform -translate-x-1/2 w-full h-fit px-6">
             <!-- left box -->
             <div class="relative block border border-black rounded-2xl w-5/12 h-[70vh] min-h-[37rem] m-auto mt-6 bg-white2 text-left p-[4%] pt-2 pl-[3%]">
                 <h5 class="text-xl text-grey2 mt-[6%]">Name</h5>

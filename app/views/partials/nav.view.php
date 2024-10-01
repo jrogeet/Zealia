@@ -1,24 +1,66 @@
 <!-- mobile nav -->
-<header class="fixed lg:hidden flex z-50 w-full bg-white1 min-w-[320px] min-h-10 font-synemed" id="nav">
-    <a class="ml-2 mx-auto p-2" id="button"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
-    <a class="mx-auto p-2"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
-    <a class="mr-2 mx-auto p-2">tao</a>
+<header class="fixed lg:hidden flex z-50 bg-white1 w-full min-w-[320px] min-h-10 font-synemed" id="nav">
+    <a class="ml-2 mx-auto p-2" id="burgButt"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
+    <a href="/" class="mx-auto p-2"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
+    <a class="mr-2 mx-auto p-2" id="profButt">tao</a>
 
-    <ul id="dropdown" class="hidden fixed z-50 block w-full bg-white2 font-synemed top-10">
-        
-        <a href="/" class="py-2 w-screen"><li class="w-auto h-fit border-b border-t border-black1 shadow-sm py-2 pl-2">Home</li></a>
-        
-        <a href="<?php if (isset($_SESSION['user'])) {
-            if ($_SESSION['user']['account_type'] == 'admin') {
-                echo '/admin';
+    <!-- burger dropdown -->
+    <ul id="burgDD" class="hidden z-50 bg-gradient-to-b from-white1 to-grey1 fixed z-50 block w-full h-full font-synemed top-10 text-center">
+    
+        <div class="relative w-full h-fit top-10 mt-10">
+            <a href="/" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">Home</li></a>
+            
+            <a href="<?php if (isset($_SESSION['user'])) {
+                if ($_SESSION['user']['account_type'] == 'admin') {
+                    echo '/admin';
+                } else {
+                    echo '/dashboard';
+                }
             } else {
-                echo '/dashboard';
-            }
-        } else {
-            echo '/login';
-        } ?>" class="py-2 w-screen"><li class="w-auto h-fit border-b border-black1 shadow-sm py-2 pl-2">Dashboard</li></a>
-        <a href="/about" class="py-2 w-screen"><li class="w-auto h-fit border-b border-black1 shadow-sm py-2 pl-2">About</li></a>
-        <a href="/submit-ticket" class="py-2 w-screen"><li class="w-auto h-fit border-b border-black1 shadow-sm py-2 pl-2">Contact</li></a>
+                echo '/login';
+            } ?>" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">Dashboard</li></a>
+            <a href="/about" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">About</li></a>
+            <a href="/submit-ticket" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">Contact</li></a>
+        </div>
+
+        
+        
+    </ul>
+
+    <!-- profile dropdown -->
+    <ul id="profDD" class="hidden bg-gradient-to-b from-white1 to-grey1 fixed z-50 block w-full h-full font-synemed top-10">
+
+        <div class="relative block top-1/3 transform -translate-y-1/2 pt-24">
+            <?php if ($_SESSION['user'] ?? false) : ?>
+                <div class="w-full h-fit text-left p-4 py-6">
+                    <h1 class="px-2 text-3xl font-synebold text-black1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></h1>
+                    <h1 class="px-2 text-2xl font-synebold text-grey2 tracking-wider mb-6"><?= "{$_SESSION['user']['school_id']}" ?></h1>
+                    
+                    <?php if ($_SESSION['user']['result'] ?? true ):?>
+                        <div class="flex h-12">
+                            <h1 class="relative top-0 py-4 px-0 font-synemed text-center mx-auto mr-0 text-xl text-grey2">RESULTS:</h1>
+                            <h1 class="relative top-0 py-2 px-0 font-synebold text-center mx-auto ml-0 text-3xl text-black1"><?= "{$_SESSION['user']['result']}" ?></h1>
+                        </div>
+                    <?php else:?>
+                        <h1 class="text-center font-synemed text-2xl text-grey2 tracking-wide">take test to see result</h1>
+                        
+                    <?php endif;?>
+
+                    <a href="/account"><h1 class="relative text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-blue3 text-white1 w-3/4 p-2 border rounded-sm text-xs md:text-lg md:w-1/2">Account Settings</h1></a>
+
+                    <form method="POST" action="/login">
+                        <input type="hidden" name="_method" value="DELETE" />
+                        <button class="relative text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-red1 text-white1 w-3/4 p-2 border rounded-sm text-xs md:text-lg md:w-1/2">Log Out</button>
+                    </form>
+                </div>
+                
+
+            <?php else: ?>
+                <a href="/login"><h1 class="relative font-synebold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-32 tracking-tight bg-blue3 text-white1 w-3/4 p-2 py-4 rounded-xl border border-blue3 rounded-sm text-sm md:text-lg md:w-1/2">Sign in</h1></a>
+
+                <a href="/register"><h1 class="relative font-synebold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-orange1 text-black1 w-3/4 p-2 py-4 rounded-xl border border-orange1 rounded-sm text-sm md:text-lg md:w-1/2">Sign up</h1></a>
+            <?php endif; ?>
+        </div> 
         
     </ul>
 </header>
@@ -70,7 +112,7 @@
                     </button>
                     <!-- TEMPO -->
 
-                    <div class="z-40 hidden absolute flex-col justify-evenly bg-white1 h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 border-black1 rounded-b-2xl" id="navDropDown">
+                    <div class="z-40 hidden absolute flex-col justify-evenly bg-white1 h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 rounded-b-2xl" id="navDropDown">
                         <a href="<?php if($_SESSION['user']['account_type'] === 'admin'):?>/admin-settings<?php else: ?>/account<?php endif; ?>">
                             <span class="">Account Settings</span>
                         </a>
@@ -116,9 +158,29 @@
 
 
 <script>
-    document.getElementById('button').addEventListener('click', function() {
-        var dropdown = document.getElementById('dropdown');
-        dropdown.classList.toggle('hidden');
+
+    const nav = document.getElementById('nav');
+    const burger = document.getElementById('burgButt');
+    const profile = document.getElementById('profButt');
+    const burgDD = document.getElementById('burgDD');
+    const profDD = document.getElementById('profDD');
+
+    burger.addEventListener('click', function() {
+        if (profDD.classList.contains("hidden")){ // closes other (profDD) if its open on burger press
+            burgDD.classList.toggle('hidden');
+        }else{
+            profDD.classList.toggle('hidden');
+            burgDD.classList.toggle('hidden');
+        }
+    });
+
+    profile.addEventListener('click', function() {
+        if (burgDD.classList.contains("hidden")){
+            profDD.classList.toggle('hidden');
+        }else{
+            burgDD.classList.toggle('hidden');
+            profDD.classList.toggle('hidden');
+        }
     });
 
     // keep track of previous scroll position
@@ -130,10 +192,10 @@
 
     if(prevScrollPos < currentScrollPos && currentScrollPos > 40){
         // user has scrolled up
-        document.getElementById('nav').classList.add('hidden');
-    }else if(prevScrollPos > currentScrollPos && currentScrollPos > 40) {
+        nav.classList.add('hidden');
+    }else if(prevScrollPos > currentScrollPos) {
         // user has scrolled down
-        document.getElementById('nav').classList.remove('hidden');
+        nav.classList.remove('hidden');
     }
 
     // update previous scroll position

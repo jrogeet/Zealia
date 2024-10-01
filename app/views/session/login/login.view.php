@@ -3,7 +3,7 @@
 <body class="font-synereg bg-white1">
     <?php view('partials/nav.view.php')?>
 
-    <div class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute left-[50%] top-[20%] transform translate-x-[-50%] w-[26.25rem] h-fit"> 
+    <div class="pt-16 pb-10 bg-white1 sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[50%] transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-[26.25rem] h-fit"> 
 
         <!-- <div>
             <?php //if(isset($loginmessage)): ?>
@@ -11,7 +11,7 @@
             <?php // endif; ?>
         </div> -->
 
-        <h1 class="mb-16 mx-12 text-4xl text-center">Welcome back to Zealia</h1>
+        <h1 class="mb-16 mx-12 text-[6vw] sm:text-4xl text-center">Welcome back to Zealia</h1>
 
         <form method="POST" action="/login">
         

@@ -105,6 +105,7 @@ class Authenticator
             'l_name'=> $user['l_name'],
             'f_name'=> $user['f_name'],
             'account_type'=> $user['account_type'],
+            'result' => $user['result'],
         ];
         session_regenerate_id(true); // regenerate new SESSION ID and (true) to clear out the OLD session file
     }

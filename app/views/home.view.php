@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white1 flex flex-col justify-between">
+<body class="bg-white1 flex flex-col justify-between overflow-x-hidden">
     <?php view('partials/nav.view.php'); ?>
 
     <!-- first part mobile-->
@@ -40,7 +40,7 @@
     </div>
 
     <!-- second part mobile -->
-    <div class="flex lg:hidden justify-center items-center">
+    <div class="flex lg:hidden justify-center items-center ">
         <div class="relative block w-full min-h-[106.25rem] py-10 justify-evenly bg-howtouse bg-no-repeat bg-cover bg-center selection:bg-blue3 selection:text-white1">
 
             <div class="relative block pl-2 w-5/6 h-fit font-synemed mx-auto ml-[8%] top-[8rem] max-w-[18rem]" >
@@ -101,6 +101,9 @@
         </div>
     </div>
 
+    
+    <?php view('partials/footer.view.php'); ?>
+    <script src="assets/js/shared-scripts.js"></script>
 
 </body>
 </html>

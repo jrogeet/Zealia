@@ -3,7 +3,8 @@
  <!-- CHANGE NAME ERROR FIX -->
 <body class="bg-white1 flex flex-col justify-between items-center">
     <?php view('partials/nav.view.php')?>
-    <main class="flex flex-col h-[50rem] w-[87.5rem] mt-20">
+    <!-- desktop -->
+    <main class="hidden lg:flex flex-col h-[50rem] w-[87.5rem] mt-20">
         <?php if (isset($errors['room_name'])) : ?>
             <p class="h-12 flex justify-center items-center font-synemed text-red1 text-2xl"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
@@ -144,7 +145,7 @@
                         <?php endif;?>
                     </div>
 
-<!-- TO DO: ROW & COLUMN FLEX??? -->
+        <!-- TO DO: ROW & COLUMN FLEX??? -->
                     
                     <!-- Groups Container -->
                     <div class="h-auto w-full flex flex-wrap gap-y-5 justify-evenly p-6">
@@ -187,6 +188,9 @@
             </div>
         </div>
     </main>
+
+
+
     <?php view('partials/footer.view.php')?>
     <script src="assets/js/shared-scripts.js"></script>
 </body>

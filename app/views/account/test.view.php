@@ -1,7 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
 <body class="absolute inline-block w-screen h-screen font-synereg bg-white1 overflow-x-hidden">
-    <?php view('partials/nav.view.php')?>
 
     <?php if(isset($notifications)){
         view('partials/nav.view.php', ['notifications' => $notifications]);

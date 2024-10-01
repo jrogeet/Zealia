@@ -1,20 +1,20 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="font-synereg bg-white1">
+<body class="bg-white1 flex flex-col justify-between overflow-x-hidden">
     <?php view('partials/nav.view.php')?>
 
 
-    <div class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute left-[50%] top-[20%] transform translate-x-[-50%] w-[26.25rem] h-fit"> 
+    <div class="pt-16 pb-10 sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[26.25rem] sm:w-[26.25rem] h-fit"> 
 
-        <h1 class="mb-14 mx-12 text-4xl text-center">Create an account</h1>
+        <h1 class="mb-14 mx-12 text-[6vw] sm:text-4xl text-center">Create an account</h1>
         <?php if (isset($errors['regexist'])): ?>
                 <p class="text-center text-sm text-red-600 my-0"><?= $errors['regexist'] ?></p>
         <?php endif; ?>
 
         <form method="POST" action="/register">
             <div class="flex justify-between mx-16 mb-2">
-                <input class="border border-black rounded-xl transform translate-x-[5%] text-left pl-4 mb-1 h-10 w-[47%] text-sm bg-white1" type="text" placeholder="Last name" type="text" name="lname" required>
-                <input class="border border-black rounded-xl transform translate-x-[-5%] text-left pl-4 mb-1 h-10 w-[47%] text-sm bg-white1" type="text" placeholder="First name" type="text" name="fname" required>
+                <input class="border border-black rounded-xl transform translate-x-[1%] sm:translate-x-[5%] text-left pl-4 mb-1 h-10 w-[47%] text-sm bg-white1" type="text" placeholder="Last name" type="text" name="lname" required>
+                <input class="border border-black rounded-xl transform translate-x-[-1%] sm:translate-x-[-5%] text-left pl-4 mb-1 h-10 w-[47%] text-sm bg-white1" type="text" placeholder="First name" type="text" name="fname" required>
             </div>
                 
                 <?php if (isset($errors['names'])): ?>

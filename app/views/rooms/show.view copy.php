@@ -1,226 +1,193 @@
-<!--  VIEW FILE -->
-
 <?php view('partials/head.view.php'); ?>
-
-<body>
+<!-- TO DO: -->
+ <!-- CHANGE NAME ERROR FIX -->
+<body class="bg-white1 flex flex-col justify-between items-center">
     <?php view('partials/nav.view.php')?>
+    <main class="flex flex-col h-[50rem] w-[87.5rem] mt-20">
+        <?php if (isset($errors['room_name'])) : ?>
+            <p class="h-12 flex justify-center items-center font-synemed text-red1 text-2xl"><?= $errors['room_name'] ?></p>
+        <?php endif; ?>
 
-    <?php //var_dump($encodedFilteredidNmbti); ?>
-    <?php //dd($filteredidNmbti)?>
+        <!-- room name & code / header -->
+        <div id="roomName" class="flex justify-between items-center h-12 my-6">
+            <div class="max-w-[64rem] flex flex-col truncate">
+                <span class="font-synebold text-3xl text-black1 mr-1"><?= $room_info['room_name'] ?></span>
+                <span class="font-synemed text-2xl text-grey2 mr-1">Room Code: <?= $room_info['room_code'] ?></span>
+            </div>
+            
+            <button class="h-10 w-10 flex justify-center items-center rounded mr-2 border border-black1" onClick="show('changeRoomNameInput'); hide('roomName');">
+                <img class="h-8 w-8" src="assets/images/icons/settings.png">
+            </button>
+        </div>
 
+        <!-- change room name input -->
+        <div id="changeRoomNameInput" class="hidden h-12 items-center justify-between my-6">
+            <div class="w-[40rem] flex justify-evenly items-center ">
+                <button class="bg-grey2 h-8 w-12 rounded" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
 
-    <main class="">
-        <!-- LEFT CLASS LIST  -->
-        <div class='class-list'  style="<?php if($_SESSION['user']['account_type'] === 'professor'){ echo "background-color: beige;"; }?>">
-                <div class="class-list-header">
-                    <span class='class-list-title'  style="<?php if($_SESSION['user']['account_type'] === 'professor'){ echo "color: black;"; }?>">Class Student List:</span>
-                    <span class="list-student-count" style="<?php if($_SESSION['user']['account_type'] === 'professor'){ echo "color: black;"; }?>">Total No. of Students: <?= count($stu_id) ?></span>
-                </div>
-
-                <ul class="student-name-list">
-            <?php
-                // if ($curUInList === 1) {
-                    foreach($stu_info as $student) {
-                        $stu_l = ucfirst($student['l_name']);
-                        $stu_f = ucfirst($student['f_name']);
-                    ?>
-                        <li class='student-name-li' style="<?php if($_SESSION['user']['account_type'] === 'professor'){ echo "background-color: rgb(220, 220, 201);"; }?>">
-                            <a class="class-list-info" href="/profile?id=<?= $student['school_id'] ?>">
-                                <span class='student-name' style="<?php if($_SESSION['user']['account_type'] === 'professor'){ echo "color: black;"; }?>"><?php echo "{$stu_l}, {$stu_f}" ?></span>
-                                
-                                <?php if($_SESSION['user']['account_type'] === 'professor'):?>
-                                    <form action="/room" method="POST">
-                                        <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
-                                        <button type="submit" name="delete" value="<?php echo implode(',', [$student['school_id'], $_GET['room_id']]); ?>" class="delete-student-btn">
-                                            Remove
-                                        </button>
-                                    </form>
-                                <?php endif; ?>
-                            </a>
-                        </li>
-                    <?php } ?>
-                </ul>
+                <form method="POST" action="/room" class="flex w-[33rem] justify-between items-center">
+                    <input type="hidden" name="_method" value="PATCH">
+                    <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
+                    <input type="text" name="room_name"  class="h-10 w-96 border border-black1 rounded-lg px-4" placeholder="Change room name: <?= $room_info['room_name'] ?>" required>
+                    <button class="bg-orange1 h-8 font-synemed border border-black1 rounded p-1" type="submit">Confirm Change</button>
+                </form>
             </div>
 
-        <div class="main-function-container">
-<!-- MAIN BOX -->
-            <div class="main-container" style="<?php if($_SESSION['user']['account_type'] === 'professor'){ echo "background-color: beige;"; }?>"> 
-                <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
-                    <div class="tabs-container">
-                        <!-- <form method="POST" action=""> -->
-                            <div class="room-tabs" style="<?php if($_SESSION['user']['account_type'] === 'professor'){ echo "    border-bottom: 0.2rem solid black;"; }?>">
-                                <button onclick="tabs('group')"  class='group-tab tabs'>
-                                    <span class="tabs-text">GROUP</span>
-                                </button>
+            <button onClick="show('delRoomConfirmation');" class="bg-red1 h-8 p-2 flex items-center font-synereg text-white1 text-center border border-black1 rounded">Delete Room</button>
+        </div>
 
-                                <button onclick="tabs('requests')"  class='join-requests-tab tabs'>
-                                    <span class="tabs-text">JOIN REQUESTS</span>
-                                </button>
-                                
-                                <button onclick="tabs('edit')" class="tabs edit-tab">
-                                    EDIT ROOM
-                                </button>
-                            </div>
-                            
-                        <!-- </form> -->
+        <!-- delete room confirmation modal -->
+        <div id="delRoomConfirmation" class="hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
+            <div class="bg-white2 flex flex-col h-48 w-80 border border-black1 rounded-t-lg">
+                <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
+                    <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>
+                    <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('delRoomConfirmation'); enableScroll();">X</button>
+                </div>
+                <form method="POST" action="/room" class="flex flex-col items-center h-64 p-2">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
+
+                    <span class="font-synebold text-red1 text-2xl">Delete:</span>
+                    <span class="font-synemed text-xl">Room name</span>
+                    <span class="font-synereg text-lg">FOREVER?</span>
+                    <button type="submit" class="bg-red1 p-1 mt-2 text-white1 border border-black1 rounded">Delete Room Forever</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="flex justify-between">
+            <!-- Class List & Requests -->
+           <div class="h-[37.5rem] w-[18.75rem] border border-black1 rounded-xl overflow-hidden">
+                <!-- Tabs -->
+                <div class="flex">
+                    <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-[9.37rem] font-synereg text-white1">Students</button>
+                    <?php if($_SESSION['user']['account_type'] === 'professor'):?>
+                    <button id="reqListTab" onClick="show('roomJoinRequest'); hide('roomStudentList'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-[9.37rem] font-synereg text-black1">Join Requests</button>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Students List -->
+                <div id="roomStudentList" class="h-[34.5rem] flex flex-col overflow-y-auto overflow-x-hidden rounded-b-xl">
+                    <div class="h-12 w-full p-4 flex justify-center items-center border-b border-black1">
+                        <span class="font-synemed text-lg">Total: </span>
+                        <span class="font-synemed text-blue3 text-xl mx-1"><?= count($stu_info) ?> </span>
+                        <span class="font-synemed text-lg">students.</span>
                     </div>
-                    
-                    <div class="group-parent-container">
-                        <div class="inner-tabs">
-                            <button onclick="innerTabs('results')"  class='result-tab-btn inner-tabs-btn tabs'>
-                                <span class="tabs-text">Results</span>
-                            </button>
+                        
+                    <?php foreach($stu_info as $student): ?>
+                        <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-b border-black1 p-4">
+                            <a href="#" class="text-base font-synereg"><?= $student['l_name'], ", ", $student['f_name'] ?></a>
 
-                            <button onclick="innerTabs('grouptool')"  class='grouping-tool-btn inner-tabs-btn tabs'>
-                                <span class="grouping-tool-text tabs-text">Grouping Tool</span>
-                            </button>
+                            <?php if($_SESSION['user']['account_type'] === 'professor'):?>
+                            <img src="assets/images/icons/cross.png" class="h-6 w-6 cursor-pointer" onClick="show('kickConfirmation<?= $student['school_id'] ?>'); disableScroll();">
+                            <?php endif; ?>
                         </div>
 
-                        <div class="group-tool-container" style="display: none">
-                            <input type="hidden" id="phpData" value="<?= $idNmbti ?>">
-
-                            <span class="student-count-display">Total No. of Students: <?= count($stu_id) ?></span>
-                            <span class="tested-count">No. of Students who already took the test: <?= count($filteredidNmbti) ?></span>
-                            <span class="not-tested-count">No. of Students who haven't taken the test yet: <?= count($stuNoType) ?></span>
-
-                            <div class="group-btn-container">
-                                <a href="/groups"><button onclick="grouped()" id="btn1" class="group-btn" >CREATE</button></a>
-                                <!-- <button onclick="grouped()" id="btn1" class="group-btn" >CREATE</button> -->
-                                <!-- <button onclick="grouped()" id="" class="result-btn">Show Result</button> -->
+                        <?php if($_SESSION['user']['account_type'] === 'professor'):?>
+                        <div id="kickConfirmation<?= $student['school_id'] ?>" class="hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
+                            <div class="bg-white2 flex flex-col h-40 w-80 border border-black1 rounded-t-lg">
+                                <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
+                                    <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>
+                                    <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('kickConfirmation<?= $student['school_id'] ?>'); enableScroll();">X</button>
+                                </div>
+                                <form action="/room" method="POST" class="flex flex-col items-center h-60 p-2">
+                                    <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
+                                    <span class="font-synebold text-red1 text-2xl">Remove:</span>
+                                    <span class="font-synemed text-xl"><?= $student['l_name'], ", ", $student['f_name']?></span>
+                                    <span class="font-synereg text-lg">from this room?</span>
+                                    <button type="submit" name="delete" value="<?php echo implode(',', [$student['school_id'], $_GET['room_id']]); ?>"  class="bg-red1 w-16 text-white1 border border-black1 rounded">Confirm</button>
+                                </form>
                             </div>
+                        </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
 
-                            <div class="not-tested-container">
-                                <p>It seems like not everyone has taken the test.</p>
-                                <p>If you continue, only those who took the test will be grouped.</p>
-                                <button onclick="groupedAgain()" id="btn2" class="group-btn" >Continue?</button>
-                            </div>
+                <!-- Requests List -->
+                <?php if($_SESSION['user']['account_type'] === 'professor'):?>
+                <div id="roomJoinRequest" class="hidden h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
+                    <?php foreach($requests as $request): ?>
+                    <div class="flex justify-between items-center h-20 w-full px-2 bg-blue1 border border-black1">
+                        <div class="w-52 flex flex-col">
+                            <a href="#" class="font-synereg text-base"><?= $request['l_name'], ", ", $request['f_name']?></a>
+                            <a href="#" class="font-synereg text-sm text-grey2"><?= $request['school_id'] ?></a>
+                            <a href="#" class="truncate">
+                                <span class="font-synereg text-sm text-grey2"><?= $request['email'] ?></span>
+                            </a>
+                        </div>
 
-                            <form class="hidden-group-form" id="groupings" action="/groups" method="post">
-                                <input type="hidden" name="filteredidnmbti" id="filteredidnmbti" value="<?= htmlspecialchars($encodedFilteredidNmbti, ENT_QUOTES, 'UTF-8') ?>"> 
-                                <input type="hidden" name="stunotype" id="stunotype" value="<?= count($stuNoType) ?>">
-                                <!-- <input type="hidden" name="grouped" id="grouped" value="<?php // echo $grouped; ?>"> -->
-                                <input type="hidden" name="grouped" id="grouped" value="">
-                                <input type="hidden" name="room_id" value="<?= $room_info['room_id']?>">
-                                <!-- <input type="submit" value="Submit"> -->
+                        <form method="POST" action="/room" class="flex h-6 w-16 justify-evenly">
+                            <button class="bg-check bg-cover h-6 w-6 cursor-pointer" type="submit"  name="accept" value="<?php echo implode(',', [$request['school_id'], $_GET['room_id']]); ?>"> </button>
+                            <button class="bg-cross bg-cover h-6 w-6 cursor-pointer" type="submit" name="decline" value="<?php echo implode(',', [$request['school_id'], $_GET['room_id']]); ?>"> </button>
+                        </form>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php endif; ?>
+           </div>
+
+           <!-- Groups Area -->
+           <div class="shadow-inside1  h-[37.5rem] w-[67.5rem] rounded-xl border border-black1 flex justify-center items-center">
+                <!-- Has Groups -->
+                <?php if($roomHasGroup):?>
+                <div class=" h-full w-full flex flex-col items-center overflow-y-auto">
+                    <div class="h-20 w-full flex items-center justify-between p-6">
+                        <span class="w-4/5 font-synebold text-4xl flex">GROUPS</span>
+                        
+                        <!-- edit groups btn -->
+                        <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
+                            <form id="groupings" action="/groups" method="post">
+                                <input type="hidden" name="grouped" id="grouped" value="<?= htmlspecialchars($encodedGroup, ENT_QUOTES, 'UTF-8') ?>">
+                                <input type="hidden" name="room_id" value="<?= $room_id ?>">
+                                <button type="submit" class="bg-blue2 h-10 w-36 font-synereg text-lg border border-black1 rounded-lg">Edit Groups</button>
                             </form>
-
-                            <span id="output1" class="tempo-results"></span>
-                        </div>
-    
-<!-- GROUPS TABLE -->
-                        <div class="result-wrap" >
-                        <?php 
-                            $data = [
-                                'roomHasGroup' => $roomHasGroup,
-                                'room_id' => $room_info['room_id'],
-                                'encodedstu_info' => $encodedstu_info,
-                            ];
-                            if (isset($decodedGroup)) {
-                                $data['decodedGroup'] = $decodedGroup;
-                                $data['encodedGroup'] = $encodedGroup;
-                                $data['idNtype'] = $idNtype;
-                            }
-                            view('rooms/groups/groups-table.view.php', $data);
-                            ?>
-                        </div>
-                        <!-- RESULT-WRAP END -->
+                        <?php endif;?>
                     </div>
-                    <!--  GROUP-PARENT-CONTAINER END -->
 
-
-
-                    <div class="requests-container">
-                        <div class="room-reqs">
-
-                            <span class="request-header">REQUESTS:</span>
-
-                            <ul class="request-ul">
-                            <?php 
-                                foreach ($requests as $request) {
-                                    ?>
-                                    <li class="request-li">
-                                        <div class="req-info-container">
-                                            <ul class="req-info-ul">
-                                                <li class="req-info-li"><span><?php echo "{$request['l_name']}, {$request['f_name']}";?></span></li>
-                                                <li class="req-info-li"><span><?php echo "School ID: {$request['school_id']}"?></span></li>
-                                                <li class="req-info-li"><span><?php echo "Email: {$request['email']}"?></span></li>
-                                            </ul>
-                                            <form method="POST" action="/room">
-                                                <div class="acc-dec-container">
-                                                    <button type="submit" class="acc-dec-btn" name="accept" value="<?php echo implode(',', [$request['school_id'], $_GET['room_id']]); ?>">
-                                                        Accept
-                                                    </button>
-                                                    <button type="submit" class="acc-dec-btn" name="decline" value="<?php echo implode(',', [$request['school_id'], $_GET['room_id']]); ?>">
-                                                        Decline
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </li>
-                            <?php } ?>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- REQUESTS-CONTAINER END -->
-
-                    <div class="edit-container" id="edit-container" style="display: none;">
-                        <form method="POST" action="/room" class="create-room-form">
-                            <input type="hidden" name="_method" value="PATCH">
-                            <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
-                            <label for="body" class="room-name-title">Change Room Name:</label>
-
-                            <div class="name-input-container">
-                                <input type="text" name="room_name" class="name-input" placeholder="<?= $room_info['room_name']?>" required>
-                                <?php if (isset($errors['room_name'])) : ?>
-                                    <p class="error-message"><?= $errors['room_name'] ?></p>
-                                <?php endif; ?>
-                            </div>
-                            <button class="update-button" type="submit">UPDATE</button>
-                        </form>
-                
-                        <form method="POST" action="/room">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
-                            <button type="button" onclick="document.getElementById('delete-button-confirm').style.display = 'block'; document.getElementById('delete-button-show').style.display = 'none';" class="delete-button" id="delete-button-show">Delete Room Forever</button>
-                            <button type="submit" class="delete-button" id="delete-button-confirm" style="display: none">Confirm Deletion</button>
-                        </form>
-                    </div>
-                        <!-- EDIT-ROOM-CONTAINER END -->
-
-
-
-<!-- STUDENT's VIEW -->
-                <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
-                    <div>
-
-                    <div class="result-wrap" >
-                        <?php 
-                            $data = [
-                                'roomHasGroup' => $roomHasGroup,
-                                'room_id' => $room_info['room_id'],
-                                'encodedstu_info' => $encodedstu_info,
-                            ];
-                            if (isset($decodedGroup)) {
-                                $data['decodedGroup'] = $decodedGroup;
-                                $data['encodedGroup'] = $encodedGroup;
-                                $data['idNtype'] = $idNtype;
-                            }
-                            view('rooms/groups/groups-table.view.php', $data);
-                            ?>
-                        </div>
-                        </div>
+<!-- TO DO: ROW & COLUMN FLEX??? -->
                     
-                <?php endif;?>
+                    <!-- Groups Container -->
+                    <div class="h-auto w-full flex flex-wrap gap-y-5 justify-evenly p-6">
+                        <!-- Each Boxes -->
+                        <?php foreach ($decodedGroup as $index => $group) {?>
+                        <div class="bg-white1 h-auto max-h-[30rem] min-w-[20rem] max-w-[20rem] border border-black1 rounded-lg flex flex-col overflow-hidden">
+                            <!-- Group Head -->
+                            <div class="bg-black1 h-10 w-full flex justify-center items-center ">
+                                <span class="font-synemed text-white1 text-4xl">Group</span>
+                                <span class="font-synebold text-orange1 text-4xl ml-2"><?= $index + 1 ?>:</span>
+                            </div>
+  
+                            <!-- Group Body -->
+                            <div class="max-h-[24.9125rem] w-full">
+                                <!-- Each Member -->
+                                <?php foreach ($group as $member) {?>
+                                <div class="h-[6.22875rem] w-full flex">
+                                    <span class="w-6/12  border border-black1 flex items-center break-all p-1 font-synemed text-xl"><?= $member[0] ?></span>
+                                    <span class="w-6/12  border border-black1 <?php if($member[2] === 'Leader') { echo 'text-orange1'; } else { echo 'text-blue3'; }?> flex justify-center items-center p-1 font-synemed text-xl "><?= $member[2] ?></span>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <?php }?>
+                    </div>
+                </div>
+                <?php else: ?>
+                <!-- NO GROUPS -->
+                    <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
+                    <div class="flex flex-col items-center">
+                        <span class="font-synebold text-4xl">You haven't grouped the class yet.</span>
+                        <button class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+                    </div>
+                    <?php else: ?>
+                    <div class="flex flex-col items-center">
+                        <span class="font-synebold text-4xl">The instructor hasn't grouped the class yet.</span>
+                    </div>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
         </div>
     </main>
-
-    <?php view('partials/footer.view.php'); ?>
-
+    <?php view('partials/footer.view.php')?>
     <script src="assets/js/shared-scripts.js"></script>
-    <script src="assets/js/distribution.js"></script>
-    <!-- <script src="../rooms/shared-scripts.js"></script> -->
-    
 </body>
-
 </html>
