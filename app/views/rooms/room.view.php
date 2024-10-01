@@ -3,8 +3,14 @@
  <!-- CHANGE NAME ERROR FIX -->
 <body class="bg-white1 flex flex-col justify-between items-center">
     <?php view('partials/nav.view.php')?>
-    <!-- desktop -->
-    <main class="hidden lg:flex flex-col h-[50rem] w-[87.5rem] mt-20">
+    <main class="flex flex-col h-[50rem] w-[87.5rem] mt-20">
+        
+        <?php //dd($stu_info); ?>
+        <?php //dd($encodedFilteredidNRiasec) ?>
+        <?php //dd($stuNoType) ?>
+        <?php //dd($idNRiasec); ?>
+        <?php //dd($decodedGroup); ?>
+
         <?php if (isset($errors['room_name'])) : ?>
             <p class="h-12 flex justify-center items-center font-synemed text-red1 text-2xl"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
@@ -28,7 +34,8 @@
 
                 <form method="POST" action="/room" class="flex w-[33rem] justify-between items-center">
                     <input type="hidden" name="_method" value="PATCH">
-                    <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
+                    <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
+                    <input type="hidden" name="edit" value="edit">
                     <input type="text" name="room_name"  class="h-10 w-96 border border-black1 rounded-lg px-4" placeholder="Change room name: <?= $room_info['room_name'] ?>" required>
                     <button class="bg-orange1 h-8 font-synemed border border-black1 rounded p-1" type="submit">Confirm Change</button>
                 </form>
@@ -58,25 +65,25 @@
 
         <div class="flex justify-between">
             <!-- Class List & Requests -->
-           <div class="h-[37.5rem] w-[18.75rem] border border-black1 rounded-xl overflow-hidden">
+           <div class="h-[37.5rem] w-[18.75rem] border border-black1 rounded-xl">
                 <!-- Tabs -->
                 <div class="flex">
-                    <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-[9.37rem] font-synereg text-white1">Students</button>
+                    <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-[9.37rem] font-synereg text-white1 border border-black1 rounded-tl-xl">Students</button>
                     <?php if($_SESSION['user']['account_type'] === 'professor'):?>
-                    <button id="reqListTab" onClick="show('roomJoinRequest'); hide('roomStudentList'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-[9.37rem] font-synereg text-black1">Join Requests</button>
+                    <button id="reqListTab" onClick="show('roomJoinRequest'); hide('roomStudentList'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-[9.37rem] font-synereg text-black1 border border-black1 rounded-tr-xl">Join Requests</button>
                     <?php endif; ?>
                 </div>
 
                 <!-- Students List -->
-                <div id="roomStudentList" class="h-[34.5rem] flex flex-col overflow-y-auto overflow-x-hidden rounded-b-xl">
-                    <div class="h-12 w-full p-4 flex justify-center items-center border-b border-black1">
+                <div id="roomStudentList" class="h-[34.5rem] flex flex-col  overflow-y-auto overflow-x-hidden rounded-b-xl">
+                    <div class="h-12 w-full p-4 flex justify-center items-center border-b-2 border-black1">
                         <span class="font-synemed text-lg">Total: </span>
                         <span class="font-synemed text-blue3 text-xl mx-1"><?= count($stu_info) ?> </span>
                         <span class="font-synemed text-lg">students.</span>
                     </div>
                         
                     <?php foreach($stu_info as $student): ?>
-                        <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-b border-black1 p-4">
+                        <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border border-black1 p-4">
                             <a href="#" class="text-base font-synereg"><?= $student['l_name'], ", ", $student['f_name'] ?></a>
 
                             <?php if($_SESSION['user']['account_type'] === 'professor'):?>
@@ -127,8 +134,8 @@
                 <?php endif; ?>
            </div>
 
-           <!-- Groups Area -->
-           <div class="shadow-inside1  h-[37.5rem] w-[67.5rem] rounded-xl border border-black1 flex justify-center items-center">
+           <!-- GROUPS AREA -->
+           <div class="shadow-inside1  h-[37.5rem] w-[67.5rem] rounded-xl flex justify-center items-center">
                 <!-- Has Groups -->
                 <?php if($roomHasGroup):?>
                 <div class=" h-full w-full flex flex-col items-center overflow-y-auto">
@@ -137,21 +144,22 @@
                         
                         <!-- edit groups btn -->
                         <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
-                            <form id="groupings" action="/groups" method="post">
+
+                            <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="bg-blue2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg">Edit Groups</a>
+
+                            <!-- <form id="groupings" action="/groups" method="get">
                                 <input type="hidden" name="grouped" id="grouped" value="<?= htmlspecialchars($encodedGroup, ENT_QUOTES, 'UTF-8') ?>">
                                 <input type="hidden" name="room_id" value="<?= $room_id ?>">
                                 <button type="submit" class="bg-blue2 h-10 w-36 font-synereg text-lg border border-black1 rounded-lg">Edit Groups</button>
-                            </form>
+                            </form> -->
                         <?php endif;?>
                     </div>
-
-        <!-- TO DO: ROW & COLUMN FLEX??? -->
                     
                     <!-- Groups Container -->
                     <div class="h-auto w-full flex flex-wrap gap-y-5 justify-evenly p-6">
                         <!-- Each Boxes -->
                         <?php foreach ($decodedGroup as $index => $group) {?>
-                        <div class="bg-white1 h-auto max-h-[30rem] min-w-[20rem] max-w-[20rem] border border-black1 rounded-lg flex flex-col overflow-hidden">
+                        <div class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
                             <!-- Group Head -->
                             <div class="bg-black1 h-10 w-full flex justify-center items-center ">
                                 <span class="font-synemed text-white1 text-4xl">Group</span>
@@ -159,7 +167,7 @@
                             </div>
   
                             <!-- Group Body -->
-                            <div class="max-h-[24.9125rem] w-full">
+                            <div class=" w-full">
                                 <!-- Each Member -->
                                 <?php foreach ($group as $member) {?>
                                 <div class="h-[6.22875rem] w-full flex">
@@ -172,12 +180,25 @@
                         <?php }?>
                     </div>
                 </div>
+
+
+                
                 <?php else: ?>
                 <!-- NO GROUPS -->
                     <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
                     <div class="flex flex-col items-center">
                         <span class="font-synebold text-4xl">You haven't grouped the class yet.</span>
-                        <button class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+
+                        <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+                        <form id="submitGroups" action="/room" method="POST">
+                            <input type="hidden" name="_method" value="PATCH">
+                            <input type="hidden" name="grouped" value="grouped">
+                            <input type="hidden" name="genGroups" value="" id="genGroups">
+
+                            <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="<?= htmlspecialchars($encodedFilteredidNRiasec, ENT_QUOTES, 'UTF-8') ?>"> 
+                            <input type="hidden" name="stunotype" id="stunotype" value="<?= count($stuNoType) ?>">
+                        </form>
                     </div>
                     <?php else: ?>
                     <div class="flex flex-col items-center">
@@ -186,12 +207,25 @@
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
+
         </div>
     </main>
-
-
-
     <?php view('partials/footer.view.php')?>
+
     <script src="assets/js/shared-scripts.js"></script>
+    <script src="assets/js/grouping.js"></script>
+
+    <script>
+        function generateGroups() {
+            // const rows = <?php //echo $encodedFilteredidNRiasec; ?>;
+            createList(<?php echo $encodedFilteredidNRiasec; ?>)
+            groupRoles(PI)
+            groupRoles(writer)
+            groupRoles(dev)
+            groupRoles(des)
+            distributeRoles()
+            // display()
+        }
+    </script>
 </body>
 </html>
