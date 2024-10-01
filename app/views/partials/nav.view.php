@@ -1,5 +1,5 @@
 <!-- mobile nav -->
-<header class="fixed lg:hidden flex z-50 bg-white1 w-full min-w-[320px] min-h-10 font-synemed" id="nav">
+<header class="fixed flex z-50 bg-white1 w-full min-w-[320px] min-h-10 font-synemed" id="nav">
     <a class="ml-2 mx-auto p-2" id="burgButt"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
     <a href="/" class="mx-auto p-2"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
     <a class="mr-2 mx-auto p-2" id="profButt">tao</a>
@@ -66,7 +66,7 @@
 </header>
 
 <!-- desktop nav -->
-<header class="hidden relative lg:block bg-white1 z-50 shadow-md h-20 w-full content-center" id="navbar">
+<header class="fixed block bg-white1 z-50 shadow-md h-20 w-full content-center" id="navbar">
     <!-- object container -->
     <div class="flex h-fit w-full justify-between font-synesemi text-xl text-black1 mx-auto px-[1rem]">
         <!-- Main NavBar -->
@@ -159,11 +159,43 @@
 
 <script>
 
-    const nav = document.getElementById('nav');
+    const nav1 = document.getElementById('nav');
+    const nav2 = document.getElementById('navbar');
+    const navDesk = document.getElementById('navbar');
     const burger = document.getElementById('burgButt');
     const profile = document.getElementById('profButt');
     const burgDD = document.getElementById('burgDD');
     const profDD = document.getElementById('profDD');
+
+    const att = document.createAttribute("onresize"); //adds onresize="changeNav()" to the body
+    // Set a value of the class attribute
+    att.value = "changeNav()";
+    // Add the class attribute to the first h1;
+    document.getElementsByTagName("body")[0].setAttributeNode(att);
+
+    function chooseNav(){
+        if (window.innerWidth >= 1024){
+            nav = nav2
+            nav1.classList.add("hidden");
+        }else{
+            nav = nav1
+            nav2.classList.add("hidden");
+        }
+    }
+
+    function changeNav(){
+        if (window.innerWidth >= 1024){
+            nav = nav2
+            nav1.classList.add("hidden");
+            nav2.classList.remove("hidden");
+        }else{
+            nav = nav1
+            nav2.classList.add("hidden");
+            nav1.classList.remove("hidden");
+        }
+    }
+
+    chooseNav();
 
     burger.addEventListener('click', function() {
         if (profDD.classList.contains("hidden")){ // closes other (profDD) if its open on burger press
@@ -192,10 +224,10 @@
 
     if(prevScrollPos < currentScrollPos && currentScrollPos > 40){
         // user has scrolled up
-        nav.classList.add('hidden');
+        nav.classList.add('hidden')
     }else if(prevScrollPos > currentScrollPos) {
         // user has scrolled down
-        nav.classList.remove('hidden');
+        nav.classList.remove('hidden')
     }
 
     // update previous scroll position

@@ -1,11 +1,9 @@
 <?php view('partials/head.view.php'); ?>
 <!-- TO DO: -->
  <!-- CHANGE NAME ERROR FIX -->
-<body class="bg-white1 block overflow-x-hidden">
+<body class="bg-white1 flex flex-col justify-between items-center">
     <?php view('partials/nav.view.php')?>
-
-    <!-- desktop -->
-    <main class="relative hidden 2xl:block left-1/2 transform -translate-x-1/2 h-[50rem] w-[87.5rem] mt-12">
+    <main class="flex flex-col h-[50rem] w-[87.5rem] mt-20">
         
         <?php //dd($stu_info); ?>
         <?php //dd($encodedFilteredidNRiasec) ?>
@@ -212,132 +210,12 @@
 
         </div>
     </main>
-
-
-    <!-- mobile -->
-    <div class="relative block top-10 lg:top-0 2xl:hidden">
-        <div class="relative flex text-center font-synebold">
-            <h1 class="w-3/5 py-2 bg-blue3 text-white1 shadow-xl duration-100" id="StudButt">Students</h1>
-            <h1 class="w-2/5 py-2 bg-orange1 text-black1 shadow-xl duration-100" id="GrButt">Groups</h1>
-        </div>
-
-        <!-- students content -->
-        <div class="flex flex-wrap w-full h-fit py-0 sm:py-2 px-0" id="students">
-            <?php foreach($stu_info as $student): ?>
-                    <?php if($_SESSION['user']['school_id'] == $student['school_id']):?>
-                        <div class="bg-blue2 relative block mx-0 sm:mx-auto min-w-[19rem] md:max-w-[28rem] h-fit w-full sm:w-[48%] sm:rounded-2xl border-t border-black sm:border-none m-0 sm:m-2 py-2 text-center">
-                            <a href="#" class="relative text-base font-synereg"><?= $student['l_name'], ", ", $student['f_name'] ?></a></br>
-                            <a href="#" class="relative text-base font-synereg"><?= $student['school_id'] ?></a>
-                        </div>
-                    <?php else:?>
-                        <div class="bg-white2 relative block mx-0 sm:mx-auto min-w-[19rem] md:max-w-[28rem] h-fit w-full sm:w-[48%] sm:rounded-2xl border-t border-black sm:border-none m-0 sm:m-2 py-2 text-center">
-                            <a href="#" class="relative text-base font-synereg"><?= $student['l_name'], ", ", $student['f_name'] ?></a></br>
-                            <a href="#" class="relative text-base font-synereg"><?= $student['school_id'] ?></a>
-                        </div>
-                    <?php endif; ?>
-            <?php endforeach; ?>
-        </div>
-
-        <!-- groups content -->
-        <div class="flex flex-wrap w-full h-fit py-0 sm:py-2 px-0 hidden" id="groups">
-            <?php if($roomHasGroup):?>
-                <div class=" h-full w-full flex flex-col items-center overflow-y-auto">
-                <!-- Groups Container -->
-                 <!-- Each Boxes -->
-                    <div class="h-auto w-full flex flex-wrap gap-y-5 justify-evenly p-6">
-                    
-                        <?php foreach ($decodedGroup as $index => $group) {?>
-                            <div class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
-                        <!-- Group Head -->
-                                <div class="bg-black1 h-10 w-full flex justify-center items-center ">
-                                    <span class="font-synemed text-white1 text-4xl">Group</span>
-                                    <span class="font-synebold text-orange1 text-4xl ml-2"><?= $index + 1 ?>:</span>
-                                </div>
-
-                        <!-- Group Body -->
-                            <!-- Each Member -->
-                                <div class=" w-full">
-                                    <?php foreach ($group as $member) {?>
-                                        <div class="h-[6.22875rem] w-full flex">
-                                            <span class="w-6/12  border border-black1 flex items-center break-all p-1 font-synemed text-xl"><?= $member[0] ?></span>
-                                            <span class="w-6/12  border border-black1 <?php if($member[2] === 'Leader') { echo 'text-orange1'; } else { echo 'text-blue3'; }?> flex justify-center items-center p-1 font-synemed text-xl "><?= $member[2] ?></span>
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                        <?php }?>
-                    </div>
-                </div>
-            <!-- NO GROUPS -->
-            <?php else: ?>
-                <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
-                    <div class="flex flex-col items-center">
-                        <span class="font-synebold text-4xl">You haven't grouped the class yet.</span>
-
-                        <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
-                        <form id="submitGroups" action="/room" method="POST">
-                            <input type="hidden" name="_method" value="PATCH">
-                            <input type="hidden" name="grouped" value="grouped">
-                            <input type="hidden" name="genGroups" value="" id="genGroups">
-
-                            <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
-                            <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="<?= htmlspecialchars($encodedFilteredidNRiasec, ENT_QUOTES, 'UTF-8') ?>"> 
-                            <input type="hidden" name="stunotype" id="stunotype" value="<?= count($stuNoType) ?>">
-                        </form>
-                    </div>
-                <?php else: ?>
-                    <div class="flex flex-col items-center">
-                        <span class="font-synebold text-4xl">The instructor hasn't grouped the class yet.</span>
-                    </div>
-                <?php endif; ?>
-            <?php endif; ?>
-        </div>
-
-    </div>
-
-
-
     <?php view('partials/footer.view.php')?>
+
     <script src="assets/js/shared-scripts.js"></script>
     <script src="assets/js/grouping.js"></script>
+
     <script>
-
-        const StudButt = document.getElementById('StudButt');
-        const GrButt = document.getElementById('GrButt');
-        const students = document.getElementById('students');
-        const groupContent = document.getElementById('groups');
-        
-        StudButt.addEventListener('click',function(){
-            if(StudButt.classList.contains("bg-blue3")){
-                    
-            }else{
-                StudButt.classList.replace("bg-orange1","bg-blue3");
-                StudButt.classList.replace("text-black1","text-white1");
-                StudButt.classList.replace("w-2/5","w-3/5");
-                GrButt.classList.replace("bg-blue3","bg-orange1");
-                GrButt.classList.replace("text-white1","text-black1");
-                GrButt.classList.replace("w-3/5","w-2/5");
-                students.classList.remove("hidden");
-                groupContent.classList.add("hidden");
-            }
-        })
-
-        
-        GrButt.addEventListener('click',function(){
-            if(GrButt.classList.contains("bg-blue3")){
-                
-            }else{
-                GrButt.classList.replace("bg-orange1","bg-blue3");
-                GrButt.classList.replace("text-black1","text-white1");
-                GrButt.classList.replace("w-2/5","w-3/5");
-                StudButt.classList.replace("bg-blue3","bg-orange1");
-                StudButt.classList.replace("text-white1","text-black1");
-                StudButt.classList.replace("w-3/5","w-2/5");
-                students.classList.add("hidden");
-                groupContent.classList.remove("hidden");
-            }
-        })
-
         function generateGroups() {
             // const rows = <?php //echo $encodedFilteredidNRiasec; ?>;
             createList(<?php echo $encodedFilteredidNRiasec; ?>)
