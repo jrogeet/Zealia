@@ -159,7 +159,7 @@
                     <div class="h-auto w-full flex flex-wrap gap-y-5 justify-evenly p-6">
                         <!-- Each Boxes -->
                         <?php foreach ($decodedGroup as $index => $group) {?>
-                        <div class="bg-white1 h-auto max-h-[30rem] min-w-[20rem] max-w-[20rem] border border-black1 rounded-lg flex flex-col overflow-hidden">
+                        <div class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
                             <!-- Group Head -->
                             <div class="bg-black1 h-10 w-full flex justify-center items-center ">
                                 <span class="font-synemed text-white1 text-4xl">Group</span>
@@ -167,7 +167,7 @@
                             </div>
   
                             <!-- Group Body -->
-                            <div class="max-h-[24.9125rem] w-full">
+                            <div class=" w-full">
                                 <!-- Each Member -->
                                 <?php foreach ($group as $member) {?>
                                 <div class="h-[6.22875rem] w-full flex">

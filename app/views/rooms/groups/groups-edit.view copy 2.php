@@ -8,6 +8,8 @@
 
     </div>
 
+    <!-- THIS IS A COPY BEFORE CHANGING CHANGEGROUP TO ASYNC -->
+
     <!-- <div id="customModal ${member[1]} ${groupNum}" class="z-50 flex bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
         <div class="bg-white1 flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
             <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
@@ -28,14 +30,13 @@
 
     <form id="submitMods" method="POST" action="/groups">
         <input type="hidden" name="modGroups" id="modGroups" value="">
-        <input type="hidden" name="reasons" id="reasons" value="">
         <input type="hidden" name="room_id" value="<?= $_GET['room_id'] ?>">
     </form>
 
-    <button onclick="submitGroups();" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-synemed h-8 rounded-lg mb-16">Submit</button>
+    <button onclick="checkGroups();" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-synemed h-8 rounded-lg mb-16">Submit</button>
+
     <?php view('partials/footer.view.php')?>
     <script>
-        let reasons = [];
         let jsonString
         const div = document.getElementById('container');
         
@@ -49,113 +50,87 @@
         var cont ='';
         var groupCount = 1;
 
-        async function changeGroup(schoolID, start, end, zone, card) {
+        function changeGroup(schoolID, start, end, zone, card) {
             let memInd = 0;
-            let user;
-            start -= 1; // to turn it from group number to group index
-            end -= 1;
+            let trash
+            let user
+            start-=1 // to turn it from group number to group index
+            end-=1
 
             if (start == end) {
                 console.log("same group");
-                return;
-            }
+            } else {
+                let oldG = start+1;
+                let newG = end+1;
+                let oldID = `${schoolID} ${oldG}`;
+                let newID = `${schoolID} ${newG}`;
 
-            let oldG = start + 1;
-            let newG = end + 1;
-            let oldID = `${schoolID} ${oldG}`;
-            let newID = `${schoolID} ${newG}`;
-
-            let reasonID = `reason ${oldID}`;
-            
-            // Show the reason modal and wait for user input
-            const reasonResult = await new Promise((resolve) => {
+                let reasonID = `reason ${oldID}`;
                 show(reasonID);
-                disableScroll();
-                const draggableDiv = document.getElementById(oldID);
-                draggableDiv.setAttribute('draggable', 'false');
-                
-                const confirmButton = document.getElementById(`confirmReason ${oldID}`);
-                const closeButton = document.getElementById(`closeReason ${oldID}`);
-                const reasonInput = document.getElementById(`reasonInput ${oldID}`);
 
-                confirmButton.onclick = () => {
-                    hide(reasonID);
-                    resolve(reasonInput.value.trim());
-                };
 
-                closeButton.onclick = () => {
-                    hide(reasonID);
-                    resolve("");
-                };
-            });
-
-            // If reason is empty, don't proceed with the group change
-            if (reasonResult === "" || reasonResult.trim().length < 5) {
-                // console.log("Group change cancelled");
-                alert("Group change cancelled,\na REASON must be included AND \nit must be atleast more than 5 characters long.");
-                return;
-            }
-
-            document.getElementById(`reasonInput ${oldID}`).value = '';
-
-            // Proceed with group change
-            for (let member of groups[start]) {
-                if (member.includes(schoolID)) {
-                    user = groups[start][memInd];
-                    break;
+                for (let member of groups[start]) {
+                    if (member.includes(schoolID)) {
+                        // console.log('happens');
+                        // console.log('member index:',memInd);
+                        user = groups[start][memInd];
+                        // console.log('user:',user);
+                        break;
+                    }
+                    memInd+=1;
                 }
-                memInd += 1;
-            }
 
-            // Update IDs for the user elements
-            let elements = document.querySelectorAll(`[id*='${oldID}']`);
-            elements.forEach(element => {
-                let newElementID = element.id.replace(oldID, newID);
-                element.id = newElementID;
+                // *******************************************
+                //             CHANGING OF ID's
+                // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+                // console.log('old ID:' ,oldID);
 
-                if (element.oninput) {
-                    element.oninput = function() {
-                        capitalizeWords(newElementID);
-                    };
+                // Update IDs for the user elements
+                let elements = document.querySelectorAll(`[id*='${oldID}']`);
+                elements.forEach(element => {
+                    let newElementID = element.id.replace(oldID, newID);
+                    element.id = newElementID;
+
+                    // Update event handlers or any other necessary attributes
+                    if (element.oninput) {
+                        element.oninput = function() {
+                            capitalizeWords(newElementID);
+                        };
+                    }
+                });
+
+                // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                //           END of CHANGING OF ID's
+                // *******************************************
+
+                // Clear role if has the same role
+                for (let member of groups[end]) {
+                    // console.log(user[2]);
+                    if (member.includes(user[2])) {
+                        user[2] = "N/A";
+
+                        // removing role name visually
+                        // document.getElementById(newRoleID).innerHTML = 'N/A';
+                        document.getElementById(`role ${newID}`).innerHTML = 'N/A';
+                        break;
+                    }
                 }
-            });
 
-            // Clear role if has the same role
-            for (let member of groups[end]) {
-                if (member.includes(user[2])) {
-                    user[2] = "N/A";
-                    document.getElementById(`role ${newID}`).innerHTML = 'N/A';
-                    break;
-                }
+                // console.log('path:', schoolID, start, end);
+                // console.log('initial starting group:',groups[start]);
+
+                trash = groups[start].splice(memInd,1); //removes user from old group
+                // console.log('post removal starting group:',groups[start]);
+
+                groups[end].push(user);
+
+                // move visually
+                zone.append(card);
+
+                // console.log('new group:',groups[end]);
+                // console.log(groups);
+                jsonString = groups;
             }
-
-            groups[start].splice(memInd, 1); // removes user from old group
-            groups[end].push(user);
-
-            // move visually
-            zone.append(card);
-
-            console.log('new group:', groups[end]);
-            console.log(groups);
-            jsonString = groups;
-
-            // STORE THE REASON IN AN ARRAY
-            let reasonObj = { room_id:<?= $_GET['room_id'] ?>, from_group:start, to_group:end, school_id:schoolID, groups_json:JSON.stringify(groups), reason:reasonResult };
-            
-            // Check if same school_id exists, delete the previous if yes.
-            let indexToDelete = -1;
-            reasons.forEach((reason, index) => {
-                if (reason.school_id === schoolID) {
-                    indexToDelete = index;
-                }
-            });
-
-            if (indexToDelete !== -1) {
-                reasons.splice(indexToDelete, 1); // Remove the element at the index if a match was found
-            }
-
-            reasons.push(reasonObj);
-            console.log('current Reasons:', reasons);
         }
 
         let groupNum = 0;
@@ -207,7 +182,7 @@
                                     
                                         <div class="h-5/6 flex flex-col justify-evenly items-center p-4">
                                             <div class="w-full">
-                                                <p class="font-synemed text-black">Enter the reason for transferring <span class="text-blue3">${member[0]}</span>:</p>
+                                                <p class="font-synemed text-black">Enter why you're transferring <span class="text-blue3">${member[0]}</span>:</p>
                                                 <input id="reasonInput ${member[1]} ${groupNum}" placeholder="Enter reason:" class="w-full p-2 mt-2 border border-black rounded font-synereg" required>
                                             </div>
 
@@ -272,10 +247,12 @@
             zone.addEventListener('dragover', function(event) {
                 event.preventDefault()
             });
-            zone.addEventListener('drop', async function(event) {
-                let index = parseInt(this.id) + 1
+            zone.addEventListener('drop', function(event) {
+                // console.log(this);
+                let index = parseInt(this.id)+1
+                // console.log('ending group:',index);
                 endGroup = index
-                await changeGroup(schoolID, inGroup, endGroup, zone, card)
+                changeGroup(schoolID, inGroup, endGroup, zone, card)
                 console.log(groups);
                 
                 jsonString = groups;
@@ -319,7 +296,6 @@
                         } else if (item.value === "custom") {
                             let modalID = `customModal ${schoolID} ${group}`;
                             show(modalID);
-                            disableScroll();
                             const draggableDiv = document.getElementById(`${schoolID} ${group}`);
                             draggableDiv.setAttribute('draggable', 'false');
                             // modalID.addEventListener('click', function(event) {
@@ -339,7 +315,6 @@
 
                 if (arr[0] == 'confirmCustom') {
                     hide(`customModal ${IDandGroup}`);
-                    enableScroll();
 
                     console.log('IDandGroup:',IDandGroup);
                     let input = document.getElementById(`customInput ${IDandGroup}`).value.trim();
@@ -376,7 +351,7 @@
                         }
                     }
                 } else if (arr[0] == 'confirmReason') {
-                    enableScroll();
+                    
                 }
 
                 const draggableDiv = document.getElementById(`${arr[1]} ${arr[2]}`);
@@ -392,10 +367,8 @@
                 if (arr[0] == 'closeReason') {
                     console.log('reason');
                     hide(`reason ${arr[1]} ${arr[2]}`);
-                    enableScroll()
                 } else {
                     hide(`customModal ${arr[1]} ${arr[2]}`);
-                    enableScroll();
 
                     const selectElement = document.getElementById(`${arr[1]} ${arr[2]}`);
 
@@ -421,55 +394,17 @@
                 });
         }
 
-        function submitGroups(){
-            // console.log(typeof(groups));
-            document.getElementById('modGroups').value = JSON.stringify(groups);
-            // console.log(typeof(JSON.stringify(groups)));
+        function checkGroups(){
+            // for(let group of groups) {
 
-            document.getElementById('reasons').value = JSON.stringify(reasons);
+            // }
+            console.log(typeof(groups));
+            document.getElementById('modGroups').value = JSON.stringify(groups);
+            console.log(typeof(JSON.stringify(groups)));
             document.getElementById('submitMods').submit();
         }
 
 
-
-        //***************************************
-        //         SCROLL WHILE DRAGGING
-        //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-
-        // Function to handle scrolling during drag
-        function handleDragScroll(e) {
-            const scrollSpeed = 13; // Adjust this value to change scroll speed
-            const buffer = 100; // Distance from top/bottom of viewport to start scrolling
-
-            const mouseY = e.clientY;
-            const viewportHeight = window.innerHeight;
-
-            if (mouseY < buffer) {
-                // Scroll up
-                window.scrollBy(0, -scrollSpeed);
-            } else if (mouseY > viewportHeight - buffer) {
-                // Scroll down
-                window.scrollBy(0, scrollSpeed);
-            }
-        }
-
-        // Add event listeners for drag events
-        document.addEventListener('dragover', (e) => {
-            e.preventDefault(); // Necessary to allow dropping
-            handleDragScroll(e);
-        });
-
-        // Optional: add smooth scrolling
-        document.documentElement.style.scrollBehavior = 'smooth';
-
-        // Make sure all draggable elements have the draggable attribute set
-        document.querySelectorAll('.draggable').forEach(el => {
-            el.setAttribute('draggable', 'true');
-        });
-
-        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        //         SCROLL WHILE DRAGGING
-        //***************************************
 
     </script>
     <!-- <script src="assets/js/edit-groups.js"></script> -->
