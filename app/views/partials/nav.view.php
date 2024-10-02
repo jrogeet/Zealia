@@ -105,6 +105,17 @@
         <!-- LOGIN & SIGNUP Part -->
         <div class="relative flex gap-[1.44rem] items-center">
             <?php if ($_SESSION['user'] ?? false) : ?>
+                <!-- NOTIFICATIONS -->
+                <div class="relative inline-block">
+                    <button id="notificationBtn" class="relative cursor-pointer">
+                        <span class="notification-icon">🔔</span>
+                        <span id="notificationCount" class="absolute -top-[8px] -right-[8px] bg-red1 text-white text-sm rounded py-1 px-2">0</span>
+                    </button>
+                    <div id="notificationDropdown" class="absolute right-0 top-full w-[300px] bg-white border border-black1 shadow max-h-[400px] overflow-y-auto hidden">
+                        <div id="notificationList"></div>
+                    </div>
+                </div>
+
                 <div class="relative text-xl">
                     <button class="z-50 flex justify-between items-center px-4 h-12 w-56  bg-blue3 border rounded-lg" id="navDDbutton">
                         <span class="text-white1 w-4/5 text-left truncate"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
@@ -235,3 +246,115 @@
     });
 
 </script>
+
+<!-- FOR NOTIFICATIONS -->
+ <script>
+    class NotificationManager {
+        constructor() {
+            this.eventSource = null;
+            this.notificationBtn = document.getElementById('notificationBtn');
+            this.notificationCount = document.getElementById('notificationCount');
+            this.notificationList = document.getElementById('notificationList');
+            this.notificationDropdown = document.getElementById('notificationDropdown');
+            
+            this.initializeEventSource();
+            this.initializeEventListeners();
+        }
+
+        initializeEventSource() {
+            console.log('Initializing EventSource...');
+            this.eventSource = new EventSource('/notifications/stream');
+            
+            this.eventSource.onmessage = (event) => {
+                console.log('Received message:', event.data);
+                const data = JSON.parse(event.data);
+                this.updateNotifications(data);
+            };
+
+            this.eventSource.onerror = (error) => {
+                console.error('SSE Error:', error);
+                this.eventSource.close();
+                
+                // Attempt to reconnect after 5 seconds
+                setTimeout(() => this.initializeEventSource(), 5000);
+            };
+        }
+
+        initializeEventListeners() {
+            this.notificationBtn.addEventListener('click', () => {
+                this.notificationDropdown.classList.toggle('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!this.notificationDropdown.contains(e.target) && 
+                    !this.notificationBtn.contains(e.target)) {
+                    this.notificationDropdown.classList.add('hidden');
+                }
+            });
+        }
+
+        updateNotifications(data) {
+            this.notificationCount.textContent = data.count;
+            
+            if (data.notifications.length === 0) {
+                this.notificationList.innerHTML = '<div class="p-[20px] text-center text-grey2">No new notifications</div>';
+                return;
+            }
+
+            this.notificationList.innerHTML = data.notifications
+                .map(notification => this.createNotificationElement(notification))
+                .join('');
+        }
+
+        createNotificationElement(notification) {
+            return `
+                <div class="p-[10px] border-b border-black1" data-id="${notification.id}">
+                    <div class="mb-[5px]">
+                        ${notification.message}
+                    </div>
+                    <div class="text-[12px] text-grey2">
+                        ${new Date(notification.created_at).toLocaleString()}
+                    </div>
+                    <button onclick="notificationManager.markAsRead(${notification.id})" 
+                            class="text-[12px] text-blue cursor-pointer p-0 mt-[5px]">
+                        Mark as read
+                    </button>
+                </div>
+            `;
+        }
+
+        async markAsRead(notificationId) {
+            try {
+                const response = await fetch('/notifications/mark-as-read', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ notification_id: notificationId })
+                });
+                
+                if (response.ok) {
+                    const element = document.querySelector(`[data-id="${notificationId}"]`);
+                    if (element) {
+                        element.remove();
+                    }
+                    
+                    // Update count
+                    const currentCount = parseInt(this.notificationCount.textContent);
+                    this.notificationCount.textContent = Math.max(0, currentCount - 1);
+                }
+            } catch (error) {
+                console.error('Error marking notification as read:', error);
+            }
+        }
+    }
+ </script>
+<?php if (isset($_SESSION['user'])) : ?>
+<script>
+    // Initialize notification manager when document is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        const notificationManager = new NotificationManager();
+    });
+</script>
+<?php endif; ?>
