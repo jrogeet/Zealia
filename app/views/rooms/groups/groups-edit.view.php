@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white1 block">
+<body class="bg-white1 block overflow-x-hidden">
     <?php view('partials/nav.view.php')?>
 
     <!-- groups -->
@@ -44,7 +44,7 @@
 
         var groups = <?php echo json_encode($groups); ?>;
 
-        console.log('initial groups:',groups);
+        // console.log('initial groups:',groups);
         
         var cont ='';
         var groupCount = 1;
@@ -52,11 +52,32 @@
         async function changeGroup(schoolID, start, end, zone, card) {
             let memInd = 0;
             let user;
+            let coreRoles = ['Principal Investigator', 'Research Writer', 'System Developer', 'System Designer'];
+            let presentRoles = [];
+            let neededRole
             start -= 1; // to turn it from group number to group index
             end -= 1;
 
+            // check for missing role for changeRole()
+            if(groups[end].length >= 4){ //auto custom 
+                let cont = card.querySelector('[id^="dd"]') //find dropdown ID from card
+                let id = cont.id
+                changeRole(true,'custom',id);
+            }else{ // auto set to missing role
+                let cont = card.querySelector('[id^="dd"]') //find dropdown ID from card
+                let id = cont.id
+                for (let user of groups[end]){ // find taken roles
+                    if(coreRoles.includes(user[2])){
+                        presentRoles.push(user[2])
+                    }
+                }
+                neededRole = coreRoles.filter(role => !presentRoles.includes(role))[0]; // filter for missing role
+                console.log("missing Role", neededRole);
+                changeRole(true,neededRole,id);
+                
+            }
+
             if (start == end) {
-                console.log("same group");
                 return;
             }
 
@@ -68,6 +89,7 @@
             let reasonID = `reason ${oldID}`;
             
             // Show the reason modal and wait for user input
+
             const reasonResult = await new Promise((resolve) => {
                 show(reasonID);
                 disableScroll();
@@ -91,8 +113,8 @@
 
             // If reason is empty, don't proceed with the group change
             if (reasonResult === "" || reasonResult.trim().length < 5) {
-                // console.log("Group change cancelled");
-                alert("Group change cancelled,\na REASON must be included AND \nit must be atleast more than 5 characters long.");
+                console.log("Group change cancelled");
+                alert("Group change cancelled,\na REASON must be included AND \nit must be atleast 5 characters long.");
                 return;
             }
 
@@ -135,8 +157,8 @@
             // move visually
             zone.append(card);
 
-            console.log('new group:', groups[end]);
-            console.log(groups);
+            // console.log('new group:', groups[end]);
+            // console.log(groups);
             jsonString = groups;
 
             // STORE THE REASON IN AN ARRAY
@@ -155,7 +177,7 @@
             }
 
             reasons.push(reasonObj);
-            console.log('current Reasons:', reasons);
+            // console.log('current Reasons:', reasons);
         }
 
         let groupNum = 0;
@@ -163,7 +185,7 @@
             groupNum+=1;
             groupContent = '';
             for (let member of group){// + = drag icon
-                groupHTML = `<div class="flex w-full h-[6rem] bg-white1 border-t border-black1 cursor-grab active:cursor-grabbing text-left draggable" id="${member[1]} ${groupNum}" draggable="true">
+                groupHTML = `<div class="flex w-full h-[6.1rem] bg-white1 border-t border-black1 cursor-grab active:cursor-grabbing text-left draggable" id="${member[1]} ${groupNum}" draggable="true">
                                 <div class="w-2/3 p-2 pl-6">
                                     <h1 class="font-synemed text-2xl text-black1 mb-2 mt-2 truncate" id="name">${member[0]}</h1>
                                     <h1 class="font-synemed text-xl text-grey2 truncate" id="role ${member[1]} ${groupNum}">${member[2]}</h1>
@@ -261,9 +283,9 @@
             c.addEventListener('dragstart', function(event) {
                 let arr = this.id.split(" ");
                 inGroup = arr.pop();
-                // console.log('arr:' ,arr);
+                console.log('arr:' ,arr);
                 schoolID = arr[0];
-                // console.log('schoolID:' ,schoolID);
+                console.log('schoolID:' ,schoolID);
                 card = c;
             });
         });
@@ -276,60 +298,94 @@
                 let index = parseInt(this.id) + 1
                 endGroup = index
                 await changeGroup(schoolID, inGroup, endGroup, zone, card)
-                console.log(groups);
+
+                // console.log(groups);
                 
                 jsonString = groups;
             });
         });
 
+        // console.log(groups);
+
+        function changeRole(event,string,id){ // string for missing role, id for substitute for this.id since 'this' comes from event
+
+            let arr
+            let ind
+            let item
+
+            // when function is called by dragging card when changing groups
+            if(event === true){
+                arr = id.split(" ");
+                item = document.getElementById(id);
+                group = arr.pop(); // group number
+                ind = parseInt(group)-1; // group index
+                schoolID = arr[1]; // user's student ID
+                item.value = string;
+
+                console.log("Change group and Role!")
+            }else{ //when function is called by event ('change') by dropdown
+                arr = this.id.split(" ");
+                item = this;
+                group = arr.pop(); // group number
+                ind = parseInt(group)-1; // group index
+                schoolID = arr[1]; // user's student ID
+
+                console.log("Change Role only!")
+            }
+            
+
+            // check if chosen role(item.value) is present in the group
+            let conflict = false // turns true if conflict is present
+            let conInd // container for conflict index == to use for alert to present name and role
+            for (let index in groups[ind]){
+                if (groups[ind][index].includes(item.value)){
+                    conflict = true
+                    conInd = index
+                }
+            }
+            console.log(conflict)
+            console.log(conInd)
+
+            // change role
+            if (conflict){
+                console.log('conflict is present');
+                item.value = "null"
+            }
+
+            for (let member of groups[ind]) {
+                if (member.includes(schoolID)){
+                    if ((item.value !== "custom") && (item.value !== "null")) { // selects role
+                        // Clearing custom input's value, so next time it's selected; the input field is empty
+                        let customInputID =  `customInput ${schoolID} ${group}`;
+                    
+                        document.getElementById(customInputID).value = '';
+
+                        member[2] = item.value;
+                        // change role visually
+                        let roleID = `role ${schoolID} ${group}`;
+                        document.getElementById(roleID).innerHTML = item.value;
+
+                        console.log(groups);
+                        jsonString = groups;
+                    } else if (item.value === "custom" || item.value === "null") { // selects custom
+                        let modalID = `customModal ${schoolID} ${group}`;
+                        show(modalID);
+                        disableScroll();
+                        const draggableDiv = document.getElementById(`${schoolID} ${group}`);
+                        draggableDiv.setAttribute('draggable', 'false');
+                        // modalID.addEventListener('click', function(event) {
+
+                        // });
+                    }
+
+                }
+            }
+            
+        }
+
         // for change role (dropdown)
         dropD.forEach(function(item) {
-            item.addEventListener('change',function(event){
-                console.log('user:',item.id, 'to role:',item.value);
-
-                let arr = this.id.split(" ");
-                let ind
-                group = arr.pop();
-                ind = parseInt(group)-1;
-                schoolID = arr[1];
-
-                for (let member of groups[ind]) {
-                    console.log('for passed');
-                    if (member.includes(schoolID)){
-                        console.log('if1 passed');
-                        if ((item.value !== "custom") && (item.value !== "null")) {
-                            console.log('if2 passed');
-                            // Clearing custom input's value, so next time it's selected; the input field is empty
-                            let customInputID =  `customInput ${schoolID} ${group}`;
-                        
-                            document.getElementById(customInputID).value = '';
-
-                            console.log('item value:', item.value);
-                            console.log(`${schoolID} from group ${group}`);
-                            console.log('old:',member)
-                            member[2] = item.value;
-                            console.log('new:',member)
-
-                            // change role visually
-                            let roleID = `role ${schoolID} ${group}`;
-                            document.getElementById(roleID).innerHTML = item.value;
-
-                            console.log(groups);
-                            jsonString = groups;
-                        } else if (item.value === "custom") {
-                            let modalID = `customModal ${schoolID} ${group}`;
-                            show(modalID);
-                            disableScroll();
-                            const draggableDiv = document.getElementById(`${schoolID} ${group}`);
-                            draggableDiv.setAttribute('draggable', 'false');
-                            // modalID.addEventListener('click', function(event) {
-
-                            // });
-                        }
-
-                    }
-                }
-            })
+            item.addEventListener('change',changeRole)
         });
 
         confirmModal.forEach(function(custom) {
@@ -341,33 +397,33 @@
                     hide(`customModal ${IDandGroup}`);
                     enableScroll();
 
-                    console.log('IDandGroup:',IDandGroup);
+                    // console.log('IDandGroup:',IDandGroup);
                     let input = document.getElementById(`customInput ${IDandGroup}`).value.trim();
-                    console.log(input);
+                    // console.log(input);
 
-                    console.log('customRole arr:', arr);
+                    // console.log('customRole arr:', arr);
                     let ind
                     group = arr[2];
                     ind = parseInt(group)-1;
                     schoolID = arr[1];
-                    console.log('1', schoolID);
+                    // console.log('1', schoolID);
 
                     for (let member of groups[ind]) {
-                        console.log('2', member);
+                        // console.log('2', member);
                         if (member.includes(schoolID)){
-                            console.log('3');
+                            // console.log('3');
                             if(input !== '') {
-                                console.log('4');
+                                // console.log('4');
                                 member[2] = input;
-                                console.log('5');
+                                // console.log('5');
 
-                                console.log('not changed visually');
+                                // console.log('not changed visually');
                                 // change role visually
                                 let roleID = `role ${IDandGroup}`;
                                 document.getElementById(roleID).innerHTML = input;
-                                console.log('changed visually');
+                                // console.log('changed visually');
 
-                                console.log(groups);
+                                // console.log(groups);
                                 jsonString = groups;
 
                             } else {
@@ -387,10 +443,10 @@
         closeModal.forEach(function(modal) {
             modal.addEventListener('click', function(event) {
                 let arr = this.id.split(" ");
-                console.log('close arr:',arr);
+                // console.log('close arr:',arr);
 
                 if (arr[0] == 'closeReason') {
-                    console.log('reason');
+                    // console.log('reason');
                     hide(`reason ${arr[1]} ${arr[2]}`);
                     enableScroll()
                 } else {
@@ -413,7 +469,7 @@
         });
         
         function capitalizeWords(customInput) {
-            // console.log(customInput);
+            console.log(customInput);
             let input = document.getElementById(customInput);
             input.value = input.value
                 .replace(/\b\w/g, function(letter) {
@@ -422,9 +478,9 @@
         }
 
         function submitGroups(){
-            // console.log(typeof(groups));
+            console.log(typeof(groups));
             document.getElementById('modGroups').value = JSON.stringify(groups);
-            // console.log(typeof(JSON.stringify(groups)));
+            console.log(typeof(JSON.stringify(groups)));
 
             document.getElementById('reasons').value = JSON.stringify(reasons);
             document.getElementById('submitMods').submit();

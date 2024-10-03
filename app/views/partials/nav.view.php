@@ -1,5 +1,5 @@
 <!-- mobile nav -->
-<header class="fixed flex z-50 bg-white1 w-full min-w-[320px] min-h-10 font-synemed" id="nav">
+<header class="fixed flex z-50 bg-white1 w-full min-w-[320px] top-0 min-h-10 font-synemed" id="nav">
     <a class="ml-2 mx-auto p-2" id="burgButt"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
     <a href="/" class="mx-auto p-2"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
     <a class="mr-2 mx-auto p-2" id="profButt">tao</a>
