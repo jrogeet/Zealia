@@ -349,6 +349,7 @@
             // change role
             if (conflict){
                 console.log('conflict is present');
+                alert(`The role "${item.value}" is already taken \n Please create custom role instead. `);
                 item.value = "null"
             }
 
