@@ -15,19 +15,23 @@
 
     </div>
 
-    <div class="relative static w-full h-fit mb-12">
-        <div class="font-synesemi text-right relative h-fit left-[12%] inline-block">
+    <div class="relative block w-full h-fit mb-12">
+        <div class="text-center font-synebold text-grey2 text-4xl tracking-wider">TIE BREAKER</div>
+        
+        <div class="font-synesemi mt-12 text-right relative h-fit left-[12%] inline-block">
             <h1 class="text-3xl text-grey2">PLEASE SELECT:</h1></br>
             <h1 class="relative text-4xl font-syneboldextra top-[-2.2rem] ml-14" id="opCountDisplay"></h1>
-        </div></br>
+        </div>
 
-        <div class="font-synemed bg-white1 relative mb-20 left-1/2 transform translate-x-[-50%] border border-black rounded-2xl shadow-2xl w-6/12 h-fit p-0 overflow-hidden mb-36" id="opCont">
-        </div></br>
+        <div class="font-synemed bg-white1 relative block mb-20 left-1/2 transform translate-x-[-50%] border border-black rounded-2xl shadow-2xl w-6/12 h-fit p-0 overflow-hidden mt-20" id="opCont">
+        </div>
 
-        <button class="font-synereg fixed hidden w-56 h-12 left-[50%] mt-34 top-[88%] transform translate-x-[-50%] border border-grey2 rounded-2xl bg-blue3 text-white1" onclick="submit()" id="sub">Update Results</button>
+        <button class="font-synereg relative block w-56 h-12 left-[50%] bottom-0 transform mb-20  -translate-x-1/2 border border-grey2 rounded-2xl bg-grey2 text-grey1" onclick="submit()" id="sub">Update Results</button>
+        
 
     </div>
 
     <script src="assets/js/tieOpt.js"></script>
+    <script src="assets/js/shared-scripts.js"></script>
 
 </body>
