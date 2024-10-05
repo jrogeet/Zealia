@@ -3,6 +3,7 @@
 <body class="bg-white1 flex flex-col justify-between items-center overflow-x-hidden">
     <?php view('partials/nav.view.php'); ?>
     <main class="flex flex-col items-center h-[90rem] w-[96rem]">
+        <!-- RIASEC INTRO -->
         <div class="bg-about bg-cover bg-no-repeat min-h-[40.94rem] w-full">
             <div class="flex flex-col h-2/4 p-24 mb-14">
                 <span class="font-syneboldextra text-4xl mb-9">RIASEC</span>
@@ -14,8 +15,8 @@
             </div>
         </div>
 
-
-        <div class="w-[87.5rem] flex flex-wrap gap-x-2 gap-y-4">
+        <!-- RIASEC LETTERS -->
+        <div class="w-[87.5rem] flex flex-wrap gap-x-2 gap-y-4 mb-20">
             <div class=" flex flex-col gap-4 justify-between text-black1 w-[28.75rem] p-4 border-2 border-black1 rounded-lg">
                 <div class="flex font-synebold text-3xl">
                     <span class="text-blue2">R</span>
@@ -54,6 +55,8 @@
             </div>
         </div>
     </main>
+
+
     <?php view('partials/footer.view.php'); ?>
     <script src="assets/js/shared-scripts.js"></script>
 </body>

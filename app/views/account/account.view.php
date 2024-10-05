@@ -1,7 +1,7 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
 <?php view('partials/head.view.php'); ?>
 
-<body class="static bg-white1 font-synereg min-w-[78rem]">
+<body class="static bg-white1 font-synereg min-w-[78rem] overflow-x-hidden">
 
     <?php view('partials/nav.view.php') ?>
 
