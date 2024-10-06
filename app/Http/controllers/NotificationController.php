@@ -131,19 +131,24 @@ class NotificationController {
         )->findAll();
         
         // Process notifications
-        foreach ($notifications as &$notification) {
+        $notRead = [];
+        $hadRead = [];
+        foreach ($notifications as $notification) {
             if (isset($notification['type'])) {
                 $notification['type'] = json_encode(json_decode($notification['type'], true));
             }
+            if ($notification['read_status'] == 0) {
+                $notRead[] = $notification;
+            } else {
+                $hadRead[] = $notification;
+            }
         }
         
-        $notRead = array_filter($notifications, fn($n) => $n['read_status'] == 0);
-        $hadRead = array_filter($notifications, fn($n) => $n['read_status'] == 1);
-        
         header('Content-Type: application/json');
+        header('Cache-Control: private, max-age=60'); // Cache for 1 minute
         echo json_encode([
-            'notRead' => array_values($notRead),
-            'hadRead' => array_values($hadRead),
+            'notRead' => $notRead,
+            'hadRead' => $hadRead,
             'timestamp' => date('Y-m-d H:i:s')
         ]);
     }

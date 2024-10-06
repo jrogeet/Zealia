@@ -134,7 +134,7 @@
                             <span class="">Account Settings</span>
                         </a>
 
-                        <div class="w-52 h-[1.5px] bg-black1"></div>
+                        <div class="w-52 h-[1px] bg-black1"></div>
 
                         <form method="POST" action="/login">
                             <input type="hidden" name="_method" value="DELETE" />
@@ -258,48 +258,49 @@
 <script>
     const NotificationManager = {
         eventSource: null,
-        notificationCount: document.getElementById("notificationCount"),
-        notificationList: document.getElementById("notificationList"),
-        isInitializing: false,
+        notificationCount: null,
+        notificationList: null,
+        isInitialized: false,
+        cachedNotifications: null,
         
         async init() {
-            if (this.isInitializing) return;
-            this.isInitializing = true;
+            console.log('Initializing NotificationManager');
+            this.notificationCount = document.getElementById("notificationCount");
+            this.notificationList = document.getElementById("notificationList");
+
+            if (this.isInitialized) {
+                console.log('Already initialized, reconnecting SSE');
+                this.initializeSSE();
+                return;
+            }
             
             try {
                 await this.loadInitialNotifications();
                 this.initializeSSE();
+                this.isInitialized = true;
             } catch (error) {
                 console.error('Initialization error:', error);
-                // Show user-friendly error message
                 this.showError('Unable to load notifications. Please refresh the page.');
-            } finally {
-                this.isInitializing = false;
             }
         },
         
         async loadInitialNotifications() {
+            console.log('Loading initial notifications');
+            if (this.cachedNotifications) {
+                console.log('Using cached notifications');
+                this.updateUI(this.cachedNotifications, true);
+                return;
+            }
+
             try {
                 const response = await fetch('/notifications/initial');
-                
-                // Check if response is ok
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                // Get the content type
-                const contentType = response.headers.get('content-type');
-                if (!contentType || !contentType.includes('application/json')) {
-                    throw new TypeError("Expected JSON response but received " + contentType);
-                }
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 
                 const data = await response.json();
+                console.log('Received initial notifications:', data);
+                if (!this.isValidNotificationData(data)) throw new Error('Invalid notification data structure');
                 
-                // Validate the response structure
-                if (!this.isValidNotificationData(data)) {
-                    throw new Error('Invalid notification data structure');
-                }
-                
+                this.cachedNotifications = data;
                 this.updateUI(data, true);
             } catch (error) {
                 console.error('Error loading notifications:', error);
@@ -308,20 +309,18 @@
         },
         
         initializeSSE() {
+            console.log('Initializing SSE');
             if (this.eventSource) {
                 this.eventSource.close();
             }
 
-            this.eventSource = new EventSource('/notifications/stream', { 
-                withCredentials: true 
-            });
+            this.eventSource = new EventSource('/notifications/stream');
 
             this.eventSource.addEventListener('notifications', event => {
+                console.log('Received SSE notification:', event.data);
                 try {
                     const data = JSON.parse(event.data);
-                    if (!this.isValidNotificationData(data)) {
-                        throw new Error('Invalid notification data structure');
-                    }
+                    if (!this.isValidNotificationData(data)) throw new Error('Invalid notification data structure');
                     this.updateUI(data, false);
                 } catch (error) {
                     console.error('Error processing notification:', error);
@@ -333,7 +332,7 @@
                 console.error('SSE Error:', event);
                 this.cleanup();
                 this.showError('Connection lost. Reconnecting...');
-                setTimeout(() => this.init(), 5000);
+                setTimeout(() => this.initializeSSE(), 5000);
             });
         },
         
@@ -439,68 +438,26 @@
     };
 
     // Initialize on page load
-    document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
+        console.log('Page loaded, initializing NotificationManager');
         NotificationManager.init();
     });
 
     // Handle tab visibility
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
+            console.log('Tab hidden, cleaning up');
             NotificationManager.cleanup();
         } else {
+            console.log('Tab visible, reinitializing');
             NotificationManager.init();
         }
     });
 
     // Cleanup on page unload
     window.addEventListener('beforeunload', () => {
+        console.log('Page unloading, cleaning up');
         NotificationManager.cleanup();
     });
-    // let eventSource = new EventSource("/notifications/stream");
-
-    // // Event when receiving a message from the server
-    // eventSource.onmessage = function(event) {
-    //     const data = JSON.parse(event.data)
-    //     console.log(event.data);
-    //     // Append the message to the ordered list
-    //     document.getElementById("notificationList").innerHTML += '<li>'+data + "</li>";
-    //     console.log(data);
-    // };
-
-    // eventSource.onerror = function(error) {
-    //     console.error('EventSource failed:', error);
-    //     eventSource.close();
-    // };
 </script>
 <?php endif; ?>
-<!-- 
-<script>
-    function connectEventSource() {
-        let eventSource = new EventSource("/notifications/stream");
-
-        eventSource.onmessage = function(event) {
-            const data = JSON.parse(event.data);
-            const notificationList = document.getElementById("notificationList");
-            
-            // Handle unread notifications
-            data.notRead.forEach(notification => {
-                notificationList.innerHTML += `<li class="unread">${notification.message}</li>`;
-            });
-
-            // Handle read notifications
-            data.hadRead.forEach(notification => {
-                notificationList.innerHTML += `<li class="read">${notification.message}</li>`;
-            });
-        };
-
-        eventSource.onerror = function(error) {
-            console.error("EventSource failed:", error);
-            eventSource.close();
-            // Attempt to reconnect after 5 seconds
-            setTimeout(connectEventSource, 5000);
-        };
-    }
-
-    // Initial connection
-    connectEventSource();
-</script> -->
