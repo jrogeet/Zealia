@@ -13,4 +13,5 @@ return array(
     'Http\\' => array($baseDir . '/app/Http'),
     'Core\\' => array($baseDir . '/app/Core'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
+    'App\\' => array($baseDir . '/app'),
 );

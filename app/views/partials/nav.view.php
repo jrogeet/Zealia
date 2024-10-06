@@ -106,13 +106,19 @@
         <div class="relative flex gap-[1.44rem] items-center">
             <?php if ($_SESSION['user'] ?? false) : ?>
                 <!-- NOTIFICATIONS -->
-                <div class="relative inline-block">
+                <div id="notifContainer" class="relative inline-block">
                     <button id="notificationBtn" class="relative cursor-pointer">
                         <span class="notification-icon">🔔</span>
-                        <span id="notificationCount" class="absolute -top-[8px] -right-[8px] bg-red1 text-white text-sm rounded py-1 px-2">0</span>
+                        <span id="notificationCount" class="absolute -top-[8px] -right-[8px] bg-red1 text-white text-sm rounded py-1 px-2"></span>
                     </button>
-                    <div id="notificationDropdown" class="absolute right-0 top-full w-[300px] bg-white border border-black1 shadow max-h-[400px] overflow-y-auto hidden">
-                        <div id="notificationList"></div>
+                    <div id="notificationDropdown" class="absolute right-0 top-full max-h-[400px] w-[300px] bg-white1 border border-black1 rounded-lg shadow overflow-y-auto">
+                        <div class="bg-black1 h-14 px-4 flex items-center">
+                            <span class="font-synemed text-2xl text-orange1 ">Notifications</span>
+                        </div>
+                        <!-- <div class="bg-black1 h-[1px] my-2 w-64"></div> -->
+                        <ol id="notificationList" class="flex flex-col">
+
+                        </ol>
                     </div>
                 </div>
 
@@ -248,113 +254,253 @@
 </script>
 
 <!-- FOR NOTIFICATIONS -->
- <script>
-    class NotificationManager {
-        constructor() {
-            this.eventSource = null;
-            this.notificationBtn = document.getElementById('notificationBtn');
-            this.notificationCount = document.getElementById('notificationCount');
-            this.notificationList = document.getElementById('notificationList');
-            this.notificationDropdown = document.getElementById('notificationDropdown');
+<?php if ($_SESSION['user'] ?? false) : ?>
+<script>
+    const NotificationManager = {
+        eventSource: null,
+        notificationCount: document.getElementById("notificationCount"),
+        notificationList: document.getElementById("notificationList"),
+        isInitializing: false,
+        
+        async init() {
+            if (this.isInitializing) return;
+            this.isInitializing = true;
             
-            this.initializeEventSource();
-            this.initializeEventListeners();
-        }
-
-        initializeEventSource() {
-            console.log('Initializing EventSource...');
-            this.eventSource = new EventSource('/notifications/stream');
-            
-            this.eventSource.onmessage = (event) => {
-                console.log('Received message:', event.data);
-                const data = JSON.parse(event.data);
-                this.updateNotifications(data);
-            };
-
-            this.eventSource.onerror = (error) => {
-                console.error('SSE Error:', error);
-                this.eventSource.close();
+            try {
+                await this.loadInitialNotifications();
+                this.initializeSSE();
+            } catch (error) {
+                console.error('Initialization error:', error);
+                // Show user-friendly error message
+                this.showError('Unable to load notifications. Please refresh the page.');
+            } finally {
+                this.isInitializing = false;
+            }
+        },
+        
+        async loadInitialNotifications() {
+            try {
+                const response = await fetch('/notifications/initial');
                 
-                // Attempt to reconnect after 5 seconds
-                setTimeout(() => this.initializeEventSource(), 5000);
-            };
-        }
-
-        initializeEventListeners() {
-            this.notificationBtn.addEventListener('click', () => {
-                this.notificationDropdown.classList.toggle('hidden');
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!this.notificationDropdown.contains(e.target) && 
-                    !this.notificationBtn.contains(e.target)) {
-                    this.notificationDropdown.classList.add('hidden');
+                // Check if response is ok
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-            });
-        }
-
-        updateNotifications(data) {
-            this.notificationCount.textContent = data.count;
-            
-            if (data.notifications.length === 0) {
-                this.notificationList.innerHTML = '<div class="p-[20px] text-center text-grey2">No new notifications</div>';
-                return;
+                
+                // Get the content type
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new TypeError("Expected JSON response but received " + contentType);
+                }
+                
+                const data = await response.json();
+                
+                // Validate the response structure
+                if (!this.isValidNotificationData(data)) {
+                    throw new Error('Invalid notification data structure');
+                }
+                
+                this.updateUI(data, true);
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+                throw new Error('Failed to load notifications: ' + error.message);
+            }
+        },
+        
+        initializeSSE() {
+            if (this.eventSource) {
+                this.eventSource.close();
             }
 
-            this.notificationList.innerHTML = data.notifications
-                .map(notification => this.createNotificationElement(notification))
-                .join('');
-        }
+            this.eventSource = new EventSource('/notifications/stream', { 
+                withCredentials: true 
+            });
 
-        createNotificationElement(notification) {
-            return `
-                <div class="p-[10px] border-b border-black1" data-id="${notification.id}">
-                    <div class="mb-[5px]">
-                        ${notification.message}
-                    </div>
-                    <div class="text-[12px] text-grey2">
-                        ${new Date(notification.created_at).toLocaleString()}
-                    </div>
-                    <button onclick="notificationManager.markAsRead(${notification.id})" 
-                            class="text-[12px] text-blue cursor-pointer p-0 mt-[5px]">
-                        Mark as read
-                    </button>
-                </div>
-            `;
-        }
-
-        async markAsRead(notificationId) {
-            try {
-                const response = await fetch('/notifications/mark-as-read', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ notification_id: notificationId })
-                });
-                
-                if (response.ok) {
-                    const element = document.querySelector(`[data-id="${notificationId}"]`);
-                    if (element) {
-                        element.remove();
+            this.eventSource.addEventListener('notifications', event => {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (!this.isValidNotificationData(data)) {
+                        throw new Error('Invalid notification data structure');
                     }
+                    this.updateUI(data, false);
+                } catch (error) {
+                    console.error('Error processing notification:', error);
+                    this.showError('Error processing notification.');
+                }
+            });
+
+            this.eventSource.addEventListener('error', event => {
+                console.error('SSE Error:', event);
+                this.cleanup();
+                this.showError('Connection lost. Reconnecting...');
+                setTimeout(() => this.init(), 5000);
+            });
+        },
+        
+        isValidNotificationData(data) {
+            return data 
+                && Array.isArray(data.notRead)
+                && Array.isArray(data.hadRead)
+                && typeof data.timestamp === 'string';
+        },
+        
+        showError(message) {
+            // Add error message to the UI
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'notification-error bg-red-100 text-red-700 p-2 rounded-md mb-2';
+            errorDiv.textContent = message;
+            
+            if (this.notificationList) {
+                this.notificationList.insertBefore(errorDiv, this.notificationList.firstChild);
+                
+                // Remove error message after 5 seconds
+                setTimeout(() => {
+                    errorDiv.remove();
+                }, 5000);
+            }
+        },
+        
+        updateUI(data, isInitialLoad) {
+            if (!this.notificationList) return;
+            
+            try {
+                if (data.notRead?.length >= 0) {
+                    this.notificationCount.textContent = data.notRead.length;
+                }
+
+                if (isInitialLoad) {
+                    const fragment = document.createDocumentFragment();
                     
-                    // Update count
-                    const currentCount = parseInt(this.notificationCount.textContent);
-                    this.notificationCount.textContent = Math.max(0, currentCount - 1);
+                    data.notRead.forEach(notification => {
+                        fragment.appendChild(this.createNotificationElement(notification, false));
+                    });
+                    
+                    data.hadRead.forEach(notification => {
+                        fragment.appendChild(this.createNotificationElement(notification, true));
+                    });
+                    
+                    this.notificationList.innerHTML = '';
+                    this.notificationList.appendChild(fragment);
+                } else {
+                    const fragment = document.createDocumentFragment();
+                    data.notRead.forEach(notification => {
+                        if (!document.querySelector(`[data-notification-id="${notification.id}"]`)) {
+                            fragment.insertBefore(
+                                this.createNotificationElement(notification, false),
+                                fragment.firstChild
+                            );
+                        }
+                    });
+                    this.notificationList.insertBefore(fragment, this.notificationList.firstChild);
                 }
             } catch (error) {
-                console.error('Error marking notification as read:', error);
+                console.error('Error updating UI:', error);
+                this.showError('Error updating notifications.');
+            }
+        },
+        
+        createNotificationElement(notification, isRead) {
+            try {
+                const li = document.createElement('li');
+                li.className = isRead 
+                    ? 'read border border-t-[1px]' 
+                    : 'w-full flex flex-col p-2 bg-white2 unread border-black1 border-t-[2px] text-base';
+                li.dataset.notificationId = notification.id;
+                
+                // Safely handle notification type
+                let type = notification.type;
+                try {
+                    const parsedType = JSON.parse(notification.type);
+                    type = typeof parsedType === 'object' ? JSON.stringify(parsedType) : parsedType;
+                } catch {
+                    // If parsing fails, use the original type
+                }
+                
+                li.innerHTML = `
+                    ${type}
+                    <span class="timestamp text-sm text-grey2">
+                        ${new Date(notification.created_at).toLocaleString()}
+                    </span>
+                `;
+                
+                return li;
+            } catch (error) {
+                console.error('Error creating notification element:', error);
+                return document.createElement('li'); // Return empty li to prevent crashes
+            }
+        },
+        
+        cleanup() {
+            if (this.eventSource) {
+                this.eventSource.close();
+                this.eventSource = null;
             }
         }
-    }
- </script>
-<?php if (isset($_SESSION['user'])) : ?>
-<script>
-    // Initialize notification manager when document is ready
-    document.addEventListener('DOMContentLoaded', function() {
-        const notificationManager = new NotificationManager();
+    };
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        NotificationManager.init();
     });
+
+    // Handle tab visibility
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            NotificationManager.cleanup();
+        } else {
+            NotificationManager.init();
+        }
+    });
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        NotificationManager.cleanup();
+    });
+    // let eventSource = new EventSource("/notifications/stream");
+
+    // // Event when receiving a message from the server
+    // eventSource.onmessage = function(event) {
+    //     const data = JSON.parse(event.data)
+    //     console.log(event.data);
+    //     // Append the message to the ordered list
+    //     document.getElementById("notificationList").innerHTML += '<li>'+data + "</li>";
+    //     console.log(data);
+    // };
+
+    // eventSource.onerror = function(error) {
+    //     console.error('EventSource failed:', error);
+    //     eventSource.close();
+    // };
 </script>
 <?php endif; ?>
+<!-- 
+<script>
+    function connectEventSource() {
+        let eventSource = new EventSource("/notifications/stream");
+
+        eventSource.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            const notificationList = document.getElementById("notificationList");
+            
+            // Handle unread notifications
+            data.notRead.forEach(notification => {
+                notificationList.innerHTML += `<li class="unread">${notification.message}</li>`;
+            });
+
+            // Handle read notifications
+            data.hadRead.forEach(notification => {
+                notificationList.innerHTML += `<li class="read">${notification.message}</li>`;
+            });
+        };
+
+        eventSource.onerror = function(error) {
+            console.error("EventSource failed:", error);
+            eventSource.close();
+            // Attempt to reconnect after 5 seconds
+            setTimeout(connectEventSource, 5000);
+        };
+    }
+
+    // Initial connection
+    connectEventSource();
+</script> -->

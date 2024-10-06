@@ -83,6 +83,11 @@
                         <span class="font-synemed text-blue3 text-xl mx-1"><?= count($stu_info) ?> </span>
                         <span class="font-synemed text-lg">students.</span>
                     </div>
+
+                    <!-- ADD STUDENTS -->
+                     <div>
+                        
+                     </div>
                         
                     <?php foreach($stu_info as $student): ?>
                         <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border border-black1 p-4">
