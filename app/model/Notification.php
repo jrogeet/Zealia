@@ -1,54 +1,74 @@
 <?php
+// header('Content-Type: text/event-stream');
+// header('Cache-Control: no-cache');
 
-namespace App\Model;
+// namespace App\Http\Controllers;
 
-use Model\Database;
-use Model\App;
+// use Model\App;
+// use Model\Database;
+// class NotificationController {
+    
+//     private $last_check_time;
+    
+//     public function stream() {
+//         ob_end_flush();
+//         ob_implicit_flush(true);
+        
+//         header('Content-Type: text/event-stream');
+//         header('Cache-Control: no-cache');
 
-class Notification {
-    private $db;
-    public $currentUser;
+//         $db = App::resolve(Database::class);
 
-    public function __construct() {
-        $this->db = App::resolve(Database::class);
-        $this->currentUser = $_SESSION['user']['school_id'] ?? null;
-    }
+//         $this->last_check_time = date('Y-m-d H:i:s');
 
-    public function getUnreadNotifications() {
-        if (!$this->currentUser) {
-            return [];
-        }
+//         while (true) {
+//             $notifications = $db->query('SELECT * FROM notifications', [
+//             ])->findAll();
 
-        $notifications = $this->db->query('SELECT * FROM notifications 
-            WHERE school_id = :school_id 
-            AND read_status = 0 
-            ORDER BY created_at DESC', [
-            'school_id' => $this->currentUser,
-        ])->findAll();
+//             // $notifications = $db->query('SELECT * FROM notifications WHERE created_at > :last_check_time', [
+//             //     'last_check_time' => $this->last_check_time
+//             // ])->findAll();
 
-        return $notifications ?: [];
-    }
+//             if ($notifications) {
+//                 // Update the last check time
+//                 $this->last_check_time = date('Y-m-d H:i:s');
 
-    public function markAsRead($notificationId) {
-        if (!$this->currentUser) {
-            return false;
-        }
+//                 $notRead = [];
+//                 $hadRead = [];
+//                 foreach ($notifications as $notification) {
+//                     if ($notification['read_status'] == 0) {
+//                         $notRead[] = $notification;
+//                     } elseif ($notification['read_status'] == 1) {
+//                         $hadRead[] = $notification;
+//                     }
+//                 }
 
-        return $this->db->query('UPDATE notifications 
-            SET read_status = 1 
-            WHERE id = :id 
-            AND school_id = :school_id', [
-            'id' => $notificationId,
-            'school_id' => $this->currentUser
-        ]);
-    }
+//                 $data = [
+//                     'notifications' => $notifications,
+//                     'notRead' => $notRead,
+//                     'hadRead' => $hadRead
+//                 ];
+        
+//                 echo "data: " . json_encode($data) . "\n\n";
+        
+//                 // echo "data: " . json_encode([
+//                 //     'notifications' => json_encode($notifications),
+//                 //     'notRead' => json_encode($notRead),
+//                 //     'hadRead' => json_encode($hadRead)
+//                 // ]) . "\n\n";
+                
+//                 flush();
 
-    public function createNotification($message) {
-        return $this->db->query('INSERT INTO notifications 
-            (school_id, message, created_at) 
-            VALUES (:school_id, :message, NOW())', [
-            'school_id' => $this->currentUser,
-            'message' => $message
-        ]);
-    }
-}
+//                 if(connection_aborted()) exit();
+
+//                 // if ( connection_aborted() ) break;
+
+//                 // Exit the loop once new notifications are sent (this stops the server waiting)
+//                 break;
+//             }
+
+//             // Sleep for a short time before the next check
+//             usleep(500000); // 0.5 seconds
+//         }
+//     }
+// }
