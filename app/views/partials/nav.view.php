@@ -134,7 +134,7 @@
                             <span class="">Account Settings</span>
                         </a>
 
-                        <div class="w-52 h-[1.5px] bg-black1"></div>
+                        <div class="w-52 h-[1px] bg-black1"></div>
 
                         <form method="POST" action="/login">
                             <input type="hidden" name="_method" value="DELETE" />
@@ -261,6 +261,7 @@
         notificationCount: document.getElementById("notificationCount"),
         notificationList: document.getElementById("notificationList"),
         isInitializing: false,
+        webSocket: null,
         
         async init() {
             if (this.isInitializing) return;
@@ -268,7 +269,7 @@
             
             try {
                 await this.loadInitialNotifications();
-                this.initializeSSE();
+                this.initWebSocket();
             } catch (error) {
                 console.error('Initialization error:', error);
                 // Show user-friendly error message
@@ -307,34 +308,35 @@
             }
         },
         
-        initializeSSE() {
-            if (this.eventSource) {
-                this.eventSource.close();
-            }
+        initWebSocket() {
+            const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+            const wsUrl = `${wsProtocol}//${window.location.host}:8080`
+            
+            this.webSocket = new WebSocket(wsUrl);
 
-            this.eventSource = new EventSource('/notifications/stream', { 
-                withCredentials: true 
-            });
+            this.webSocket.onopen = () => {
+                console.log('WebSocket connection established');
+            };
 
-            this.eventSource.addEventListener('notifications', event => {
+            this.webSocket.onmessage = (event) => {
                 try {
                     const data = JSON.parse(event.data);
-                    if (!this.isValidNotificationData(data)) {
-                        throw new Error('Invalid notification data structure');
-                    }
                     this.updateUI(data, false);
                 } catch (error) {
-                    console.error('Error processing notification:', error);
-                    this.showError('Error processing notification.');
+                    console.error('Error processing WebSocket message:', error);
                 }
-            });
+            };
 
-            this.eventSource.addEventListener('error', event => {
-                console.error('SSE Error:', event);
-                this.cleanup();
-                this.showError('Connection lost. Reconnecting...');
-                setTimeout(() => this.init(), 5000);
-            });
+            this.webSocket.onclose = (event) => {
+                console.log(`WebSocket connection closed. Code: ${event.code}, Reason: ${event.reason}`);
+                this.showError('Connection to notification server lost. Attempting to reconnect...');
+                setTimeout(() => this.initWebSocket(), 5000);
+            };
+
+            this.webSocket.onerror = (error) => {
+                console.error('WebSocket error:', error);
+                this.showError('Error connecting to notification server. Please check your connection.');
+            };
         },
         
         isValidNotificationData(data) {
@@ -392,6 +394,16 @@
                         }
                     });
                     this.notificationList.insertBefore(fragment, this.notificationList.firstChild);
+                }
+
+                // Handle deleted notifications
+                if (data.deletedNotifications) {
+                    data.deletedNotifications.forEach(id => {
+                        const element = document.querySelector(`[data-notification-id="${id}"]`);
+                        if (element) {
+                            element.remove();
+                        }
+                    });
                 }
             } catch (error) {
                 console.error('Error updating UI:', error);
