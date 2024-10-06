@@ -105,22 +105,38 @@
         <!-- LOGIN & SIGNUP Part -->
         <div class="relative flex gap-[1.44rem] items-center">
             <?php if ($_SESSION['user'] ?? false) : ?>
-                <!-- NOTIFICATIONS -->
-                <div id="notifContainer" class="relative inline-block">
-                    <button id="notificationBtn" class="relative cursor-pointer">
-                        <span class="notification-icon">🔔</span>
-                        <span id="notificationCount" class="absolute -top-[8px] -right-[8px] bg-red1 text-white text-sm rounded py-1 px-2"></span>
-                    </button>
-                    <div id="notificationDropdown" class="absolute right-0 top-full max-h-[400px] w-[300px] bg-white1 border border-black1 rounded-lg shadow overflow-y-auto">
-                        <div class="bg-black1 h-14 px-4 flex items-center">
-                            <span class="font-synemed text-2xl text-orange1 ">Notifications</span>
-                        </div>
-                        <!-- <div class="bg-black1 h-[1px] my-2 w-64"></div> -->
-                        <ol id="notificationList" class="flex flex-col">
+            <!-- Notification dropdown -->
+            <div class="relative ml-3">
+                <button type="button" 
+                        onclick="document.getElementById('notification-dropdown').classList.toggle('hidden')"
+                        class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <span class="absolute -inset-1.5"></span>
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                    </svg>
+                    <span id="notification-counter" 
+                          class="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full"
+                          style="display: none;">0</span>
+                </button>
 
-                        </ol>
+                <!-- Connection status -->
+                <span id="connection-status" class="ml-2 text-xs"></span>
+
+                <!-- Notification dropdown -->
+                <div id="notification-dropdown" 
+                     class="hidden absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div class="px-4 py-2 border-b flex justify-between items-center">
+                        <h3 class="text-sm font-medium">Notifications</h3>
+                        <button onclick="markAllAsRead()" 
+                                class="text-xs text-blue-600 hover:text-blue-800">
+                            Mark all as read
+                        </button>
+                    </div>
+                    <div id="notification-list" class="max-h-96 overflow-y-auto">
+                        <!-- Notifications will be inserted here -->
                     </div>
                 </div>
+            </div>
 
                 <div class="relative text-xl">
                     <button class="z-50 flex justify-between items-center px-4 h-12 w-56  bg-blue3 border rounded-lg" id="navDDbutton">
@@ -253,238 +269,7 @@
 
 </script>
 
-<!-- FOR NOTIFICATIONS -->
-<?php if ($_SESSION['user'] ?? false) : ?>
-<script>
-    const NotificationManager = {
-        eventSource: null,
-        notificationCount: document.getElementById("notificationCount"),
-        notificationList: document.getElementById("notificationList"),
-        isInitializing: false,
-        webSocket: null,
-        
-        async init() {
-            if (this.isInitializing) return;
-            this.isInitializing = true;
-            
-            try {
-                await this.loadInitialNotifications();
-                this.initWebSocket();
-            } catch (error) {
-                console.error('Initialization error:', error);
-                // Show user-friendly error message
-                this.showError('Unable to load notifications. Please refresh the page.');
-            } finally {
-                this.isInitializing = false;
-            }
-        },
-        
-        async loadInitialNotifications() {
-            try {
-                const response = await fetch('/notifications/initial');
-                
-                // Check if response is ok
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                // Get the content type
-                const contentType = response.headers.get('content-type');
-                if (!contentType || !contentType.includes('application/json')) {
-                    throw new TypeError("Expected JSON response but received " + contentType);
-                }
-                
-                const data = await response.json();
-                
-                // Validate the response structure
-                if (!this.isValidNotificationData(data)) {
-                    throw new Error('Invalid notification data structure');
-                }
-                
-                this.updateUI(data, true);
-            } catch (error) {
-                console.error('Error loading notifications:', error);
-                throw new Error('Failed to load notifications: ' + error.message);
-            }
-        },
-        
-        initWebSocket() {
-            const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-            const wsUrl = `${wsProtocol}//${window.location.host}:8080`
-            
-            this.webSocket = new WebSocket(wsUrl);
 
-            this.webSocket.onopen = () => {
-                console.log('WebSocket connection established');
-            };
-
-            this.webSocket.onmessage = (event) => {
-                try {
-                    const data = JSON.parse(event.data);
-                    this.updateUI(data, false);
-                } catch (error) {
-                    console.error('Error processing WebSocket message:', error);
-                }
-            };
-
-            this.webSocket.onclose = (event) => {
-                console.log(`WebSocket connection closed. Code: ${event.code}, Reason: ${event.reason}`);
-                this.showError('Connection to notification server lost. Attempting to reconnect...');
-                setTimeout(() => this.initWebSocket(), 5000);
-            };
-
-            this.webSocket.onerror = (error) => {
-                console.error('WebSocket error:', error);
-                this.showError('Error connecting to notification server. Please check your connection.');
-            };
-        },
-        
-        isValidNotificationData(data) {
-            return data 
-                && Array.isArray(data.notRead)
-                && Array.isArray(data.hadRead)
-                && typeof data.timestamp === 'string';
-        },
-        
-        showError(message) {
-            // Add error message to the UI
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'notification-error bg-red-100 text-red-700 p-2 rounded-md mb-2';
-            errorDiv.textContent = message;
-            
-            if (this.notificationList) {
-                this.notificationList.insertBefore(errorDiv, this.notificationList.firstChild);
-                
-                // Remove error message after 5 seconds
-                setTimeout(() => {
-                    errorDiv.remove();
-                }, 5000);
-            }
-        },
-        
-        updateUI(data, isInitialLoad) {
-            if (!this.notificationList) return;
-            
-            try {
-                if (data.notRead?.length >= 0) {
-                    this.notificationCount.textContent = data.notRead.length;
-                }
-
-                if (isInitialLoad) {
-                    const fragment = document.createDocumentFragment();
-                    
-                    data.notRead.forEach(notification => {
-                        fragment.appendChild(this.createNotificationElement(notification, false));
-                    });
-                    
-                    data.hadRead.forEach(notification => {
-                        fragment.appendChild(this.createNotificationElement(notification, true));
-                    });
-                    
-                    this.notificationList.innerHTML = '';
-                    this.notificationList.appendChild(fragment);
-                } else {
-                    const fragment = document.createDocumentFragment();
-                    data.notRead.forEach(notification => {
-                        if (!document.querySelector(`[data-notification-id="${notification.id}"]`)) {
-                            fragment.insertBefore(
-                                this.createNotificationElement(notification, false),
-                                fragment.firstChild
-                            );
-                        }
-                    });
-                    this.notificationList.insertBefore(fragment, this.notificationList.firstChild);
-                }
-
-                // Handle deleted notifications
-                if (data.deletedNotifications) {
-                    data.deletedNotifications.forEach(id => {
-                        const element = document.querySelector(`[data-notification-id="${id}"]`);
-                        if (element) {
-                            element.remove();
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error('Error updating UI:', error);
-                this.showError('Error updating notifications.');
-            }
-        },
-        
-        createNotificationElement(notification, isRead) {
-            try {
-                const li = document.createElement('li');
-                li.className = isRead 
-                    ? 'read border border-t-[1px]' 
-                    : 'w-full flex flex-col p-2 bg-white2 unread border-black1 border-t-[2px] text-base';
-                li.dataset.notificationId = notification.id;
-                
-                // Safely handle notification type
-                let type = notification.type;
-                try {
-                    const parsedType = JSON.parse(notification.type);
-                    type = typeof parsedType === 'object' ? JSON.stringify(parsedType) : parsedType;
-                } catch {
-                    // If parsing fails, use the original type
-                }
-                
-                li.innerHTML = `
-                    ${type}
-                    <span class="timestamp text-sm text-grey2">
-                        ${new Date(notification.created_at).toLocaleString()}
-                    </span>
-                `;
-                
-                return li;
-            } catch (error) {
-                console.error('Error creating notification element:', error);
-                return document.createElement('li'); // Return empty li to prevent crashes
-            }
-        },
-        
-        cleanup() {
-            if (this.eventSource) {
-                this.eventSource.close();
-                this.eventSource = null;
-            }
-        }
-    };
-
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', () => {
-        NotificationManager.init();
-    });
-
-    // Handle tab visibility
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            NotificationManager.cleanup();
-        } else {
-            NotificationManager.init();
-        }
-    });
-
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', () => {
-        NotificationManager.cleanup();
-    });
-    // let eventSource = new EventSource("/notifications/stream");
-
-    // // Event when receiving a message from the server
-    // eventSource.onmessage = function(event) {
-    //     const data = JSON.parse(event.data)
-    //     console.log(event.data);
-    //     // Append the message to the ordered list
-    //     document.getElementById("notificationList").innerHTML += '<li>'+data + "</li>";
-    //     console.log(data);
-    // };
-
-    // eventSource.onerror = function(error) {
-    //     console.error('EventSource failed:', error);
-    //     eventSource.close();
-    // };
-</script>
-<?php endif; ?>
 <!-- 
 <script>
     function connectEventSource() {

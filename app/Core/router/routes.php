@@ -6,6 +6,8 @@
 // routes.php
 $router->get('/notifications/stream', 'NotificationController@stream');
 $router->get('/notifications/initial', 'NotificationController@getInitialNotifications');
+$router->post('/notifications/mark-read', 'NotificationController@markAsRead');
+$router->get('/notifications/sync', 'NotificationController@sync');
 // routes.php
 // $router->get('/notifications', 'NotificationController@index');
 // $router->get('/notifications/stream', 'NotificationController@stream');
