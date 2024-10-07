@@ -66,41 +66,44 @@ if (isset($_POST['create'])) {
         ':code' => $code
     ])->find();
 
+    $prof_info = $db->query('select l_name, f_name from accounts where school_id = :id', [
+        'id' => $roomExistence['school_id']
+    ])->find();
+
+    $roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
+
     if (! $roomExistence) {
         $errors['room_existence'] = "Input a Valid Room Code / Code doesn't match any rooms.";
         header("Location: /dashboard");
         die();
     } else {
-        
         $isAlrJoined = $db->query('select * from room_list where room_id  = :room and school_id = :student', [
             ':student'=>$currentUser,
             ':room' => $roomExistence['room_id']
         ])->find();
-
         
         if ($isAlrJoined) {
             $errors['is_joined'] = 'You are already joined in this room!';
         } else {
-
             $db->query('INSERT INTO join_room_requests(school_id, room_id) VALUES (:student, :room)', [
                 ':student'=>$currentUser,
                 ':room'=>$roomExistence['room_id']
             ]);
 
-            // NOTIFICATIONS
-
-            $db->query('INSERT INTO notifications(sender_id, receiver_id, room_id, notif_type) VALUES (:student, :prof, :room, :type)', [
-                ':student'=>$currentUser,
-                ':prof'=>$roomExistence['school_id'],
-                ':room'=>$roomExistence['room_id'],
-                ':type'=>'join_room'
+            $type = json_encode([
+                "type" => "room_join",
+                "room_name" => $roomExistence['room_name'],
+                "prof_name" => $roomExistence['prof_name'],
+                "prof_id" => $roomExistence['school_id'],
+                "room_id" => $roomExistence['room_id'],
+                "student_id" => $currentUser,
+                "student_name" => "{$_SESSION['user']['l_name']}, {$_SESSION['user']['f_name']}"
             ]);
-
-            $db->query('INSERT INTO notifications(sender_id, receiver_id, room_id, notif_type) VALUES (:student, :prof, :room, :type)', [
-                ':student'=>$currentUser,
-                ':prof'=>$currentUser,
-                ':room'=>$roomExistence['room_id'],
-                ':type'=>'prejoin'
+            
+            // NOTIFICATIONS
+            $db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
+                'school_id' => $roomExistence['school_id'], 
+                'type' => $type,
             ]);
         }
 
@@ -113,6 +116,7 @@ if (isset($_POST['create'])) {
         header("Location: /dashboard");
         die();
     }
+
 } elseif (isset($_POST['search'])) {
     unset($_POST['search']);
     $search_input = $_POST['search_input'] ?? '';

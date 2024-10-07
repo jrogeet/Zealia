@@ -18,17 +18,21 @@
         <?php endif; ?>
 
         <!-- room name & code / header -->
-        <div id="roomName" class="flex justify-between items-center h-12 my-6">
+        <div id="roomName" class="flex justify-between items-center h-16 my-6">
             <div class="max-w-[64rem] flex flex-col truncate">
                 <span class="font-synebold text-3xl text-black1 mr-1"><?= $room_info['room_name'] ?></span>
                 <span class="font-synemed text-2xl text-grey2 mr-1">Room Code: <?= $room_info['room_code'] ?></span>
+                <span class="font-synereg text-xl text-grey2 mr-1 mb-2">Instructor: <?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></span>
             </div>
             
+            <?php if($_SESSION['user']['account_type'] === 'professor'):?>
             <button class="h-10 w-10 flex justify-center items-center rounded mr-2 border border-black1" onClick="show('changeRoomNameInput'); hide('roomName');">
                 <img class="h-8 w-8" src="assets/images/icons/settings.png">
             </button>
+            <?php endif;?>
         </div>
 
+        <?php if($_SESSION['user']['account_type'] === 'professor'):?>
         <!-- change room name input -->
         <div id="changeRoomNameInput" class="hidden h-12 items-center justify-between my-6">
             <div class="w-[40rem] flex justify-evenly items-center ">
@@ -64,17 +68,33 @@
                 </form>
             </div>
         </div>
+        <?php endif; ?>
 
         <div class="flex justify-between">
             <!-- Class List & Requests -->
            <div class="h-[37.5rem] w-[18.75rem] border border-black1 rounded-xl">
                 <!-- Tabs -->
                 <div class="flex">
-                    <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-[9.37rem] font-synereg text-white1 border border-black1 rounded-tl-xl">Students</button>
+                    
                     <?php if($_SESSION['user']['account_type'] === 'professor'):?>
-                    <button id="reqListTab" onClick="show('roomJoinRequest'); hide('roomStudentList'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-[9.37rem] font-synereg text-black1 border border-black1 rounded-tr-xl">Join Requests</button>
+                        <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-[9.37rem] font-synereg text-white1 border border-black1 rounded-tl-xl">Students</button>
+                        <button id="reqListTab" onClick="show('roomJoinRequest'); hide('roomStudentList'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-[9.37rem] font-synereg text-black1 border border-black1 rounded-tr-xl">Join Requests</button>
+                    <?php else:?>
+                        <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-full font-synereg text-white1 border border-black1 rounded-t-xl">Students</button>
                     <?php endif; ?>
                 </div>
+
+                <?php if($_SESSION['user']['account_type'] === 'professor'):?>
+                <form action="/room" method="POST" class="w-full flex justify-between items-center border-b-2 border-black1 px-2">
+                    <input type="hidden" name="invite" value="invite">
+                    <input type="hidden" name="room_id" value="<?= $_GET['room_id'] ?>">
+                    <input type="hidden" name="room_name" value="<?= $room_info['room_name'] ?>">
+                    <input type="hidden" name="prof_id" value="<?= $room_info['school_id'] ?>">
+                    <input type="hidden" name="prof_name" value="<?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?>">
+                    <input name="school_id" class="h-full w-4/5 bg-white1 p-1 font-synereg border-none focus:outline-none" type="number" placeholder="Enter Student's School ID to invite:" required>
+                    <button class="bg-orange1 font-synereg rounded py-1 px-2 my-2" type="submit">Invite</button>
+                </form>
+                <?php endif; ?>
 
                 <!-- Students List -->
                 <div id="roomStudentList" class="h-[34.5rem] flex flex-col  overflow-y-auto overflow-x-hidden rounded-b-xl">
@@ -99,7 +119,7 @@
                         </div>
 
                         <?php if($_SESSION['user']['account_type'] === 'professor'):?>
-                        <div id="kickConfirmation<?= $student['school_id'] ?>" class="hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
+                        <div id="kickConfirmation<?= $student['school_id'] ?>" class="hidden bg-glassmorphism absolute -top-20 -left-16  h-screen w-screen pt-60 justify-center">
                             <div class="bg-white2 flex flex-col h-40 w-80 border border-black1 rounded-t-lg">
                                 <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
                                     <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>

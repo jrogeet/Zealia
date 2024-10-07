@@ -1,14 +1,8 @@
 <?php
 // Routes
-// $router->get('/notifications/stream', 'App\Controllers\NotificationController@stream');
-// $router->post('/notifications/mark-as-read', 'App\Controllers\NotificationController@markAsRead');
-// routes.php
-// routes.php
 $router->get('/notifications/stream', 'NotificationController@stream');
 $router->get('/notifications/initial', 'NotificationController@getInitialNotifications');
-// routes.php
-// $router->get('/notifications', 'NotificationController@index');
-// $router->get('/notifications/stream', 'NotificationController@stream');
+$router->post('/notifications', 'model/notifications/notifications.php');
 
 $router->get('/', 'Http/controllers/home.php');
 $router->get('/learn', 'Http/controllers/learn.php');

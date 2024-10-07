@@ -8,7 +8,7 @@ use Model\Database;
 class NotificationController {
     private $last_check_time;
     private const MAX_EXECUTION_TIME = 300; // 5 minutes
-    private const SLEEP_TIME = 3000000; // 3 seconds in microseconds
+    private const SLEEP_TIME = 1000000; // 1 seconds in microseconds
     
     public function stream() {
         if (!isset($_SESSION['user']['school_id'])) {
@@ -131,24 +131,19 @@ class NotificationController {
         )->findAll();
         
         // Process notifications
-        $notRead = [];
-        $hadRead = [];
-        foreach ($notifications as $notification) {
+        foreach ($notifications as &$notification) {
             if (isset($notification['type'])) {
                 $notification['type'] = json_encode(json_decode($notification['type'], true));
             }
-            if ($notification['read_status'] == 0) {
-                $notRead[] = $notification;
-            } else {
-                $hadRead[] = $notification;
-            }
         }
         
+        $notRead = array_filter($notifications, fn($n) => $n['read_status'] == 0);
+        $hadRead = array_filter($notifications, fn($n) => $n['read_status'] == 1);
+        
         header('Content-Type: application/json');
-        header('Cache-Control: private, max-age=60'); // Cache for 1 minute
         echo json_encode([
-            'notRead' => $notRead,
-            'hadRead' => $hadRead,
+            'notRead' => array_values($notRead),
+            'hadRead' => array_values($hadRead),
             'timestamp' => date('Y-m-d H:i:s')
         ]);
     }
