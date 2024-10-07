@@ -15,11 +15,11 @@
                         <button class="bg-table h-[2.25rem] w-[2.25rem] bordeblock relative transform -translate-x-1/2r border-grey2 rounded-lg ml-2" onClick="show('dashboardTable'); hide('dashboardTiles');"></button>
                     </div>
 
-                    <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg px-4">
+                    <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg pl-4">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
                         <input class="h-full w-5/6 bg-white2" type="text" name="search_input" placeholder="Search Joined Room">
-                        <button type="submit" class="bg-search h-5/6 w-1/6 border border-l-grey2"></button>
+                        <button type="submit" class="bg-search h-5/6 w-2/12 border border-l-grey2 border-t-0 border-r-0 bg-contain bg-center bg-no-repeat"></button>
                     </form>
 
                     <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>

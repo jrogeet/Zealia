@@ -36,7 +36,7 @@
         <!-- change room name input -->
         <div id="changeRoomNameInput" class="hidden h-12 items-center justify-between my-6">
             <div class="w-[40rem] flex justify-evenly items-center ">
-                <button class="bg-grey2 h-8 w-12 rounded" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
+                <button class="bg-back bg-contain bg-no-repeat bg-center h-9 w-12 rounded" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
 
                 <form method="POST" action="/room" class="flex w-[33rem] justify-between items-center">
                     <input type="hidden" name="_method" value="PATCH">
@@ -119,7 +119,7 @@
                         </div>
 
                         <?php if($_SESSION['user']['account_type'] === 'professor'):?>
-                        <div id="kickConfirmation<?= $student['school_id'] ?>" class="hidden bg-glassmorphism absolute -top-20 -left-16  h-screen w-screen pt-60 justify-center">
+                        <div id="kickConfirmation<?= $student['school_id'] ?>" class="hidden bg-glassmorphism fixed inset-0 h-screen w-screen pt-60 justify-center">
                             <div class="bg-white2 flex flex-col h-40 w-80 border border-black1 rounded-t-lg">
                                 <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
                                     <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>

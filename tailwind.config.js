@@ -18,6 +18,9 @@ module.exports = {
         'check': "url('/assets/images/icons/check.png')",
         'sort': "url('/assets/images/icons/sorting.png')",
         'search': "url('/assets/images/icons/search.png')",
+        'back': "url('/assets/images/icons/back.png')",
+        'clear': "url('/assets/images/icons/clear.png')",
+        'edit': "url('/assets/images/icons/edit.png')",
       },
 
       colors: {

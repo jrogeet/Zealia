@@ -112,8 +112,11 @@
                         <span id="notificationCount" class="absolute -top-[2px] -right-[2px] bg-red1 text-white text-sm rounded-2xl py-[0.05rem] px-2"></span>
                     </button>
                     <div id="notificationDropdown" class="hidden flex-col absolute right-0 top-full max-h-[25rem] w-[20rem] bg-white1 border border-black1 rounded-lg shadow overflow-hidden">
-                        <div class="bg-black1 h-14 px-4 flex items-center">
+                        <div class="bg-black1 h-14 py-6 px-4 pr-6 flex justify-between items-center">
                             <span class="font-synemed text-2xl text-orange1 ">Notifications</span>
+                            <form action="/notifications" method="POST">
+                                <button class="font-synereg text-white1 hover:text-red1 text-base " name="clear" type="submit">Clear</button>
+                            </form>
                         </div>
                         <!-- <div class="bg-black1 h-[1px] my-2 w-64"></div> -->
                         <ol id="notificationList" class="flex flex-col overflow-y-auto">
