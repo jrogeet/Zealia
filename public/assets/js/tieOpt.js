@@ -31,26 +31,26 @@ function partialInjection(string) {
     // Check the length of string and inject the HTML if it meets your condition
     for (letter of string) { // Adjust the condition as needed
         var initial = letter;
-     ques = '';
+     desc = '';
 
         switch (letter){
             case 'R':
-                ques = 'Realistic skills are crucial for practical, hands-on tasks. These roles involve coding, testing, debugging, and implementing solutions to ensure operational efficiency.';
+                desc = 'Realistic skills are crucial for practical, hands-on tasks. These roles involve coding, testing, debugging, and implementing solutions to ensure operational efficiency.';
                 break
             case 'I':
-                ques = 'The Investigative type is dominant in roles that require extensive research, analytical thinking, and problem-solving. These roles involve designing studies, collecting and interpreting data, and ensuring accuracy and integrity.';
+                desc = 'The Investigative type is dominant in roles that require extensive research, analytical thinking, and problem-solving. These roles involve designing studies, collecting and interpreting data, and ensuring accuracy and integrity.';
                 break
             case 'A':
-                ques = 'The Artistic type plays a significant role in fostering creativity and innovation. These roles involve designing user-friendly interfaces, transforming complex information into understandable content, and developing innovative solutions.';
+                desc = 'The Artistic type plays a significant role in fostering creativity and innovation. These roles involve designing user-friendly interfaces, transforming complex information into understandable content, and developing innovative solutions.';
                 break
             case 'S':
-                ques = 'Social skills are essential for effective communication, collaboration, and teamwork. These roles involve interacting with team members, stakeholders, and clients, fostering teamwork, and ensuring effective communication.';
+                desc = 'Social skills are essential for effective communication, collaboration, and teamwork. These roles involve interacting with team members, stakeholders, and clients, fostering teamwork, and ensuring effective communication.';
                 break
             case 'E':
-                ques = 'Enterprising skills are crucial for roles that involve leadership, strategic planning, and effective communication. These roles require managing projects, securing funding, advocating for research, and influencing decision-making processes.';
+                desc = 'Enterprising skills are crucial for roles that involve leadership, strategic planning, and effective communication. These roles require managing projects, securing funding, advocating for research, and influencing decision-making processes.';
                 break
             case 'C':
-                ques = 'Conventional traits are essential for roles requiring organization, attention to detail, and adherence to established procedures. These roles involve managing budgets, maintaining accurate records, documenting processes, and ensuring regulatory compliance.';
+                desc = 'Conventional traits are essential for roles requiring organization, attention to detail, and adherence to established procedures. These roles involve managing budgets, maintaining accurate records, documenting processes, and ensuring regulatory compliance.';
                 break
         }
 
@@ -59,7 +59,7 @@ function partialInjection(string) {
                                 <div class="relative z-10 w-7/12 transform translate-x-[-50%] left-1/2 flex object-center my-12">
                                     <h1 class="relative text-right mr-[-0.3rem] text-8xl font-synebold text-orange2">${initial}</h1>
                                     <div class="relative inline-block w-full">
-                                        <h1 class="relative flex h-2/5 mt-[0.9rem] font-synebold text-xl pl-[0.2rem<p class="relative pl-[.3rem] mt-[-1rem] font-synereg">${ques}</p>
+                                        <h1 class="relative flex h-2/5 mt-[0.9rem] font-synebold text-xl pl-[0.2rem<p class="relative pl-[.3rem] mt-[-1rem] font-synereg">${desc}</p>
                                     </div>
                                 </div>
                             `;
@@ -88,22 +88,46 @@ function optionInjection(string) {
 
         switch (letter){
             case 'R':
-                ques = 'Realistic question';
+                qList = ['I enjoy hands-on activities like assembling furniture or fixing things around the house.',
+                         'I prefer tasks that involve working with nature, such as gardening or farming.',
+                         'I like learning how different tools and machinery operate in practical settings.']
+                num = Math.floor(Math.random() * 3);
+                ques = qList[num];
                 break
             case 'I':
-                ques = 'Investigative question';
+                qList = ['I am curious about how technology works and enjoy exploring new scientific advancements.',
+                         'I enjoy solving real-world problems by analyzing data and finding patterns.',
+                         'I prefer researching and investigating to get to the root of a problem.']
+                num = Math.floor(Math.random() * 3);
+                ques = qList[num]
                 break
             case 'A':
-                ques = 'Artistic question';
+                qList = ['I find joy in transforming my ideas into visual or performance-based art forms.',
+                         'I enjoy exploring new and unconventional methods of self-expression.',
+                         'I am drawn to environments where I can create and innovate without boundaries.']
+                num = Math.floor(Math.random() * 3);
+                ques = qList[num]
                 break
             case 'S':
-                ques = 'Social question';
+                qList = ['I enjoy working on projects that directly improve the well-being of others.',
+                         'I like facilitating group collaborations to ensure everyone contributes effectively.',
+                         'I find it rewarding to mentor or support people who need guidance.']
+                num = Math.floor(Math.random() * 3);
+                ques = qList[num]
                 break
             case 'E':
-                ques = 'Enterprising question';
+                qList = ['I thrive in leadership roles where I can influence and guide others toward success.',
+                         'I enjoy identifying new business opportunities and creating strategies to pursue them.',
+                         'I like taking calculated risks to achieve larger goals in competitive environments.']
+                num = Math.floor(Math.random() * 3);
+                ques = qList[num]
                 break
             case 'C':
-                ques = 'Conventional question';
+                qList = ['I enjoy organizing schedules and managing the logistical aspects of projects.',
+                         'I prefer following established processes and maintaining high standards in my work.',
+                         'I find satisfaction in ensuring tasks are completed with precision and accuracy.']
+                num = Math.floor(Math.random() * 3);
+                ques = qList[num]
                 break
         }
 
