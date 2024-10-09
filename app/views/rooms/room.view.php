@@ -1,11 +1,11 @@
 <?php view('partials/head.view.php'); ?>
 <!-- TO DO: -->
  <!-- CHANGE NAME ERROR FIX -->
-<body class="bg-white1 block overflow-x-hidden">
+<body class="bg-white1 flex flex-col justify-evenly items-center overflow-x-hidden">
     <?php view('partials/nav.view.php')?>
 
     <!-- desktop -->
-    <main class="relative hidden 2xl:block left-1/2 transform -translate-x-1/2 h-[50rem] w-[87.5rem] mt-20 top-10">
+    <main class="relative hidden items-center 2xl:flex flex-col ml-14 h-[50rem] w-[87.5rem] mt-20 top-10">
         
         <?php //dd($stu_info); ?>
         <?php //dd($encodedFilteredidNRiasec) ?>
@@ -18,7 +18,7 @@
         <?php endif; ?>
 
         <!-- room name & code / header -->
-        <div id="roomName" class="flex justify-between items-center h-16 my-6">
+        <div id="roomName" class="flex justify-between items-center h-16 w-full my-6">
             <div class="max-w-[64rem] flex flex-col truncate">
                 <span class="font-synebold text-3xl text-black1 mr-1"><?= $room_info['room_name'] ?></span>
                 <span class="font-synemed text-2xl text-grey2 mr-1">Room Code: <?= $room_info['room_code'] ?></span>
@@ -34,8 +34,8 @@
 
         <?php if($_SESSION['user']['account_type'] === 'professor'):?>
         <!-- change room name input -->
-        <div id="changeRoomNameInput" class="hidden h-12 items-center justify-between my-6">
-            <div class="w-[40rem] flex justify-evenly items-center ">
+        <div id="changeRoomNameInput" class="hidden h-12 w-full items-center justify-between my-6">
+            <div class="w-[40rem] flex items-center ">
                 <button class="bg-back bg-contain bg-no-repeat bg-center h-9 w-12 rounded" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
 
                 <form method="POST" action="/room" class="flex w-[33rem] justify-between items-center">
