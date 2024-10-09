@@ -1,30 +1,31 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
 <?php view('partials/head.view.php'); ?>
 
-<body class="static bg-white1 font-synereg min-w-[78rem] overflow-x-hidden">
+<body class="static bg-white1 py-6 font-synereg w-screen h-fit mb-0 overflow-x-hidden">
 
     <?php view('partials/nav.view.php') ?>
 
     <?php //dd($_SESSION['user']['result'])?>
 
-    <div class="relative w-full h-full text-center top-32 pt-8 mb-32">
-        <h1 class="relative font-synebold text-3xl">Account Settings</h1>
+    <!-- desktop -->
+    <div class="relative block w-screen h-full text-center top-10 lg:top-24">
+        <h1 class="relative font-synebold text-[6vw] lg:text-3xl">Account Settings</h1>
 
-        <div class="relative flex left-1/2 transform -translate-x-1/2 w-full h-fit px-6">
+        <div class="relative flex flex-wrap w-full h-fit">
             <!-- left box -->
-            <div class="relative block border border-black rounded-2xl w-5/12 h-[70vh] min-h-[37rem] m-auto mt-6 bg-white2 text-left p-[4%] pt-2 pl-[3%]">
+            <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white1 lg:bg-white2 text-left pt-2 pl-[3%] overflow-x-hidden">
                 <h5 class="text-xl text-grey2 mt-[6%]">Name</h5>
-                <h1 class="text-3xl ml-4 mb-6"><?php echo "{$_SESSION['user']['f_name']} {$_SESSION['user']['l_name']}"; ?></h1>
+                <h1 class="text-3xl lg:ml-4 mb-6 text-center lg:text-left"><?php echo "{$_SESSION['user']['f_name']} {$_SESSION['user']['l_name']}"; ?></h1>
 
                 <h5 class="text-xl text-grey2">Student Number</h5>
-                <h1 class="text-3xl ml-4 mb-6"><?php echo "{$_SESSION['user']['school_id']}"; ?></h1>
+                <h1 class="text-3xl lg:ml-4 mb-6 text-center lg:text-left"><?php echo "{$_SESSION['user']['school_id']}"; ?></h1>
 
                 <h5 class="text-xl text-grey2 mt-36">Change Password</h5>
                 <form method="POST" action="/account">
-                    <input class="border border-grey2 p-2 h-10 rounded-lg ml-4 mt-4" type="text" placeholder="Current Password" name="cur_pass" required></input>
-                    <div class="flex mt-2 ml-4">
-                        <input class="border border-grey2 p-2 h-10 rounded-lg mt-4" type="text" placeholder="New Password" name="new_pass" required></input>
-                        <input class="border border-grey2 p-2 h-10 rounded-lg ml-4 mt-4" type="text" placeholder="Confirm New Password" name="conew_pass" required></input>
+                    <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg lg:ml-4 mt-4" type="text" placeholder="Current Password" name="cur_pass" required></input>
+                    <div class="flex mt-2 lg:ml-4">
+                        <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg mt-4" type="text" placeholder="New Password" name="new_pass" required></input>
+                        <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg ml-2 lg:ml-4 mt-4" type="text" placeholder="Confirm New Password" name="conew_pass" required></input>
                     </div>
                     <button class="relative left-1/2 transform -translate-x-1/2 border border-black1 rounded-lg px-8 h-10 bg-orange1 text-black1 mt-12">Save Changes</button>
                 </form>
@@ -32,7 +33,7 @@
             </div>
 
             <!-- right box -->
-            <div class="relative block border border-black rounded-2xl w-5/12 h-[70vh] min-h-[37rem] m-auto mt-6 bg-white2 text-left p-[4%] pt-2 pl-[4%]">
+            <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white1 lg:bg-white2 text-left pt-2 pl-[4%] overflow-x-hidden">
                 <?php if (isset($typeNscores)):?>
                     <div class="relative flex mt-16">
                         <h1 class="font-synemed text-xl text-grey2 ml-auto mt-1">RESULTS:</h1>
@@ -67,6 +68,8 @@
         </div>
 
     </div>
+
+    
 
 
     <script src="assets/js/shared-scripts.js"></script>
