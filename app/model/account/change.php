@@ -42,9 +42,6 @@ if (isset($_POST["cur_pass"])) {
     }
 
 
-    
-
-
     if (! empty($errors)) {
         return view('account/account.view.php', [
             'errors'=> $errors
@@ -55,7 +52,50 @@ if (isset($_POST["cur_pass"])) {
             ':id' => $_SESSION['user']['school_id']
         ]);
 
-        header('Location: /');
+        header('Location: /account');
         exit();
     }
+} elseif (isset($_POST['f_name']) || isset($_POST['l_name'])) {
+
+    if (!empty($_POST['f_name'])) {
+        $db->query('UPDATE accounts SET f_name = :f_name WHERE school_id = :id', [
+            ':f_name' => $_POST['f_name'],
+            ':id' => $_SESSION['user']['school_id']
+        ]);
+
+    }
+    
+    if (!empty($_POST['l_name'])) {
+        $db->query('UPDATE accounts SET l_name = :l_name WHERE school_id = :id', [
+            ':l_name' => $_POST['l_name'],
+            ':id' => $_SESSION['user']['school_id']
+        ]);
+    }
+
+    header('Location: /account');
+    exit();
+} elseif (isset($_POST['school_id'])) {
+    $isTaken = $db->query('SELECT school_id FROM accounts WHERE school_id = :id', [
+        'id' => $_POST['school_id'],
+    ])->find();
+
+    if ($isTaken) {
+        $errors['school_id'] = 'The School ID you was trying to change to, was already taken!';
+    }
+
+    if (! empty($errors)) {
+        return view('account/account.view.php', [
+            'errors'=> $errors
+        ]);
+    } else {
+        $db->query('update accounts set school_id = :school_id where school_id = :id', [
+            ':school_id' => $_POST['school_id'],
+            ':id' => $_SESSION['user']['school_id']
+        ]);
+
+        header('Location: /account');
+        exit();
+    }
+
+
 }

@@ -12,6 +12,7 @@
             <div class="max-w-[64rem] flex flex-col truncate ">
                 <span class="font-synebold text-3xl text-black1 mr-1"><?= $room_info['room_name'] ?></span>
                 <span class="font-synemed text-2xl text-grey2 mr-1">Room Code: <?= $room_info['room_code'] ?></span>
+                <span class="font-synereg text-xl text-grey2 mr-1 mb-2">Instructor: <?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></span>
             </div>
             
             <!-- gear button for prof -->

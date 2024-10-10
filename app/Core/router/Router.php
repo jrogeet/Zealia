@@ -1,5 +1,5 @@
 <?php
-// Functions for the Routes
+
 declare(strict_types=1);
 
 namespace Core\Router;
@@ -57,14 +57,42 @@ class Router {
     public function route($uri, $method)
     {
         foreach ($this->routes as $route) {
-            if($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-    
-                // Check whether the user is a Guest or Authorized
-                Middleware::resolve($route['middleware']);
+            if ($route['uri'] === $uri && $route['method'] === $method) {
+                if (isset($route['middleware'])) {
+                    $middleware = Middleware::MAP[$route['middleware']];
+                    (new $middleware)->handle();
+                }
 
-                return require base_path("app/{$route['controller']}");
+                // If controller contains @, handle it as Controller@method
+                if (str_contains($route['controller'], '@')) {
+                    [$controller, $action] = explode('@', $route['controller']);
+                    
+                    $controllerClass = "App\\Http\\controllers\\{$controller}";
+                    
+                    if (!class_exists($controllerClass)) {
+                        throw new \Exception("Controller {$controllerClass} not found");
+                    }
+
+                    $controllerInstance = new $controllerClass();
+
+                    if (!method_exists($controllerInstance, $action)) {
+                        throw new \Exception("Method {$action} not found in controller {$controller}");
+                    }
+
+                    return $controllerInstance->$action();
+                } elseif($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+    
+                    // Check whether the user is a Guest or Authorized
+                    Middleware::resolve($route['middleware']);
+                    
+                    return require base_path("app/{$route['controller']}");
+                }
+
+                // Otherwise, handle it the original way
+                // require base_path($route['controller']);
             }
         }
+
         $this->abort();
     }
     

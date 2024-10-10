@@ -71,7 +71,7 @@
                 </div>
 
                 <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative mb-2 bg-white1" placeholder="School number" type="number" name="school_id" id="school_id" required></input></br>
-                <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative mb-2 bg-white1" placeholder="School Email" type="email" name="email" required></input></br>
+                <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative mb-2 bg-white1" placeholder="Email" type="email" name="email" required></input></br>
                 <select class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative mb-2 bg-blue2" name="category" id="reason" placeholder="Select Category" required>
                     <option class="bg-white2" value="">Select Category:</option>
                     <option class="bg-white2" value="account">Account</option>

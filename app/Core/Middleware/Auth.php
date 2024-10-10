@@ -8,9 +8,14 @@ class Auth
 {
     public function handle()
     {
-        if(! $_SESSION['user'] ?? false) {
-            // echo 'logged';
-            header('location: /login');
+        // if(! $_SESSION['user'] ?? false) {
+        //     // echo 'logged';
+        //     header('location: /login');
+        //     exit();
+        // }
+
+        if (! isset($_SESSION['user'])) {
+            header('Location: /login');
             exit();
         }
     }

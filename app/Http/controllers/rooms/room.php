@@ -67,13 +67,14 @@ if ($valid) {
         // NO personality_type = "N/A"
     $idNRiasec = [];
     foreach ($idNtype as $index => $student) {
+        $idNRiasec[$index] = [
+            'school_id' => $student['school_id'],
+            'result' => $student['result'] ?? 'N/A'
+        ];
+
         if($student['result'] === null) {
-            $type = "N/A";
-            $idNRiasec[$index] = $student['school_id'];
-            $idNRiasec[$index] = $student['result'] = "N/A";
+            $idNRiasec[$index]['result'] = 'N/A';
         } else {
-            $idNRiasec[$index]['school_id'] = $student['school_id'];
-            $idNRiasec[$index]['result'] = $student['result'];
             $idNRiasec[$index]['name'] = "{$student['f_name']}+{$student['l_name']}";
             $idNRiasec[$index][$student['result'][0]] = $student[strtolower($student['result'][0])];
             $idNRiasec[$index][$student['result'][1]] = $student[strtolower($student['result'][1])];

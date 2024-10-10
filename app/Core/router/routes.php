@@ -1,5 +1,9 @@
 <?php
 // Routes
+$router->get('/notifications/stream', 'NotificationController@stream');
+$router->get('/notifications/initial', 'NotificationController@getInitialNotifications');
+$router->post('/notifications', 'model/notifications/notifications.php');
+
 $router->get('/', 'Http/controllers/home.php');
 $router->get('/learn', 'Http/controllers/learn.php');
 $router->get('/about', 'Http/controllers/about.php');
