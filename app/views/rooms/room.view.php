@@ -8,7 +8,7 @@
         <?php endif; ?>
 
         <!-- HEADER -->
-        <div id="roomName" class="relative left-1/2 transform -translate-x-1/2 w-10/12 flex justify-between items-center h-fit my-6">
+        <div id="roomName" class="relative left-1/2 transform -translate-x-1/2 w-10/12 flex justify-between items-center h-fit mb-6">
             <div class="max-w-[64rem] flex flex-col truncate ">
                 <span class="font-synebold text-3xl text-black1 mr-1"><?= $room_info['room_name'] ?></span>
                 <span class="font-synemed text-2xl text-grey2 mr-1">Room Code: <?= $room_info['room_code'] ?></span>
@@ -27,7 +27,7 @@
         </div>
 
         <!-- FOR PROF -->
-        <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
+        <?php if ($_SESSION['user']['account_type'] === 'student'):?>
             <!-- HEADER.Change room name menu -->
             <div id="changeRoomNameInput" class="relative hidden left-1/2 transform -translate-x-1/2 h-fit items-center justify-between w-10/12 mt-10">
                 <div class="w-fit flex justify-evenly items-center ">
@@ -137,11 +137,14 @@
                         <!-- content -->
                         <div class=" h-full w-full flex flex-col items-center overflow-y-auto">
                             <!-- HEADER -->
-                            <div class="h-20 w-full flex items-center justify-between p-6">
-                                <span class="w-4/5 font-synebold text-4xl flex">GROUPS</span>
+                            <div class="h-20 w-full flex items-center p-6">
+                                <span class="w-4/5 font-synebold text-4xl">GROUPS</span>
                         
-                                    <!-- edit groups btn -->
-                                    <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="bg-blue2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg">Edit Groups</a>
+                                <!-- downloadPDF groups btn -->
+                                <button class="bg-white2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg" onclick="downloadPDF()">Print Groups</button>
+                                <!-- edit groups btn -->
+                                <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="bg-blue2 h-10 w-36 flex ml-4 items-center justify-center font-synereg text-lg border border-black1 rounded-lg">Edit Groups</a>
+                                    
 
                                     <!-- <form id="groupings" action="/groups" method="get">
                                         <input type="hidden" name="grouped" id="grouped" value="<?= htmlspecialchars($encodedGroup, ENT_QUOTES, 'UTF-8') ?>">
@@ -197,21 +200,140 @@
                     <?php endif; ?>
                 </div>
             </div>
-        <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
-            <div class="relative left-1/2 transform -translate-x-1/2 w-8/12 block justify-between items-center h-fit my-6 border border-black1">
-                <?php foreach ($decodedGroup as $index => $group) {
-                    foreach ($group as $member){
-                        ?>
-                        <h1><?= $member[1] ?></h1>
-                        </br>
+        <?php elseif ($_SESSION['user']['account_type'] === 'professor'):?>
+            <?php 
+            $members = [];
+            $groupNum = 0;
+            foreach ($decodedGroup as $index => $group) {
+                $container = [];
+                $bool = false;
+                foreach ($group as $member) {
+                    $container[] = $member;
+                    if ($member[1] === $_SESSION['user']['school_id']) {
+                        $bool = true;
+                        $groupNum = $index+1;
+                    }
 
-                <?php }}?>
+                }
+                if ($bool === true) {
+                    $members = $container;
+                }
+            }
+            ?>
+            <!-- BODY -->
+            <div class="flex w-10/12 mx-auto">
+                <!-- left -->
+                <div class="bg-white2 relative block mx-auto w-[30%] text-center justify-between items-center h-[40rem] border border-black1 px-6 py-4 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)]">
+                    <!-- head -->
+                    <div class="w-full py-2 flex">
+                         <h1 class="font-synebold text-4xl text-left mx-auto ml-0">Group: <?php echo $groupNum ?></h1>
+                         <button class="bg-white2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg mx-auto mr-0" onclick="downloadPDF()">Print Group</button>
+                    </div>
+                     
+                    <!-- content -->
+                    <div class="w-full py-2">
+                         <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $members[0][0] ?></span><span class="mx-auto w-2/6 text-right"><?php echo $members[0][2] ?></span></h1>
+                         <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $members[1][0] ?></span><span class="mx-auto w-2/6 text-right"><?php echo $members[1][2] ?></span></h1>
+                         <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $members[2][0] ?></span><span class="mx-auto w-2/6 text-right"><?php echo $members[2][2] ?></span></h1>
+                         <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $members[3][0] ?></span><span class="mx-auto w-2/6 text-right"><?php echo $members[3][2] ?></span></h1>
+                    </div>
+     
+                </div>
+                
+                <!-- right -->
+                <div class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-synemed">
+                    <!-- group tabs -->
+                    <div class="flex w-full border-b border-black1">
+                        <button id="button1" class="bg-blue2 w-1/4 mx-auto py-4 border-r border-black1"><?php echo $members[0][0] ?></button>
+                        <button id="button2" class="bg-white1 w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $members[1][0] ?></button>
+                        <button id="button3" class="bg-white1 w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $members[2][0] ?></button>
+                        <button id="button4" class="bg-white1 w-1/4 mx-auto py-4 border-l border-black1"><?php echo $members[3][0] ?></button>
+                    </div>
+                    <!-- personal tabs -->
+                    <div class="flex w-full border-b border-black1">
+                        <button class="bg-orange1 w-2/6 mx-auto py-4 border-r border-black1">Working</button>
+                        <button class="bg-white1 w-2/6 mx-auto py-4 border-r border-l border-black1">To-Do</button>
+                        <button class="bg-white1 w-2/6 mx-auto py-4  border-l border-black1">Waiting</button>
+                    </div>
+                    <!-- whiteboard -->
+                    <div class="block w-full h-fit min-h-[32.8rem] py-2 pt-4">
+                        <!-- add -->
+                        <div class="relative flex left-[100%] transform -translate-x-full w-fit pr-4 items-right">
+                            <input class="pl-2 mx-4 border border-black1 rounded-lg" type="text" placeholder="Add new task">
+                            <button class="px-2 bg-green1 rounded-lg">Add +</button>
+                        </div>
+                        <!-- lanes  -->
+                        <div class="relative flex w-full p-2 mt-2 gap-2">
+                            <!-- to do -->
+                            <div class="w-1/3 bg-red-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                <h1 class="font-synebold">To Do List:</h1>
+                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
+                                    <h1 class="text-left text-lg font-synebold">Task 1</h1>
+                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
+                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
+                                </div>
+                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
+                                    <h1 class="text-left text-lg font-synebold">Task 2</h1>
+                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
+                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
+                                </div>
+                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
+                                    <h1 class="text-left text-lg font-synebold">Task 3</h1>
+                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
+                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
+                                </div>
+                            </div>
+                            <!-- work in progress -->
+                            <div class="w-1/3 bg-white2 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                <h1 class="font-synebold">Work in progress:</h1>
+                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
+                                    <h1 class="text-left text-lg font-synebold">Task 1</h1>
+                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
+                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
+                                </div>
+                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
+                                    <h1 class="text-left text-lg font-synebold">Task 2</h1>
+                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
+                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
+                                </div>
+                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
+                                    <h1 class="text-left text-lg font-synebold">Task 3</h1>
+                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
+                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
+                                </div>
+                            </div>
+                            <!-- done -->
+                            <div class="w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                <h1 class="font-synebold">Done:</h1>
+                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
+                                    <h1 class="text-left text-lg font-synebold">Task 1</h1>
+                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
+                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
+                                </div>
+                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
+                                    <h1 class="text-left text-lg font-synebold">Task 2</h1>
+                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
+                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
+                                </div>
+                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
+                                    <h1 class="text-left text-lg font-synebold">Task 3</h1>
+                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
+                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         <?php endif; ?>
     </main>
 
 
+
     <?php view('partials/footer.view.php')?>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="assets/js/shared-scripts.js"></script>
     <script src="assets/js/grouping.js"></script>
     <script>
@@ -220,6 +342,43 @@
         const GrButt = document.getElementById('GrButt');
         const students = document.getElementById('students');
         const groupContent = document.getElementById('groups');
+        const groupData = <?php echo json_encode($decodedGroup); ?>;
+        
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(12);
+            doc.text("Groups:\n\n", 10, 10);
+            
+            let yOffset = 30;
+            let groupNum = 1;
+            const pageHeight = doc.internal.pageSize.height;
+
+            groupData.forEach(group => {
+                if (yOffset + 75 > pageHeight) {
+                    doc.addPage();
+                    yOffset = 30; // Reset yOffset for new page
+                }
+                
+                doc.text(`Group ${groupNum}`, 20, yOffset);
+                groupNum++;
+                yOffset += 15;
+                
+                group.forEach(member => {
+                    if (yOffset + 10 > pageHeight) {
+                        doc.addPage();
+                        yOffset = 10; // Reset yOffset for new page
+                    }
+                    doc.text(member.join(' | '), 30, yOffset);
+                    yOffset += 15;
+                });
+                yOffset += 15; // Add extra space between groups
+            });
+
+            doc.save('group_info.pdf');
+        }
+
         
         StudButt.addEventListener('click',function(){
             if(StudButt.classList.contains("bg-blue3")){
