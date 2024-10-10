@@ -31,15 +31,16 @@ foreach ($stu_id as $student) {
 
 $groups = json_decode($roomGroups['groups_json'], true);
 
-$aMember = false;
+// $aMember = false;
 
-foreach ($groups[$group] as $g) {
-    if ($g['1'] == $currentUser) { 
-        $aMember = true;
-    }
-}
+// foreach ($groups[$group] as $g) {
+//     if ($g['1'] == $currentUser) { 
+//         $aMember = true;
+//     }
+// }
 
-if ($aMember || ($currentUser == $roomInfo['school_id'])) {
+// if ($aMember || ($currentUser == $roomInfo['school_id'])) {
+if ($currentUser == $roomInfo['school_id']) {
     foreach($groups[$group] as &$member){
         if (str_contains($member[0], '+')) {
             $names = explode("+", $member[0]);
