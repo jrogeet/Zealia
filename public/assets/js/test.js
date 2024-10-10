@@ -25,6 +25,7 @@ const sub = document.getElementById("sub");
 
 
 function cal(){ //sorts from highest score to lowest score
+    // timSort ( inserstion sort and merge sort hybrid )
     keySorted = Object.keys(results).sort(function(a,b){return results[a]-results[b]});
     keySorted.reverse();
 

@@ -31,6 +31,7 @@ function createList(rows){ // ADD USERS TO userlist
         let desScore = 0;
 
         for (let x in result){ //used for..in for indexing
+            // 
             piScore = piScore + row[result[x]] + piPrio.indexOf(result[x]) + 1;
             wriScore = wriScore + row[result[x]] + writerPrio.indexOf(result[x]) + 1;
             devScore = devScore + row[result[x]] + devPrio.indexOf(result[x]) + 1;
@@ -110,7 +111,7 @@ function groupRoles(role){ // add user to group
 
     }
 
-    let i = 2
+    let i = 2 // index of highest score [name,id,top role, 2nd role, 3rd role,4th role]
     while (i < 6 ){//2,3,4,5
         for (let user of userlist){
             if (user[i] == roleName && role.length < grCount){
@@ -131,10 +132,10 @@ function distributeRoles(){
         groups.push([user]);
     }
 
-    for (let role of Members){
+    for (let role of Members){ // Members = [writer, dev, des]
         for (let group of groups){
-            if (role[0] !== undefined){
-                group.push(role.pop(0));
+            if (role[0] !== undefined){ // role[0] = first person sa role i.e. writer[0]
+                group.push(role.pop(0)); // adds 1 per group per role
             }
         }
     }
