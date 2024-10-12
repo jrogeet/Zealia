@@ -3,6 +3,7 @@
     <?php view('partials/nav.view.php')?>
 
     <main class="relative block left-1/2 transform -translate-x-1/2 h-[23.2rem] w-full top-32">
+        <?php dd($stu_info) ?>
         <?php if (isset($errors['room_name'])) : ?>
             <p class="h-12 flex justify-center items-center font-synemed text-red1 text-2xl"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
@@ -28,11 +29,11 @@
         </div>
 
         <!-- FOR PROF -->
-        <?php if ($_SESSION['user']['account_type'] === 'student'):?>
+        <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
             <!-- HEADER.Change room name menu -->
             <div id="changeRoomNameInput" class="relative hidden left-1/2 transform -translate-x-1/2 h-fit items-center justify-between w-10/12 mt-10">
                 <div class="w-fit flex justify-evenly items-center ">
-                    <button class="bg-grey2 p-2 rounded mx-2" onClick="show('roomName'); hide('changeRoomNameInput');">SAVE??</button>
+                    <button class="bg-back bg-contain bg-no-repeat h-8 w-8 rounded mx-2" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
     
                     <form method="POST" action="/room" class="flex w-[33rem] justify-between items-center">
                         <input type="hidden" name="_method" value="PATCH">
@@ -201,7 +202,7 @@
                     <?php endif; ?>
                 </div>
             </div>
-        <?php elseif ($_SESSION['user']['account_type'] === 'professor'):?>
+        <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
             <?php 
             $members = [];
             $groupNum = 0;
@@ -278,14 +279,22 @@
         <?php endif; ?>
     </main>
 
-
-
     <?php view('partials/footer.view.php')?>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="assets/js/shared-scripts.js"></script>
     <script src="assets/js/grouping.js"></script>
     <script>
+        // function generateGroups() {
+        //     // const rows = <?php //echo $encodedFilteredidNRiasec; ?>;
+        //     createList(<?php echo $encodedFilteredidNRiasec; ?>)
+        //     groupRoles(PI)
+        //     groupRoles(writer)
+        //     groupRoles(dev)
+        //     groupRoles(des)
+        //     distributeRoles()
+        //     // display()
+        // }
 
         const StudButt = document.getElementById('StudButt');
         const GrButt = document.getElementById('GrButt');
@@ -408,16 +417,7 @@
             }
         })
 
-        function generateGroups() {
-            // const rows = <?php //echo $encodedFilteredidNRiasec; ?>;
-            createList(<?php echo $encodedFilteredidNRiasec; ?>)
-            groupRoles(PI)
-            groupRoles(writer)
-            groupRoles(dev)
-            groupRoles(des)
-            distributeRoles()
-            // display()
-        }
+
     </script>
 </body>
 </html>

@@ -147,6 +147,21 @@ function distributeRoles(){
     document.getElementById('submitGroups').submit();
 }
 
+function generateGroups() {
+    const filteredIdNRiasecElement = document.getElementById('filteredidNRiasec');
+    if (filteredIdNRiasecElement) {
+        const filteredIdNRiasec = JSON.parse(filteredIdNRiasecElement.value);
+        createList(filteredIdNRiasec);
+        groupRoles(PI);
+        groupRoles(writer);
+        groupRoles(dev);
+        groupRoles(des);
+        distributeRoles();
+    } else {
+        console.error('Could not find filteredidNRiasec element');
+    }
+}
+
 // function display(){ //MOSTLY 
     
 //     let container = document.getElementById('groups');// Get the existing HTML element where you want to insert the users

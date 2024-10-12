@@ -43,7 +43,7 @@ $router->get('/view-group', 'Http/controllers/rooms/group/view-group.php')->only
 $router->get('/register', 'Http/controllers/session/registration/register.php')->only('guest');
 $router->post('/register', 'model/session/registration/store.php')->only('guest');
 $router->get('/activate-account', 'Http/controllers/session/registration/success-signup.php')->only('guest');
-$router->get('/active-success', '/model/session/registration/success-activation.php')->only('guest');
+$router->get('/active-success', '/Http/controllers/session/registration/success-activation.php')->only('guest');
 
 // LOGIN PAGE
 $router->get('/login', 'Http/controllers/session/login/login.php')->only('guest');

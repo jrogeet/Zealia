@@ -26,13 +26,14 @@
                     <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
-                        <input class="h-full w-5/6 bg-white2 pl-2" type="text" name="search_input" placeholder="Search Joined Room">
-                        <button type="submit" class="bg-search h-5/6 w-1/6 border border-l-grey2">SEARCH</button>
+                        <input class="h-full w-5/6 bg-white2 pl-2" type="text" name="search_input" placeholder="Search Room">
+                        <button type="submit" class="bg-search bg-center bg-contain bg-no-repeat h-5/6 w-1/6 border border-l-grey2"></button>
                     </form>
 
-                    <button class="h-[2.25rem] px-4 bg-orange1 text-black1 font-synemed border border-grey2 rounded-lg" onClick="toggleHidden(['filters']);">Filter</button>
+                    <button class="h-[2.25rem] px-4 bg-orange1 text-black1 font-synemed border border-grey2 rounded-lg" onClick="toggle('filters');">Filter</button>
 
-                    <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
+                    <!-- <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button> -->
+                    <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggle('rooms-ascending'); toggle('rooms-descending'); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
                 </div>
 
                 <?php if ($_SESSION['user']['account_type'] === 'student'):?>
@@ -50,29 +51,30 @@
                         <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg"  type="submit">Join</button>
                     </form>
                 <?php elseif ($_SESSION['user']['account_type'] === 'professor'): ?>
-                    <form class="flex justify-between gap-4" method="POST" action="/dashboard">
+                    <!-- <form class="flex justify-between gap-4" method="POST" action="/dashboard">
                         <input type="hidden" name="create" value="create">
                         <input type="hidden" name="asc" value="<?= htmlspecialchars($encoded_ascending_rooms, ENT_QUOTES, 'UTF-8')?>">
                         <input type="hidden" name="desc" value="<?= htmlspecialchars($encoded_descending_rooms, ENT_QUOTES, 'UTF-8')?>">
-                        <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
+                        <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>"> -->
                         
                         <?php if (isset($errors['room_name'])) : ?>
                             <p class=""><?= $errors['room_name'] ?></p>
                         <?php endif; ?>
-                        <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter room name" required>
-                        <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg"  type="submit">Create</button>
-                    </form>
+                        <!-- <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter room name" required> -->
+                        <!-- <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg"  type="submit">Create</button> -->
+                        <button onclick="show('createRoom'); disableScroll();" class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg">Create</button>
+                    <!-- </form> -->
                 <?php endif;?>
             </div>
 
             <!-- Filter -->
-            <div class="absolute hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 flex justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
+            <div class="absolute hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="w-1/2 flex">
                     <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-full bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
                         <!-- Year -->
-                        <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" name="year" id="yrLevel">
+                        <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" name="year_level" id="yrLevel">
                             <option class="bg-white2" value="">Year Level</option>
                             <option class="bg-white2" value="1st year">1st Year</option>
                             <option class="bg-white2" value="2nd year">2nd Year</option>
@@ -103,12 +105,12 @@
             </div>
 
             <!-- TILES  -->
-            <div id="dashboardTiles" class="h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden">         
+            <div id="dashboardTiles" class="flex justify-center max-h-[39.8rem] w-full overflow-y-auto overflow-x-hidden">         
                 <?php if(! empty($ascending_rooms)): ?>
-                    <div class="flex flex-wrap gap-x-2.5 gap-y-10 min-h-[36rem] w-full h-full p-4 m-0" id="rooms-ascending">
+                    <div class="flex flex-wrap content-start gap-9 w-full m-4" id="rooms-ascending">
                         <!--  ROOMS  -->
                         <?php foreach($ascending_rooms as $rooms) { ?>
-                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
+                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                 <div>   
                                     <h1 class="font-synemed text-2xl truncate"><?= $rooms['room_name'] ?></h1>
                                     <span class="text-grey2 text-base"><?= $rooms['prof_name'] ?></span>
@@ -118,20 +120,20 @@
                         <?php } ?>
                     </div>
                     <!-- added div as fix for descending being toggled as block -->
-                    <div class="hidden" id="rooms-descending">
-                        <div class="flex flex-wrap gap-x-2.5 gap-y-10 min-h-[36rem] w-[84.5rem] m-4">
-                            <!--  ROOMS  -->
-                            <?php foreach($descending_rooms as $rooms) { ?>
-                                <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-40 w-[27.625rem] p-6 rounded-2xl">
-                                    <div>   
-                                        <h1 class="font-synemed text-2xl truncate"><?= $rooms['room_name'] ?></h1>
-                                        <span class="text-grey2 text-base"><?= $rooms['prof_name'] ?></span>
-                                    </div>
-                                    <span class="text-grey2 text-base"><?= $rooms['room_code'] ?></span>
-                                </a>
-                            <?php } ?>
-                        </div>
+                    <!-- <div class="hidden h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden"> -->
+                    <div class="hidden flex-wrap content-start gap-9 w-full m-4"  id="rooms-descending">
+                        <!--  ROOMS  -->
+                        <?php foreach($descending_rooms as $rooms) { ?>
+                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                <div>   
+                                    <h1 class="font-synemed text-2xl truncate"><?= $rooms['room_name'] ?></h1>
+                                    <span class="text-grey2 text-base"><?= $rooms['prof_name'] ?></span>
+                                </div>
+                                <span class="text-grey2 text-base"><?= $rooms['room_code'] ?></span>
+                            </a>
+                        <?php } ?>
                     </div>
+                    <!-- </div> -->
             </div>
 
             <!-- TABLE -->
@@ -179,6 +181,46 @@
                 <?php endif; ?>
         </div>
     </main>
+
+    <div id="createRoom" class="hidden z-50 bg-glassmorphism fixed h-full w-full justify-center">
+        <div class="bg-white2 relative flex flex-col h-64 w-80 border border-black1 top-1/3 rounded-t-lg">
+            <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
+                <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>
+                <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('createRoom'); enableScroll();">X</button>
+            </div>
+            <form method="POST" action="/dashboard" class="flex flex-col items-center h-64 p-2">
+                <!-- <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>"> -->
+                <input type="hidden" name="create" value="create">
+                <input type="hidden" name="asc" value="<?= htmlspecialchars($encoded_ascending_rooms, ENT_QUOTES, 'UTF-8')?>">
+                <input type="hidden" name="desc" value="<?= htmlspecialchars($encoded_descending_rooms, ENT_QUOTES, 'UTF-8')?>">
+                <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>"> 
+
+                <span class="font-synebold text-xl">Enter Room name:</span>
+                <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter room name" required>
+                <div class="flex">
+                    <label>Year Level:</label>
+                    <select name="year_level">
+                        <option value="1st year">1st year</option>
+                        <option value="2nd year">2nd year</option>
+                        <option value="3rd year">3rd year</option>
+                        <option value="4th year">4th year</option>
+                    </select>
+                </div>
+
+                <div class="flex">
+                    <label>Program:</label>
+                    <select name="program">
+                        <option value="cs">CS</option>
+                        <option value="it">IT</option>
+                    </select>
+                </div>
+                <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter section:" required>
+
+                <button type="submit" class="bg-orange1 p-1 mt-2 text-black1 border border-black1 rounded">Create Room</button>
+            </form>
+        </div>
+    </div>
 
     <!-- mobile -->
     <div class="relative block lg:hidden w-full h-fit mt-10 text-center">

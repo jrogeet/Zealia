@@ -1,29 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<?php view('partials/head.view.php'); ?>
 
-    <title>Account Activated!</title>
-</head>
+<body class="bg-white1 flex flex-col justify-between overflow-x-hidden">
+    <?php view('partials/nav.view.php'); ?>
 
-<style>
-    <?php 
-        
-        include base_path('public/assets/css/shared-styles.css');
-
-    ?>
-
-</style>
-<body>
-    <?php view('partials/nav.view.php')?>
-
-    <main>
-        <p>
-            Account activated successfully.
-            You can now <a href="/login">Login</a>.
+    <main class="h-[30rem] mt-20 text-center flex flex-col justify-center items-center p-4">
+        <p class="font-synebold text-3xl mb-5">
+            Account activated successfully
         </p>
+        <p>
+            You can now 
+        </p>
+        <!-- search for the email -->
+        <a href="/login">
+            <p class="bg-blue3 p-2 rounded-lg text-white1 font-synemed text-xl">Login</p>
+        </a>
     </main>
 
-
+    <?php view('partials/footer.view.php'); ?>
+    <script src="assets/js/shared-scripts.js"></script>
 </body>
+</html>
