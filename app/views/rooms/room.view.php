@@ -231,12 +231,12 @@
                          <button class="bg-white2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg mx-auto mr-0" onclick="downloadPDF()">Print Group</button>
                     </div>
                      
-                    <!-- content -->
+                    <!-- members -->
                     <div class="w-full py-2">
-                         <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $members[0][0] ?></span><span class="mx-auto w-2/6 text-right"><?php echo $members[0][2] ?></span></h1>
-                         <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $members[1][0] ?></span><span class="mx-auto w-2/6 text-right"><?php echo $members[1][2] ?></span></h1>
-                         <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $members[2][0] ?></span><span class="mx-auto w-2/6 text-right"><?php echo $members[2][2] ?></span></h1>
-                         <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $members[3][0] ?></span><span class="mx-auto w-2/6 text-right"><?php echo $members[3][2] ?></span></h1>
+                        <?php foreach ($members as $member){ ?>
+                            <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $member[0]; ?></span><span class="mx-auto w-2/6 text-right"><?php echo $member[2]; ?></span></h1>
+                            
+                        <?php } ?>
                     </div>
      
                 </div>
@@ -245,19 +245,12 @@
                 <div class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-synemed">
                     <!-- group tabs -->
                     <div class="flex w-full border-b border-black1">
-                        <button id="button1" class="bg-blue2 w-1/4 mx-auto py-4 border-r border-black1"><?php echo $members[0][0] ?></button>
-                        <button id="button2" class="bg-white1 w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $members[1][0] ?></button>
-                        <button id="button3" class="bg-white1 w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $members[2][0] ?></button>
-                        <button id="button4" class="bg-white1 w-1/4 mx-auto py-4 border-l border-black1"><?php echo $members[3][0] ?></button>
-                    </div>
-                    <!-- personal tabs -->
-                    <div class="flex w-full border-b border-black1">
-                        <button class="bg-orange1 w-2/6 mx-auto py-4 border-r border-black1">Working</button>
-                        <button class="bg-white1 w-2/6 mx-auto py-4 border-r border-l border-black1">To-Do</button>
-                        <button class="bg-white1 w-2/6 mx-auto py-4  border-l border-black1">Waiting</button>
+                        <?php foreach ($members as $member){ ?>
+                            <button id="<?php echo $member[1]; ?>" class="member bg-white1 w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $member[0]; ?></button>
+                        <?php } ?>
                     </div>
                     <!-- whiteboard -->
-                    <div class="block w-full h-fit min-h-[32.8rem] py-2 pt-4">
+                    <div class="block w-full h-fit min-h-[36.3rem] py-2 pt-4">
                         <!-- add -->
                         <div class="relative flex left-[100%] transform -translate-x-full w-fit pr-4 items-right">
                             <input class="pl-2 mx-4 border border-black1 rounded-lg" type="text" placeholder="Add new task">
@@ -266,61 +259,16 @@
                         <!-- lanes  -->
                         <div class="relative flex w-full p-2 mt-2 gap-2">
                             <!-- to do -->
-                            <div class="w-1/3 bg-red-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                            <div id="todoCont" class="w-1/3 bg-red-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
                                 <h1 class="font-synebold">To Do List:</h1>
-                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
-                                    <h1 class="text-left text-lg font-synebold">Task 1</h1>
-                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
-                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
-                                </div>
-                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
-                                    <h1 class="text-left text-lg font-synebold">Task 2</h1>
-                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
-                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
-                                </div>
-                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
-                                    <h1 class="text-left text-lg font-synebold">Task 3</h1>
-                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
-                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
-                                </div>
                             </div>
                             <!-- work in progress -->
-                            <div class="w-1/3 bg-white2 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                            <div id="wipCont" class="w-1/3 bg-white2 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
                                 <h1 class="font-synebold">Work in progress:</h1>
-                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
-                                    <h1 class="text-left text-lg font-synebold">Task 1</h1>
-                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
-                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
-                                </div>
-                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
-                                    <h1 class="text-left text-lg font-synebold">Task 2</h1>
-                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
-                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
-                                </div>
-                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
-                                    <h1 class="text-left text-lg font-synebold">Task 3</h1>
-                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
-                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
-                                </div>
                             </div>
                             <!-- done -->
-                            <div class="w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                            <div id="doneCont" class="w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
                                 <h1 class="font-synebold">Done:</h1>
-                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
-                                    <h1 class="text-left text-lg font-synebold">Task 1</h1>
-                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
-                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
-                                </div>
-                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
-                                    <h1 class="text-left text-lg font-synebold">Task 2</h1>
-                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
-                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
-                                </div>
-                                <div class="p-2 border-t border-black1 cursor-grab" draggable="true">
-                                    <h1 class="text-left text-lg font-synebold">Task 3</h1>
-                                    <h1 class="text-left text-grey2 pl-4">Info</h1>
-                                    <h1 class="text-left text-grey2 pl-4">target date</h1>
-                                </div>
                             </div>
                         </div>
 
@@ -343,38 +291,86 @@
         const GrButt = document.getElementById('GrButt');
         const students = document.getElementById('students');
         const groupContent = document.getElementById('groups');
-        const groupData = <?php echo json_encode($decodedGroup); ?>;
+        const groupData = <?php echo json_encode($members); ?>;
+        const groupNumber = <?php echo json_encode($groupNum); ?>;
+        // for kanban testing
+        const todoList = document.getElementById('todoCont');
+        const wipList = document.getElementById('wipCont');
+        const doneList = document.getElementById('doneCont');
+        
+        let Data1 = {room: 1,
+            group: 1,
+            todo: [["data1", "info1", "date1"],
+            ["todo2", "info2", "date2"]],
+            wip: [["working1", "info1", "date1"],
+            ["working2", "info2", "date2"]],
+            done: [["done1", "info1", "date1"],
+            ["done2", "info2", "date2"]]};
+            
+        let Data2 = {room: 1,
+            group: 1,
+            todo: [["data2", "info1", "date1"],
+            ["todo2", "info2", "date2"]],
+            wip: [["working1", "info1", "date1"],
+            ["working2", "info2", "date2"]],
+            done: [["done1", "info1", "date1"],
+            ["done2", "info2", "date2"]]};
+                
+        let Data3 = {room: 1,
+            group: 1,
+            todo: [["data3", "info1", "date1"],
+            ["todo2", "info2", "date2"]],
+            wip: [["working1", "info1", "date1"],
+            ["working2", "info2", "date2"]],
+            done: [["done1", "info1", "date1"],
+            ["done2", "info2", "date2"]]};
+            
+        let Data4 = {room: 1,
+            group: 1,
+            todo: [["data4", "info1", "date1"],
+            ["todo2", "info2", "date2"]],
+            wip: [["working1", "info1", "date1"],
+            ["working2", "info2", "date2"]],
+            done: [["done1", "info1", "date1"],
+            ["done2", "info2", "date2"]]};
+                        
+        const datas = [Data1, Data2, Data3, Data4];
+                        
+                        
+        const kbButts = document.querySelectorAll('.member');
+        kbButts.forEach(button => {
+            button.addEventListener('click', function() {
+                kbButts.forEach(btn => {
+                    // button visual
+                    btn.classList.remove('bg-blue2');
+                    btn.classList.add('bg-white1');
+                });
+                // button visual
+                this.classList.add('bg-blue2');
+                this.classList.remove('bg-white1');
+                console.log("id:", this.id);
+            });
+        });
+
+
+
+
         
 
         function downloadPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            doc.setFontSize(12);
-            doc.text("Groups:\n\n", 10, 10);
-            
+            let groupNum = groupNumber;
             let yOffset = 30;
-            let groupNum = 1;
+
+            doc.setFontSize(12);
+            doc.text(`Groups: ${groupNum}`, 10, 10);
+            
             const pageHeight = doc.internal.pageSize.height;
 
-            groupData.forEach(group => {
-                if (yOffset + 75 > pageHeight) {
-                    doc.addPage();
-                    yOffset = 30; // Reset yOffset for new page
-                }
-                
-                doc.text(`Group ${groupNum}`, 20, yOffset);
-                groupNum++;
+            groupData.forEach(member => {
+                doc.text(member.join(' | '), 30, yOffset);
                 yOffset += 15;
-                
-                group.forEach(member => {
-                    if (yOffset + 10 > pageHeight) {
-                        doc.addPage();
-                        yOffset = 10; // Reset yOffset for new page
-                    }
-                    doc.text(member.join(' | '), 30, yOffset);
-                    yOffset += 15;
-                });
-                yOffset += 15; // Add extra space between groups
             });
 
             doc.save('group_info.pdf');
