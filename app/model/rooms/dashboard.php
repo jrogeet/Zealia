@@ -44,17 +44,19 @@ if (isset($_POST['create'])) {
             continue;
         } else {
             $room_code = (string) $unique_number;
-            dd($room_code);
             $i++;
         }
     }
 
-    $db->query('INSERT INTO rooms (room_name, school_id, room_code) VALUES (:room_name, :prof_id, :room_code)', [
+    $db->query('INSERT INTO rooms (room_name, school_id, room_code, year_level, program, section) VALUES (:room_name, :prof_id, :room_code, :year_level, :program, :section)', [
         ':room_name'=> trim($_POST['room_name']),
         ':room_code' => $room_code,
-        ':prof_id' => $currentUser
+        ':prof_id' => $currentUser,
+        ':year_level' => $_POST['year_level'],
+        ':program' => $_POST['program'],
+        ':section' => trim($_POST['section']),
     ]);
-    // header("Location: {$_SESSION['current_type']}/dashboard");
+
     header("Location: /dashboard");
     die();
 } elseif (isset($_POST['join'])) {
