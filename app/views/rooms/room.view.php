@@ -214,7 +214,7 @@
                     if ($member[1] === $_SESSION['user']['school_id']) {
                         $bool = true;
                         $groupNum = $index+1;
-                        // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 262)
+                        // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 265)
                         $studentRole = $member[2];
                     }
 
@@ -250,6 +250,8 @@
                     <!-- group tabs -->
                     <div class="flex w-full border-b border-black1">
                         <?php foreach ($members as $index => $member){ ?>
+                            <!-- sa onclick event need i-hide the rest of kanbans, kasi mag sstack lang sya kada pindot ng tab since di na hahide yung iba -->
+                            <!-- vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv -->
                             <button onclick="show('kanban<?= $index ?>'); " id="<?php echo $member[1]; ?>" class="member bg-white1 w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $member[0]; ?></button>
                         <?php } ?>
                     </div>
