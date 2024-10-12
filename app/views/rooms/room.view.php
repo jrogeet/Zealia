@@ -214,6 +214,8 @@
                     if ($member[1] === $_SESSION['user']['school_id']) {
                         $bool = true;
                         $groupNum = $index+1;
+                        // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 262)
+                        $studentRole = $member[2];
                     }
 
                 }
@@ -222,6 +224,7 @@
                 }
             }
             ?>
+            <?php //dd($members) ?>
             <!-- BODY -->
             <div class="flex w-10/12 mx-auto">
                 <!-- left -->
@@ -253,25 +256,80 @@
                     <!-- whiteboard -->
                     <div class="block w-full h-fit min-h-[36.3rem] py-2 pt-4">
                         <!-- add -->
-                        <div class="relative flex left-[100%] transform -translate-x-full w-fit pr-4 items-right">
-                            <input class="pl-2 mx-4 border border-black1 rounded-lg" type="text" placeholder="Add new task">
-                            <button class="px-2 bg-green1 rounded-lg">Add +</button>
-                        </div>
-                        <!-- lanes  -->
-                        <div class="relative flex w-full p-2 mt-2 gap-2">
-                            <!-- to do -->
-                            <div id="todoCont" class="w-1/3 bg-red-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                <h1 class="font-synebold">To Do List:</h1>
+                         <?php foreach($members as $member): ?>
+            <!-- NOT SURE dito sa logic mukhang tama naman, if kanban board nya yon or principal investigator sya -->
+                            <!-- VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV -->
+                            <?php if(($member[1] === $_SESSION['user']['school_id']) || $studentRole == 'Principal Investigator'): ?> 
+                                <div class="relative flex left-[100%] transform -translate-x-full w-fit pr-4 items-right">
+                                    <input class="pl-2 mx-4 border border-black1 rounded-lg" type="text" placeholder="Add new task">
+                                    <button class="px-2 bg-green1 rounded-lg">Add +</button>
+                                </div>
+                            <?php endif; ?>
+
+                            <!-- lanes  -->
+                            <div class="relative flex w-full p-2 mt-2 gap-2">
+                                <!-- to do -->
+                                <div id="todoCont" class="w-1/3 bg-red-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                    <h1 class="font-synebold border-b border-black1">To Do List:</h1>
+
+                                    <?php 
+                                        if (!empty($member[3])) {
+                                            foreach($member[3] as $key => $room_kanban) {
+                                                if($key == $_GET['room_id']) {
+                                                    foreach($room_kanban['todo'] as $task) { ?>
+                                                        <div class="flex justify-evenly p-1 border-b border-b-black1">
+                                                            <span class=" border-r border-black1"><?= $task[0] ?></span>
+                                                            <span class=""><?= $task[1] ?></span>
+                                                            <span class="border-l border-black1"><?= $task[2] ?></span>
+                                                        </div>
+                                    <?php           }
+                                                }
+                                            }
+                                        }
+                                     ?>
+                                </div>
+                                
+                                <!-- work in progress -->
+                                <div id="wipCont" class="w-1/3 bg-white2 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                    <h1 class="font-synebold">Work in progress:</h1>
+                                    <?php 
+                                        if (!empty($member[3])) {
+                                            foreach($member[3] as $key => $room_kanban) {
+                                                if($key == $_GET['room_id']) {
+                                                    foreach($room_kanban['wip'] as $task) { ?>
+                                                        <div class="flex justify-evenly p-1 border-b border-b-black1">
+                                                            <span class=" border-r border-black1"><?= $task[0] ?></span>
+                                                            <span class=""><?= $task[1] ?></span>
+                                                            <span class="border-l border-black1"><?= $task[2] ?></span>
+                                                        </div>
+                                    <?php           }
+                                                }
+                                            }
+                                        }
+                                     ?>
+                                </div>
+                                <!-- done -->
+                                <div id="doneCont" class="w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                    <h1 class="font-synebold">Done:</h1>
+                                    <?php 
+                                        if (!empty($member[3])) {
+                                            foreach($member[3] as $key => $room_kanban) {
+                                                if($key == $_GET['room_id']) {
+                                                    foreach($room_kanban['done'] as $task) { ?>
+                                                        <div class="flex justify-evenly p-1 border-b border-b-black1">
+                                                            <span class=" border-r border-black1"><?= $task[0] ?></span>
+                                                            <span class=""><?= $task[1] ?></span>
+                                                            <span class="border-l border-black1"><?= $task[2] ?></span>
+                                                        </div>
+                                    <?php           }
+                                                }
+                                            }
+                                        }
+                                     ?>
+                                </div>
                             </div>
-                            <!-- work in progress -->
-                            <div id="wipCont" class="w-1/3 bg-white2 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                <h1 class="font-synebold">Work in progress:</h1>
-                            </div>
-                            <!-- done -->
-                            <div id="doneCont" class="w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                <h1 class="font-synebold">Done:</h1>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
+
 
                     </div>
                 </div>
@@ -279,7 +337,7 @@
         <?php endif; ?>
     </main>
 
-    <?php view('partials/footer.view.php')?>
+    <?php //view('partials/footer.view.php')?>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="assets/js/shared-scripts.js"></script>
