@@ -1,9 +1,9 @@
 <?php view('partials/head.view.php'); ?>
 <body class="bg-white1 block w-screen h-fit overflow-x-hidden">
-    <?php view('partials/nav.view.php')?>
-
+    <?php //view('partials/nav.view.php')?>
+    <?php //dd($stu_info) ?>
+    <?php //dd($decodedGroup) ?>
     <main class="relative block left-1/2 transform -translate-x-1/2 h-[23.2rem] w-full top-32">
-        <?php dd($stu_info) ?>
         <?php if (isset($errors['room_name'])) : ?>
             <p class="h-12 flex justify-center items-center font-synemed text-red1 text-2xl"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
@@ -307,14 +307,17 @@
         const wipList = document.getElementById('wipCont');
         const doneList = document.getElementById('doneCont');
         
-        let Data1 = {room: 1,
-            group: 1,
-            todo: [["data1", "info1", "date1"],
-            ["todo2", "info2", "date2"]],
-            wip: [["working1", "info1", "date1"],
-            ["working2", "info2", "date2"]],
-            done: [["done1", "info1", "date1"],
-            ["done2", "info2", "date2"]]};
+        let Data1 = {1 : {
+                todo: [["data1", "info1", "date1"],["todo2", "info2", "date2"]],
+                wip: [["working1", "info1", "date1"],["working2", "info2", "date2"]],
+                done: [["done1", "info1", "date1"],["done2", "info2", "date2"]]
+            },
+            2 : {
+                todo: [["data1", "info1", "date1"],["todo2", "info2", "date2"]],
+                wip: [["working1", "info1", "date1"],["working2", "info2", "date2"]],
+                done: [["done1", "info1", "date1"],["done2", "info2", "date2"]]
+            },
+            };
             
         let Data2 = {room: 1,
             group: 1,

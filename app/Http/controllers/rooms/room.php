@@ -145,8 +145,30 @@ if ($valid) {
                     $names = explode("+", $member[0]);
                     $member[0] = "{$names[0]} {$names[1]}";
                 }
+
+                // foreach ($stu_info as $student) {
+                //     if($member[1] === $student['school_id']) {
+                //         $group[] = $student['kanban'];
+                //     }
+                // }
+                foreach ($stu_info as $student) {
+                    if(isset($member[1]) && $member[1] === $student['school_id']) {
+                        // Check if 'kanban' key exists in $student array
+                        if (isset($student['kanban'])) {
+                            $member[] = json_decode($student['kanban'], true);
+                        } else {
+                            $member[] = "";
+                        }
+                    }
+                }
             }
         }
+
+        $kanban_json = $db->query('select kanban from accounts where school_id = :school_id', [
+            ':school_id' => $currentUser
+        ])->find();
+
+        // $kanban_decoded = json_decode($kanban_json, true);
 
         view('rooms/room.view.php', [
             'stu_info' => $stu_info, // STUDENTS LIST
@@ -165,6 +187,7 @@ if ($valid) {
             'encodedGroup' =>$encodedGroup,
             'roomHasGroup' => $roomHasGroup,
             'idNtype' => $idNtype,
+            // 'kanban' => $kanban_decoded,
         ]);
     } else {
         view('rooms/room.view.php', [
