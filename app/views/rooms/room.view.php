@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 <body class="bg-white1 block w-screen h-fit overflow-x-hidden">
-    <?php //view('partials/nav.view.php')?>
+    <?php view('partials/nav.view.php')?>
     <?php //dd($stu_info) ?>
     <?php //dd($decodedGroup) ?>
     <main class="relative block left-1/2 transform -translate-x-1/2 h-[23.2rem] w-full top-32">
@@ -249,18 +249,19 @@
                 <div class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-synemed">
                     <!-- group tabs -->
                     <div class="flex w-full border-b border-black1">
-                        <?php foreach ($members as $member){ ?>
-                            <button id="<?php echo $member[1]; ?>" class="member bg-white1 w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $member[0]; ?></button>
+                        <?php foreach ($members as $index => $member){ ?>
+                            <button onclick="show('kanban<?= $index ?>'); " id="<?php echo $member[1]; ?>" class="member bg-white1 w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $member[0]; ?></button>
                         <?php } ?>
                     </div>
-                    <!-- whiteboard -->
-                    <div class="block w-full h-fit min-h-[36.3rem] py-2 pt-4">
-                        <!-- add -->
-                         <?php foreach($members as $member): ?>
+
+                    <?php foreach($members as $index => $member): ?>
+                        <!-- whiteboard -->
+                        <div id="kanban<?= $index ?>" class="<?php if($member[1] === $_SESSION['user']['school_id']): ?>flex<?php else: ?>hidden<?php endif;?> flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
+                            <!-- add -->
             <!-- NOT SURE dito sa logic mukhang tama naman, if kanban board nya yon or principal investigator sya -->
                             <!-- VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV -->
                             <?php if(($member[1] === $_SESSION['user']['school_id']) || $studentRole == 'Principal Investigator'): ?> 
-                                <div class="relative flex left-[100%] transform -translate-x-full w-fit pr-4 items-right">
+                                <div class="flex w-fit pr-4 self-end">
                                     <input class="pl-2 mx-4 border border-black1 rounded-lg" type="text" placeholder="Add new task">
                                     <button class="px-2 bg-green1 rounded-lg">Add +</button>
                                 </div>
@@ -291,12 +292,12 @@
                                 
                                 <!-- work in progress -->
                                 <div id="wipCont" class="w-1/3 bg-white2 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                    <h1 class="font-synebold">Work in progress:</h1>
+                                    <h1 class="font-synebold border-b border-black1">Work in progress:</h1>
                                     <?php 
                                         if (!empty($member[3])) {
                                             foreach($member[3] as $key => $room_kanban) {
                                                 if($key == $_GET['room_id']) {
-                                                    foreach($room_kanban['wip'] as $task) { ?>
+                                                    foreach($room_kanban['done'] as $task) { ?>
                                                         <div class="flex justify-evenly p-1 border-b border-b-black1">
                                                             <span class=" border-r border-black1"><?= $task[0] ?></span>
                                                             <span class=""><?= $task[1] ?></span>
@@ -310,7 +311,7 @@
                                 </div>
                                 <!-- done -->
                                 <div id="doneCont" class="w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                    <h1 class="font-synebold">Done:</h1>
+                                    <h1 class="font-synebold border-b border-black1">Done:</h1>
                                     <?php 
                                         if (!empty($member[3])) {
                                             foreach($member[3] as $key => $room_kanban) {
@@ -328,16 +329,17 @@
                                      ?>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        </div> 
+                    <?php endforeach; ?>
 
 
-                    </div>
+
                 </div>
             </div>
         <?php endif; ?>
     </main>
 
-    <?php //view('partials/footer.view.php')?>
+    <?php view('partials/footer.view.php')?>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="assets/js/shared-scripts.js"></script>
