@@ -11,15 +11,6 @@ class NotificationController {
     private const SLEEP_TIME = 1000000; // 1 seconds in microseconds
     
     public function stream() {
-        header('Content-Type: text/event-stream');
-        header('Cache-Control: no-cache');
-        header('Connection: keep-alive');
-        header('X-Accel-Buffering: no'); // Disable nginx buffering
-
-        // Prevent output buffering
-        if (ob_get_level()) ob_end_clean();
-        ob_implicit_flush(true);
-
         if (!isset($_SESSION['user']['school_id'])) {
             http_response_code(401);
             exit('Unauthorized');
@@ -106,7 +97,9 @@ class NotificationController {
                     echo "data: " . json_encode(['timestamp' => time(), 'connectionId' => $connectionId]) . "\n\n";
                 }
                 
-                ob_flush();
+                if (ob_get_level() > 0) {
+                    ob_flush();
+                }
                 flush();
                 
                 // Increase sleep time to reduce server load
