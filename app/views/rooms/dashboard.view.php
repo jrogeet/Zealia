@@ -26,7 +26,7 @@
                     <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
-                        <input id="search_input" class="h-full w-5/6 bg-white2 pl-2" type="text" name="search_input" placeholder="Search Room">
+                        <input class="h-full w-5/6 bg-white2 pl-2" type="text" name="search_input" placeholder="Search Room">
                         <button type="submit" class="bg-search bg-center bg-contain bg-no-repeat h-5/6 w-1/6 border border-l-grey2"></button>
                     </form>
 
@@ -328,48 +328,5 @@
         });
     </script>
     <script src="assets/js/shared-scripts.js"></script>
-    <script src="assets/js/fetch.js"></script>
-    <script>
-        // fetchData('/api/rooms/get-data', 'GET')
-        //     .then(data => {
-        //         console.log('Rooms:', data);
-        //         // You can now display this data on the page
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching rooms:', error);
-        //         // Handle the error, e.g., display an error message to the user
-        //     });
-
-        window.addEventListener("load", function(e) {
-            document.querySelector("#search_input").addEventListener("keyup", function (e) {
-                fetchData('/api/search/post-data', 'POST', { search: this.value })
-                    .then(data => {
-                        console.log('Search results:', data);
-                        updateSearchResults(data);
-                    })
-                    .catch(error => {
-                        console.error('Error fetching search results:', error);
-                    });
-            });
-        });
-
-        function updateSearchResults(results) {
-            const roomsContainer = document.querySelector("#rooms-ascending");
-            roomsContainer.innerHTML = ''; // Clear existing rooms
-
-            results.forEach(room => {
-                const roomElement = `
-                    <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
-                        <div>   
-                            <h1 class="font-synemed text-2xl truncate">${room.room_name}</h1>
-                            <span class="text-grey2 text-base">${room.prof_name}</span>
-                        </div>
-                        <span class="text-grey2 text-base">${room.room_code}</span>
-                    </a>
-                `;
-                roomsContainer.innerHTML += roomElement;
-            });
-        }
-    </script>
 </body>
 </html>

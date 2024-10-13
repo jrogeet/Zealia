@@ -57,19 +57,17 @@ class Router {
     public function route($uri, $method)
     {
         foreach ($this->routes as $route) {
-            $pattern = $this->convertRouteToRegex($route['uri']);
-            if (preg_match($pattern, $uri, $matches) && $route['method'] === strtoupper($method)) {
-                array_shift($matches); // Remove the full match
-                $matches = array_values($matches); // Re-index the array
-                
+            if ($route['uri'] === $uri && $route['method'] === $method) {
                 if (isset($route['middleware'])) {
                     $middleware = Middleware::MAP[$route['middleware']];
                     (new $middleware)->handle();
                 }
 
+                // If controller contains @, handle it as Controller@method
                 if (str_contains($route['controller'], '@')) {
                     [$controller, $action] = explode('@', $route['controller']);
-                    $controllerClass = "App\\Http\\Controllers\\{$controller}";
+                    
+                    $controllerClass = "App\\Http\\controllers\\{$controller}";
                     
                     if (!class_exists($controllerClass)) {
                         throw new \Exception("Controller {$controllerClass} not found");
@@ -81,14 +79,17 @@ class Router {
                         throw new \Exception("Method {$action} not found in controller {$controller}");
                     }
 
-                    // Use call_user_func_array instead of unpacking
-                    return call_user_func_array([$controllerInstance, $action], $matches);
+                    return $controllerInstance->$action();
+                } elseif($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+    
+                    // Check whether the user is a Guest or Authorized
+                    Middleware::resolve($route['middleware']);
+                    
+                    return require base_path("app/{$route['controller']}");
                 }
 
-                // Check whether the user is a Guest or Authorized
-                Middleware::resolve($route['middleware']);
-                
-                return require base_path("app/{$route['controller']}");
+                // Otherwise, handle it the original way
+                // require base_path($route['controller']);
             }
         }
 
@@ -101,12 +102,6 @@ class Router {
         view("{$code}.php");
 
         die();
-    }
-
-    private function convertRouteToRegex($route)
-    {
-        $pattern = preg_replace('/\{([a-z]+)\}/', '(?P<$1>[^/]+)', $route);
-        return "#^" . $pattern . "$#";
     }
 
 }
