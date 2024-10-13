@@ -4,6 +4,14 @@ $router->get('/notifications/stream', 'NotificationController@stream');
 $router->get('/notifications/initial', 'NotificationController@getInitialNotifications');
 $router->post('/notifications', 'model/notifications/notifications.php');
 
+// routes.php
+$router->get('/api/{type}/get-data', 'ApiController@getData'); // Get data by type (e.g., countries, users)
+$router->post('/api/{type}/post-data', 'ApiController@postData'); // Post data for a specific type
+$router->patch('/api/{type}/update-data', 'ApiController@updateData'); // Update data for a specific type
+$router->delete('/api/{type}/delete-data', 'ApiController@deleteData'); // Delete data for a specific type
+
+
+
 $router->get('/', 'Http/controllers/home.php');
 $router->get('/learn', 'Http/controllers/learn.php');
 $router->get('/about', 'Http/controllers/about.php');
@@ -80,6 +88,7 @@ $router->get('/admin-view-log', 'Http/controllers/admin/logs/admin-view-log.php'
 
 $router->get('/submit-ticket', 'Http/controllers/admin/submit-ticket.php');
 $router->post('/submit-ticket', 'model/admin/submit-ticket.php');
+
 
 
 
