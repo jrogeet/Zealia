@@ -350,9 +350,18 @@ const NotificationManager = {
 
         this.eventSource.addEventListener('error', event => {
             console.error('SSE Error:', event);
+            if (event.target.readyState === EventSource.CLOSED) {
+                console.log('SSE connection closed');
+            } else if (event.target.readyState === EventSource.CONNECTING) {
+                console.log('SSE connection lost. Attempting to reconnect...');
+            }
             this.cleanup();
             this.showError('Connection lost. Reconnecting...');
             setTimeout(() => this.init(), 5000);
+        });
+
+        this.eventSource.addEventListener('open', event => {
+            console.log('SSE connection opened');
         });
     },
     
