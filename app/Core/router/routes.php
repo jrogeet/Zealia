@@ -4,6 +4,14 @@ $router->get('/notifications/stream', 'NotificationController@stream');
 $router->get('/notifications/initial', 'NotificationController@getInitialNotifications');
 $router->post('/notifications', 'model/notifications/notifications.php');
 
+$router->api('GET', '/api/search', 'search');
+$router->api('GET', '/api/latest-data', 'getLatestData');
+$router->api('GET', '/api/more-content', 'getMoreContent');
+$router->api('POST', '/api/submit-form', 'submitForm');
+$router->api('POST', '/api/toggle-like', 'toggleLike');
+// $router->get('/api/get-more-content', 'ApiController@handleRequest', ['action' => 'getMoreContent']);
+// $router->post('/api/toggle-like/{id}', 'ApiController@handleRequest', ['action' => 'toggleLike']);
+
 $router->get('/', 'Http/controllers/home.php');
 $router->get('/learn', 'Http/controllers/learn.php');
 $router->get('/about', 'Http/controllers/about.php');

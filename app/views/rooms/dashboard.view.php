@@ -26,7 +26,7 @@
                     <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
-                        <input class="h-full w-5/6 bg-white2 pl-2" type="text" name="search_input" placeholder="Search Room">
+                        <input oninput="searching(this.value)" id="searchInput"  class="h-full w-5/6 bg-white2 pl-2" type="text" name="search_input" placeholder="Search Room">
                         <button type="submit" class="bg-search bg-center bg-contain bg-no-repeat h-5/6 w-1/6 border border-l-grey2"></button>
                     </form>
 
@@ -328,5 +328,91 @@
         });
     </script>
     <script src="assets/js/shared-scripts.js"></script>
+
+    <!-- for FETCH API -->
+    <script>
+        function searching(typed) {
+            // console.log(typed);
+            fetch('/api/search', {
+                method: 'POST',
+                body: new URLSearchParams('room_name=' + typed)
+            })
+                .then(res => res.text())
+                .then(res => console.log(res))
+                .catch(e => console.error('Error: ' + e))
+        }
+
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const searchInput = document.getElementById('searchInput');
+        //     const searchResults = document.getElementById('rooms-ascending');
+        //     const encodedRoomInfo = document.querySelector('input[name="encoded_room_info"]').value;
+
+        //     let debounceTimer;
+
+        //     searchInput.addEventListener('input', function() {
+        //         clearTimeout(debounceTimer);
+        //         debounceTimer = setTimeout(() => {
+        //             const searchTerm = this.value;
+        //             if (searchTerm.length > 0) {
+        //                 fetchSearchResults(searchTerm);
+        //             } else {
+        //                 searchResults.innerHTML = '';
+        //             }
+        //         }, 300); // 300ms delay to avoid too many requests
+        //     });
+
+        //     function fetchSearchResults(searchTerm) {
+        //         const url = '/api/search'; // Make sure this matches your route
+        //         const data = new URLSearchParams({
+        //             search: 'search',
+        //             search_input: searchTerm,
+        //             encoded_room_info: encodedRoomInfo
+        //         });
+
+        //         fetch(url, {
+        //             method: 'POST',
+        //             body: data,
+        //             headers: {
+        //                 'Content-Type': 'application/x-www-form-urlencoded',
+        //                 'X-Requested-With': 'XMLHttpRequest'
+        //             }
+        //         })
+        //         .then(response => {
+        //             if (!response.ok) {
+        //                 throw new Error(`HTTP error! status: ${response.status}`);
+        //             }
+        //             return response.json();
+        //         })
+        //         .then(data => {
+        //             displaySearchResults(data);
+        //         })
+        //         .catch(error => {
+        //             console.error('Error:', error);
+        //             searchResults.textContent = 'An error occurred while searching. Please try again.';
+        //         });
+        //     }
+
+        //     function displaySearchResults(results) {
+        //         searchResults.innerHTML = '';
+        //         if (results.length > 0) {
+        //             const ul = document.createElement('ul');
+        //             results.forEach(room => {
+        //                 const li = document.createElement('li');
+        //                 li.textContent = room.room_name; // Adjust based on your data structure
+        //                 li.classList.add('cursor-pointer', 'hover:bg-gray-100', 'p-2');
+        //                 li.addEventListener('click', () => {
+        //                     window.location.href = `/room?room_id=${room.room_id}`; // Adjust based on your routing
+        //                 });
+        //                 ul.appendChild(li);
+        //             });
+        //             searchResults.appendChild(ul);
+        //         } else {
+        //             searchResults.textContent = 'No results found';
+        //         }
+        //     }
+        // });
+// Usage: submitForm('myFormId', '/api/submit-form');
+    </script>
 </body>
 </html>

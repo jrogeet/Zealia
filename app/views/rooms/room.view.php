@@ -347,9 +347,27 @@
     <script src="assets/js/shared-scripts.js"></script>
     <script src="assets/js/grouping.js"></script>
     <script>
+            function downloadPDF() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                let groupNum = groupNumber;
+                let yOffset = 30;
+
+                doc.setFontSize(12);
+                doc.text(`Groups: ${groupNum}`, 10, 10);
+                
+                const pageHeight = doc.internal.pageSize.height;
+
+                groupData.forEach(member => {
+                    doc.text(member.join(' | '), 30, yOffset);
+                    yOffset += 15;
+                });
+
+                doc.save('group_info.pdf');
+            }
         // function generateGroups() {
         //     // const rows = <?php //echo $encodedFilteredidNRiasec; ?>;
-        //     createList(<?php echo $encodedFilteredidNRiasec; ?>)
+        //     createList(<?php //echo $encodedFilteredidNRiasec; ?>)
         //     groupRoles(PI)
         //     groupRoles(writer)
         //     groupRoles(dev)
@@ -425,31 +443,6 @@
                 console.log("id:", this.id);
             });
         });
-
-
-
-
-        
-
-        function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            let groupNum = groupNumber;
-            let yOffset = 30;
-
-            doc.setFontSize(12);
-            doc.text(`Groups: ${groupNum}`, 10, 10);
-            
-            const pageHeight = doc.internal.pageSize.height;
-
-            groupData.forEach(member => {
-                doc.text(member.join(' | '), 30, yOffset);
-                yOffset += 15;
-            });
-
-            doc.save('group_info.pdf');
-        }
-
         
         StudButt.addEventListener('click',function(){
             if(StudButt.classList.contains("bg-blue3")){

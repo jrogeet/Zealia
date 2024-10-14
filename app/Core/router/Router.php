@@ -57,7 +57,7 @@ class Router {
     public function route($uri, $method)
     {
         foreach ($this->routes as $route) {
-            if ($route['uri'] === $uri && $route['method'] === $method) {
+            if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
                 if (isset($route['middleware'])) {
                     $middleware = Middleware::MAP[$route['middleware']];
                     (new $middleware)->handle();
@@ -80,20 +80,46 @@ class Router {
                     }
 
                     return $controllerInstance->$action();
-                } elseif($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-    
-                    // Check whether the user is a Guest or Authorized
+                } elseif ($route['controller'] === 'ApiController') {
+                    // Handle API routes
+                    $controllerClass = "App\\Http\\controllers\\ApiController";
+                    $controllerInstance = new $controllerClass();
+                    $handlerMethod = 'handle' . ucfirst(strtolower($method));
+                    
+                    if (!method_exists($controllerInstance, $handlerMethod)) {
+                        throw new \Exception("Method {$handlerMethod} not found in ApiController");
+                    }
+                    
+                    return $controllerInstance->$handlerMethod($route['api_action'], $_REQUEST);
+                } else {
+                    // Handle file-based controllers
                     Middleware::resolve($route['middleware']);
                     
-                    return require base_path("app/{$route['controller']}");
+                    $controllerPath = base_path("app/{$route['controller']}");
+                    if (!file_exists($controllerPath)) {
+                        throw new \Exception("Controller file {$controllerPath} not found");
+                    }
+                    
+                    return require $controllerPath;
                 }
-
-                // Otherwise, handle it the original way
-                // require base_path($route['controller']);
             }
         }
 
         $this->abort();
+    }
+
+    // Add a new method to handle API routes
+    public function api($method, $uri, $action)
+    {
+        $this->routes[] = [
+            'uri' => $uri,
+            'controller' => 'ApiController',
+            'method' => strtoupper($method),
+            'middleware' => null,
+            'api_action' => $action
+        ];
+
+        return $this;
     }
     
     protected function abort($code = 404) {
