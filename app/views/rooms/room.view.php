@@ -8,6 +8,36 @@
             <p class="h-12 flex justify-center items-center font-synemed text-red1 text-2xl"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
 
+        <!-- Add task modal -->
+        <div id="taskModal" class="absolute hidden w-screen h-screen -top-20 bg-glassmorphism z-[55]">
+            <div class="relative block text-center left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/3 w-[40%] h-fit bg-white1 border border-grey1 shadow-xl rounded-xl p-2">
+                
+                <div class="flex w-full">                        
+                    <h1 class="block font-synebold text-xl text-grey2 text-left ml-2 mt-2 mx-auto">Add Task</h1>
+                    <button onclick="hide('taskModal'),clearModal()" class="mx-auto mr-2 text-3xl pt-1 pr-2">X</button>
+                </div>
+
+                <!-- TODO: ADD VALUES INTO JSON -->
+                    <div class="flex w-full">                        
+                        <input class="block p-2 w-1/2 border-b border-black bg-white1 mx-auto ml-2 my-2 font-synemed text-2xl" placeholder="Task Name" name="task" id="taskName" required>
+                        <input type="date" class="block p-2 w-1/4 border-b border-black bg-white1 mx-auto mr-2 my-2 font-synemed" placeholder="Date" name="date" id="taskDate">
+                    </div>
+                    
+                    <div class="flex w-full">                        
+                        <input class="block p-2 w-1/2 border-b border-black bg-white1 mx-auto ml-2 my-2 font-synemed ml-2 text-base text-grey2" placeholder="Description" name="info" id="taskInfo">
+                        <select class="block p-2 w-1/4 border-b border-black bg-white1 mx-auto mr-2 my-2 font-synemed text-grey2" name="destination" id="taskDestination">
+                            <option class="text-grey2" value="todo">To do</option>
+                            <option class="text-grey2" value="wip">Work in Progress</option>
+                            <option class="text-grey2" value="done">Done</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" onclick="addTask()" class="bg-green1 text-black1 p-0 px-10 mt-10 mb-4 rounded-lg font-synebold text-lg">Add</button>
+
+            </div>
+        </div>
+        
+
         <!-- HEADER -->
         <div id="roomName" class="relative left-1/2 transform -translate-x-1/2 w-10/12 flex justify-between items-center h-fit mb-6">
             <div class="max-w-[64rem] flex flex-col truncate ">
@@ -249,61 +279,57 @@
                 <div class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-synemed">
                     <!-- group tabs -->
                     <div class="flex w-full border-b border-black1">
+                        <!-- TO FIX: hide other kanban onclick -->
                         <?php foreach ($members as $index => $member){ ?>
-                            <!-- sa onclick event need i-hide the rest of kanbans, kasi mag sstack lang sya kada pindot ng tab since di na hahide yung iba -->
-                            <!-- vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv -->
-                            <button onclick="show('kanban<?= $index ?>'); " id="<?php echo $member[1]; ?>" class="member bg-white1 w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $member[0]; ?></button>
+                            <button onclick="changeKB(<?php echo $index; ?>); " id="<?php echo $member[1]; ?>" class="member <?php if($member[1] === $_SESSION['user']['school_id']): ?>bg-blue2<?php else: ?>bg-white1<?php endif;?> w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $member[0]; ?></button>
                         <?php } ?>
                     </div>
 
                     <?php foreach($members as $index => $member): ?>
                         <!-- whiteboard -->
-                        <div id="kanban<?= $index ?>" class="<?php if($member[1] === $_SESSION['user']['school_id']): ?>flex<?php else: ?>hidden<?php endif;?> flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
-                            <!-- add -->
-            <!-- NOT SURE dito sa logic mukhang tama naman, if kanban board nya yon or principal investigator sya -->
-                            <!-- VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV -->
-                            <?php if(($member[1] === $_SESSION['user']['school_id']) || $studentRole == 'Principal Investigator'): ?> 
+                         <!-- added $currentKB for default add location sa addTask() -->
+                        <div id="kanban<?= $index ?>" class="<?php if($member[1] === $_SESSION['user']['school_id']): $currentKB = $index;?>flex<?php else: ?>hidden<?php endif;?> flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
+                            <!-- add task button -->
+                            <?php if(($member[1] === $_SESSION['user']['school_id']) || ($studentRole === 'Principal Investigator')) : ?> 
                                 <div class="flex w-fit pr-4 self-end">
-                                    <input class="pl-2 mx-4 border border-black1 rounded-lg" type="text" placeholder="Add new task">
-                                    <button class="px-2 bg-green1 rounded-lg">Add +</button>
+                                    <button onclick="show('taskModal')" class="px-10 border border-grey1 bg-green1 rounded-lg">Add +</button>
                                 </div>
                             <?php endif; ?>
 
                             <!-- lanes  -->
+                             <!-- changed id of lanes from todoCont => 3todoCont** first char = member index -->
                             <div class="relative flex w-full p-2 mt-2 gap-2">
                                 <!-- to do -->
-                                <div id="todoCont" class="w-1/3 bg-red-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                <div id="<?php echo $index; ?>todoCont" class="dropzone w-1/3 bg-red-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
                                     <h1 class="font-synebold border-b border-black1">To Do List:</h1>
 
-                                    <?php 
-                                        if (!empty($member[3])) {
-                                            foreach($member[3] as $key => $room_kanban) {
-                                                if($key == $_GET['room_id']) {
-                                                    foreach($room_kanban['todo'] as $task) { ?>
-                                                        <div class="flex justify-evenly p-1 border-b border-b-black1">
-                                                            <span class=" border-r border-black1"><?= $task[0] ?></span>
-                                                            <span class=""><?= $task[1] ?></span>
-                                                            <span class="border-l border-black1"><?= $task[2] ?></span>
-                                                        </div>
-                                    <?php           }
-                                                }
+                                    <?php if (!empty($member[3])) {
+                                        foreach($member[3] as $key => $room_kanban) {
+                                            if($key == $_GET['room_id']) {
+                                                foreach($room_kanban['todo'] as $task) { ?>
+                                                    <div class="card flex cursor-grab justify-evenly p-1 border-b border-b-black1" draggable="true">
+                                                        <span class="w-2/6 border-r border-black1 pr-1"><?= $task[0] ?></span>
+                                                        <span class="w-4/6 px-1"><?= $task[1] ?></span>
+                                                        <span class="w-2/6 border-l border-black1 pl-1"><?= $task[2] ?></span>
+                                                    </div>
+                                    <?php       }
                                             }
                                         }
-                                     ?>
-                                </div>
-                                
+                                    }
+                                    ?>
+                                </div>                                
                                 <!-- work in progress -->
-                                <div id="wipCont" class="w-1/3 bg-white2 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                <div id="<?php echo $index; ?>wipCont" class="dropzone w-1/3 bg-white2 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
                                     <h1 class="font-synebold border-b border-black1">Work in progress:</h1>
                                     <?php 
                                         if (!empty($member[3])) {
                                             foreach($member[3] as $key => $room_kanban) {
                                                 if($key == $_GET['room_id']) {
-                                                    foreach($room_kanban['done'] as $task) { ?>
-                                                        <div class="flex justify-evenly p-1 border-b border-b-black1">
-                                                            <span class=" border-r border-black1"><?= $task[0] ?></span>
-                                                            <span class=""><?= $task[1] ?></span>
-                                                            <span class="border-l border-black1"><?= $task[2] ?></span>
+                                                    foreach($room_kanban['wip'] as $task) { ?>
+                                                        <div class="card flex cursor-grab justify-evenly p-1 border-b border-b-black1" draggable="true">
+                                                            <span class="w-2/6 border-r border-black1 pr-1"><?= $task[0] ?></span>
+                                                            <span class="w-4/6 px-1"><?= $task[1] ?></span>
+                                                            <span class="w-2/6 border-l border-black1 pl-1"><?= $task[2] ?></span>                                                        
                                                         </div>
                                     <?php           }
                                                 }
@@ -312,17 +338,17 @@
                                      ?>
                                 </div>
                                 <!-- done -->
-                                <div id="doneCont" class="w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                <div id="<?php echo $index; ?>doneCont" class="dropzone w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
                                     <h1 class="font-synebold border-b border-black1">Done:</h1>
                                     <?php 
                                         if (!empty($member[3])) {
                                             foreach($member[3] as $key => $room_kanban) {
                                                 if($key == $_GET['room_id']) {
                                                     foreach($room_kanban['done'] as $task) { ?>
-                                                        <div class="flex justify-evenly p-1 border-b border-b-black1">
-                                                            <span class=" border-r border-black1"><?= $task[0] ?></span>
-                                                            <span class=""><?= $task[1] ?></span>
-                                                            <span class="border-l border-black1"><?= $task[2] ?></span>
+                                                        <div class="card flex cursor-grab justify-evenly p-1 border-b border-b-black1" draggable="true">
+                                                            <span class="w-2/6 border-r border-black1 pr-1"><?= $task[0] ?></span>
+                                                            <span class="w-4/6 px-1"><?= $task[1] ?></span>
+                                                            <span class="w-2/6 border-l border-black1 pl-1"><?= $task[2] ?></span>
                                                         </div>
                                     <?php           }
                                                 }
@@ -364,54 +390,137 @@
         const groupContent = document.getElementById('groups');
         const groupData = <?php echo json_encode($members); ?>;
         const groupNumber = <?php echo json_encode($groupNum); ?>;
-        // for kanban testing
-        const todoList = document.getElementById('todoCont');
-        const wipList = document.getElementById('wipCont');
-        const doneList = document.getElementById('doneCont');
-        
-        let Data1 = {1 : {
-                todo: [["data1", "info1", "date1"],["todo2", "info2", "date2"]],
-                wip: [["working1", "info1", "date1"],["working2", "info2", "date2"]],
-                done: [["done1", "info1", "date1"],["done2", "info2", "date2"]]
-            },
-            2 : {
-                todo: [["data1", "info1", "date1"],["todo2", "info2", "date2"]],
-                wip: [["working1", "info1", "date1"],["working2", "info2", "date2"]],
-                done: [["done1", "info1", "date1"],["done2", "info2", "date2"]]
-            },
-            };
-            
-        let Data2 = {room: 1,
-            group: 1,
-            todo: [["data2", "info1", "date1"],
-            ["todo2", "info2", "date2"]],
-            wip: [["working1", "info1", "date1"],
-            ["working2", "info2", "date2"]],
-            done: [["done1", "info1", "date1"],
-            ["done2", "info2", "date2"]]};
-                
-        let Data3 = {room: 1,
-            group: 1,
-            todo: [["data3", "info1", "date1"],
-            ["todo2", "info2", "date2"]],
-            wip: [["working1", "info1", "date1"],
-            ["working2", "info2", "date2"]],
-            done: [["done1", "info1", "date1"],
-            ["done2", "info2", "date2"]]};
-            
-        let Data4 = {room: 1,
-            group: 1,
-            todo: [["data4", "info1", "date1"],
-            ["todo2", "info2", "date2"]],
-            wip: [["working1", "info1", "date1"],
-            ["working2", "info2", "date2"]],
-            done: [["done1", "info1", "date1"],
-            ["done2", "info2", "date2"]]};
-                        
-        const datas = [Data1, Data2, Data3, Data4];
-                        
-                        
         const kbButts = document.querySelectorAll('.member');
+        const dropzones = document.querySelectorAll('.dropzone');
+        let cards = document.querySelectorAll('.card');
+        let currentKB = <?php echo $currentKB; ?>;
+
+        function addTask() { // ONLY ADDS TASK PHYSICALLY, STILL NEED TO UPDATE JSON ON TASK ADD
+            // Get values from the modal inputs
+            const taskName = document.getElementById('taskName').value;
+            const taskDate = document.getElementById('taskDate').value;
+            const taskInfo = document.getElementById('taskInfo').value;
+            const taskDestination = document.getElementById('taskDestination').value;
+            const container = document.getElementById(`${currentKB}${taskDestination}Cont`);
+
+
+
+            const newCard = document.createElement('div');
+            newCard.setAttribute('draggable', 'true');
+            newCard.classList.add('card', 'flex', 'cursor-grab', 'top-30', 'justify-evenly', 'p-1', 'border-b', 'border-b-black1');
+            newCard.innerHTML = `
+                                <span class="w-2/6 border-r border-black1 pr-1">${taskName}</span>
+                                <span class="w-4/6 px-1">${taskInfo}</span>
+                                <span class="w-2/6 border-l border-black1 pl-1">${taskDate}</span>
+                                `;
+
+            console.log("currentKB:",currentKB);
+            console.log(`${currentKB}${taskDestination}Cont`);
+
+            container.appendChild(newCard);
+            
+            // adds drag and drop functionality to new tasks
+            newCard.addEventListener('dragstart', function(event) {
+                newCard.classList.add("dragging");
+                newCard.classList.remove("cursor-grab");
+                newCard.classList.add("cursor-grabbing");
+            });
+            newCard.addEventListener('dragend', function(event) { // To remove class after dragging
+                newCard.classList.remove("dragging");
+                newCard.classList.remove("cursor-grabbing");
+                newCard.classList.add("cursor-grab");
+            });
+            
+
+            clearModal()
+
+            // Hide the modal
+            hide('taskModal');
+        }
+
+        // for add task modal only
+        function clearModal(){
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskDate').value = '';
+            document.getElementById('taskInfo').value = '';
+            document.getElementById('taskDestination').value = 'todo';
+        }
+
+
+        const InsertAboveTask = (zone, mouseY) => {
+            const els = zone.querySelectorAll(".card:not(.dragging)");
+            let closestTask = null;
+            let closestOffset = Number.NEGATIVE_INFINITY;
+
+            els.forEach((task) => {
+                const { top } = task.getBoundingClientRect(); // Fixed typo
+                const offset = mouseY - top;
+                if (offset < 0 && offset > closestOffset) {
+                    closestOffset = offset;
+                    closestTask = task;
+                }
+            });
+            return closestTask;
+        };
+
+        // Add event listeners to cards
+        cards.forEach(function(c) {
+            c.addEventListener('dragstart', function(event) {
+                c.classList.add("dragging");
+                c.classList.remove("cursor-grab");
+                c.classList.add("cursor-grabbing");
+            });
+
+            c.addEventListener('dragend', function(event) { // To remove class after dragging
+                c.classList.remove("dragging");
+                c.classList.remove("cursor-grabbing");
+                c.classList.add("cursor-grab");
+            });
+        });
+
+        // Function to find the element closest to the mouse position
+        
+        // Add event listeners to dropzones
+        dropzones.forEach(function(zone) {
+            zone.addEventListener('dragover', function(event) {
+                event.preventDefault();
+                const bottomTask = InsertAboveTask(zone, event.clientY);
+                const curTask = document.querySelector(".dragging");
+                
+                if (!bottomTask) {
+                    zone.appendChild(curTask);
+                } else {
+                    zone.insertBefore(curTask, bottomTask);
+                }
+            });
+
+            zone.addEventListener('drop', function(event) {
+                event.preventDefault();
+                const curTask = document.querySelector(".dragging");
+                curTask.classList.remove("dragging");
+            });
+        });
+
+
+        
+
+        // toggle hidden/flex kanban of members
+        function changeKB(index){
+            console.log(index);
+            let kanbans = document.querySelectorAll('[id^="kanban"]');
+            currentKB = index;
+
+            kanbans.forEach(kb =>{
+                kb.classList.remove('flex');
+                kb.classList.add('hidden');
+                if (kb.id == `kanban${index}`){
+                    kb.classList.add('flex');
+                    kb.classList.remove('hidden');
+                }
+            })
+        }
+
+        // toggle color of each kanban button
         kbButts.forEach(button => {
             button.addEventListener('click', function() {
                 kbButts.forEach(btn => {
@@ -422,7 +531,6 @@
                 // button visual
                 this.classList.add('bg-blue2');
                 this.classList.remove('bg-white1');
-                console.log("id:", this.id);
             });
         });
 
