@@ -67,7 +67,7 @@ class Router {
                 if (str_contains($route['controller'], '@')) {
                     [$controller, $action] = explode('@', $route['controller']);
                     
-                    $controllerClass = "App\\Http\\controllers\\{$controller}";
+                    $controllerClass = "App\\Http\\Controllers\\{$controller}";
                     
                     if (!class_exists($controllerClass)) {
                         throw new \Exception("Controller {$controllerClass} not found");
@@ -82,7 +82,7 @@ class Router {
                     return $controllerInstance->$action();
                 } elseif ($route['controller'] === 'ApiController') {
                     // Handle API routes
-                    $controllerClass = "App\\Http\\controllers\\ApiController";
+                    $controllerClass = "App\\Http\\Controllers\\ApiController";
                     $controllerInstance = new $controllerClass();
                     $handlerMethod = 'handle' . ucfirst(strtolower($method));
                     

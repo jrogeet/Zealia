@@ -3,6 +3,8 @@
 <body class="bg-white1 flex flex-col justify w-screen overflow-x-hidden">
     <?php view('partials/nav.view.php')?>
 
+    <?php //dd($room_info) ?>
+
     <!-- desktop -->
     <main class="hidden lg:block relative left-1/2 transform -translate-x-1/2 h-[41rem] w-[97%] mb-40 top-32">
 
@@ -188,9 +190,7 @@
                 <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>
                 <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('createRoom'); enableScroll();">X</button>
             </div>
-            <form method="POST" action="/dashboard" class="flex flex-col items-center h-64 p-2">
-                <!-- <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>"> -->
+            <form id="createRoomForm" method="POST" class="flex flex-col items-center h-64 p-2">
                 <input type="hidden" name="create" value="create">
                 <input type="hidden" name="asc" value="<?= htmlspecialchars($encoded_ascending_rooms, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="desc" value="<?= htmlspecialchars($encoded_descending_rooms, ENT_QUOTES, 'UTF-8')?>">
@@ -335,13 +335,49 @@
             // console.log(typed);
             fetch('/api/search', {
                 method: 'POST',
-                body: new URLSearchParams('room_name=' + typed)
+                body: new URLSearchParams('searchInput=' + typed)
             })
                 .then(res => res.text())
                 .then(res => console.log(res))
                 .catch(e => console.error('Error: ' + e))
         }
 
+        function submitForm(formId, url, type) {
+            const form = document.getElementById(formId);
+            if (!form) {
+                console.error(`Form with id "${formId}" not found`);
+                return;
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                let formData = new FormData(this);
+                formData.append('form_type', type); // Specify the form type here
+                formData.append('prof_name', '<?= htmlspecialchars($_SESSION['user']['f_name'] . " " . $_SESSION['user']['l_name'], ENT_QUOTES, 'UTF-8') ?>');
+                // console.log('FORM DATA: ', formData);
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data);
+                    hide('createRoom');
+                    enableScroll();
+                    // Handle the response (e.g., show success message, update UI)
+                })
+                .catch(error => console.error('Fetch Error:', error));
+            });  
+        }
+
+        // Usage
+        document.addEventListener('DOMContentLoaded', function() {
+            submitForm('createRoomForm', '/api/submit-form', 'create_room');
+            fetchLatestData('rooms', updateRooms);
+        });
+
+        
 
         // document.addEventListener('DOMContentLoaded', function() {
         //     const searchInput = document.getElementById('searchInput');

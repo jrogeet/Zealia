@@ -11,11 +11,12 @@ class NotificationController {
     private const SLEEP_TIME = 1000000; // 1 seconds in microseconds
     
     public function stream() {
+        // session_start();
         if (!isset($_SESSION['user']['school_id'])) {
             http_response_code(401);
             exit('Unauthorized');
         }
-
+        session_write_close();
         // Generate a unique connection ID
         $connectionId = uniqid('sse_');
         

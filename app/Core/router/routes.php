@@ -5,10 +5,13 @@ $router->get('/notifications/initial', 'NotificationController@getInitialNotific
 $router->post('/notifications', 'model/notifications/notifications.php');
 
 $router->api('GET', '/api/search', 'search');
-$router->api('GET', '/api/latest-data', 'getLatestData');
+$router->api('GET', '/api/get-latest-data', 'getLatestData');
 $router->api('GET', '/api/more-content', 'getMoreContent');
 $router->api('POST', '/api/submit-form', 'submitForm');
 $router->api('POST', '/api/toggle-like', 'toggleLike');
+
+// $router->get('/api/get-latest-data', 'ApiController@handleGet');
+// $router->post('/api/submit-form', 'ApiController@handlePost');
 // $router->get('/api/get-more-content', 'ApiController@handleRequest', ['action' => 'getMoreContent']);
 // $router->post('/api/toggle-like/{id}', 'ApiController@handleRequest', ['action' => 'toggleLike']);
 
@@ -34,7 +37,7 @@ $router->get('/profile', 'Http/controllers/account/profile.php')->only('auth');
 
 // DASHBOARD PAGE
 $router->get('/dashboard', 'Http/controllers/rooms/dashboard.php')->only('auth');
-$router->post('/dashboard', 'model/rooms/dashboard.php')->only('auth');
+// $router->post('/dashboard', 'model/rooms/dashboard.php')->only('auth');
 
 // ROOM PAGE
 $router->get('/room', 'Http/controllers/rooms/room.php')->only('auth');

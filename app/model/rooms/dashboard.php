@@ -119,47 +119,47 @@ if (isset($_POST['create'])) {
         die();
     }
 
-} //elseif (isset($_POST['search'])) {
-//     unset($_POST['search']);
-//     $search_input = $_POST['search_input'] ?? '';
-//     $year = $_POST['year'] ?? '';
-//     $section = $_POST['section'] ?? '';
-//     $program = $_POST['program'] ?? '';
-//     $encoded_room_info = $_POST['encoded_room_info'] ?? '';
+} elseif (isset($_POST['search'])) {
+    unset($_POST['search']);
+    $search_input = $_POST['search_input'] ?? '';
+    $year = $_POST['year'] ?? '';
+    $section = $_POST['section'] ?? '';
+    $program = $_POST['program'] ?? '';
+    $encoded_room_info = $_POST['encoded_room_info'] ?? '';
 
-//     $room_info = json_decode($encoded_room_info, true);
+    $room_info = json_decode($encoded_room_info, true);
 
-//     $searched_rooms = [];
-//     foreach ($room_info as $room) {
-//         $matches_search_input = stripos($room['room_name'], $search_input) !== false || stripos($room['room_code'], $search_input) !== false;
-//         $matches_year = !$year || stripos($room['year_level'], $year) !== false;
-//         $matches_section = !$section || stripos($room['section'], $section) !== false;
-//         $matches_program = !$program || stripos($room['program'], $program) !== false;
+    $searched_rooms = [];
+    foreach ($room_info as $room) {
+        $matches_search_input = stripos($room['room_name'], $search_input) !== false || stripos($room['room_code'], $search_input) !== false;
+        $matches_year = !$year || stripos($room['year_level'], $year) !== false;
+        $matches_section = !$section || stripos($room['section'], $section) !== false;
+        $matches_program = !$program || stripos($room['program'], $program) !== false;
 
-//         if ($matches_search_input && $matches_year && $matches_section && $matches_program) {
-//             $searched_rooms[] = $room;
-//         }
-//     }
+        if ($matches_search_input && $matches_year && $matches_section && $matches_program) {
+            $searched_rooms[] = $room;
+        }
+    }
 
-//     // Sort ascending
-//     $ascending_rooms = $searched_rooms;
-//     usort($ascending_rooms, function($a, $b) {
-//         return strtotime($a['created_date']) - strtotime($b['created_date']);
-//     });
+    // Sort ascending
+    $ascending_rooms = $searched_rooms;
+    usort($ascending_rooms, function($a, $b) {
+        return strtotime($a['created_date']) - strtotime($b['created_date']);
+    });
 
-//     // Sort descending
-//     $descending_rooms = $searched_rooms;
-//     usort($descending_rooms, function($a, $b) {
-//         return strtotime($b['created_date']) - strtotime($a['created_date']);
-//     });
+    // Sort descending
+    $descending_rooms = $searched_rooms;
+    usort($descending_rooms, function($a, $b) {
+        return strtotime($b['created_date']) - strtotime($a['created_date']);
+    });
 
-//     view('rooms/dashboard.view.php', [
-//         'room_info' => $searched_rooms,
-//         'ascending_rooms' => $ascending_rooms,
-//         'descending_rooms' => $descending_rooms,
-//         'encoded_room_info' => $encoded_room_info
-//     ]);
-// }
+    view('rooms/dashboard.view.php', [
+        'room_info' => $searched_rooms,
+        'ascending_rooms' => $ascending_rooms,
+        'descending_rooms' => $descending_rooms,
+        'encoded_room_info' => $encoded_room_info
+    ]);
+}
 
 
 // elseif (isset($_POST['search'])) {
