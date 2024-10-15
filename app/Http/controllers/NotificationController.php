@@ -15,7 +15,7 @@ class NotificationController {
             http_response_code(401);
             exit('Unauthorized');
         }
-
+        session_write_close();
         // Generate a unique connection ID
         $connectionId = uniqid('sse_');
         
