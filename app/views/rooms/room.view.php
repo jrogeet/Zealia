@@ -233,101 +233,81 @@
                 </div>
             </div>
         <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
-            <?php 
-            $members = [];
-            $groupNum = 0;
-            foreach ($decodedGroup as $index => $group) {
-                $container = [];
-                $bool = false;
-                foreach ($group as $member) {
-                    $container[] = $member;
-                    if ($member[1] === $_SESSION['user']['school_id']) {
-                        $bool = true;
-                        $groupNum = $index+1;
-                        // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 265)
-                        $studentRole = $member[2];
+            <?php if(isset($decodedGroup)): ?>
+                <?php 
+                $members = [];
+                $groupNum = 0;
+                foreach ($decodedGroup as $index => $group) {
+                    $container = [];
+                    $bool = false;
+                    foreach ($group as $member) {
+                        $container[] = $member;
+                        if ($member[1] === $_SESSION['user']['school_id']) {
+                            $bool = true;
+                            $groupNum = $index+1;
+                            // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 265)
+                            $studentRole = $member[2];
+                        }
+
                     }
-
+                    if ($bool === true) {
+                        $members = $container;
+                    }
                 }
-                if ($bool === true) {
-                    $members = $container;
-                }
-            }
-            ?>
-            <?php //dd($members) ?>
-            <!-- BODY -->
-            <div class="flex w-10/12 mb-32 mx-auto">
-                <!-- left -->
-                <div class="bg-white2 relative block mx-auto w-[26%] text-center justify-between items-center h-[40rem] border border-black1 px-6 py-4 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)]">
-                    <!-- head -->
-                    <div class="w-full py-2 flex">
-                         <h1 class="font-synebold text-4xl text-left mx-auto ml-0">Group: <?php echo $groupNum ?></h1>
-                         <button class="bg-white2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg mx-auto mr-0" onclick="downloadPDF()">Print Group</button>
+                ?>
+                <?php //dd($members) ?>
+                <!-- BODY -->
+                <div class="flex w-10/12 mb-32 mx-auto">
+                    <!-- left -->
+                    <div class="bg-white2 relative block mx-auto w-[26%] text-center justify-between items-center h-[40rem] border border-black1 px-6 py-4 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)]">
+                        <!-- head -->
+                        <div class="w-full py-2 flex">
+                            <h1 class="font-synebold text-4xl text-left mx-auto ml-0">Group: <?php echo $groupNum ?></h1>
+                            <button class="bg-white2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg mx-auto mr-0" onclick="downloadPDF()">Print Group</button>
+                        </div>
+                        
+                        <!-- members -->
+                        <div class="w-full py-2">
+                            <?php foreach ($members as $member){ ?>
+                                <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $member[0]; ?></span><span class="mx-auto w-2/6 text-right"><?php echo $member[2]; ?></span></h1>
+                                
+                            <?php } ?>
+                        </div>
+        
                     </div>
-                     
-                    <!-- members -->
-                    <div class="w-full py-2">
-                        <?php foreach ($members as $member){ ?>
-                            <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $member[0]; ?></span><span class="mx-auto w-2/6 text-right"><?php echo $member[2]; ?></span></h1>
-                            
-                        <?php } ?>
-                    </div>
-     
-                </div>
-                
-                <!-- right -->
-                <div class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-synemed">
-                    <!-- group tabs -->
-                    <div class="flex w-full border-b border-black1">
-                        <!-- TO FIX: hide other kanban onclick -->
-                        <?php foreach ($members as $index => $member){ ?>
-                            <button onclick="changeKB(<?php echo $index; ?>); " id="<?php echo $member[1]; ?>" class="member <?php if($member[1] === $_SESSION['user']['school_id']): ?>bg-blue3 text-white1<?php else: ?>bg-white1<?php endif;?> w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $member[0]; ?></button>
-                        <?php } ?>
-                    </div>
+                    
+                    <!-- right -->
+                    <div class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-synemed">
+                        <!-- group tabs -->
+                        <div class="flex w-full border-b border-black1">
+                            <!-- TO FIX: hide other kanban onclick -->
+                            <?php foreach ($members as $index => $member){ ?>
+                                <button onclick="changeKB(<?php echo $index; ?>); " id="<?php echo $member[1]; ?>" class="member <?php if($member[1] === $_SESSION['user']['school_id']): ?>bg-blue3 text-white1<?php else: ?>bg-white1<?php endif;?> w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $member[0]; ?></button>
+                            <?php } ?>
+                        </div>
 
-                    <?php foreach($members as $index => $member): ?>
-                        <!-- whiteboard -->
-                         <!-- added $currentKB for default add location sa addTask() -->
-                        <div id="kanban<?= $index ?>" class="<?php if($member[1] === $_SESSION['user']['school_id']): $currentKB = $index;?>flex<?php else: ?>hidden<?php endif;?> flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
-                            <!-- add task button -->
-                            <?php if(($member[1] === $_SESSION['user']['school_id']) || ($studentRole === 'Principal Investigator')) : ?> 
-                                <div class="flex w-fit pr-4 self-end">
-                                    <button onclick="show('taskModal')" class="px-10 border border-grey1 bg-green1 rounded-lg">Add +</button>
-                                </div>
-                            <?php endif; ?>
+                        <?php foreach($members as $index => $member): ?>
+                            <!-- whiteboard -->
+                            <!-- added $currentKB for default add location sa addTask() -->
+                            <div id="kanban<?= $index ?>" class="<?php if($member[1] === $_SESSION['user']['school_id']): $currentKB = $index;?>flex<?php else: ?>hidden<?php endif;?> flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
+                                <!-- add task button -->
+                                <?php if(($member[1] === $_SESSION['user']['school_id']) || ($studentRole === 'Principal Investigator')) : ?> 
+                                    <div class="flex w-fit pr-4 self-end">
+                                        <button onclick="show('taskModal')" class="px-10 border border-grey1 bg-green1 rounded-lg">Add +</button>
+                                    </div>
+                                <?php endif; ?>
 
-                            <!-- lanes  -->
-                             <!-- changed id of lanes from todoCont => 3todoCont** first char = member index -->
-                            <div class="relative flex w-full p-2 mt-2 gap-2">
-                                <!-- to do -->
-                                <div id="<?php echo $index; ?>todoCont" class="group dropzone w-1/3 bg-red-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                    <h1 class="font-synebold border-b border-black1">To Do List:</h1>
+                                <!-- lanes  -->
+                                <!-- changed id of lanes from todoCont => 3todoCont** first char = member index -->
+                                <div class="relative flex w-full p-2 mt-2 gap-2">
+                                    <!-- to do -->
+                                    <div id="<?php echo $index; ?>todoCont" class="group dropzone w-1/3 bg-red-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                        <h1 class="font-synebold border-b border-black1">To Do List:</h1>
 
-                                    <?php if (!empty($member[3])) {
-                                        foreach($member[3] as $key => $room_kanban) {
-                                            if($key == $_GET['room_id']) {
-                                                foreach($room_kanban['todo'] as $task) { ?>
-                                                    <div class="block card cursor-grab h-fit py-2 border-b border-black1" draggable="true">                                                            
-                                                        <div class="flex cursor-grab justify-evenly p-1">
-                                                            <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4"><?= $task[0] ?></span>
-                                                            <span class="mr-2 mx-auto text-sm font-synemed text-black1 text-wrap pl-1"><?= $task[2] ?></span>
-                                                        </div>
-                                                            <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap"><?= $task[1] ?></span>
-                                                    </div>
-                                    <?php       }
-                                            }
-                                        }
-                                    }
-                                    ?>
-                                </div>                                
-                                <!-- work in progress -->
-                                <div id="<?php echo $index; ?>wipCont" class="dropzone w-1/3 bg-blue-200 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                    <h1 class="font-synebold border-b border-black1">Work in progress:</h1>
-                                    <?php 
-                                        if (!empty($member[3])) {
+                                        <?php if (!empty($member[3])) {
                                             foreach($member[3] as $key => $room_kanban) {
                                                 if($key == $_GET['room_id']) {
-                                                    foreach($room_kanban['wip'] as $task) { ?>
+                                                    foreach($room_kanban['todo'] as $task) { ?>
                                                         <div class="block card cursor-grab h-fit py-2 border-b border-black1" draggable="true">                                                            
                                                             <div class="flex cursor-grab justify-evenly p-1">
                                                                 <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4"><?= $task[0] ?></span>
@@ -335,41 +315,64 @@
                                                             </div>
                                                                 <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap"><?= $task[1] ?></span>
                                                         </div>
-                                    <?php           }
+                                        <?php       }
                                                 }
                                             }
                                         }
-                                     ?>
-                                </div>
-                                <!-- done -->
-                                <div id="<?php echo $index; ?>doneCont" class="dropzone w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                    <h1 class="font-synebold border-b border-black1">Done:</h1>
-                                    <?php 
-                                        if (!empty($member[3])) {
-                                            foreach($member[3] as $key => $room_kanban) {
-                                                if($key == $_GET['room_id']) {
-                                                    foreach($room_kanban['done'] as $task) { ?>
-                                                        <div class="block card cursor-grab py-2 h-fit border-b border-black1" draggable="true">                                                            
-                                                            <div class="flex cursor-grab justify-evenly p-1">
-                                                                <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4"><?= $task[0] ?></span>
-                                                                <span class="mr-2 mx-auto text-sm font-synemed text-black1 text-wrap pl-1"><?= $task[2] ?></span>
+                                        ?>
+                                    </div>                                
+                                    <!-- work in progress -->
+                                    <div id="<?php echo $index; ?>wipCont" class="dropzone w-1/3 bg-blue-200 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                        <h1 class="font-synebold border-b border-black1">Work in progress:</h1>
+                                        <?php 
+                                            if (!empty($member[3])) {
+                                                foreach($member[3] as $key => $room_kanban) {
+                                                    if($key == $_GET['room_id']) {
+                                                        foreach($room_kanban['wip'] as $task) { ?>
+                                                            <div class="block card cursor-grab h-fit py-2 border-b border-black1" draggable="true">                                                            
+                                                                <div class="flex cursor-grab justify-evenly p-1">
+                                                                    <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4"><?= $task[0] ?></span>
+                                                                    <span class="mr-2 mx-auto text-sm font-synemed text-black1 text-wrap pl-1"><?= $task[2] ?></span>
+                                                                </div>
+                                                                    <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap"><?= $task[1] ?></span>
                                                             </div>
-                                                                <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap"><?= $task[1] ?></span>
-                                                        </div>
-                                    <?php           }
+                                        <?php           }
+                                                    }
                                                 }
                                             }
-                                        }
-                                     ?>
+                                        ?>
+                                    </div>
+                                    <!-- done -->
+                                    <div id="<?php echo $index; ?>doneCont" class="dropzone w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
+                                        <h1 class="font-synebold border-b border-black1">Done:</h1>
+                                        <?php 
+                                            if (!empty($member[3])) {
+                                                foreach($member[3] as $key => $room_kanban) {
+                                                    if($key == $_GET['room_id']) {
+                                                        foreach($room_kanban['done'] as $task) { ?>
+                                                            <div class="block card cursor-grab py-2 h-fit border-b border-black1" draggable="true">                                                            
+                                                                <div class="flex cursor-grab justify-evenly p-1">
+                                                                    <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4"><?= $task[0] ?></span>
+                                                                    <span class="mr-2 mx-auto text-sm font-synemed text-black1 text-wrap pl-1"><?= $task[2] ?></span>
+                                                                </div>
+                                                                    <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap"><?= $task[1] ?></span>
+                                                            </div>
+                                        <?php           }
+                                                    }
+                                                }
+                                            }
+                                        ?>
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                    <?php endforeach; ?>
-
-
-
+                            </div> 
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-            </div>
+            <?php else: ?>
+                <div class="mt-40 flex flex-col items-center">
+                    <span class="font-synebold text-4xl text-red1">The instructor hasn't grouped the class yet.</span>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
     </main>
 
