@@ -355,7 +355,7 @@
                 let formData = new FormData(this);
                 formData.append('form_type', type); // Specify the form type here
                 formData.append('prof_name', '<?= htmlspecialchars($_SESSION['user']['f_name'] . " " . $_SESSION['user']['l_name'], ENT_QUOTES, 'UTF-8') ?>');
-                // console.log('FORM DATA: ', formData);
+                console.log('FORM DATA: ', formData);
                 fetch(url, {
                     method: 'POST',
                     body: formData
@@ -374,10 +374,12 @@
         // Usage
         document.addEventListener('DOMContentLoaded', function() {
             submitForm('createRoomForm', '/api/submit-form', 'create_room');
-            fetchLatestData('rooms', updateRooms);
-        });
-
-        
+            <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
+                fetchLatestData('rooms', updateRooms);
+            <?php elseif ($_SESSION['user']['account_type'] == 'student'): ?>
+                fetchLatestData('room_list', updateRooms);
+            <?php endif; ?>
+        });        
 
         // document.addEventListener('DOMContentLoaded', function() {
         //     const searchInput = document.getElementById('searchInput');

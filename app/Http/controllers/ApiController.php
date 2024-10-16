@@ -66,16 +66,17 @@ private function getLatestData($params)
 {
     try {
         $table = $params['table'] ?? 'rooms';
+        $conditions = $params['conditions'] ?? [];
         $orderBy = $params['order_by'] ?? 'created_date';
         $direction = $params['direction'] ?? 'ASC';
-        $conditions = $params['conditions'] ?? [];
+        // $conditions['school_id'] = $this->currentUser;
 
         // Build the SQL query
         $query = "SELECT * FROM {$table} ";
 
         if (!empty($conditions)) {
             $query .= "WHERE " . implode(' AND ', array_map(function($key, $value) {
-                return "{$key} = :{$key}";
+                return "{$key} = :{$value}";
             }, array_keys($conditions), $conditions));
         }
 
