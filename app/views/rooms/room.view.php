@@ -5,23 +5,32 @@
     <?php 
         $members = [];
         $groupNum = 0;
-        foreach ($decodedGroup as $index => $group) {
-            $container = [];
-            $bool = false;
-            foreach ($group as $member) {
-                $container[] = $member;
-                if ($member[1] === $_SESSION['user']['school_id']) {
-                    $bool = true;
-                    $groupNum = $index+1;
-                    // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 265)
-                    $studentRole = $member[2];
-                }
 
-            }
-            if ($bool === true) {
-                $members = $container;
+        if (isset($decodedGroup)) {
+            foreach ($decodedGroup as $index => $group) {
+                $container = [];
+                $bool = false;
+                foreach ($group as $member) {
+                    $container[] = $member;
+                    if ($_SESSION['user']['account_type'] == 'professor') {
+                        $members[$index + 1] = $member;
+                    } else {
+                        if ($member[1] === $_SESSION['user']['school_id']) {
+                            $bool = true;
+                            $groupNum = $index+1;
+                            // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 265)
+                            $studentRole = $member[2];
+                        }
+                    }
+                }
+                if ($bool === true) {
+                    $members = $container;
+                }
+                
             }
         }
+        
+
     ?>
     
     <?php //dd($stu_info) ?>
@@ -588,7 +597,7 @@
             let yOffset = 30;
 
             doc.setFontSize(12);
-            doc.text(`Groups: ${groupNum}`, 10, 10);
+            doc.text(`Group: ${groupNum}`, 10, 10);
             
             const pageHeight = doc.internal.pageSize.height;
             console.log('Group Data:', groupData)
