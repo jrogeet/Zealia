@@ -409,7 +409,7 @@
             const kbButts = document.querySelectorAll('.member');
             const dropzones = document.querySelectorAll('.dropzone');
             let cards = document.querySelectorAll('.card');
-            const groupData = <?php echo json_encode($members); ?>;
+            const groupMembers = <?php echo json_encode($members); ?>;
             const groupNumber = <?php echo json_encode($groupNum); ?>;
         <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
  
@@ -588,24 +588,73 @@
 
     <script>
         function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            let groupNum = groupNumber;
-            console.log('groupNum', groupNum);
-            let yOffset = 30;
+            <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                let groupNum = groupNumber;
+                console.log('groupNum', groupNum);
+                let yOffset = 30;
+                let cleanData = [];
+                groupMembers.forEach(member =>{
+                    console.log(member);
+                })
 
-            doc.setFontSize(12);
-            doc.text(`Group: ${groupNum}`, 10, 10);
+                doc.setFontSize(12);
+                doc.text(`Group: ${groupNum}`, 10, 10);
+                
+                const pageHeight = doc.internal.pageSize.height;
+                console.log('Group Data:', cleanData)
+
+                cleanData.forEach(member => {
+                    doc.text(member.join(' | '), 30, yOffset);
+                    yOffset += 15;
+                });
+
+                doc.save('group_info.pdf');
+                return;
+            <?php endif; ?>
+            console.log('prof');
             
-            const pageHeight = doc.internal.pageSize.height;
-            console.log('Group Data:', groupData)
+            // to remove kanban info
+            <?php
+                $cleanGroupInfo = [];
+                foreach($decodedGroup as $index => $group) {
+                    $container = [];
+                    foreach($group as $member) {
+                        $container[] = [$member[0], $member[1], $member[2]]; // Use [] for array addition
+                    }
+                    $cleanGroupInfo[] = $container; // Add container to cleanGroupInfo
+                }
+            ?>
+            const groups = <?php echo json_encode($cleanGroupInfo); ?>;
+            
+            const { jsPDF } = window.jspdf;
 
-            groupData.forEach(member => {
-                doc.text(member.join(' | '), 30, yOffset);
-                yOffset += 15;
+            const doc = new jsPDF();
+            doc.setFontSize(12);
+            doc.text("Groups\n\n", 10, 10);
+
+            let yOffset = 20;
+            let groupNum = 1;
+            groups.forEach(group => {
+                if (yOffset+50 > 280) {
+                    doc.addPage();
+                    yOffset = 20;
+                }
+                doc.text(`Group ${groupNum}`, 10, yOffset);
+                groupNum++;
+                yOffset += 10;
+                group.forEach(member => {
+                    doc.text(member.join(' | '), 20, yOffset);
+                    yOffset += 10;
+                });
+                yOffset += 10;
             });
 
             doc.save('group_info.pdf');
+            
+
+
         }
     </script>
 </body>

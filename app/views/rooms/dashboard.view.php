@@ -69,7 +69,7 @@
 
             <!-- Filter -->
             <div class="absolute hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
-                <div class="w-1/2 flex">
+                <div class="w-4/6 flex">
                     <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-full bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
