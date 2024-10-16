@@ -110,7 +110,7 @@
                     <div class="flex flex-wrap content-start gap-9 w-full m-4" id="rooms-ascending">
                         <!--  ROOMS  -->
                         <?php foreach($ascending_rooms as $rooms) { ?>
-                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl mx-1">
+                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                 <div>   
                                     <h1 class="font-synemed text-2xl truncate"><?= $rooms['room_name'] ?></h1>
                                     <span class="text-grey2 text-base"><?= $rooms['prof_name'] ?></span>

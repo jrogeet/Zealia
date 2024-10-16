@@ -1,6 +1,29 @@
 <?php view('partials/head.view.php'); ?>
 <body class="bg-white1 block w-screen h-fit overflow-x-hidden">
     <?php view('partials/nav.view.php')?>
+
+    <?php 
+        $members = [];
+        $groupNum = 0;
+        foreach ($decodedGroup as $index => $group) {
+            $container = [];
+            $bool = false;
+            foreach ($group as $member) {
+                $container[] = $member;
+                if ($member[1] === $_SESSION['user']['school_id']) {
+                    $bool = true;
+                    $groupNum = $index+1;
+                    // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 265)
+                    $studentRole = $member[2];
+                }
+
+            }
+            if ($bool === true) {
+                $members = $container;
+            }
+        }
+    ?>
+    
     <?php //dd($stu_info) ?>
     <?php //dd($decodedGroup) ?>
     <main class="relative block left-1/2 transform -translate-x-1/2 h-[23.2rem] w-full top-32">
@@ -78,7 +101,7 @@
             </div>
 
             <!-- delete room confirmation modal -->
-            <div id="delRoomConfirmation" class="hidden bg-glassmorphism fixed -top-24 left-0 h-screen w-screen justify-center">
+            <div id="delRoomConfirmation" class="hidden z-50 bg-glassmorphism fixed -top-24 left-0 h-screen w-screen justify-center">
                 <div class="bg-white2 relative flex flex-col h-48 w-80 border border-black1 top-1/3 rounded-t-lg">
                     <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
                         <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>
@@ -173,7 +196,7 @@
                                 <span class="w-4/5 font-synebold text-4xl">GROUPS</span>
                         
                                 <!-- downloadPDF groups btn -->
-                                <button class="bg-white2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg" onclick="downloadPDF()">Print Groups</button>
+                                <button onclick="downloadPDF()" class="bg-white2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg">Print Groups</button>
                                 <!-- edit groups btn -->
                                 <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="bg-blue2 h-10 w-36 flex ml-4 items-center justify-center font-synereg text-lg border border-black1 rounded-lg">Edit Groups</a>
                                     
@@ -234,27 +257,7 @@
             </div>
         <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
             <?php if(isset($decodedGroup)): ?>
-                <?php 
-                $members = [];
-                $groupNum = 0;
-                foreach ($decodedGroup as $index => $group) {
-                    $container = [];
-                    $bool = false;
-                    foreach ($group as $member) {
-                        $container[] = $member;
-                        if ($member[1] === $_SESSION['user']['school_id']) {
-                            $bool = true;
-                            $groupNum = $index+1;
-                            // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 265)
-                            $studentRole = $member[2];
-                        }
-
-                    }
-                    if ($bool === true) {
-                        $members = $container;
-                    }
-                }
-                ?>
+                
                 <?php //dd($members) ?>
                 <!-- BODY -->
                 <div class="flex w-10/12 mb-32 mx-auto">
@@ -378,7 +381,6 @@
 
     <?php view('partials/footer.view.php')?>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="assets/js/shared-scripts.js"></script>
     <script src="assets/js/grouping.js"></script>
     <script>
@@ -392,174 +394,204 @@
         //     distributeRoles()
         //     // display()
         // }
+            const StudButt = document.getElementById('StudButt');
+            const GrButt = document.getElementById('GrButt');
+            const students = document.getElementById('students');
+            const groupContent = document.getElementById('groups');
 
-        const StudButt = document.getElementById('StudButt');
-        const GrButt = document.getElementById('GrButt');
-        const students = document.getElementById('students');
-        const groupContent = document.getElementById('groups');
-        const groupData = <?php echo json_encode($members); ?>;
-        const groupNumber = <?php echo json_encode($groupNum); ?>;
-        const kbButts = document.querySelectorAll('.member');
-        const dropzones = document.querySelectorAll('.dropzone');
-        let cards = document.querySelectorAll('.card');
-        let currentKB = <?php echo $currentKB; ?>;
+            const kbButts = document.querySelectorAll('.member');
+            const dropzones = document.querySelectorAll('.dropzone');
+            let cards = document.querySelectorAll('.card');
+            const groupData = <?php echo json_encode($members); ?>;
+            const groupNumber = <?php echo json_encode($groupNum); ?>;
+        <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
+ 
+            let currentKB = <?php echo $currentKB; ?>;
 
-        function addTask() { // ONLY ADDS TASK PHYSICALLY, STILL NEED TO UPDATE JSON ON TASK ADD
-            // Get values from the modal inputs
-            const taskName = document.getElementById('taskName').value;
-            const taskDate = document.getElementById('taskDate').value;
-            const taskInfo = document.getElementById('taskInfo').value;
-            const taskDestination = document.getElementById('taskDestination').value;
-            const container = document.getElementById(`${currentKB}${taskDestination}Cont`);
+            function addTask() { // ONLY ADDS TASK PHYSICALLY, STILL NEED TO UPDATE JSON ON TASK ADD
+                // Get values from the modal inputs
+                const taskName = document.getElementById('taskName').value;
+                const taskDate = document.getElementById('taskDate').value;
+                const taskInfo = document.getElementById('taskInfo').value;
+                const taskDestination = document.getElementById('taskDestination').value;
+                const container = document.getElementById(`${currentKB}${taskDestination}Cont`);
+                const newCard = document.createElement('div');
 
+                newCard.setAttribute('draggable', 'true');
+                newCard.classList.add('block', 'h-fit', 'py-2', 'border-b', 'border-black1', 'cursor-grab');
+                newCard.innerHTML = `
+                                    <div class="card flex cursor-grab justify-evenly p-1" draggable="true">
+                                        <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4">${taskName}</span>
+                                        <span class="mr-2 mx-auto text-sm font-synemed text-black1 text-wrap pl-1">${taskDate}</span>
+                                    </div>
+                                        <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap">${taskInfo}</span>
+                                    `;
 
+                console.log("currentKB:",currentKB);
+                console.log(`${currentKB}${taskDestination}Cont`);
 
-            const newCard = document.createElement('div');
-            newCard.setAttribute('draggable', 'true');
-            newCard.classList.add('block', 'h-fit', 'py-2', 'border-b', 'border-black1', 'cursor-grab');
-            newCard.innerHTML = `
-                                <div class="card flex cursor-grab justify-evenly p-1" draggable="true">
-                                    <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4">${taskName}</span>
-                                    <span class="mr-2 mx-auto text-sm font-synemed text-black1 text-wrap pl-1">${taskDate}</span>
-                                </div>
-                                    <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap">${taskInfo}</span>
-                                `;
-
-            console.log("currentKB:",currentKB);
-            console.log(`${currentKB}${taskDestination}Cont`);
-
-            container.appendChild(newCard);
-            
-            // adds drag and drop functionality to new tasks
-            newCard.addEventListener('dragstart', function(event) {
-                newCard.classList.add("dragging");
-                newCard.classList.remove("cursor-grab");
-                newCard.classList.add("cursor-grabbing");
-            });
-            newCard.addEventListener('dragend', function(event) { // To remove class after dragging
-                newCard.classList.remove("dragging");
-                newCard.classList.remove("cursor-grabbing");
-                newCard.classList.add("cursor-grab");
-            });
-            
-
-            clearModal()
-
-            // Hide the modal
-            hide('taskModal');
-        }
-
-        // for add task modal only
-        function clearModal(){
-            document.getElementById('taskName').value = '';
-            document.getElementById('taskDate').value = '';
-            document.getElementById('taskInfo').value = '';
-            document.getElementById('taskDestination').value = 'todo';
-        }
-
-
-        const InsertAboveTask = (zone, mouseY) => {
-            const els = zone.querySelectorAll(".card:not(.dragging)");
-            let closestTask = null;
-            let closestOffset = Number.NEGATIVE_INFINITY;
-
-            els.forEach((task) => {
-                const { top } = task.getBoundingClientRect(); // Fixed typo
-                const offset = mouseY - top;
-                if (offset < 0 && offset > closestOffset) {
-                    closestOffset = offset;
-                    closestTask = task;
-                }
-            });
-            return closestTask;
-        };
-
-        // Add event listeners to cards
-        cards.forEach(function(c) {
-            c.addEventListener('dragstart', function(event) {
-                c.classList.add("dragging");
-                c.classList.remove("cursor-grab");
-                c.classList.add("cursor-grabbing");
-            });
-
-            c.addEventListener('dragend', function(event) { // To remove class after dragging
-                c.classList.remove("dragging");
-                c.classList.remove("cursor-grabbing");
-                c.classList.add("cursor-grab");
-            });
-        });
-
-        // Function to find the element closest to the mouse position
-        
-        // Add event listeners to dropzones
-        dropzones.forEach(function(zone) {
-            zone.addEventListener('dragover', function(event) {
-                event.preventDefault();
-                const bottomTask = InsertAboveTask(zone, event.clientY);
-                const curTask = document.querySelector(".dragging");
+                container.appendChild(newCard);
                 
-                if (!bottomTask) {
-                    zone.appendChild(curTask);
-                } else {
-                    zone.insertBefore(curTask, bottomTask);
-                }
+                // adds drag and drop functionality to new tasks
+                newCard.addEventListener('dragstart', function(event) {
+                    newCard.classList.add("dragging");
+                    newCard.classList.remove("cursor-grab");
+                    newCard.classList.add("cursor-grabbing");
+                });
+                newCard.addEventListener('dragend', function(event) { // To remove class after dragging
+                    newCard.classList.remove("dragging");
+                    newCard.classList.remove("cursor-grabbing");
+                    newCard.classList.add("cursor-grab");
+                });
+
+                clearModal()
+
+                // Hide the modal
+                hide('taskModal');
+            }
+
+            // for add task modal only
+            function clearModal(){
+                document.getElementById('taskName').value = '';
+                document.getElementById('taskDate').value = '';
+                document.getElementById('taskInfo').value = '';
+                document.getElementById('taskDestination').value = 'todo';
+            }
+
+
+            const InsertAboveTask = (zone, mouseY) => {
+                const els = zone.querySelectorAll(".card:not(.dragging)");
+                let closestTask = null;
+                let closestOffset = Number.NEGATIVE_INFINITY;
+
+                els.forEach((task) => {
+                    const { top } = task.getBoundingClientRect(); // Fixed typo
+                    const offset = mouseY - top;
+                    if (offset < 0 && offset > closestOffset) {
+                        closestOffset = offset;
+                        closestTask = task;
+                    }
+                });
+                return closestTask;
+            };
+
+            // Add event listeners to cards
+            cards.forEach(function(c) {
+                c.addEventListener('dragstart', function(event) {
+                    c.classList.add("dragging");
+                    c.classList.remove("cursor-grab");
+                    c.classList.add("cursor-grabbing");
+                });
+
+                c.addEventListener('dragend', function(event) { // To remove class after dragging
+                    c.classList.remove("dragging");
+                    c.classList.remove("cursor-grabbing");
+                    c.classList.add("cursor-grab");
+                });
             });
 
-            zone.addEventListener('drop', function(event) {
-                event.preventDefault();
-                const curTask = document.querySelector(".dragging");
-                curTask.classList.remove("dragging");
+            // Function to find the element closest to the mouse position
+            
+            // Add event listeners to dropzones
+            dropzones.forEach(function(zone) {
+                zone.addEventListener('dragover', function(event) {
+                    event.preventDefault();
+                    const bottomTask = InsertAboveTask(zone, event.clientY);
+                    const curTask = document.querySelector(".dragging");
+                    
+                    if (!bottomTask) {
+                        zone.appendChild(curTask);
+                    } else {
+                        zone.insertBefore(curTask, bottomTask);
+                    }
+                });
+
+                zone.addEventListener('drop', function(event) {
+                    event.preventDefault();
+                    const curTask = document.querySelector(".dragging");
+                    curTask.classList.remove("dragging");
+                });
             });
-        });
 
 
-        
+            
 
-        // toggle hidden/flex kanban of members
-        function changeKB(index){
-            console.log(index);
-            let kanbans = document.querySelectorAll('[id^="kanban"]');
-            currentKB = index;
+            // toggle hidden/flex kanban of members
+            function changeKB(index){
+                console.log(index);
+                let kanbans = document.querySelectorAll('[id^="kanban"]');
+                currentKB = index;
 
-            kanbans.forEach(kb =>{
-                kb.classList.remove('flex');
-                kb.classList.add('hidden');
-                if (kb.id == `kanban${index}`){
-                    kb.classList.add('flex');
-                    kb.classList.remove('hidden');
+                kanbans.forEach(kb =>{
+                    kb.classList.remove('flex');
+                    kb.classList.add('hidden');
+                    if (kb.id == `kanban${index}`){
+                        kb.classList.add('flex');
+                        kb.classList.remove('hidden');
+                    }
+                })
+            }
+
+            // toggle color of each kanban button
+            kbButts.forEach(button => {
+                button.addEventListener('click', function() {
+                    kbButts.forEach(btn => {
+                        // button visual
+                        btn.classList.remove('bg-blue3', 'text-white1');
+                        btn.classList.add('bg-white1', 'text-black1');
+                    });
+                    // button visual
+                    this.classList.add('bg-blue3', 'text-white1');
+                    this.classList.remove('bg-white1', 'text-black1');
+                });
+            });
+
+            StudButt.addEventListener('click',function(){
+                if(StudButt.classList.contains("bg-blue3")){
+                        
+                }else{
+                    StudButt.classList.replace("bg-orange1","bg-blue3");
+                    StudButt.classList.replace("text-black1","text-white1");
+                    StudButt.classList.replace("w-2/5","w-3/5");
+                    GrButt.classList.replace("bg-blue3","bg-orange1");
+                    GrButt.classList.replace("text-white1","text-black1");
+                    GrButt.classList.replace("w-3/5","w-2/5");
+                    students.classList.remove("hidden");
+                    groupContent.classList.add("hidden");
                 }
             })
-        }
 
-        // toggle color of each kanban button
-        kbButts.forEach(button => {
-            button.addEventListener('click', function() {
-                kbButts.forEach(btn => {
-                    // button visual
-                    btn.classList.remove('bg-blue3', 'text-white1');
-                    btn.classList.add('bg-white1', 'text-black1');
-                });
-                // button visual
-                this.classList.add('bg-blue3', 'text-white1');
-                this.classList.remove('bg-white1', 'text-black1');
-            });
-        });
+            
+            GrButt.addEventListener('click',function(){
+                if(GrButt.classList.contains("bg-blue3")){
+                    
+                }else{
+                    GrButt.classList.replace("bg-orange1","bg-blue3");
+                    GrButt.classList.replace("text-black1","text-white1");
+                    GrButt.classList.replace("w-2/5","w-3/5");
+                    StudButt.classList.replace("bg-blue3","bg-orange1");
+                    StudButt.classList.replace("text-white1","text-black1");
+                    StudButt.classList.replace("w-3/5","w-2/5");
+                    students.classList.add("hidden");
+                    groupContent.classList.remove("hidden");
+                }
+            })
+        <?php endif; ?>
+    </script>
 
-
-
-
-        
-
+    <script>
         function downloadPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             let groupNum = groupNumber;
+            console.log('groupNum', groupNum);
             let yOffset = 30;
 
             doc.setFontSize(12);
             doc.text(`Groups: ${groupNum}`, 10, 10);
             
             const pageHeight = doc.internal.pageSize.height;
+            console.log('Group Data:', groupData)
 
             groupData.forEach(member => {
                 doc.text(member.join(' | '), 30, yOffset);
@@ -568,40 +600,6 @@
 
             doc.save('group_info.pdf');
         }
-
-        
-        StudButt.addEventListener('click',function(){
-            if(StudButt.classList.contains("bg-blue3")){
-                    
-            }else{
-                StudButt.classList.replace("bg-orange1","bg-blue3");
-                StudButt.classList.replace("text-black1","text-white1");
-                StudButt.classList.replace("w-2/5","w-3/5");
-                GrButt.classList.replace("bg-blue3","bg-orange1");
-                GrButt.classList.replace("text-white1","text-black1");
-                GrButt.classList.replace("w-3/5","w-2/5");
-                students.classList.remove("hidden");
-                groupContent.classList.add("hidden");
-            }
-        })
-
-        
-        GrButt.addEventListener('click',function(){
-            if(GrButt.classList.contains("bg-blue3")){
-                
-            }else{
-                GrButt.classList.replace("bg-orange1","bg-blue3");
-                GrButt.classList.replace("text-black1","text-white1");
-                GrButt.classList.replace("w-2/5","w-3/5");
-                StudButt.classList.replace("bg-blue3","bg-orange1");
-                StudButt.classList.replace("text-white1","text-black1");
-                StudButt.classList.replace("w-3/5","w-2/5");
-                students.classList.add("hidden");
-                groupContent.classList.remove("hidden");
-            }
-        })
-
-
     </script>
 </body>
 </html>
