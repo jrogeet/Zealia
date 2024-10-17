@@ -670,6 +670,12 @@
                             data.cell.styles.textColor = [246, 134, 20]; // Set text color to red
                         }
 
+                        if (data.column.index === 1) { // Check if it's the second column
+                            doc.setFont("courier");
+                            data.cell.styles.fontStyle = 'italic'; // Set text color to red
+                            data.cell.styles.textColor = [128, 128, 128]; 
+                        }
+
                         // Set font size for body cells
                         data.cell.styles.fontSize = 14; // Set font size for body cells
                         // Optionally, set a minimum height for the cells
@@ -747,6 +753,12 @@
                             // Change text color for the second column (index 1) in the body
                             if (data.column.index === 2) { // Check if it's the second column
                                 data.cell.styles.textColor = [246, 134, 20]; // Set text color to red
+                            }
+
+                            if (data.column.index === 1) { // Check if it's the second column
+                                doc.setFont("courier");
+                                data.cell.styles.fontStyle = 'italic'; // Set text color to red
+                                data.cell.styles.textColor = [128, 128, 128];
                             }
 
                             // Set font size for body cells
