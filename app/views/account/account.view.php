@@ -35,7 +35,8 @@
             <!-- right box -->
             <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white1 lg:bg-white2 text-left pt-2 pl-[4%] overflow-x-hidden">
                 <?php if (isset($typeNscores)):?>
-                    <div class="relative flex mt-16">
+
+                    <div class="relative flex mt-10">
                         <h1 class="font-synemed text-xl text-grey2 ml-auto mt-1">RESULTS:</h1>
                         <label class="font-syneboldextra text-4xl text-black top-12 mr-auto"><?= $typeNscores['result'] ?></label>
                     </div>
@@ -58,7 +59,11 @@
                         </div>
                     </div>
 
-                    <a href="/test"><button class="relative left-1/2 transform -translate-x-1/2 border border-black1 rounded-lg px-8 h-10 mt-24 bg-orange1 text-black1">Retake Test</button></a>
+                    <div class=" flex justify-start">
+                        <!-- Add this button where you want it to appear -->
+                        <button id="downloadPDF" class="relative left-1/2 transform -translate-x-1/2 border border-black1 rounded-lg p-2 h-10 mt-8  text-black1">Download PDF</button>
+                    </div>
+                    <a href="/test"><button class="relative left-1/2 transform -translate-x-1/2 border border-black1 rounded-lg px-8 h-10 mt-4 bg-orange1 text-black1">Retake Test</button></a>
                 <?php else:?>
                     <h1 class="relative top-1/2 transform -translate-y-1/2 font-synemed text-4xl text-center">You haven't taken the test!</h1>
                     <a href="/test"><button class="relative top-1/2 border border-grey2 rounded-2xl w-40 h-12 bg-orange1 font-synemed text-xl left-1/2 transform -translate-x-1/2">Take Test</button></a>
@@ -69,10 +74,102 @@
 
     </div>
 
-    
-
+    <?php view('partials/footer.view.php'); ?>
 
     <script src="assets/js/shared-scripts.js"></script>
 
-    <?php view('partials/footer.view.php'); ?>
+    <?php if (isset($typeNscores)):?>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+        <script>
+            // Configure PDF.js worker
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js';
+        </script>
+        <script>
+            document.getElementById('downloadPDF').addEventListener('click', function() {
+                const { jsPDF } = window.jspdf;
+
+                // Load the template PDF
+                pdfjsLib.getDocument('/assets/images/Zealia_PDF_BG.pdf').promise.then(function(pdf) {
+                    pdf.getPage(1).then(function(page) {
+                        const scale = 1; // Adjust scale to 1
+                        const viewport = page.getViewport({ scale: scale });
+
+                        // Create a new canvas element
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+
+                        // Render the template onto the canvas
+                        page.render({
+                            canvasContext: context,
+                            viewport: viewport
+                        }).promise.then(function() {
+                            // Get the image data as a base64 string
+                            const imgData = canvas.toDataURL('image/png');
+
+                            // Create a new jsPDF instance
+                            const doc = new jsPDF({
+                                unit: 'pt',
+                                format: [viewport.width, viewport.height]
+                            });
+
+                            // Add the rendered image to the PDF
+                            doc.addImage(imgData, 'PNG', 0, 0, viewport.width, viewport.height);
+
+                            // Now add your content
+                            doc.setFont("syne");
+
+                            // Add title
+                            doc.setFontSize(24);
+                            doc.setTextColor(3, 52, 110);
+                            doc.text("RIASEC Test Results", doc.internal.pageSize.width / 2, 40, null, null, "center");
+
+                            // Add name and school number
+                            doc.setTextColor(0, 0, 0);
+                            doc.setFontSize(12);
+                            doc.text(`Name: <?= $_SESSION['user']['f_name'] ?> <?= $_SESSION['user']['l_name'] ?>`, 40, 70);
+                            doc.text(`School ID: <?= $_SESSION['user']['school_id'] ?>`, 40, 90);
+
+                            // Add result
+                            doc.setTextColor(0, 0, 0);
+                            doc.setFont("helvetica");
+                            doc.setFontSize(16);
+                            doc.text("Result:", 60, 143);
+                            doc.setFont("syne");
+                            doc.setTextColor(3, 52, 110);
+                            doc.setFontSize(24);
+                            doc.text(document.querySelector('.font-syneboldextra').textContent, 120, 145);
+
+                            // Add scores
+                            doc.setFontSize(14);
+                            const categories = ['REALISTIC', 'INVESTIGATIVE', 'ARTISTIC', 'SOCIAL', 'ENTERPRISING', 'CONVENTIONAL'];
+                            const scores = ['r', 'i', 'a', 's', 'e', 'c'].map(id => document.getElementById(id).textContent);
+
+                            let yPos = 200;
+                            categories.forEach((category, index) => {
+                                doc.setTextColor(3, 52, 110);
+                                doc.text(category, 100, yPos);
+                                doc.setTextColor(0, 0, 0);
+                                doc.text(scores[index], 340, yPos);
+                                yPos += 30;
+                            });
+
+                            doc.setFont("helvetica");
+                            doc.setTextColor(0, 0, 0);
+                            // Add footer
+                            doc.setFontSize(10);
+                            doc.text("Generated on " + new Date().toLocaleString(), doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 20, null, null, "center");
+
+                            // Save the PDF
+                            doc.save("RIASEC_Test_Results.pdf");
+                        });
+                    });
+                }).catch(function(error) {
+                    console.error('Error loading PDF template:', error);
+                });
+            });
+        </script>
+    
+    <?php endif; ?>
 </body>
