@@ -29,11 +29,11 @@ module.exports = {
         grey1: '#99948C',
         grey2: '#807B75',
         black1: '#2B2D2F',
-        blue3: '#03346E',
+        blue3: '#03346E', // (3, 52, 110) IN RGB
         blue2: '#6EACDA',
         blue1: '#E2EEF8',
-        orange1: '#DF9F5E',
-        orange2: '#F68614',
+        orange1: '#DF9F5E', // (223, 159, 94) IN RGB
+        orange2: '#F68614', // (246, 134, 20) in rgb
         red1: '#B31312',
         green1: '#0DE830',
       },

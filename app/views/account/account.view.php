@@ -159,6 +159,7 @@
                             doc.setTextColor(0, 0, 0);
                             // Add footer
                             doc.setFontSize(10);
+                            doc.setTextColor(128, 128, 128);
                             doc.text("Generated on " + new Date().toLocaleString(), doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 20, null, null, "center");
 
                             // Save the PDF

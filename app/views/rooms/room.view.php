@@ -585,77 +585,191 @@
             })
         <?php endif; ?>
     </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
     <script>
-        function downloadPDF() {
-            <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                let groupNum = groupNumber;
-                console.log('groupNum', groupNum);
-                let yOffset = 30;
-                let cleanData = [];
-                groupMembers.forEach(member =>{
-                    console.log(member);
-                })
+    // Set the worker source for PDF.js
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js';
 
-                doc.setFontSize(12);
-                doc.text(`Group: ${groupNum}`, 10, 10);
-                
-                const pageHeight = doc.internal.pageSize.height;
-                console.log('Group Data:', cleanData)
+    async function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4'
+        });
 
-                cleanData.forEach(member => {
-                    doc.text(member.join(' | '), 30, yOffset);
-                    yOffset += 15;
-                });
+        const backgroundPdf = await pdfjsLib.getDocument('/assets/images/ZealiaGroupsPDF.pdf').promise;
+        const backgroundPage = await backgroundPdf.getPage(1);
+        const viewport = backgroundPage.getViewport({ scale: 2 });
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        await backgroundPage.render({ canvasContext: context, viewport: viewport }).promise;
+        const backgroundImage = canvas.toDataURL('image/png', 1.0);
 
-                doc.save('group_info.pdf');
-                return;
-            <?php endif; ?>
-            console.log('prof');
+        function addBackgroundAndSetup(doc) {
+            doc.addImage(backgroundImage, 'PNG', 0, 0, 210, 297);
+            doc.setFontSize(20);  // Increased font size
+        }
+
+        // Common footer information
+        const userName = "<?php echo $_SESSION['user']['f_name'] . ' ' . $_SESSION['user']['l_name']; ?>";
+        const roomName = "<?php echo $room_info['room_name']; ?>";
+        const instructorName = "<?php echo $prof_name['f_name'] . ' ' . $prof_name['l_name']; ?>";
+        const timestamp = new Date().toLocaleString(); // Get current timestamp
+        const roomCode = "<?php echo $room_info['room_code']; ?>";
+
+        <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
+            // Student view
+            let groupNum = <?php echo json_encode($groupNum); ?>;
+            let groupMembers = <?php echo json_encode($members); ?>;
             
-            // to remove kanban info
-            <?php
-                $cleanGroupInfo = [];
-                foreach($decodedGroup as $index => $group) {
-                    $container = [];
-                    foreach($group as $member) {
-                        $container[] = [$member[0], $member[1], $member[2]]; // Use [] for array addition
+            let cleanData = groupMembers.map(member => [
+                member[0] || '',  // Name
+                member[1] || '',  // Student Number
+                member[2] || ''   // Role
+            ]);
+
+            addBackgroundAndSetup(doc);
+            doc.setFontSize(40);
+            doc.setTextColor(3, 52, 110);
+            if (groupNum >= 10) {
+                doc.text(`${groupNum}`, 54, 23);
+            } else {
+                doc.text(`${groupNum}`, 58, 23);
+            }
+              // Moved down to avoid overlapping with background
+            doc.setFontSize(20);
+
+            doc.autoTable({
+                startY: 50,  // Adjusted start position
+                head: [['Name', 'Student Number', 'Role']],
+                body: cleanData,
+                theme: 'grid',
+                styles: { 
+                    fontSize: 12, 
+                    cellPadding: 3, 
+                    textColor: [0, 0, 0], // Text color for body
+                },
+                headStyles: {
+                    fillColor: [3, 52, 110], // Header background color (e.g., teal)
+                    textColor: [255, 255, 255], // Header text color (e.g., white)
+                    fontSize: 14, // Header font size
+                    fontStyle: 'bold' // Header font style
+                },
+                margin: { top: 50, right: 20, bottom: 20, left: 20 },
+                tableWidth: 170,  // Wider table
+                didParseCell: function(data) {
+                    // Change text color for the second column (index 1)
+                    if (data.row.index !== undefined && data.row.index >= 0) {
+                        // Change text color for the second column (index 1) in the body
+                        if (data.column.index === 2) { // Check if it's the second column
+                            data.cell.styles.textColor = [246, 134, 20]; // Set text color to red
+                        }
+
+                        // Set font size for body cells
+                        data.cell.styles.fontSize = 14; // Set font size for body cells
+                        // Optionally, set a minimum height for the cells
+                        data.cell.styles.minCellHeight = 10; // Minimum height for cells
                     }
-                    $cleanGroupInfo[] = $container; // Add container to cleanGroupInfo
                 }
+            });
+
+            doc.setTextColor(128, 128, 128);
+            doc.setFontSize(12);
+             // Add footer with user name, room name, instructor name, and timestamp
+            doc.text(`Generated by: ${userName}`, 20, doc.internal.pageSize.height - 50);
+            doc.text(`Room Name: ${roomName}`, 20, doc.internal.pageSize.height - 40);
+            doc.text(`Room Code: ${roomCode}`, 20, doc.internal.pageSize.height - 30);
+            doc.text(`Instructor: ${instructorName}`, 20, doc.internal.pageSize.height - 20);
+            doc.text(`Generated on: ${timestamp}`, 20, doc.internal.pageSize.height - 10);
+
+            doc.save(`${roomCode}-group-${groupNum}.pdf`);
+        <?php else: ?>
+            // Professor view
+            <?php
+            $cleanGroupInfo = [];
+            foreach ($decodedGroup as $index => $group) {
+                $container = [];
+                foreach ($group as $member) {
+                    $container[] = [
+                        $member[0] ?? '',  // Name
+                        $member[1] ?? '',  // Student Number
+                        $member[2] ?? ''   // Role
+                    ];
+                }
+                $cleanGroupInfo[] = $container;
+            }
             ?>
             const groups = <?php echo json_encode($cleanGroupInfo); ?>;
             
-            const { jsPDF } = window.jspdf;
-
-            const doc = new jsPDF();
-            doc.setFontSize(12);
-            doc.text("Groups\n\n", 10, 10);
-
-            let yOffset = 20;
-            let groupNum = 1;
-            groups.forEach(group => {
-                if (yOffset+50 > 280) {
+            groups.forEach((group, index) => {
+                if (index > 0) {
                     doc.addPage();
-                    yOffset = 20;
                 }
-                doc.text(`Group ${groupNum}`, 10, yOffset);
-                groupNum++;
-                yOffset += 10;
-                group.forEach(member => {
-                    doc.text(member.join(' | '), 20, yOffset);
-                    yOffset += 10;
+                
+                addBackgroundAndSetup(doc);
+                doc.setFontSize(40);
+                doc.setTextColor(3, 52, 110);
+
+                if ((index + 1) >= 10) {
+                    doc.text(`${index + 1}`, 54, 23);
+                } else {
+                    doc.text(`${index + 1}`, 58, 23);
+                } 
+
+                doc.setFontSize(20);
+
+                doc.autoTable({
+                    startY: 50,  // Adjusted start position
+                    head: [['Name', 'Student Number', 'Role']],
+                    body: group,
+                    theme: 'grid',
+                    styles: { 
+                        fontSize: 12, 
+                        cellPadding: 3, 
+                        textColor: [0, 0, 0], // Text color for body
+                    },
+                    headStyles: {
+                        fillColor: [3, 52, 110], // Header background color (e.g., teal)
+                        textColor: [255, 255, 255], // Header text color (e.g., white)
+                        fontSize: 14, // Header font size
+                        fontStyle: 'bold' // Header font style
+                    },
+                    margin: { top: 50, right: 20, bottom: 20, left: 20 },
+                    tableWidth: 170,  // Wider table
+                    didParseCell: function(data) {
+                        // Change text color for the second column (index 1)
+                        if (data.row.index !== undefined && data.row.index >= 0) {
+                            // Change text color for the second column (index 1) in the body
+                            if (data.column.index === 2) { // Check if it's the second column
+                                data.cell.styles.textColor = [246, 134, 20]; // Set text color to red
+                            }
+
+                            // Set font size for body cells
+                            data.cell.styles.fontSize = 14; // Set font size for body cells
+                            // Optionally, set a minimum height for the cells
+                            data.cell.styles.minCellHeight = 10; // Minimum height for cells
+                        }
+                    }
                 });
-                yOffset += 10;
+
+                doc.setTextColor(128, 128, 128);
+                doc.setFontSize(12);
+                // Add footer with user name, room name, instructor name, and timestamp
+                doc.text(`Generated by: ${userName}`, 20, doc.internal.pageSize.height - 50);
+                doc.text(`Room Name: ${roomName}`, 20, doc.internal.pageSize.height - 40);
+                doc.text(`Room Code: ${roomCode}`, 20, doc.internal.pageSize.height - 30);
+                doc.text(`Instructor: ${instructorName}`, 20, doc.internal.pageSize.height - 20);
+                doc.text(`Generated on: ${timestamp}`, 20, doc.internal.pageSize.height - 10);
             });
 
-            doc.save('group_info.pdf');
-            
-
-
-        }
+            doc.save(`all_groups_info-${roomCode}.pdf`);
+        <?php endif; ?>
+    }
     </script>
 </body>
 </html>
