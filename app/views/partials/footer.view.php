@@ -1,5 +1,5 @@
 <!-- mobile/desktop footer -->
-<footer class="relative left-0 top-[100%] transform translate-y-full bg-blue3 items-center h-auto w-[100vw] py-4 bottom-0">
+<footer class="relative left-0 top-[100%] mt-10 transform translate-y-full bg-blue3 items-center h-auto w-[100vw] py-4 bottom-0">
     <div class="h-fit w-[100%] flex flex-col justify-between px-10">
         <div class="flex justify-between mb-12">
             <ul class="flex flex-col font-synereg text-[5vw]  xl:text-4xl text-blue2">

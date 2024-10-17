@@ -5,13 +5,13 @@ use Model\App;
 
 $db = App::resolve(Database::class);
 
-$currentUserId = $_SESSION['user']['school_id'];
+$currentUser = $_SESSION['user']['school_id'];
 
 $room = $db->query('select * from rooms where room_id = :id', [
     ':id' => $_POST['room_id']
 ])->findOrFail();
 
-authorize($room['school_id'] === $currentUserId);
+authorize($room['school_id'] === $currentUser);
 
 $prof_info = $db->query('select l_name, f_name from accounts where school_id = :id', [
     'id' => $room['school_id']
