@@ -151,10 +151,16 @@ document.body.addEventListener('click', () => {
 });
 
 
-// FOR FETCH
-function fetchLatestData(table, updateFunction, interval = 5000) {
+// for Fetching new data
+
+// let lastFetchedData = null;
+function fetchLatestData(params, updateFunction, interval = 5000) {
     function fetchData() {
-        const url = `/api/get-latest-data?table=${table}`;
+        let url = `/api/get-latest-data`;
+        const queryParams = new URLSearchParams(params).toString();
+        url += `?${queryParams}`;
+
+        // console.log("URL: ", url);
         
         window.fetch(url)
             .then(response => {
@@ -164,11 +170,16 @@ function fetchLatestData(table, updateFunction, interval = 5000) {
                 return response.json(); // Change this to response.json()
             })
             .then(data => {
-                console.log('Received data:', data);
+                // console.log('Received data:', data);
                 if (data && data.data) {
-                    console.log('Triggering Update Function:');
+                    // console.log('Triggering Update Function:');
                     updateFunction(data.data);
-                    console.log('Update Function Triggered');
+                    // console.log('Update Function Triggered');
+
+                    // if (JSON.stringify(data.data) !== JSON.stringify(lastFetchedData)) {
+                    //     lastFetchedData = data.data; 
+                    //     updateFunction(data.data);
+                    // }
                 } else {
                     console.warn('No data in response or data is null.');
                 }
@@ -185,7 +196,7 @@ function fetchLatestData(table, updateFunction, interval = 5000) {
 
 
 function updateRooms(rooms) {
-    console.log('Inside Update Rooms function:', rooms);
+    // console.log('Inside Update Rooms function:', rooms);
     const ascRoomsContainer = document.getElementById('rooms-ascending');
     const descRoomsContainer = document.getElementById('rooms-descending');
     if (!ascRoomsContainer) return;

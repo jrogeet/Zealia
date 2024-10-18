@@ -50,7 +50,7 @@ class ApiController
         $encodedRoomInfo = $_POST['encoded_room_info'] ?? '';
         
         // Perform your search logic here
-        $results = $this->db->query("SELECT room_id, room_name FROM rooms WHERE room_name LIKE ?", ["%$searchTerm%"])->fetchAll();
+        $results = $this->db->query("SELECT room_id, room_name FROM rooms WHERE room_name OR room_code LIKE ?", ["%$searchTerm%"])->fetchAll();
 
         header('Content-Type: application/json');
         echo json_encode($results);
@@ -66,24 +66,76 @@ private function getLatestData($params)
 {
     try {
         $table = $params['table'] ?? 'rooms';
+        unset($params['table']);
+
         $conditions = $params['conditions'] ?? [];
-        $orderBy = $params['order_by'] ?? 'created_date';
-        $direction = $params['direction'] ?? 'ASC';
-        // $conditions['school_id'] = $this->currentUser;
+        $orderBy = $params['order_by'] ?? '';
+        $direction = $params['direction'] ?? '';
+        
+        foreach ($params as $key => $value) {
+            $conditions[$key] = $value;
+        }
+
+        // dd($conditions);
 
         // Build the SQL query
         $query = "SELECT * FROM {$table} ";
 
         if (!empty($conditions)) {
-            $query .= "WHERE " . implode(' AND ', array_map(function($key, $value) {
-                return "{$key} = :{$value}";
-            }, array_keys($conditions), $conditions));
+            $query .= " WHERE " . implode(' AND ', array_map(function($key) {
+                return "{$key} = :{$key}"; // Correctly use the key for the placeholder
+            }, array_keys($conditions)));
         }
+        // THIS ERRORS IN STUDENT DASHBOARD
+        if ($orderBy !== '' || $direction !== '') {
+            $query .= " ORDER BY {$orderBy} {$direction}";
+        }
+        
 
-        $query .= "ORDER BY {$orderBy} {$direction}";
-
+        // echo $query;
         // Execute the query
         $latestData = $this->db->query($query, $conditions)->findAll();
+
+        if ($table == 'room_list') {
+            foreach ($latestData as &$room) { // Use reference to modify the original array
+                $roomInfo = $this->db->query('SELECT * FROM rooms WHERE room_id = :room_id', [
+                    'room_id' => $room['room_id'],
+                ])->find();
+
+                // dd($roomInfo);
+
+                // Assuming $roomInfo is an array and you want to merge it
+                if (!empty($roomInfo)) {
+                    $room = array_merge($room, $roomInfo); // Merge the first roomInfo into the room
+                }
+
+                $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
+                    'school_id'=> $room['school_id'],
+                ])->find();
+
+                $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
+                unset($profInfo['f_name']); unset($profInfo['l_name']);
+                if (!empty($profInfo)) {
+                    $room = array_merge($room, $profInfo);
+                }
+            }
+            unset($room); // Unset reference to avoid accidental modifications later
+
+        } elseif ($table == 'rooms') {
+            foreach ($latestData as &$room) {
+                $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
+                    'school_id'=> $room['school_id'],
+                ])->find();
+
+                $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
+                unset($profInfo['f_name']); unset($profInfo['l_name']);
+                if (!empty($profInfo)) {
+                    $room = array_merge($room, $profInfo);
+                }
+            }
+            unset($room);
+        }
+
 
         // Return valid JSON response
         header('Content-Type: application/json');
@@ -195,9 +247,65 @@ private function getLatestData($params)
 
     private function processJoinRoomForm($formData)
     {
-        // Implement join room logic
-        // ...
+        $code = filter_input(INPUT_POST, "room_code", FILTER_SANITIZE_NUMBER_INT);
+        $errors = [];
 
+        $roomExistence = $this->db->query('select * from rooms where room_code = :code', [
+            ':code' => $code
+        ])->find();
+
+        if (! $roomExistence) {
+            $errors['room_existence'] = "Input a Valid Room Code / Code doesn't match any rooms.";
+            header("Location: /dashboard");
+            die();
+        } else {
+            $prof_info = $this->db->query('select l_name, f_name from accounts where school_id = :id', [
+                'id' => $roomExistence['school_id']
+            ])->find();
+    
+            $roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
+
+            $isAlrJoined = $this->db->query('select * from room_list where room_id  = :room and school_id = :student', [
+                ':student'=>$this->currentUser,
+                ':room' => $roomExistence['room_id']
+            ])->find();
+            
+            if ($isAlrJoined) {
+                $errors['is_joined'] = 'You are already joined in this room!';
+            } else {
+                $this->db->query('INSERT INTO join_room_requests(school_id, room_id) VALUES (:student, :room)', [
+                    ':student'=>$this->currentUser,
+                    ':room'=>$roomExistence['room_id']
+                ]);
+
+                $type = json_encode([
+                    "type" => "room_join",
+                    "room_name" => $roomExistence['room_name'],
+                    "prof_name" => $roomExistence['prof_name'],
+                    "prof_id" => $roomExistence['school_id'],
+                    "room_id" => $roomExistence['room_id'],
+                    "student_id" => $this->currentUser,
+                    "student_name" => "{$_SESSION['user']['l_name']}, {$_SESSION['user']['f_name']}"
+                ]);
+                
+                // NOTIFICATIONS
+                $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
+                    'school_id' => $roomExistence['school_id'], 
+                    'type' => $type,
+                ]);
+            }
+
+            // if(! empty($errors)) {
+            //     header("Location: /dashboard");
+            //     die();
+            // }
+
+
+            // header("Location: /dashboard");
+            // die();
+        }
+
+        header('Content-Type: application/json');
         return ['success' => true, 'message' => 'Joined room successfully', 'data' => $formData];
     }
 

@@ -39,7 +39,7 @@
                 </div>
 
                 <?php if ($_SESSION['user']['account_type'] === 'student'):?>
-                    <form class="flex justify-between gap-4" method="POST" action="/dashboard">
+                    <form id="joinRoomForm" class="flex justify-between gap-4" method="POST">
                         <?php if (isset($errors['room_existence'])) : ?>
                             <p class=""><?= $errors['room_existence'] ?></p>
                         <?php elseif (isset($errors['is_joined'])) : ?>
@@ -255,12 +255,12 @@
         </form>
 
         <!-- create/join dropdown -->
-        <form method="POST" action="/dashboard" class="hidden w-full p-2 flex bg-white2" id="jc">
+        <form method="POST" class="hidden w-full p-2 flex bg-white2" id="jc">
 
             <?php if ($_SESSION['user']['account_type'] === 'student'):?>
 
                 <?php if (isset($errors['room_existence'])) : ?>
-                        <p class=""><?= $errors['room_existence'] ?></p>
+                    <p class=""><?= $errors['room_existence'] ?></p>
                 <?php elseif (isset($errors['is_joined'])) : ?>
                     <p class=""><?= $errors['is_joined'] ?></p>
                 <?php endif; ?>
@@ -332,7 +332,7 @@
     <!-- for FETCH API -->
     <script>
         function searching(typed) {
-            // console.log(typed);
+            console.log(typed);
             fetch('/api/search', {
                 method: 'POST',
                 body: new URLSearchParams('searchInput=' + typed)
@@ -345,7 +345,7 @@
         function submitForm(formId, url, type) {
             const form = document.getElementById(formId);
             if (!form) {
-                console.error(`Form with id "${formId}" not found`);
+                // console.error(`Form with id "${formId}" not found`);
                 return;
             }
 
@@ -374,10 +374,18 @@
         // Usage
         document.addEventListener('DOMContentLoaded', function() {
             submitForm('createRoomForm', '/api/submit-form', 'create_room');
+            submitForm('joinRoomForm', '/api/submit-form', 'join_room');
             <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
-                fetchLatestData('rooms', updateRooms);
+                fetchLatestData({
+                    "table": "rooms"
+                }, updateRooms);
             <?php elseif ($_SESSION['user']['account_type'] == 'student'): ?>
-                fetchLatestData('room_list', updateRooms);
+                fetchLatestData(
+                    {
+                        "table": "room_list", 
+                        "school_id": "<?= $_SESSION['user']['school_id'] ?>",
+                    }, updateRooms);
+
             <?php endif; ?>
         });        
 
