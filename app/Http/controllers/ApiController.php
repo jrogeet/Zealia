@@ -47,15 +47,30 @@ class ApiController
     public function search($params)
     {
         $searchTerm = $_POST['search_input'] ?? '';
-        $encodedRoomInfo = $_POST['encoded_room_info'] ?? '';
+        $yearLevel = $_POST['year_level'] ?? '';
+        $section = $_POST['section'] ?? '';
+        $program = $_POST['program'] ?? '';
         
-        // Perform your search logic here
-        $results = $this->db->query("SELECT room_id, room_name FROM rooms WHERE room_name OR room_code LIKE ?", ["%$searchTerm%"])->fetchAll();
+        $query = "SELECT room_id, room_name, room_code, year_level, section, program FROM rooms WHERE (room_name LIKE ? OR room_code LIKE ?)";
+        $params = ["%$searchTerm%", "%$searchTerm%"];
+
+        if ($yearLevel) {
+            $query .= " AND year_level = ?";
+            $params[] = $yearLevel;
+        }
+        if ($section) {
+            $query .= " AND section = ?";
+            $params[] = $section;
+        }
+        if ($program) {
+            $query .= " AND program = ?";
+            $params[] = $program;
+        }
+
+        $results = $this->db->query($query, $params)->fetchAll();
 
         header('Content-Type: application/json');
         echo json_encode($results);
-        // echo "Searching for: $searchTerm";
-        // exit;
     }
 
 // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -67,6 +82,18 @@ private function getLatestData($params)
     try {
         $table = $params['table'] ?? 'rooms';
         unset($params['table']);
+
+        $fetchUniqueSections = $params['fetch_unique_sections'] ?? false;
+
+        if ($fetchUniqueSections) {
+            $query = "SELECT DISTINCT section FROM rooms ORDER BY section";
+            $uniqueSections = $this->db->query($query)->findAll();
+            
+            header('Content-Type: application/json');
+            //  dd($uniqueSections);
+            echo json_encode(['data' => $uniqueSections]);
+            exit;
+        }
 
         $conditions = $params['conditions'] ?? [];
         $orderBy = $params['order_by'] ?? '';

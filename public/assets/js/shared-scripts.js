@@ -120,6 +120,15 @@ document.getElementById('notificationBtn').addEventListener('click', (event) => 
     toggleDropdown('notificationDropdown', 'navDropDown');
 });
 
+// Prevent hiding dropdowns when clicking inside them
+document.getElementById('navDropDown').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+
+document.getElementById('notificationDropdown').addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+
 function toggleDropdown(openId, closeId) {
     const openElement = document.getElementById(openId);
     const closeElement = document.getElementById(closeId);
@@ -134,15 +143,6 @@ function toggleDropdown(openId, closeId) {
         openElement.classList.add('hidden');
     }
 }
-
-// Prevent hiding dropdowns when clicking inside them
-document.getElementById('navDropDown').addEventListener('click', (event) => {
-    event.stopPropagation();
-});
-
-document.getElementById('notificationDropdown').addEventListener('click', (event) => {
-    event.stopPropagation();
-});
 
 // Modify the body click event listener
 document.body.addEventListener('click', () => {
@@ -160,26 +160,21 @@ function fetchLatestData(params, updateFunction, interval = 5000) {
         const queryParams = new URLSearchParams(params).toString();
         url += `?${queryParams}`;
 
-        // console.log("URL: ", url);
-        
         window.fetch(url)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                return response.json(); // Change this to response.json()
+                return response.json();
             })
             .then(data => {
-                // console.log('Received data:', data);
                 if (data && data.data) {
-                    // console.log('Triggering Update Function:');
-                    updateFunction(data.data);
-                    // console.log('Update Function Triggered');
-
-                    // if (JSON.stringify(data.data) !== JSON.stringify(lastFetchedData)) {
-                    //     lastFetchedData = data.data; 
-                    //     updateFunction(data.data);
-                    // }
+                    window.allRooms = data.data;
+                    if (window.isSearching || isFilterActive()) {
+                        applyFilters(); // This will update the filtered results
+                    } else {
+                        updateFunction(data.data);
+                    }
                 } else {
                     console.warn('No data in response or data is null.');
                 }
@@ -193,43 +188,125 @@ function fetchLatestData(params, updateFunction, interval = 5000) {
     setInterval(fetchData, interval); // Fetch every 'interval' milliseconds
 }
 
-
-
 function updateRooms(rooms) {
-    // console.log('Inside Update Rooms function:', rooms);
+    window.allRooms = rooms;
+    
+    if (window.isSearching || isFilterActive()) {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const yearLevel = document.getElementById('yrLevel').value;
+        const section = document.getElementById('section').value;
+        const program = document.getElementById('program').value;
+
+        window.searchResults = window.allRooms.filter(room => 
+            (searchTerm === '' || room.room_name.toLowerCase().includes(searchTerm) || 
+            room.room_code.toLowerCase().includes(searchTerm)) &&
+            (yearLevel === '' || room.year_level === yearLevel) &&
+            (section === '' || room.section === section) &&
+            (program === '' || room.program === program)
+        );
+        displayRooms(window.searchResults);
+    } else {
+        displayRooms(rooms);
+    }
+}
+
+function displayRooms(rooms) {
     const ascRoomsContainer = document.getElementById('rooms-ascending');
     const descRoomsContainer = document.getElementById('rooms-descending');
-    if (!ascRoomsContainer) return;
-    if (!descRoomsContainer) return;
-    ascRoomsContainer.innerHTML = ''; // Clear existing rooms
-    descRoomsContainer.innerHTML = '';
+    if (!ascRoomsContainer || !descRoomsContainer) return;
 
-    rooms.forEach(room => {
-        const roomElement = document.createElement('a');
-        roomElement.href = `/room?room_id=${room.room_id}`;
-        roomElement.className = "bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl";
-        roomElement.innerHTML = `
+    const roomHTML = rooms.map(room => `
+        <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
             <div>   
                 <h1 class="font-synemed text-2xl truncate">${room.room_name}</h1>
                 <span class="text-grey2 text-base">${room.prof_name}</span>
             </div>
             <span class="text-grey2 text-base">${room.room_code}</span>
-        `;
-        ascRoomsContainer.appendChild(roomElement);
-    });
-    rooms.slice().reverse().forEach(room => {
-        const roomElement = document.createElement('a');
-        roomElement.href = `/room?room_id=${room.room_id}`;
-        roomElement.className = "bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl";
-        roomElement.innerHTML = `
-            <div>   
-                <h1 class="font-synemed text-2xl truncate">${room.room_name}</h1>
-                <span class="text-grey2 text-base">${room.prof_name}</span>
-            </div>
-            <span class="text-grey2 text-base">${room.room_code}</span>
-        `;
-        descRoomsContainer.appendChild(roomElement);
+        </a>
+    `).join('');
+
+    ascRoomsContainer.innerHTML = roomHTML;
+    descRoomsContainer.innerHTML = roomHTML;
+}
+
+function debounce(func, wait) { // this shit adds delay to the search, to prevent too many requests while typing
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+function performSearch(searchTerm) {
+    window.isSearching = searchTerm !== '';
+    applyFilters();
+}
+
+// FILTERING
+function applyFilters() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const yearLevel = document.getElementById('yrLevel').value;
+    const section = document.getElementById('section').value;
+    const program = document.getElementById('program').value;
+
+    const filteredRooms = window.allRooms.filter(room => 
+        (searchTerm === '' || room.room_name.toLowerCase().includes(searchTerm) || 
+        room.room_code.toLowerCase().includes(searchTerm)) &&
+        (yearLevel === '' || room.year_level === yearLevel) &&
+        (section === '' || room.section === section) &&
+        (program === '' || room.program === program)
+    );
+
+    displayRooms(filteredRooms);
+}
+
+function isFilterActive() {
+    return document.getElementById('yrLevel').value !== '' ||
+           document.getElementById('section').value !== '' ||
+           document.getElementById('program').value !== '' ||
+           document.getElementById('searchInput').value !== '';
+}
+
+function clearFilters() {
+    document.getElementById('yrLevel').value = '';
+    document.getElementById('section').value = '';
+    document.getElementById('program').value = '';
+    document.getElementById('searchInput').value = '';
+    
+    window.isSearching = false;
+    displayRooms(window.allRooms);
+}
+
+function fetchAndPopulateSections() {
+    fetchLatestData({
+        "table": "rooms",
+        "fetch_unique_sections": true
+    }, function(response) {
+        if (response && Array.isArray(response)) {
+            populateSections(response);
+        } else {
+            console.error('Unexpected response format for sections:', response);
+        }
     });
 }
 
-// Add more update functions for other types of data as needed
+function populateSections(sections) {
+    console.log(sections);
+    const sectionSelect = document.getElementById('section');
+    sectionSelect.innerHTML = '<option class="bg-white2" value="">Section</option>';
+    sections.forEach(section => {
+        const option = document.createElement('option');
+        option.value = section['section'];
+        option.textContent = section['section'];
+        option.className = 'bg-white2';
+        sectionSelect.appendChild(option);
+    });
+}
+
+
+
+// ... rest of your existing code ...

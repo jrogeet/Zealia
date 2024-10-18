@@ -72,7 +72,7 @@
             <!-- Filter -->
             <div class="absolute hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="w-4/6 flex">
-                    <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-full bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
+                    <form id="filterForm" class="flex items-center h-[2.25rem] w-full bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
                         <!-- Year -->
@@ -99,9 +99,9 @@
                         </select>
 
                         
-                        <button type="submit" class="mx-auto bg-blue3 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">SUBMIT</button>
+                        <button type="submit" id="submitFilter" class="mx-auto bg-blue3 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">SUBMIT</button>
 
-                        <button type="submit" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">Clear Filters</button>
+                        <button type="submit"  id="clearFilter" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">Clear Filters</button>
                     </form>
                 </div>
             </div>
@@ -371,8 +371,18 @@
             });  
         }
 
+        const debouncedSearch = debounce(performSearch, 300);
         // Usage
         document.addEventListener('DOMContentLoaded', function() {
+            const filterForm = document.getElementById('filterForm');
+            const submitFilterBtn = document.getElementById('submitFilter');
+            const clearFilterBtn = document.getElementById('clearFilter');
+
+            if (filterForm && submitFilterBtn && clearFilterBtn) {
+                submitFilterBtn.addEventListener('click', applyFilters);
+                clearFilterBtn.addEventListener('click', clearFilters);
+            }
+
             submitForm('createRoomForm', '/api/submit-form', 'create_room');
             submitForm('joinRoomForm', '/api/submit-form', 'join_room');
             <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
@@ -387,6 +397,26 @@
                     }, updateRooms);
 
             <?php endif; ?>
+
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    if (searchTerm) {
+                        debouncedSearch(searchTerm);
+                    } else {
+                        window.isSearching = false;
+                        displayRooms(window.allRooms);
+                    }
+                });
+            }
+
+            // Initialize global variables if they don't exist
+            if (typeof window.allRooms === 'undefined') window.allRooms = [];
+            if (typeof window.searchResults === 'undefined') window.searchResults = [];
+            if (typeof window.isSearching === 'undefined') window.isSearching = false;
+
+            fetchAndPopulateSections();
         });        
 
         // document.addEventListener('DOMContentLoaded', function() {
