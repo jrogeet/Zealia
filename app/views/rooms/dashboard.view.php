@@ -469,7 +469,6 @@
         //             searchResults.textContent = 'An error occurred while searching. Please try again.';
         //         });
         //     }
-
         //     function displaySearchResults(results) {
         //         searchResults.innerHTML = '';
         //         if (results.length > 0) {
