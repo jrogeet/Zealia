@@ -68,7 +68,7 @@
             </div>
 
             <!-- Filter -->
-            <div class="absolute hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
+            <div class="hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="w-4/6 flex">
                     <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-full bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
@@ -85,15 +85,13 @@
                         <!-- Section -->
                         <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" name="section" id="section">
                             <option class="bg-white2" value="">Section</option>
-                            <option class="bg-white2" value="CS 4-Y1-1">CS 4-Y1-1</option>
-                            <option class="bg-white2" value="IT 4-Y1-1">IT 4-Y1-1</option>
                         </select>
     
                         <!-- Program -->
                         <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" name="program" id="program">
                             <option class="bg-white2" value="">Program</option>
-                            <option class="bg-white2" value="cs">BSCS</option>
-                            <option class="bg-white2" value="it">BSIT</option>
+                            <option class="bg-white2" value="cs">CS</option>
+                            <option class="bg-white2" value="it">IT</option>
                         </select>
 
                         
@@ -104,6 +102,8 @@
                 </div>
             </div>
 
+   
+
             <!-- TILES  -->
             <div id="dashboardTiles" class="flex justify-center max-h-[39.8rem] w-full overflow-y-auto overflow-x-hidden">         
                 <?php if(! empty($ascending_rooms)): ?>
@@ -113,6 +113,7 @@
                             <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                 <div>   
                                     <h1 class="font-synemed text-2xl truncate"><?= $rooms['room_name'] ?></h1>
+                                    <h1 class="text-grey2 text-base">BS<?= strtoupper($rooms['program']) ?> <?= $rooms['year_level'][0] ?>-<?= $rooms['section'] ?></h1>
                                     <span class="text-grey2 text-base"><?= $rooms['prof_name'] ?></span>
                                 </div>
                                 <span class="text-grey2 text-base"><?= $rooms['room_code'] ?></span>
