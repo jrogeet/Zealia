@@ -118,7 +118,6 @@ private function getLatestData($params)
             $query .= " ORDER BY {$orderBy} {$direction}";
         }
         
-
         // echo $query;
         // Execute the query
         $latestData = $this->db->query($query, $conditions)->findAll();

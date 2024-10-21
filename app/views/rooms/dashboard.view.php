@@ -28,7 +28,7 @@
                     <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
-                        <input oninput="searching(this.value)" id="searchInput"  class="h-full w-5/6 bg-white2 pl-2" type="text" name="search_input" placeholder="Search Room">
+                        <input oninput="searching(this.value)" id="searchInput"  class="h-full w-5/6 bg-white2 pl-2" type="text" name="search_input" placeholder="Search Room by Name:">
                         <button type="submit" class="bg-search bg-center bg-contain bg-no-repeat h-5/6 w-1/6 border border-l-grey2"></button>
                     </form>
 
@@ -70,7 +70,7 @@
             </div>
 
             <!-- Filter -->
-            <div class="absolute hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
+            <div class="hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="w-4/6 flex">
                     <form id="filterForm" class="flex items-center h-[2.25rem] w-full bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
@@ -215,7 +215,7 @@
                         <option value="it">IT</option>
                     </select>
                 </div>
-                <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter section:" required>
+                <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter section: ex. Y3-1, Y4-2" required>
 
                 <button type="submit" class="bg-orange1 p-1 mt-2 text-black1 border border-black1 rounded">Create Room</button>
             </form>
@@ -385,17 +385,18 @@
 
             submitForm('createRoomForm', '/api/submit-form', 'create_room');
             submitForm('joinRoomForm', '/api/submit-form', 'join_room');
+
             <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
                 fetchLatestData({
                     "table": "rooms"
                 }, updateRooms);
+                
             <?php elseif ($_SESSION['user']['account_type'] == 'student'): ?>
                 fetchLatestData(
                     {
                         "table": "room_list", 
                         "school_id": "<?= $_SESSION['user']['school_id'] ?>",
                     }, updateRooms);
-
             <?php endif; ?>
 
             const searchInput = document.getElementById('searchInput');

@@ -217,11 +217,12 @@ function displayRooms(rooms) {
 
     const roomHTML = rooms.map(room => `
         <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
-            <div>   
-                <h1 class="font-synemed text-2xl truncate">${room.room_name}</h1>
-                <span class="text-grey2 text-base">${room.prof_name}</span>
+            <div class="flex flex-col">   
+                <h1 class="font-synemed text-2xl truncate"> ${room.room_name}</h1>
+                <span class="text-grey2 text-base">BS${room.program ? room.program.toUpperCase() : ''} ${room.year_level ? room.year_level.charAt(0) : ''}-${room.section || ''}</span>
+                <span class="text-grey2 text-base">${room.prof_name || ''}</span>
             </div>
-            <span class="text-grey2 text-base">${room.room_code}</span>
+            <span class="text-grey2 text-base">${room.room_code || ''}</span>
         </a>
     `).join('');
 
@@ -254,8 +255,8 @@ function applyFilters() {
     const program = document.getElementById('program').value;
 
     const filteredRooms = window.allRooms.filter(room => 
-        (searchTerm === '' || room.room_name.toLowerCase().includes(searchTerm) || 
-        room.room_code.toLowerCase().includes(searchTerm)) &&
+        (searchTerm === '' || (room.room_name && room.room_name.toLowerCase().includes(searchTerm)) || 
+        (room.room_code && room.room_code.toLowerCase().includes(searchTerm))) &&
         (yearLevel === '' || room.year_level === yearLevel) &&
         (section === '' || room.section === section) &&
         (program === '' || room.program === program)
