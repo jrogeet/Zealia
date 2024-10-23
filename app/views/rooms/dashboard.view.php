@@ -293,6 +293,8 @@
     <?php view('partials/footer.view.php'); ?>
     
     <script src="assets/js/shared-scripts.js"></script>
+    <script src="assets/js/fetch/fetch.js"></script>
+    
     <script>
         const search = document.getElementById('searchButt');
         const jc = document.getElementById('jcButt');
@@ -447,10 +449,25 @@
             submitForm('createRoomForm', '/api/submit-form', 'create_room');
             submitForm('joinRoomForm', '/api/submit-form', 'join_room');
 
+            <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
+                fetchLatestData({
+                    "table": "rooms"
+                }, displayRooms);
+                
+            <?php elseif ($_SESSION['user']['account_type'] == 'student'): ?>
+                fetchLatestData(
+                    {
+                        "table": "room_list", 
+                        "school_id": "<?= $_SESSION['user']['school_id'] ?>",
+                    }, displayRooms);
+            <?php endif; ?>
         });
-    </script>
-<!-- FETCH -->
-    <script>
+
+        
+        // ************************************************** //
+        // >                   FETCH API                    < // 
+        // ************************************************** //
+
         function updateCombinedSection() {
             const yearPrefix = document.getElementById('yearPrefix');
             const sectionSuffix = document.getElementById('sectionSuffix');
@@ -461,11 +478,12 @@
 
             if (yearValue && sectionValue) {
                 combinedSection.value = `Y${yearValue}-${sectionValue}`;
-                console.log("Combined Section:", combinedSection.value);  // For debugging
+                // console.log("Combined Section:", combinedSection.value);  // For debugging
             } else {
                 combinedSection.value = '';
             }
         }
+        
         function submitForm(formId, url, type) {
             const form = document.getElementById(formId);
             if (!form) {
@@ -481,14 +499,14 @@
                 let formData = new FormData(this);
                 formData.append('form_type', type); // Specify the form type here
                 formData.append('prof_name', '<?= htmlspecialchars($_SESSION['user']['f_name'] . " " . $_SESSION['user']['l_name'], ENT_QUOTES, 'UTF-8') ?>');
-                console.log('FORM DATA: ', formData);
+                // console.log('FORM DATA: ', formData);
                 fetch(url, {
                     method: 'POST',
                     body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Response:', data);
+                    // console.log('Response:', data);
                     hide('createRoom');
                     enableScroll();
                     // Handle the response (e.g., show success message, update UI)
@@ -497,6 +515,5 @@
             });  
         }
     </script>
-
 </body>
 </html>
