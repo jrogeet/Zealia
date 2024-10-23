@@ -37,7 +37,7 @@
                 </div>
 
                 <?php if ($_SESSION['user']['account_type'] === 'student'):?>
-                    <form class="flex justify-between gap-4" method="POST" action="/dashboard">
+                    <form id="joinRoomForm" class="flex justify-between gap-4" method="POST">
                         <?php if (isset($errors['room_existence'])) : ?>
                             <p class=""><?= $errors['room_existence'] ?></p>
                         <?php elseif (isset($errors['is_joined'])) : ?>
@@ -47,6 +47,7 @@
                         <input type="hidden" name="join" value="join">
                         
                         <input class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" type="number" id="room_code" name="room_code" placeholder="Enter room code">
+
 
                         <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg"  type="submit">Join</button>
                     </form>
@@ -168,9 +169,7 @@
                 <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Confirmation</span>
                 <button class="w-1/5 h-full rounded bg-red1" onClick="hide('createRoom'); enableScroll();">X</button>
             </div>
-            <form method="POST" action="/dashboard" class="flex flex-col items-center h-64 p-2">
-                <!-- <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>"> -->
+            <form id="createRoomForm" method="POST" class="flex flex-col items-center h-64 p-2">
                 <input type="hidden" name="create" value="create">
                 <input type="hidden" name="asc" value="<?= htmlspecialchars($encoded_ascending_rooms, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="desc" value="<?= htmlspecialchars($encoded_descending_rooms, ENT_QUOTES, 'UTF-8')?>">
@@ -195,7 +194,16 @@
                         <option value="it">IT</option>
                     </select>
                 </div>
-                <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter section:" required>
+
+                <!-- <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter section:" required> -->
+                <div class="flex">
+                    <label for="yearPrefix">Y</label>
+                    <input type="text" id="yearPrefix" maxlength="1" class="year-prefix" pattern="[A-Z0-9]" placeholder="A or 1" required>
+                    <span>-</span>
+                    <input type="text" id="sectionSuffix" maxlength="1" class="section-suffix" pattern="[A-Z0-9]" placeholder="A or 1" required>
+                </div>
+                
+                <input type="hidden" id="combinedSection" name="section">
 
                 <button type="submit" class="p-1 mt-2 border rounded bg-orange1 text-black1 border-black1">Create Room</button>
             </form>
@@ -311,7 +319,6 @@
     </script>
 
     <script>
-        // Loads as soon as the page does
         document.addEventListener('DOMContentLoaded', function() {
             const rooms = <?php echo json_encode($ascending_rooms) ?>;
             // for ROOM GENERATIONS
@@ -433,9 +440,62 @@
 
                 displayRooms(filteredRooms, true);
             }
-        
-        });
 
+            const createRoomForm =  document.getElementById('createRoomForm');
+            
+            // createRoomForm.addEventListener('submit', submitForm('createRoomForm', '/api/submit-form', 'create_room'));
+            submitForm('createRoomForm', '/api/submit-form', 'create_room');
+            submitForm('joinRoomForm', '/api/submit-form', 'join_room');
+
+        });
+    </script>
+<!-- FETCH -->
+    <script>
+        function updateCombinedSection() {
+            const yearPrefix = document.getElementById('yearPrefix');
+            const sectionSuffix = document.getElementById('sectionSuffix');
+            const combinedSection = document.getElementById('combinedSection');
+            
+            const yearValue = yearPrefix.value;
+            const sectionValue = sectionSuffix.value;
+
+            if (yearValue && sectionValue) {
+                combinedSection.value = `Y${yearValue}-${sectionValue}`;
+                console.log("Combined Section:", combinedSection.value);  // For debugging
+            } else {
+                combinedSection.value = '';
+            }
+        }
+        function submitForm(formId, url, type) {
+            const form = document.getElementById(formId);
+            if (!form) {
+                // console.error(`Form with id "${formId}" not found`);
+                return;
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateCombinedSection();
+                // console.log(combinedSection.value)
+                // console.log('this', this);
+                let formData = new FormData(this);
+                formData.append('form_type', type); // Specify the form type here
+                formData.append('prof_name', '<?= htmlspecialchars($_SESSION['user']['f_name'] . " " . $_SESSION['user']['l_name'], ENT_QUOTES, 'UTF-8') ?>');
+                console.log('FORM DATA: ', formData);
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data);
+                    hide('createRoom');
+                    enableScroll();
+                    // Handle the response (e.g., show success message, update UI)
+                })
+                .catch(error => console.error('Fetch Error:', error));
+            });  
+        }
     </script>
 
 </body>

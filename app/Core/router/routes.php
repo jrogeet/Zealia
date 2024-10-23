@@ -32,7 +32,7 @@ $router->get('/profile', 'Http/controllers/account/profile.php')->only('auth');
 
 // DASHBOARD PAGE
 $router->get('/dashboard', 'Http/controllers/rooms/dashboard.php')->only('auth');
-$router->post('/dashboard', 'model/rooms/dashboard.php')->only('auth');
+// $router->post('/dashboard', 'model/rooms/dashboard.php')->only('auth');
 
 // ROOM PAGE
 $router->get('/room', 'Http/controllers/rooms/room.php')->only('auth');
