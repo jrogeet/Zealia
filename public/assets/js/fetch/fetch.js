@@ -1,6 +1,7 @@
 // ************************************************** //
 // >             FETCH LATEST DATA                  < // 
 // ************************************************** //
+let intervalID;
 
 function fetchLatestData(params, updateFunction, interval = 5000) {
     function fetchData() {
@@ -33,7 +34,7 @@ function fetchLatestData(params, updateFunction, interval = 5000) {
     }
 
     fetchData(); // Initial fetch
-    setInterval(fetchData, interval); // Fetch every 'interval' milliseconds
+    intervalID = setInterval(fetchData, interval); // Fetch every 'interval' milliseconds
 }
 
 

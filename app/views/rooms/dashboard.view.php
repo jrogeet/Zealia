@@ -106,12 +106,12 @@
             <!-- TILES  -->
             <div id="dashboardTiles" class="flex justify-center max-h-[39.8rem] w-full overflow-y-auto overflow-x-hidden">         
                 <?php if(! empty($ascending_rooms)): ?>
-                    <div class="flex flex-wrap content-start w-full m-4 gap-9" id="rooms-ascending">
+                    <div class="flex-wrap content-start hidden w-full m-4 gap-9" id="rooms-ascending">
                         <!--  ROOMS  -->
                     </div>
                     <!-- added div as fix for descending being toggled as block -->
                     <!-- <div class="hidden h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden"> -->
-                    <div class="flex-wrap content-start hidden w-full m-4 gap-9"  id="rooms-descending">
+                    <div  class="flex flex-wrap content-start w-full m-4 gap-9" id="rooms-descending">
                         <!--  ROOMS  -->
                     </div>
                     <!-- </div> -->
@@ -128,23 +128,9 @@
                         </tr>
                     </thead>
 
-                    <tbody class="w-full h-40 min-h-40" id="t-rooms-ascending">
-                        <?php foreach($ascending_rooms as $rooms) { ?>
-                            <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['room_name'] ?></a></td>
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['prof_name'] ?></a></td>
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['room_code'] ?></a></td>
-                            </tr>
-                        <?php } ?>
+                    <tbody class="hidden w-full h-40 min-h-40" id="t-rooms-ascending">
                     </tbody>
-                    <tbody class="hidden w-full h-40 min-h-40" id="t-rooms-descending">
-                        <?php foreach($descending_rooms as $rooms) { ?>
-                            <tr class="h-40 max-h-[10rem] hover:bg-blue1">
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['room_name'] ?></a></td>
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['prof_name'] ?></a></td>
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=<?= $rooms['room_id']?>"><?= $rooms['room_code'] ?></a></td>
-                            </tr>
-                        <?php } ?>
+                    <tbody class="w-full h-40 min-h-40" id="t-rooms-descending">
                     </tbody>
                 </table>
            </div>
@@ -321,11 +307,14 @@
     </script>
 
     <script>
+
         document.addEventListener('DOMContentLoaded', function() {
             const rooms = <?php echo json_encode($ascending_rooms) ?>;
             // for ROOM GENERATIONS
             const roomsASC = document.getElementById('rooms-ascending');
             const roomsDESC = document.getElementById('rooms-descending');
+            const troomsASC = document.getElementById('t-rooms-ascending');
+            const troomsDESC = document.getElementById('t-rooms-descending');
             // for FILTERS
             const yrLevelDropdown = document.getElementById('yrLevel');
             const sectionDropdown = document.getElementById('section');
@@ -337,8 +326,12 @@
             // Displaying Rooms Ascending & Descending (based on time created)
             function displayRooms(rooms, filtering = false) {
                 if (filtering == true) {
+                    clearInterval(intervalID);
+                    console.log('interval cleared');
                     roomsASC.innerHTML = '';
                     roomsDESC.innerHTML = '';
+                    troomsASC.innerHTML = '';
+                    troomsDESC.innerHTML = '';
                     
                     if (rooms.length > 0) {
                         rooms.forEach(room => {
@@ -351,6 +344,15 @@
                                     </div>
                                     <span class="text-base text-grey2">${room.room_code}</span>
                                 </a>`;
+                            troomsASC.innertHTML += `
+                                <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
+                                    <td class="flex flex-col h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                        <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
+                                        <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                    </td>
+                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                </tr>`;
                         });
                         rooms.slice().reverse().forEach(room => {
                             roomsDESC.innerHTML += `
@@ -362,13 +364,26 @@
                                     </div>
                                     <span class="text-base text-grey2">${room.room_code}</span>
                                 </a>`;
+                                
+                            troomsDESC.innertHTML += `
+                                <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
+                                    <td class="flex flex-col h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                        <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
+                                        <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                    </td>
+                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                </tr>`;
                         });
                     } else {
                         roomsASC.innerHTML = '<p>No rooms found.</p>';
                         roomsDESC.innerHTML = '<p>No rooms found.</p>';
+                        troomsASC.innerHTML = '<p>No rooms found.</p>';
+                        troomsDESC.innerHTML = '<p>No rooms found.</p>';
                     }
                 } else {
                     let ascHTML = '';
+                    let tascHTML = '';
                     rooms.forEach((room) => {
                         ascHTML += `<a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                         <div>   
@@ -378,10 +393,22 @@
                                         </div>
                                         <span class="text-base text-grey2">${room.room_code}</span>
                                     </a>`;
+                        tascHTML += `
+                            <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
+                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                    <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
+                                    <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                </td>
+                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                            </tr>
+                        `;
                     });
                     roomsASC.innerHTML = ascHTML;
-                    
+                    troomsASC.innerHTML = tascHTML;
+
                     let descHTML = '';
+                    let tdescHTML = '';
                     rooms.slice().reverse().forEach((room) => {
                         descHTML += `<a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                         <div>   
@@ -391,8 +418,19 @@
                                         </div>
                                         <span class="text-base text-grey2">${room.room_code}</span>
                                     </a>`;
+                        tdescHTML += `
+                            <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
+                                <td class=" h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                    <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
+                                    <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                </td>
+                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                            </tr>
+                        `;
                     });
                     roomsDESC.innerHTML = descHTML;
+                    troomsDESC.innerHTML = tdescHTML;
                 }
             }
 
@@ -406,6 +444,20 @@
                 yrLevelDropdown.value = '';
                 sectionDropdown.value = '';
                 programDropdown.value = '';
+
+                console.log('interval started again');
+                <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
+                    fetchLatestData({
+                        "table": "rooms"
+                    }, displayRooms, 3000);
+                    
+                <?php elseif ($_SESSION['user']['account_type'] == 'student'): ?>
+                    fetchLatestData(
+                        {
+                            "table": "room_list", 
+                            "school_id": "<?= $_SESSION['user']['school_id'] ?>",
+                        }, displayRooms, 3000);
+                <?php endif; ?>
                 displayRooms(rooms);
             });
             
@@ -433,14 +485,35 @@
                 const selectedSection = sectionDropdown.value;
                 const selectedProgram = programDropdown.value;
 
-                const filteredRooms = rooms.filter(room => {
-                    const yearMatch = selectedYear ? room.year_level === selectedYear : true;
-                    const sectionMatch = selectedSection ? room.section === selectedSection : true;
-                    const programMatch = selectedProgram ? room.program === selectedProgram : true;
-                    return yearMatch && sectionMatch && programMatch;
-                });
+                // Check if all dropdowns are in their default state (empty or default values)
+                const isDefaultFilter = !selectedYear && !selectedSection && !selectedProgram;
 
-                displayRooms(filteredRooms, true);
+                if (isDefaultFilter) {
+                    console.log('interval started again');
+                    <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
+                        fetchLatestData({
+                            "table": "rooms"
+                        }, displayRooms, 3000);
+                        
+                    <?php elseif ($_SESSION['user']['account_type'] == 'student'): ?>
+                        fetchLatestData(
+                            {
+                                "table": "room_list", 
+                                "school_id": "<?= $_SESSION['user']['school_id'] ?>",
+                            }, displayRooms, 3000);
+                    <?php endif; ?>
+                } else {
+                    // Filter the rooms based on the selected values
+                    const filteredRooms = rooms.filter(room => {
+                        const yearMatch = selectedYear ? room.year_level === selectedYear : true;
+                        const sectionMatch = selectedSection ? room.section === selectedSection : true;
+                        const programMatch = selectedProgram ? room.program === selectedProgram : true;
+                        return yearMatch && sectionMatch && programMatch;
+                    });
+
+                    // Display the filtered rooms
+                    displayRooms(filteredRooms, true);
+                }
             }
 
             const createRoomForm =  document.getElementById('createRoomForm');
@@ -452,15 +525,17 @@
             <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
                 fetchLatestData({
                     "table": "rooms"
-                }, displayRooms);
+                }, displayRooms, 3000);
                 
             <?php elseif ($_SESSION['user']['account_type'] == 'student'): ?>
                 fetchLatestData(
                     {
                         "table": "room_list", 
                         "school_id": "<?= $_SESSION['user']['school_id'] ?>",
-                    }, displayRooms);
+                    }, displayRooms, 3000);
             <?php endif; ?>
+
+            console.log(intervalID);
         });
 
         

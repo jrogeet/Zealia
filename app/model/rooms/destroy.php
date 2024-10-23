@@ -13,25 +13,27 @@ $room = $db->query('select * from rooms where room_id = :id', [
 
 authorize($room['school_id'] === $currentUser);
 
-$prof_info = $db->query('select l_name, f_name from accounts where school_id = :id', [
-    'id' => $room['school_id']
-])->find();
+// TO DO: SEND NOTIFICATIONS TO EACH STUDENT IN THE ROOM
 
-$roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
+// $prof_info = $db->query('select l_name, f_name from accounts where school_id = :id', [
+//     'id' => $room['school_id']
+// ])->find();
 
-$type = json_encode([
-    "type" => "room_delete",
-    "room_name" => $room['room_name'],
-    "prof_name" => $room['prof_name'],
-    "prof_id" => $currentUser,
-    "room_id" => $room['room_id'],
-]);
+// $roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
 
-// NOTIFICATIONS
-$db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
-    'school_id' => $roomExistence['school_id'], 
-    'type' => $type,
-]);
+// $type = json_encode([
+//     "type" => "room_delete",
+//     "room_name" => $room['room_name'],
+//     "prof_name" => $room['prof_name'],
+//     "prof_id" => $currentUser,
+//     "room_id" => $room['room_id'],
+// ]);
+
+// // NOTIFICATIONS
+// $db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
+//     'school_id' => $roomExistence['school_id'], 
+//     'type' => $type,
+// ]);
 
 $db->query('delete from rooms where room_id = :id', [
     ':id' => $_POST['room_id']
