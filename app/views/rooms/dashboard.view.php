@@ -344,9 +344,9 @@
                                     </div>
                                     <span class="text-base text-grey2">${room.room_code}</span>
                                 </a>`;
-                            troomsASC.innertHTML += `
+                            troomsASC.innerHTML += `
                                 <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                    <td class="flex flex-col h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
                                         <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
                                         <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
                                     </td>
@@ -365,9 +365,9 @@
                                     <span class="text-base text-grey2">${room.room_code}</span>
                                 </a>`;
                                 
-                            troomsDESC.innertHTML += `
+                            troomsDESC.innerHTML += `
                                 <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                    <td class="flex flex-col h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
                                         <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
                                         <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
                                     </td>
