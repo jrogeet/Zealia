@@ -128,6 +128,7 @@
                             <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                 <div>   
                                     <h1 class="font-synemed text-2xl truncate"><?= $rooms['room_name'] ?></h1>
+                                    <h1 class="text-grey2 text-base">BS<?= strtoupper($rooms['program']) ?> <?= $rooms['year_level'][0] ?>-<?= $rooms['section'] ?></h1>
                                     <span class="text-grey2 text-base"><?= $rooms['prof_name'] ?></span>
                                 </div>
                                 <span class="text-grey2 text-base"><?= $rooms['room_code'] ?></span>
@@ -304,6 +305,7 @@
     </div>
 
     <?php view('partials/footer.view.php'); ?>
+    <script src="assets/js/shared-scripts.js"></script>
     <script>
         const search = document.getElementById('searchButt');
         const jc = document.getElementById('jcButt');
@@ -328,6 +330,8 @@
             }
         });
     </script>
-    <script src="assets/js/shared-scripts.js"></script>
+
+
+
 </body>
 </html>
