@@ -355,7 +355,8 @@
                                 </a>`;
                         });
                     } else {
-                        filteredResults.innerHTML = '<p>No rooms found.</p>';
+                        roomsASC.innerHTML = '<p>No rooms found.</p>';
+                        roomsDESC.innerHTML = '<p>No rooms found.</p>';
                     }
                 } else {
                     let ascHTML = '';
