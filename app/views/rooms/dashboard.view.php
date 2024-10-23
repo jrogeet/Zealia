@@ -70,35 +70,33 @@
             <!-- Filter -->
             <div class="hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="flex w-4/6">
-                    <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-full bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
-                        <input type="hidden" name="search" value="search">
-                        <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
-                        <!-- Year -->
-                        <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" name="year_level" id="yrLevel">
-                            <option class="bg-white2" value="">Year Level</option>
-                            <option class="bg-white2" value="1st year">1st Year</option>
-                            <option class="bg-white2" value="2nd year">2nd Year</option>
-                            <option class="bg-white2" value="3rd year">3rd Year</option>
-                            <option class="bg-white2" value="4th year">4th Year</option>
-                        </select>
-    
-                        <!-- Section -->
-                        <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" name="section" id="section">
-                            <option class="bg-white2" value="">Section</option>
-                        </select>
-    
-                        <!-- Program -->
-                        <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" name="program" id="program">
-                            <option class="bg-white2" value="">Program</option>
-                            <option class="bg-white2" value="cs">CS</option>
-                            <option class="bg-white2" value="it">IT</option>
-                        </select>
+                <div class="flex items-center h-[2.25rem] w-full bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
+                    <!-- Year -->
+                    <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" id="yrLevel">
+                        <option class="bg-white2" value="">Year Level</option>
+                        <option class="bg-white2" value="1st year">1st Year</option>
+                        <option class="bg-white2" value="2nd year">2nd Year</option>
+                        <option class="bg-white2" value="3rd year">3rd Year</option>
+                        <option class="bg-white2" value="4th year">4th Year</option>
+                    </select>
 
-                        
-                        <button type="submit" class="mx-auto bg-blue3 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">SUBMIT</button>
+                    <!-- Section -->
+                    <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" id="section">
+                        <option class="bg-white2" value="">Section</option>
+                        <option class="bg-white2" value="A">A</option>
+                        <option class="bg-white2" value="B">B</option>
+                        <option class="bg-white2" value="C">C</option>
+                    </select>
 
-                        <button type="submit" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">Clear Filters</button>
-                    </form>
+                    <!-- Program -->
+                    <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" id="program">
+                        <option class="bg-white2" value="">Program</option>
+                        <option class="bg-white2" value="cs">CS</option>
+                        <option class="bg-white2" value="it">IT</option>
+                    </select>
+
+                    <button id="clearFilters" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">Clear Filters</button>
+                </div>
                 </div>
             </div>
 
@@ -109,31 +107,11 @@
                 <?php if(! empty($ascending_rooms)): ?>
                     <div class="flex flex-wrap content-start w-full m-4 gap-9" id="rooms-ascending">
                         <!--  ROOMS  -->
-                        <?php foreach($ascending_rooms as $rooms) { ?>
-                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
-                                <div>   
-                                    <h1 class="text-2xl truncate font-synemed"><?= $rooms['room_name'] ?></h1>
-                                    <h1 class="text-base text-grey2">BS<?= strtoupper($rooms['program']) ?> <?= $rooms['year_level'][0] ?>-<?= $rooms['section'] ?></h1>
-                                    <span class="text-base text-grey2"><?= $rooms['prof_name'] ?></span>
-                                </div>
-                                <span class="text-base text-grey2"><?= $rooms['room_code'] ?></span>
-                            </a>
-                        <?php } ?>
                     </div>
                     <!-- added div as fix for descending being toggled as block -->
                     <!-- <div class="hidden h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden"> -->
                     <div class="flex-wrap content-start hidden w-full m-4 gap-9"  id="rooms-descending">
                         <!--  ROOMS  -->
-                        <?php foreach($descending_rooms as $rooms) { ?>
-                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
-                                <div>   
-                                    <h1 class="text-2xl truncate font-synemed"><?= $rooms['room_name'] ?></h1>
-                                    <h1 class="text-base text-grey2">BS<?= strtoupper($rooms['program']) ?> <?= $rooms['year_level'][0] ?>-<?= $rooms['section'] ?></h1>
-                                    <span class="text-base text-grey2"><?= $rooms['prof_name'] ?></span>
-                                </div>
-                                <span class="text-base text-grey2"><?= $rooms['room_code'] ?></span>
-                            </a>
-                        <?php } ?>
                     </div>
                     <!-- </div> -->
             </div>
@@ -333,7 +311,130 @@
     </script>
 
     <script>
+        // Loads as soon as the page does
+        document.addEventListener('DOMContentLoaded', function() {
+            const rooms = <?php echo json_encode($ascending_rooms) ?>;
+            // for ROOM GENERATIONS
+            const roomsASC = document.getElementById('rooms-ascending');
+            const roomsDESC = document.getElementById('rooms-descending');
+            // for FILTERS
+            const yrLevelDropdown = document.getElementById('yrLevel');
+            const sectionDropdown = document.getElementById('section');
+            const programDropdown = document.getElementById('program');
+            const filteredResults = document.getElementById('filteredResults');
+            const clearFiltersBtn = document.getElementById('clearFilters');
+            
+            
+            // Displaying Rooms Ascending & Descending (based on time created)
+            function displayRooms(rooms, filtering = false) {
+                if (filtering == true) {
+                    roomsASC.innerHTML = '';
+                    roomsDESC.innerHTML = '';
+                    
+                    if (rooms.length > 0) {
+                        rooms.forEach(room => {
+                            roomsASC.innerHTML += `
+                                <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                    <div>   
+                                        <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
+                                        <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                        <span class="text-base text-grey2">${room.prof_name}</span>
+                                    </div>
+                                    <span class="text-base text-grey2">${room.room_code}</span>
+                                </a>`;
+                        });
+                        rooms.slice().reverse().forEach(room => {
+                            roomsDESC.innerHTML += `
+                                <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                    <div>   
+                                        <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
+                                        <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                        <span class="text-base text-grey2">${room.prof_name}</span>
+                                    </div>
+                                    <span class="text-base text-grey2">${room.room_code}</span>
+                                </a>`;
+                        });
+                    } else {
+                        filteredResults.innerHTML = '<p>No rooms found.</p>';
+                    }
+                } else {
+                    let ascHTML = '';
+                    rooms.forEach((room) => {
+                        ascHTML += `<a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                        <div>   
+                                            <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
+                                            <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                            <span class="text-base text-grey2">${room.prof_name}</span>
+                                        </div>
+                                        <span class="text-base text-grey2">${room.room_code}</span>
+                                    </a>`;
+                    });
+                    roomsASC.innerHTML = ascHTML;
+                    
+                    let descHTML = '';
+                    rooms.slice().reverse().forEach((room) => {
+                        descHTML += `<a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                        <div>   
+                                            <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
+                                            <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                            <span class="text-base text-grey2">${room.prof_name}</span>
+                                        </div>
+                                        <span class="text-base text-grey2">${room.room_code}</span>
+                                    </a>`;
+                    });
+                    roomsDESC.innerHTML = descHTML;
+                }
+            }
+
+            // Event listeners for dropdowns
+            yrLevelDropdown.addEventListener('change', filterRooms);
+            sectionDropdown.addEventListener('change', filterRooms);
+            programDropdown.addEventListener('change', filterRooms);
+
+            // Clear filters button
+            clearFiltersBtn.addEventListener('click', function() {
+                yrLevelDropdown.value = '';
+                sectionDropdown.value = '';
+                programDropdown.value = '';
+                displayRooms(rooms);
+            });
+            
+            displayRooms(rooms);
         
+            // FILTERING ROOMS:
+            function populateSections() {
+                const sections = [...new Set(rooms.map(room => room.section))]; // Extract unique sections
+                
+                sectionDropdown.innerHTML = `<option class="bg-white2" value="">Section</option>`;
+                
+                sections.forEach(section => {
+                    const option = document.createElement('option');
+                    option.value = section;
+                    option.textContent = section;
+                    option.classList.add('bg-white2');
+                    sectionDropdown.appendChild(option);
+                });
+            }
+
+            populateSections();
+
+            function filterRooms() {
+                const selectedYear = yrLevelDropdown.value;
+                const selectedSection = sectionDropdown.value;
+                const selectedProgram = programDropdown.value;
+
+                const filteredRooms = rooms.filter(room => {
+                    const yearMatch = selectedYear ? room.year_level === selectedYear : true;
+                    const sectionMatch = selectedSection ? room.section === selectedSection : true;
+                    const programMatch = selectedProgram ? room.program === selectedProgram : true;
+                    return yearMatch && sectionMatch && programMatch;
+                });
+
+                displayRooms(filteredRooms, true);
+            }
+        
+        });
+
     </script>
 
 </body>
