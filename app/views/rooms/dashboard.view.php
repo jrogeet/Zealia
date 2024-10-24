@@ -23,10 +23,10 @@
                     </div>
 
                     <!-- search -->
-                    <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg pr-4 overflow-hidden">
+                    <form id="searchRoomForm" method="POST"  class="flex items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
-                        <input class="w-5/6 h-full pl-2 bg-white2" type="text" name="search_input" placeholder="Search Room">
+                        <input id="searchInput"  class="w-5/6 h-full pl-2 bg-white2" type="text" name="search_input" placeholder="Search Room">
                         <button type="submit" class="w-1/6 bg-center bg-no-repeat bg-contain border bg-search h-5/6 border-l-grey2"></button>
                     </form>
 
@@ -535,7 +535,78 @@
                     }, displayRooms, 3000);
             <?php endif; ?>
 
-            console.log(intervalID);
+            const searchForm = document.getElementById('searchRoomForm');
+                
+            // searchForm.addEventListener('submit', function(e) {
+            //     e.preventDefault();
+            //     const searchInput = document.getElementById('searchInput');
+                
+            //     if (searchInput || searchInput !== '') {
+            //         const searchTerm = searchInput.value.toLowerCase();
+            //         if (searchTerm) {
+            //             fetch(`/api/search?search=${searchTerm}`, {
+            //                 method: 'POST',
+            //                 body: new URLSearchParams('searchInput=' + searchTerm)
+            //             })
+            //             .then(res => {
+            //                 res.json()
+            //                 console.log('first then:', res);
+            //             })
+            //             .then(data => console.log('second then', res))
+            //             .catch(e => console.error('Error: ' + e))
+            //         } else {
+            //             window.isSearching = false;
+            //             displayRooms(rooms);
+            //         }
+            //     }
+            // });
+
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const searchInput = document.getElementById('searchInput');
+                
+                if (searchInput || searchInput !== '') {
+                    const searchTerm = searchInput.value.toLowerCase();
+                    if (searchTerm) {
+                        fetch(`/api/search?search=${searchTerm}`, {
+                            method: 'POST',
+                            body: new URLSearchParams('searchInput=' + searchTerm)
+                        })
+                        .then(res => res.json())  // Assuming the response is JSON
+                        .then(data => {
+                            console.log('second then', data);
+
+                            // Update the UI here
+                            // Example: Let's say `displayRooms` is a function to display search results.
+                            if (data) {
+                                clearInterval(intervalID);
+                                console.log('data type:', typeof(data));
+                                console.log('data:',data);
+                                displayRooms(data);  // Update your UI with the fetched data
+                            } else {
+                                // displayNoResultsMessage();  // Handle cases where there are no results
+                                console.log('no data.rooms');
+                            }
+                        })
+                        .catch(e => {
+                            console.error('Error: ' + e);
+                            // Optionally, display an error message in the UI
+                            displayErrorMessage('Something went wrong, please try again.');
+                        });
+                    } else {
+                        window.isSearching = false;
+                        displayRooms(rooms);  // Display all rooms when there's no search term
+                    }
+                }
+            });
+
+
+            // function searching(typed) {
+            //     // console.log(typed);
+
+            // }
+
+
         });
 
         
@@ -587,7 +658,9 @@
                     // Handle the response (e.g., show success message, update UI)
                 })
                 .catch(error => console.error('Fetch Error:', error));
-            });  
+            });
+
+            
         }
     </script>
 </body>

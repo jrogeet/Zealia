@@ -21,8 +21,6 @@ class ApiController
     public function handleGet($action, $params = [])
     {
         switch ($action) {
-            case 'search':
-                return $this->search($params);
             case 'getLatestData':
                 return $this->getLatestData($params);
             case 'getMoreContent':
@@ -35,6 +33,8 @@ class ApiController
     public function handlePost($action, $params = [])
     {
         switch ($action) {
+            case 'search':
+                return $this->search($params);
             case 'submitForm':
                 return $this->submitForm($params);
             case 'toggleLike':
@@ -46,28 +46,27 @@ class ApiController
 
     public function search($params)
     {
-        $searchTerm = $_POST['search_input'] ?? '';
-        $yearLevel = $_POST['year_level'] ?? '';
-        $section = $_POST['section'] ?? '';
-        $program = $_POST['program'] ?? '';
-        
-        $query = "SELECT room_id, room_name, room_code, year_level, section, program FROM rooms WHERE (room_name LIKE ? OR room_code LIKE ?)";
-        $params = ["%$searchTerm%", "%$searchTerm%"];
+        $searchTerm = $params['search'] ?? '';
+        // echo $params['search'];
 
-        if ($yearLevel) {
-            $query .= " AND year_level = ?";
-            $params[] = $yearLevel;
-        }
-        if ($section) {
-            $query .= " AND section = ?";
-            $params[] = $section;
-        }
-        if ($program) {
-            $query .= " AND program = ?";
-            $params[] = $program;
+        $results = $this->db->query('SELECT * FROM rooms WHERE room_name LIKE :searchTerm OR room_code LIKE :searchTerm', [
+            'searchTerm' => '%' . $searchTerm . '%',
+        ])->findAll();
+
+        foreach ($results as &$result) {
+            $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
+                'school_id'=> $result['school_id'],
+            ])->find();
+
+            $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
+            unset($profInfo['f_name']); unset($profInfo['l_name']);
+            if (!empty($profInfo)) {
+                $result = array_merge($result, $profInfo);
+            }
         }
 
-        $results = $this->db->query($query, $params)->fetchAll();
+        // echo 'Results:';
+        // dd($results);
 
         header('Content-Type: application/json');
         echo json_encode($results);
