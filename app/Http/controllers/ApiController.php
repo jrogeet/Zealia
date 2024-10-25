@@ -211,28 +211,30 @@ private function getLatestData($params)
                 unset($room); // Unset reference to avoid accidental modifications later
             }
         } elseif (isset($table)) {
-            foreach ($latestData as &$room) {
-                $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
-                    'school_id'=> $room['school_id'],
-                ])->find();
-
-                $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
-                unset($profInfo['f_name']); unset($profInfo['l_name']);
-                if (!empty($profInfo)) {
-                    $room = array_merge($room, $profInfo);
-                }
-
-                if ($table == 'room_list') {
-                    $roomInfo = $this->db->query('SELECT * FROM rooms WHERE room_id = :room_id', [
-                        'room_id' => $room['room_id'],
+            if ($table ==  'rooms' || $table == 'room_list') {
+                foreach ($latestData as &$room) {
+                    $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
+                        'school_id'=> $room['school_id'],
                     ])->find();
-
-                    if (!empty($roomInfo)) {
-                        $room = array_merge($room, $roomInfo);
+    
+                    $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
+                    unset($profInfo['f_name']); unset($profInfo['l_name']);
+                    if (!empty($profInfo)) {
+                        $room = array_merge($room, $profInfo);
+                    }
+    
+                    if ($table == 'room_list') {
+                        $roomInfo = $this->db->query('SELECT * FROM rooms WHERE room_id = :room_id', [
+                            'room_id' => $room['room_id'],
+                        ])->find();
+    
+                        if (!empty($roomInfo)) {
+                            $room = array_merge($room, $roomInfo);
+                        }
                     }
                 }
+                unset($room);
             }
-            unset($room);
         }
 
 

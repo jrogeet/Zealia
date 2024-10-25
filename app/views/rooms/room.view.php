@@ -99,11 +99,11 @@
                     </form>
                 </div>
     
-                <button onClick="show('delRoomConfirmation');" class="flex items-center h-8 p-2 mr-2 text-center border rounded bg-red1 font-synereg text-white1 border-black1">Delete Room</button>
+                <button onClick="show('delRoomConfirmation'); disableScroll();" class="flex items-center h-8 p-2 mr-2 text-center border rounded bg-red1 font-synereg text-white1 border-black1">Delete Room</button>
             </div>
 
             <!-- delete room confirmation modal -->
-            <div id="delRoomConfirmation" class="fixed left-0 z-50 justify-center hidden w-screen h-screen bg-glassmorphism -top-24">
+            <div id="delRoomConfirmation" class="fixed left-0 z-50 justify-center hidden w-screen h-screen justify-self-center bg-glassmorphism -top-24">
                 <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
                     <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
                         <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Confirmation</span>
@@ -140,7 +140,7 @@
                             <span class="text-lg font-synemed">students.</span>
                         </div>
                         <!-- Student Names -->
-                        <div id="roomStudentList" class="flex flex-col overflow-y-auto overflow-x-hidden rounded-b-xl">
+                        <div id="roomStudentList" class="flex flex-col overflow-x-hidden overflow-y-auto rounded-b-xl">
 
                         </div>
 
@@ -178,28 +178,9 @@
                             </div>
                     
                         <!-- Groups Container -->
-                        <div class="flex flex-wrap w-full h-auto p-6 gap-y-5 justify-evenly">
+                        <div id="groupsContainer" class="flex flex-wrap w-full h-auto p-6 gap-y-5 justify-evenly">
                             <!-- Each Boxes -->
-                            <?php foreach ($decodedGroup as $index => $group) {?>
-                                <a href="/view-group?room_id=<?= $room_info['room_id'] ?>&group=<?= $index ?>" class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
-                                    <!-- Group Head -->
-                                    <div class="flex items-center justify-center w-full h-10 bg-black1 ">
-                                        <span class="text-4xl font-synemed text-white1">Group</span>
-                                        <span class="ml-2 text-4xl font-synebold text-orange1"><?= $index + 1 ?>:</span>
-                                    </div>
-    
-                                    <!-- Group Body -->
-                                    <div class="w-full ">
-                                        <!-- Each Member -->
-                                        <?php foreach ($group as $member) {?>
-                                            <div class="h-[6.22875rem] w-full flex">
-                                                <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-synemed"><?= $member[0] ?></span>
-                                                <span class="w-6/12  border border-black1 <?php if($member[2] === 'Leader') { echo 'text-orange1'; } else { echo 'text-blue3'; }?> flex justify-center items-center p-1 font-synemed text-xl"><?= $member[2] ?></span>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-                                </a>
-                            <?php }?>
+
                         </div>
                     </div>
 
@@ -356,6 +337,8 @@
 
     <!-- FETCHING -->
     <script>
+        let groupChecker = null;
+
         document.addEventListener('DOMContentLoaded', function() {
             const roomStudentList = document.getElementById('roomStudentList');
             const roomJoinRequest = document.getElementById('roomJoinRequest');
@@ -366,25 +349,76 @@
                 "room_id": <?= $_GET['room_id']  ?>,
                 "currentPage": "room",
             }, displayStudents, 3000);
+
+            fetchLatestData ({
+                "table": "room_groups",
+                "room_id": <?= $_GET['room_id']  ?>,
+            }, displayGroups, 3000);
         });
+
+
+
+        function displayGroups(groupsList){
+            const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
+
+            // console.log('groups', typeof(parsedGroupsList));
+            // console.log('groups', parsedGroupsList);
+
+            if (groupChecker === null || JSON.stringify(groupChecker) !== JSON.stringify(parsedGroupsList)){
+                // console.log('not equal');
+                groupChecker = parsedGroupsList;
+                const groupsContainer = document.getElementById('groupsContainer');
+                
+                groupsContainer.innerHTML = '';
+
+                parsedGroupsList.forEach((group, index) => {
+                    groupsContainer.innerHTML += `
+                                <a href="/view-group?room_id=<?= $room_info['room_id'] ?>&group=<?= $index ?>" class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
+                                    <!-- Group Head -->
+                                    <div class="flex items-center justify-center w-full h-10 bg-black1 ">
+                                        <span class="text-4xl font-synemed text-white1">Group</span>
+                                        <span class="ml-2 text-4xl font-synebold text-orange1">${index + 1}:</span>
+                                    </div>
+    
+                                    <!-- Group Body -->
+                                    <div id="groupBody${index}" class="w-full ">
+                                        <!-- Each Member -->
+
+                                    </div>
+                                </a>
+                    `;
+
+                    // add members to group body
+                    group.forEach(member => {
+                        document.getElementById(`groupBody${index}`).innerHTML += `
+                                <div class="h-[6.22875rem] w-full flex">
+                                    <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-synemed">${member[0]}</span>
+                                    <span class="w-6/12  border border-black1 ${member[2] === 'Leader' ? 'text-orange1' : 'text-blue3'} flex justify-center items-center p-1 font-synemed text-xl">${member[2]}</span>
+                                </div>
+                    `;
+                    });
+                });
+             } else {
+                // console.log('equal');
+             }
+        }
 
         function displayStudents(studentsList){
             roomStudentList.innerHTML = '';
             roomJoinRequest.innerHTML = '';
 
-
             studentsList.room_list.forEach(student => {
                 roomStudentList.innerHTML += `
                     <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-t border-black1 p-4">
-                        <a href="#" class="text-base font-synereg">${student.l_name} ${student.f_name}</a>
-                        <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll();">
+                        <a href="#" class="text-base font-synereg">${student.l_name}, ${student.f_name}</a>
+                        <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll(); clearInterval(intervalID);">
                     </div>
 
-                    <div id="kickConfirmation${student.school_id}" class="fixed left-0 justify-center hidden w-screen h-screen pt-56 bg-glassmorphism top-20">
-                        <div class="flex flex-col h-40 border rounded-t-lg bg-white2 w-80 border-black1">
+                    <div id="kickConfirmation${student.school_id}"  class="fixed z-50 justify-center hidden w-screen h-screen -left-20 bg-glassmorphism -top-24">
+                        <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
                             <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
                                 <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Confirmation</span>
-                                <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll();">X</button>
+                                <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll(); fetchLatestData({'table1': 'room_list','table2': 'join_room_requests','room_id': <?= $_GET['room_id']  ?>,'currentPage': 'room',}, displayStudents, 3000);">X</button>
                             </div>
                             <form action="/room" method="POST" class="flex flex-col items-center p-2 h-60">
                                 <input type="hidden" name="room_id" value="${student.room_id}">
@@ -417,7 +451,7 @@
                 `;
             });
 
-            console.log(studentsList);
+            // console.log(studentsList);
         }
         
     </script>

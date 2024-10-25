@@ -72,6 +72,8 @@
             <div class="hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="flex w-4/6">
                 <div class="flex items-center h-[2.25rem] w-full bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
+                    <p class="flex text-grey1 font-synemed text-lg">Search by Filter:</p>
+
                     <!-- Year -->
                     <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" id="yrLevel">
                         <option class="bg-white2" value="">Year Level</option>
