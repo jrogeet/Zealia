@@ -1,5 +1,5 @@
 <?php view('partials/head.view.php'); ?>
-<body class="bg-white1 block w-screen h-fit overflow-x-hidden">
+<body class="block w-screen overflow-x-hidden bg-white1 h-fit">
     <?php view('partials/nav.view.php')?>
 
     <?php 
@@ -23,19 +23,14 @@
                 }
                 if ($bool === true) {
                     $members = $container;
-                }
-                
+                }  
             }
         }
-        
-
     ?>
     
-    <?php //dd($stu_info) ?>
-    <?php //dd($decodedGroup) ?>
     <main class="relative block left-1/2 transform -translate-x-1/2 h-[23.2rem] w-full top-32">
         <?php if (isset($errors['room_name'])) : ?>
-            <p class="h-12 flex justify-center items-center font-synemed text-red1 text-2xl"><?= $errors['room_name'] ?></p>
+            <p class="flex items-center justify-center h-12 text-2xl font-synemed text-red1"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
 
         <!-- Add task modal -->
@@ -43,151 +38,118 @@
             <div class="relative block text-center left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/3 w-[40%] h-fit bg-white1 border border-grey1 shadow-xl rounded-xl p-2">
                 
                 <div class="flex w-full">                        
-                    <h1 class="block font-synebold text-xl text-grey2 text-left ml-2 mt-2 mx-auto">Add Task</h1>
-                    <button onclick="hide('taskModal'),clearModal()" class="mx-auto mr-2 text-3xl pt-1 pr-2">X</button>
+                    <h1 class="block mx-auto mt-2 ml-2 text-xl text-left font-synebold text-grey2">Add Task</h1>
+                    <button onclick="hide('taskModal'),clearModal()" class="pt-1 pr-2 mx-auto mr-2 text-3xl">X</button>
                 </div>
 
                 <!-- TODO: ADD VALUES INTO JSON -->
                     <div class="flex w-full">                        
-                        <input class="block p-2 w-1/2 border-b border-black bg-white1 mx-auto ml-2 my-2 font-synemed text-2xl" placeholder="Task Name" name="task" id="taskName" required>
-                        <input type="date" class="block p-2 w-1/4 border-b border-black bg-white1 mx-auto mr-2 my-2 font-synemed" placeholder="Date" name="date" id="taskDate">
+                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl border-b border-black bg-white1 font-synemed" placeholder="Task Name" name="task" id="taskName" required>
+                        <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-synemed" placeholder="Date" name="date" id="taskDate">
                     </div>
                     
                     <div class="flex w-full">                        
-                        <input class="block p-2 w-1/2 border-b border-black bg-white1 mx-auto ml-2 my-2 font-synemed ml-2 text-base text-grey2" placeholder="Description" name="info" id="taskInfo">
-                        <select class="block p-2 w-1/4 border-b border-black bg-white1 mx-auto mr-2 my-2 font-synemed text-grey2" name="destination" id="taskDestination">
+                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base border-b border-black bg-white1 font-synemed text-grey2" placeholder="Description" name="info" id="taskInfo">
+                        <select class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-synemed text-grey2" name="destination" id="taskDestination">
                             <option class="text-grey2" value="todo">To do</option>
                             <option class="text-grey2" value="wip">Work in Progress</option>
                             <option class="text-grey2" value="done">Done</option>
                         </select>
                     </div>
 
-                    <button type="submit" onclick="addTask()" class="bg-green1 text-black1 p-0 px-10 mt-10 mb-4 rounded-lg font-synebold text-lg">Add</button>
+                    <button type="submit" onclick="addTask()" class="p-0 px-10 mt-10 mb-4 text-lg rounded-lg bg-green1 text-black1 font-synebold">Add</button>
 
             </div>
         </div>
         
 
         <!-- HEADER -->
-        <div id="roomName" class="relative left-1/2 transform -translate-x-1/2 w-10/12 flex justify-between items-center h-fit mb-6">
+        <div id="roomName" class="relative flex items-center justify-between w-10/12 mb-6 transform -translate-x-1/2 left-1/2 h-fit">
             <div class="max-w-[64rem] flex flex-col truncate ">
-                <span class="font-synebold text-3xl text-black1 mr-1"><?= $room_info['room_name'] ?></span>
-                <span class="font-synemed text-2xl text-grey2 mr-1">Room Code: <?= $room_info['room_code'] ?></span>
-                <span class="font-synereg text-xl text-grey2 mr-1 mb-2">Instructor: <?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></span>
+                <span class="mr-1 text-3xl font-synebold text-black1"><?= $room_info['room_name'] ?></span>
+                <span class="mr-1 text-2xl font-synemed text-grey2">Room Code: <?= $room_info['room_code'] ?></span>
+                <span class="mb-2 mr-1 text-xl font-synereg text-grey2">Instructor: <?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></span>
             </div>
             
             <!-- gear button for prof -->
             <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
-                <button class="h-10 w-10 flex justify-center items-center rounded mr-2 border border-black1" onClick="show('changeRoomNameInput'); hide('roomName');">
-                    <img class="h-8 w-8" src="assets/images/icons/settings.png">
+                <button class="flex items-center justify-center w-10 h-10 mr-2 border rounded border-black1" onClick="show('changeRoomNameInput'); hide('roomName');">
+                    <img class="w-8 h-8" src="assets/images/icons/settings.png">
                 </button>
             
             <!-- prof name for student -->
             <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
-                <h1 class="font-synebold text-3xl text-black1"><?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></h1>
+                <h1 class="text-3xl font-synebold text-black1"><?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></h1>
             <?php endif; ?>
         </div>
 
         <!-- FOR PROF -->
         <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
             <!-- HEADER.Change room name menu -->
-            <div id="changeRoomNameInput" class="relative hidden left-1/2 transform -translate-x-1/2 h-fit items-center justify-between w-10/12 mt-10">
-                <div class="w-fit flex justify-evenly items-center ">
-                    <button class="bg-back bg-contain bg-no-repeat h-8 w-8 rounded mx-2" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
+            <div id="changeRoomNameInput" class="relative items-center justify-between hidden w-10/12 mt-10 transform -translate-x-1/2 left-1/2 h-fit">
+                <div class="flex items-center w-fit justify-evenly ">
+                    <button class="w-8 h-8 mx-2 bg-no-repeat bg-contain rounded bg-back" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
     
                     <form method="POST" action="/room" class="flex w-[33rem] justify-between items-center">
                         <input type="hidden" name="_method" value="PATCH">
                         <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
                         <input type="hidden" name="edit" value="edit">
-                        <input type="text" name="room_name"  class="h-10 w-96 border border-black1 rounded-lg px-4" placeholder="Change room name: <?= $room_info['room_name'] ?>" required>
-                        <button class="bg-orange1 h-8 font-synemed border border-black1 rounded p-1" type="submit">Confirm Change</button>
+                        <input type="text" name="room_name"  class="h-10 px-4 border rounded-lg w-96 border-black1" placeholder="Change room name: <?= $room_info['room_name'] ?>" required>
+                        <button class="h-8 p-1 border rounded bg-orange1 font-synemed border-black1" type="submit">Confirm Change</button>
                     </form>
                 </div>
     
-                <button onClick="show('delRoomConfirmation');" class="bg-red1 h-8 p-2 mr-2 flex items-center font-synereg text-white1 text-center border border-black1 rounded">Delete Room</button>
+                <button onClick="show('delRoomConfirmation');" class="flex items-center h-8 p-2 mr-2 text-center border rounded bg-red1 font-synereg text-white1 border-black1">Delete Room</button>
             </div>
 
             <!-- delete room confirmation modal -->
-            <div id="delRoomConfirmation" class="hidden z-50 bg-glassmorphism fixed -top-24 left-0 h-screen w-screen justify-center">
-                <div class="bg-white2 relative flex flex-col h-48 w-80 border border-black1 top-1/3 rounded-t-lg">
-                    <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
-                        <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>
-                        <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('delRoomConfirmation'); enableScroll();">X</button>
+            <div id="delRoomConfirmation" class="fixed left-0 z-50 justify-center hidden w-screen h-screen bg-glassmorphism -top-24">
+                <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
+                    <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
+                        <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Confirmation</span>
+                        <button class="w-1/5 h-full rounded bg-red1" onClick="hide('delRoomConfirmation'); enableScroll();">X</button>
                     </div>
                     <form method="POST" action="/room" class="flex flex-col items-center h-64 p-2">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
 
-                        <span class="font-synebold text-red1 text-2xl">Delete:</span>
-                        <span class="font-synemed text-xl">Room name</span>
-                        <span class="font-synereg text-lg">FOREVER?</span>
-                        <button type="submit" class="bg-red1 p-1 mt-2 text-white1 border border-black1 rounded">Delete Room Forever</button>
+                        <span class="text-2xl font-synebold text-red1">Delete:</span>
+                        <span class="text-xl font-synemed">Room name</span>
+                        <span class="text-lg font-synereg">FOREVER?</span>
+                        <button type="submit" class="p-1 mt-2 border rounded bg-red1 text-white1 border-black1">Delete Room Forever</button>
                     </form>
                 </div>
             </div>
 
             <!-- BODY -->
-            <div class="relative left-1/2 transform -translate-x-1/2 w-10/12 flex justify-between items-center h-fit my-6">
+            <div class="relative flex items-center justify-between w-10/12 my-6 transform -translate-x-1/2 left-1/2 h-fit">
                 <!-- LEFT BOX -->
                 <div class="h-[37.5rem] w-[24%] border border-black1 rounded-xl overflow-hidden">
                     <!-- Tabs -->
                     <div class="flex">
-                        <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-1/2 font-synereg text-white1">Students</button>
-                        <button id="reqListTab" onClick="show('roomJoinRequest'); hide('roomStudentList'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-1/2 font-synereg text-black1">Join Requests</button>
+                        <button id="stuListTab" onClick="show('studentListContainer'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-1/2 font-synereg text-white1">Students</button>
+                        <button id="reqListTab" onClick="show('roomJoinRequest'); hide('studentListContainer'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-1/2 font-synereg text-black1">Join Requests</button>
                     </div>
 
                     <!-- Students List -->
-                    <div id="roomStudentList" class="h-[34.5rem] flex flex-col overflow-y-auto overflow-x-hidden rounded-b-xl">
+                    <div id="studentListContainer" class="h-[34.5rem] flex flex-col overflow-y-auto overflow-x-hidden rounded-b-xl">
                         <!-- Student Count -->
-                        <div class="h-12 w-full p-4 flex justify-center items-center border-t border-black1">
-                            <span class="font-synemed text-lg">Total: </span>
-                            <span class="font-synemed text-blue3 text-xl mx-1"><?= count($stu_info) ?> </span>
-                            <span class="font-synemed text-lg">students.</span>
+                        <div class="flex items-center justify-center w-full h-12 p-4 border-t border-black1">
+                            <span class="text-lg font-synemed">Total: </span>
+                            <span class="mx-1 text-xl font-synemed text-blue3"><?= count($stu_info) ?> </span>
+                            <span class="text-lg font-synemed">students.</span>
+                        </div>
+                        <!-- Student Names -->
+                        <div id="roomStudentList" class="flex flex-col overflow-y-auto overflow-x-hidden rounded-b-xl">
+
                         </div>
 
-                        <!-- Student Names -->
-                        <?php foreach($stu_info as $student): ?>
-                            <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-t border-black1 p-4">
-                                <a href="#" class="text-base font-synereg"><?= $student['l_name'], ", ", $student['f_name'] ?></a>
-                                <img src="assets/images/icons/cross.png" class="h-6 w-6 cursor-pointer" onClick="show('kickConfirmation<?= $student['school_id'] ?>'); disableScroll();">
-                            </div>
 
-                            <div id="kickConfirmation<?= $student['school_id'] ?>" class="hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-                                <div class="bg-white2 flex flex-col h-40 w-80 border border-black1 rounded-t-lg">
-                                    <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
-                                        <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Confirmation</span>
-                                        <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('kickConfirmation<?= $student['school_id'] ?>'); enableScroll();">X</button>
-                                    </div>
-                                    <form action="/room" method="POST" class="flex flex-col items-center h-60 p-2">
-                                        <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
-                                        <span class="font-synebold text-red1 text-2xl">Remove:</span>
-                                        <span class="font-synemed text-xl"><?= $student['l_name'], ", ", $student['f_name']?></span>
-                                        <span class="font-synereg text-lg">from this room?</span>
-                                        <button type="submit" name="delete" value="<?php echo implode(',', [$student['school_id'], $_GET['room_id']]); ?>"  class="bg-red1 w-16 text-white1 border border-black1 rounded">Confirm</button>
-                                    </form>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
                     </div>
 
                     <!-- Requests List -->
-                    <div id="roomJoinRequest" class="hidden h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
-                        <?php foreach($requests as $request): ?>
-                            <div class="flex justify-between items-center h-20 w-full px-2 bg-blue1 border border-black1">
-                                <div class="w-52 flex flex-col">
-                                    <a href="#" class="font-synereg text-base"><?= $request['l_name'], ", ", $request['f_name']?></a>
-                                    <a href="#" class="font-synereg text-sm text-grey2"><?= $request['school_id'] ?></a>
-                                    <a href="#" class="truncate">
-                                        <span class="font-synereg text-sm text-grey2"><?= $request['email'] ?></span>
-                                    </a>
-                                </div>
+                    <div id="roomJoinRequest" class="hidden flex-col h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
 
-                                <form method="POST" action="/room" class="flex h-6 w-16 justify-evenly">
-                                    <button class="bg-check bg-cover h-6 w-6 cursor-pointer" type="submit"  name="accept" value="<?php echo implode(',', [$request['school_id'], $_GET['room_id']]); ?>"> </button>
-                                    <button class="bg-cross bg-cover h-6 w-6 cursor-pointer" type="submit" name="decline" value="<?php echo implode(',', [$request['school_id'], $_GET['room_id']]); ?>"> </button>
-                                </form>
-                            </div>
-                        <?php endforeach; ?>
                     </div>
 
                     
@@ -197,41 +159,41 @@
                 <div class="shadow-inside1 h-[37.5rem] w-[75%] rounded-xl flex justify-center items-center">
                     <?php if($roomHasGroup):?>
                         <!-- content -->
-                        <div class=" h-full w-full flex flex-col items-center overflow-y-auto">
+                        <div class="flex flex-col items-center w-full h-full overflow-y-auto ">
                             <!-- HEADER -->
-                            <div class="h-20 w-full flex items-center p-6">
-                                <span class="w-4/5 font-synebold text-4xl">GROUPS</span>
+                            <div class="flex items-center w-full h-20 p-6">
+                                <span class="w-4/5 text-4xl font-synebold">GROUPS</span>
                         
                                 <!-- downloadPDF groups btn -->
-                                <button onclick="downloadPDF()" class="bg-white2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg">Print Groups</button>
+                                <button onclick="downloadPDF()" class="flex items-center justify-center h-10 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1">Print Groups</button>
                                 <!-- edit groups btn -->
-                                <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="bg-blue2 h-10 w-36 flex ml-4 items-center justify-center font-synereg text-lg border border-black1 rounded-lg">Edit Groups</a>
+                                <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-10 ml-4 text-lg border rounded-lg bg-blue2 w-36 font-synereg border-black1">Edit Groups</a>
                                     
 
                                     <!-- <form id="groupings" action="/groups" method="get">
                                         <input type="hidden" name="grouped" id="grouped" value="<?= htmlspecialchars($encodedGroup, ENT_QUOTES, 'UTF-8') ?>">
                                         <input type="hidden" name="room_id" value="<?= $room_id ?>">
-                                        <button type="submit" class="bg-blue2 h-10 w-36 font-synereg text-lg border border-black1 rounded-lg">Edit Groups</button>
+                                        <button type="submit" class="h-10 text-lg border rounded-lg bg-blue2 w-36 font-synereg border-black1">Edit Groups</button>
                                     </form> -->
                             </div>
                     
                         <!-- Groups Container -->
-                        <div class="h-auto w-full flex flex-wrap gap-y-5 justify-evenly p-6">
+                        <div class="flex flex-wrap w-full h-auto p-6 gap-y-5 justify-evenly">
                             <!-- Each Boxes -->
                             <?php foreach ($decodedGroup as $index => $group) {?>
                                 <a href="/view-group?room_id=<?= $room_info['room_id'] ?>&group=<?= $index ?>" class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
                                     <!-- Group Head -->
-                                    <div class="bg-black1 h-10 w-full flex justify-center items-center ">
-                                        <span class="font-synemed text-white1 text-4xl">Group</span>
-                                        <span class="font-synebold text-orange1 text-4xl ml-2"><?= $index + 1 ?>:</span>
+                                    <div class="flex items-center justify-center w-full h-10 bg-black1 ">
+                                        <span class="text-4xl font-synemed text-white1">Group</span>
+                                        <span class="ml-2 text-4xl font-synebold text-orange1"><?= $index + 1 ?>:</span>
                                     </div>
     
                                     <!-- Group Body -->
-                                    <div class=" w-full">
+                                    <div class="w-full ">
                                         <!-- Each Member -->
                                         <?php foreach ($group as $member) {?>
                                             <div class="h-[6.22875rem] w-full flex">
-                                                <span class="w-6/12  border border-black1 flex items-center break-all p-1 font-synemed text-xl"><?= $member[0] ?></span>
+                                                <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-synemed"><?= $member[0] ?></span>
                                                 <span class="w-6/12  border border-black1 <?php if($member[2] === 'Leader') { echo 'text-orange1'; } else { echo 'text-blue3'; }?> flex justify-center items-center p-1 font-synemed text-xl"><?= $member[2] ?></span>
                                             </div>
                                         <?php } ?>
@@ -246,7 +208,7 @@
                     <!-- NO GROUPS -->
                     <?php else: ?>
                         <div class="flex flex-col items-center">
-                            <span class="font-synebold text-4xl">You haven't grouped the class yet.</span>
+                            <span class="text-4xl font-synebold">You haven't grouped the class yet.</span>
 
                             <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
                             <form id="submitGroups" action="/room" method="POST">
@@ -267,19 +229,19 @@
                 
                 <?php //dd($members) ?>
                 <!-- BODY -->
-                <div class="flex w-10/12 mb-32 mx-auto">
+                <div class="flex w-10/12 mx-auto mb-32">
                     <!-- left -->
                     <div class="bg-white2 relative block mx-auto w-[26%] text-center justify-between items-center h-[40rem] border border-black1 px-6 py-4 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)]">
                         <!-- head -->
-                        <div class="w-full py-2 flex">
-                            <h1 class="font-synebold text-4xl text-left mx-auto ml-0">Group: <?php echo $groupNum ?></h1>
-                            <button class="bg-white2 h-10 w-36 flex items-center justify-center font-synereg text-lg border border-black1 rounded-lg mx-auto mr-0" onclick="downloadPDF()">Print Group</button>
+                        <div class="flex w-full py-2">
+                            <h1 class="mx-auto ml-0 text-4xl text-left font-synebold">Group: <?php echo $groupNum ?></h1>
+                            <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1" onclick="downloadPDF()">Print Group</button>
                         </div>
                         
                         <!-- members -->
                         <div class="w-full py-2">
                             <?php foreach ($members as $member){ ?>
-                                <h1 class="text-xl flex my-2 py-4"> <span class="mx-auto w-2/6 text-left"><?php echo $member[0]; ?></span><span class="mx-auto w-2/6 text-right"><?php echo $member[2]; ?></span></h1>
+                                <h1 class="flex py-4 my-2 text-xl"> <span class="w-2/6 mx-auto text-left"><?php echo $member[0]; ?></span><span class="w-2/6 mx-auto text-right"><?php echo $member[2]; ?></span></h1>
                                 
                             <?php } ?>
                         </div>
@@ -302,28 +264,28 @@
                             <div id="kanban<?= $index ?>" class="<?php if($member[1] === $_SESSION['user']['school_id']): $currentKB = $index;?>flex<?php else: ?>hidden<?php endif;?> flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
                                 <!-- add task button -->
                                 <?php if(($member[1] === $_SESSION['user']['school_id']) || ($studentRole === 'Principal Investigator')) : ?> 
-                                    <div class="flex w-fit pr-4 self-end">
-                                        <button onclick="show('taskModal')" class="px-10 border border-grey1 bg-green1 rounded-lg">Add +</button>
+                                    <div class="flex self-end pr-4 w-fit">
+                                        <button onclick="show('taskModal')" class="px-10 border rounded-lg border-grey1 bg-green1">Add +</button>
                                     </div>
                                 <?php endif; ?>
 
                                 <!-- lanes  -->
                                 <!-- changed id of lanes from todoCont => 3todoCont** first char = member index -->
-                                <div class="relative flex w-full p-2 mt-2 gap-2">
+                                <div class="relative flex w-full gap-2 p-2 mt-2">
                                     <!-- to do -->
-                                    <div id="<?php echo $index; ?>todoCont" class="group dropzone w-1/3 bg-red-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                        <h1 class="font-synebold border-b border-black1">To Do List:</h1>
+                                    <div id="<?php echo $index; ?>todoCont" class="w-1/3 overflow-hidden bg-red-300 border shadow-xl group dropzone border-black1 rounded-xl h-fit min-h-32">
+                                        <h1 class="border-b font-synebold border-black1">To Do List:</h1>
 
                                         <?php if (!empty($member[3])) {
                                             foreach($member[3] as $key => $room_kanban) {
                                                 if($key == $_GET['room_id']) {
                                                     foreach($room_kanban['todo'] as $task) { ?>
-                                                        <div class="block card cursor-grab h-fit py-2 border-b border-black1" draggable="true">                                                            
-                                                            <div class="flex cursor-grab justify-evenly p-1">
-                                                                <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4"><?= $task[0] ?></span>
-                                                                <span class="mr-2 mx-auto text-sm font-synemed text-black1 text-wrap pl-1"><?= $task[2] ?></span>
+                                                        <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">                                                            
+                                                            <div class="flex p-1 cursor-grab justify-evenly">
+                                                                <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap"><?= $task[0] ?></span>
+                                                                <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap"><?= $task[2] ?></span>
                                                             </div>
-                                                                <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap"><?= $task[1] ?></span>
+                                                                <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap"><?= $task[1] ?></span>
                                                         </div>
                                         <?php       }
                                                 }
@@ -332,19 +294,19 @@
                                         ?>
                                     </div>                                
                                     <!-- work in progress -->
-                                    <div id="<?php echo $index; ?>wipCont" class="dropzone w-1/3 bg-blue-200 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                        <h1 class="font-synebold border-b border-black1">Work in progress:</h1>
+                                    <div id="<?php echo $index; ?>wipCont" class="w-1/3 overflow-hidden bg-blue-200 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
+                                        <h1 class="border-b font-synebold border-black1">Work in progress:</h1>
                                         <?php 
                                             if (!empty($member[3])) {
                                                 foreach($member[3] as $key => $room_kanban) {
                                                     if($key == $_GET['room_id']) {
                                                         foreach($room_kanban['wip'] as $task) { ?>
-                                                            <div class="block card cursor-grab h-fit py-2 border-b border-black1" draggable="true">                                                            
-                                                                <div class="flex cursor-grab justify-evenly p-1">
-                                                                    <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4"><?= $task[0] ?></span>
-                                                                    <span class="mr-2 mx-auto text-sm font-synemed text-black1 text-wrap pl-1"><?= $task[2] ?></span>
+                                                            <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">                                                            
+                                                                <div class="flex p-1 cursor-grab justify-evenly">
+                                                                    <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap"><?= $task[0] ?></span>
+                                                                    <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap"><?= $task[2] ?></span>
                                                                 </div>
-                                                                    <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap"><?= $task[1] ?></span>
+                                                                    <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap"><?= $task[1] ?></span>
                                                             </div>
                                         <?php           }
                                                     }
@@ -353,19 +315,19 @@
                                         ?>
                                     </div>
                                     <!-- done -->
-                                    <div id="<?php echo $index; ?>doneCont" class="dropzone w-1/3 bg-green-300 border border-black1 rounded-xl h-fit min-h-32 shadow-xl overflow-hidden">
-                                        <h1 class="font-synebold border-b border-black1">Done:</h1>
+                                    <div id="<?php echo $index; ?>doneCont" class="w-1/3 overflow-hidden bg-green-300 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
+                                        <h1 class="border-b font-synebold border-black1">Done:</h1>
                                         <?php 
                                             if (!empty($member[3])) {
                                                 foreach($member[3] as $key => $room_kanban) {
                                                     if($key == $_GET['room_id']) {
                                                         foreach($room_kanban['done'] as $task) { ?>
-                                                            <div class="block card cursor-grab py-2 h-fit border-b border-black1" draggable="true">                                                            
-                                                                <div class="flex cursor-grab justify-evenly p-1">
-                                                                    <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4"><?= $task[0] ?></span>
-                                                                    <span class="mr-2 mx-auto text-sm font-synemed text-black1 text-wrap pl-1"><?= $task[2] ?></span>
+                                                            <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">                                                            
+                                                                <div class="flex p-1 cursor-grab justify-evenly">
+                                                                    <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap"><?= $task[0] ?></span>
+                                                                    <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap"><?= $task[2] ?></span>
                                                                 </div>
-                                                                    <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap"><?= $task[1] ?></span>
+                                                                    <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap"><?= $task[1] ?></span>
                                                             </div>
                                         <?php           }
                                                     }
@@ -379,8 +341,8 @@
                     </div>
                 </div>
             <?php else: ?>
-                <div class="mt-40 flex flex-col items-center">
-                    <span class="font-synebold text-4xl text-red1">The instructor hasn't grouped the class yet.</span>
+                <div class="flex flex-col items-center mt-40">
+                    <span class="text-4xl font-synebold text-red1">The instructor hasn't grouped the class yet.</span>
                 </div>
             <?php endif; ?>
         <?php endif; ?>
@@ -390,6 +352,77 @@
 
     <script src="assets/js/shared-scripts.js"></script>
     <script src="assets/js/grouping.js"></script>
+    <script src="assets/js/fetch/fetch.js"></script>
+
+    <!-- FETCHING -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roomStudentList = document.getElementById('roomStudentList');
+            const roomJoinRequest = document.getElementById('roomJoinRequest');
+
+            fetchLatestData({
+                "table1": "room_list",
+                "table2": "join_room_requests",
+                "room_id": <?= $_GET['room_id']  ?>,
+                "currentPage": "room",
+            }, displayStudents, 3000);
+        });
+
+        function displayStudents(studentsList){
+            roomStudentList.innerHTML = '';
+            roomJoinRequest.innerHTML = '';
+
+
+            studentsList.room_list.forEach(student => {
+                roomStudentList.innerHTML += `
+                    <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-t border-black1 p-4">
+                        <a href="#" class="text-base font-synereg">${student.l_name} ${student.f_name}</a>
+                        <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll();">
+                    </div>
+
+                    <div id="kickConfirmation${student.school_id}" class="fixed left-0 justify-center hidden w-screen h-screen pt-56 bg-glassmorphism top-20">
+                        <div class="flex flex-col h-40 border rounded-t-lg bg-white2 w-80 border-black1">
+                            <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
+                                <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Confirmation</span>
+                                <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll();">X</button>
+                            </div>
+                            <form action="/room" method="POST" class="flex flex-col items-center p-2 h-60">
+                                <input type="hidden" name="room_id" value="${student.room_id}">
+                                <span class="text-2xl font-synebold text-red1">Remove:</span>
+                                <span class="text-xl font-synemed">${student.l_name} ${student.f_name}</span>
+                                <span class="text-lg font-synereg">from this room?</span>
+                                <button type="submit" name="delete" value="${student.school_id},${student.room_id}" class="w-16 border rounded bg-red1 text-white1 border-black1">Confirm</button>
+                            </form>
+                        </div>
+                    </div>
+                `;
+            });
+
+            studentsList.join_room_requests.forEach(request => {
+                roomJoinRequest.innerHTML += `
+                    <div class="flex items-center justify-between w-full h-20 px-2 border bg-blue1 border-black1">
+                        <div class="flex flex-col w-52">
+                            <a href="#" class="text-base font-synereg">${request.l_name} ${request.f_name}</a>
+                            <a href="#" class="text-sm font-synereg text-grey2">${request.school_id}</a>
+                            <a href="#" class="truncate">
+                                <span class="text-sm font-synereg text-grey2">${request.email}</span>
+                            </a>
+                        </div>
+
+                        <form method="POST" action="/room" class="flex w-16 h-6 justify-evenly">
+                            <button class="w-6 h-6 bg-cover cursor-pointer bg-check" type="submit"  name="accept" value="${request.school_id},${request.room_id}"> </button>
+                            <button class="w-6 h-6 bg-cover cursor-pointer bg-cross" type="submit" name="decline" value="${request.school_id},${request.room_id}"> </button>
+                        </form>
+                    </div>
+                `;
+            });
+
+            console.log(studentsList);
+        }
+        
+    </script>
+
+    <!-- KANBAN Board -->
     <script>
         // function generateGroups() {
         //     // const rows = <?php //echo $encodedFilteredidNRiasec; ?>;
@@ -427,11 +460,11 @@
                 newCard.setAttribute('draggable', 'true');
                 newCard.classList.add('block', 'h-fit', 'py-2', 'border-b', 'border-black1', 'cursor-grab');
                 newCard.innerHTML = `
-                                    <div class="card flex cursor-grab justify-evenly p-1" draggable="true">
-                                        <span class="ml-1 mx-auto text-base text-left font-synebold border-b border-grey2 text-black1 text-wrap px-4">${taskName}</span>
-                                        <span class="mr-2 mx-auto text-sm font-synemed text-black1 text-wrap pl-1">${taskDate}</span>
+                                    <div class="flex p-1 card cursor-grab justify-evenly" draggable="true">
+                                        <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskName}</span>
+                                        <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskDate}</span>
                                     </div>
-                                        <span class="relative block ml-10 font-synereg text-left text-base text-black1 text-wrap">${taskInfo}</span>
+                                        <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskInfo}</span>
                                     `;
 
                 console.log("currentKB:",currentKB);
@@ -585,6 +618,9 @@
             })
         <?php endif; ?>
     </script>
+
+
+    <!-- PDF GENERATION -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>

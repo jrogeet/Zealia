@@ -33,7 +33,7 @@
                     <button class="h-[2.25rem] px-4 bg-orange1 text-black1 font-synemed border border-grey2 rounded-lg" onClick="toggle('filters');">Filter</button>
 
                     <!-- <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button> -->
-                    <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggle('rooms-ascending'); toggle('rooms-descending'); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
+                    <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onclick="toggle('rooms-ascending-container'); toggle('rooms-descending-container'); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
                 </div>
 
                 <?php if ($_SESSION['user']['account_type'] === 'student'):?>
@@ -101,18 +101,24 @@
                 </div>
             </div>
 
-   
-
             <!-- TILES  -->
             <div id="dashboardTiles" class="flex justify-center max-h-[39.8rem] w-full overflow-y-auto overflow-x-hidden">         
                 <?php if(! empty($ascending_rooms)): ?>
-                    <div class="flex-wrap content-start hidden w-full m-4 gap-9" id="rooms-ascending">
+                    <div class="hidden flex-col w-full m-4" id="rooms-ascending-container">
+                        <hi class="font-synebold text-xl">Earliest</hi>
                         <!--  ROOMS  -->
+                        <div class="flex flex-wrap content-start gap-9" id="rooms-ascending">
+                            <!-- FILLED USING JAVASCRIPT -->
+                        </div>
                     </div>
                     <!-- added div as fix for descending being toggled as block -->
                     <!-- <div class="hidden h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden"> -->
-                    <div  class="flex flex-wrap content-start w-full m-4 gap-9" id="rooms-descending">
+                    <div  class="flex flex-col w-full m-4" id="rooms-descending-container">
+                        <hi class="font-synebold text-xl">Latest</hi>
                         <!--  ROOMS  -->
+                        <div class="flex flex-wrap content-start gap-9" id="rooms-descending">
+                            <!-- FILLED USING JAVASCRIPT -->
+                        </div>
                     </div>
                     <!-- </div> -->
             </div>

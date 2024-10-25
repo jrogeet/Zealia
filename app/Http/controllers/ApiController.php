@@ -79,11 +79,28 @@ class ApiController
 private function getLatestData($params)
 {
     try {
-        $table = $params['table'] ?? 'rooms';
-        unset($params['table']);
+        $mulTables = [];
+        if (isset($params['table1']) && !(isset($params['table']))) {
+            foreach ($params as $key =>  $value) {
+                if (str_contains($key, 'table')) {
+                    $mulTables[$key] =  $value;
+                    unset($params[$key]);
+                }
+            }
+        } else {
+            $table = $params['table'] ?? 'rooms';
+            unset($params['table']);
+        }
 
+        // dd($mulTables);
+
+        if (isset($params['currentPage'])) {
+            $currentPage = $params['currentPage'] ?? '';
+            unset($params['currentPage']);
+        }
+
+        // For Sections Filter in Dashboard 
         $fetchUniqueSections = $params['fetch_unique_sections'] ?? false;
-
         if ($fetchUniqueSections) {
             $query = "SELECT DISTINCT section FROM rooms ORDER BY section";
             $uniqueSections = $this->db->query($query)->findAll();
@@ -97,56 +114,103 @@ private function getLatestData($params)
         $conditions = $params['conditions'] ?? [];
         $orderBy = $params['order_by'] ?? '';
         $direction = $params['direction'] ?? '';
-        
+
         foreach ($params as $key => $value) {
             $conditions[$key] = $value;
         }
 
+        // TABLES
         // dd($conditions);
 
         // Build the SQL query
-        $query = "SELECT * FROM {$table} ";
-
-        if (!empty($conditions)) {
-            $query .= " WHERE " . implode(' AND ', array_map(function($key) {
-                return "{$key} = :{$key}"; // Correctly use the key for the placeholder
-            }, array_keys($conditions)));
-        }
-        // THIS ERRORS IN STUDENT DASHBOARD
-        if ($orderBy !== '' || $direction !== '') {
-            $query .= " ORDER BY {$orderBy} {$direction}";
-        }
-        
-        // echo $query;
-        // Execute the query
-        $latestData = $this->db->query($query, $conditions)->findAll();
-
-        if ($table == 'room_list') {
-            foreach ($latestData as &$room) { // Use reference to modify the original array
-                $roomInfo = $this->db->query('SELECT * FROM rooms WHERE room_id = :room_id', [
-                    'room_id' => $room['room_id'],
-                ])->find();
-
-                // dd($roomInfo);
-
-                // Assuming $roomInfo is an array and you want to merge it
-                if (!empty($roomInfo)) {
-                    $room = array_merge($room, $roomInfo); // Merge the first roomInfo into the room
+        if (!empty($mulTables)) {
+            $latestData = [];
+            foreach ($mulTables as $tableKey => $tableName) {
+                $query = "SELECT * FROM {$tableName} ";
+                if (!empty($conditions)) {
+                    $query .= " WHERE " . implode(' AND ', array_map(function($key) {
+                        return "{$key} = :{$key}"; // Correctly use the key for the placeholder
+                    }, array_keys($conditions)));
                 }
-
-                $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
-                    'school_id'=> $room['school_id'],
-                ])->find();
-
-                $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
-                unset($profInfo['f_name']); unset($profInfo['l_name']);
-                if (!empty($profInfo)) {
-                    $room = array_merge($room, $profInfo);
+                // THIS ERRORS IN STUDENT DASHBOARD
+                if ($orderBy !== '' || $direction !== '') {
+                    $query .= " ORDER BY {$orderBy} {$direction}";
                 }
+                
+                // echo $query;
+                // Execute the query
+                $latestData[$tableName] = $this->db->query($query, $conditions)->findAll();
             }
-            unset($room); // Unset reference to avoid accidental modifications later
+        } else {
+            $query = "SELECT * FROM {$table} ";
+            if (!empty($conditions)) {
+                $query .= " WHERE " . implode(' AND ', array_map(function($key) {
+                    return "{$key} = :{$key}"; // Correctly use the key for the placeholder
+                }, array_keys($conditions)));
+            }
+            // THIS ERRORS IN STUDENT DASHBOARD
+            if ($orderBy !== '' || $direction !== '') {
+                $query .= " ORDER BY {$orderBy} {$direction}";
+            }
+            
+            // echo $query;
+            // Execute the query
+            $latestData = $this->db->query($query, $conditions)->findAll();
+        }
 
-        } elseif ($table == 'rooms') {
+        if (!empty($mulTables) && in_array('room_list', $mulTables)) {
+            if (isset($currentPage) && $currentPage != '' && $currentPage == "room") {
+                if (! empty($latestData['room_list'])) {
+                    foreach ($latestData['room_list'] as &$student) {
+                        $stu_info = $this->db->query('SELECT f_name, l_name, school_id, email, result FROM accounts WHERE school_id = :school_id', [
+                            'school_id' => $student['school_id']
+                        ])->find();
+                        // dd($stu_info);
+                        if (!empty($stu_info)) {
+                            $student = array_merge($student, $stu_info);
+                        }
+                    }
+                }
+
+                if (! empty($latestData['join_room_requests'])) {
+                    foreach ($latestData['join_room_requests'] as &$student) {
+                        $stu_info = $this->db->query('SELECT f_name, l_name, school_id, email, result FROM accounts WHERE school_id = :school_id', [
+                            'school_id' => $student['school_id']
+                        ])->find();
+
+                        if (!empty($stu_info)) {
+                            $student = array_merge($student, $stu_info);
+                        }
+                    }
+                }
+
+
+            } else {
+                foreach ($latestData as &$room) { // Use reference to modify the original array
+                    $roomInfo = $this->db->query('SELECT * FROM rooms WHERE room_id = :room_id', [
+                        'room_id' => $room['room_id'],
+                    ])->find();
+    
+                    // dd($roomInfo);
+    
+                    // Assuming $roomInfo is an array and you want to merge it
+                    if (!empty($roomInfo)) {
+                        $room = array_merge($room, $roomInfo); // Merge the first roomInfo into the room
+                    }
+    
+                    $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
+                        'school_id'=> $room['school_id'],
+                    ])->find();
+    
+                    $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
+                    unset($profInfo['f_name']); unset($profInfo['l_name']);
+                    if (!empty($profInfo)) {
+                        $room = array_merge($room, $profInfo);
+                    }
+                }
+                unset($room); // Unset reference to avoid accidental modifications later
+            }
+        } elseif (isset($table)) {
             foreach ($latestData as &$room) {
                 $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
                     'school_id'=> $room['school_id'],
@@ -156,6 +220,16 @@ private function getLatestData($params)
                 unset($profInfo['f_name']); unset($profInfo['l_name']);
                 if (!empty($profInfo)) {
                     $room = array_merge($room, $profInfo);
+                }
+
+                if ($table == 'room_list') {
+                    $roomInfo = $this->db->query('SELECT * FROM rooms WHERE room_id = :room_id', [
+                        'room_id' => $room['room_id'],
+                    ])->find();
+
+                    if (!empty($roomInfo)) {
+                        $room = array_merge($room, $roomInfo);
+                    }
                 }
             }
             unset($room);
@@ -284,50 +358,57 @@ private function getLatestData($params)
             header("Location: /dashboard");
             die();
         } else {
-            $prof_info = $this->db->query('select l_name, f_name from accounts where school_id = :id', [
-                'id' => $roomExistence['school_id']
-            ])->find();
-    
-            $roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
-
-            $isAlrJoined = $this->db->query('select * from room_list where room_id  = :room and school_id = :student', [
+            $alrSentReq = $this->db->query('select * from join_room_requests where school_id = :student and room_id = :room', [
                 ':student'=>$this->currentUser,
                 ':room' => $roomExistence['room_id']
             ])->find();
-            
-            if ($isAlrJoined) {
-                $errors['is_joined'] = 'You are already joined in this room!';
-            } else {
-                $this->db->query('INSERT INTO join_room_requests(school_id, room_id) VALUES (:student, :room)', [
+
+            if (empty($alrSentReq)) {
+                $prof_info = $this->db->query('select l_name, f_name from accounts where school_id = :id', [
+                    'id' => $roomExistence['school_id']
+                ])->find();
+        
+                $roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
+    
+                $isAlrJoined = $this->db->query('select * from room_list where room_id  = :room and school_id = :student', [
                     ':student'=>$this->currentUser,
-                    ':room'=>$roomExistence['room_id']
-                ]);
-
-                $type = json_encode([
-                    "type" => "room_join",
-                    "room_name" => $roomExistence['room_name'],
-                    "prof_name" => $roomExistence['prof_name'],
-                    "prof_id" => $roomExistence['school_id'],
-                    "room_id" => $roomExistence['room_id'],
-                    "student_id" => $this->currentUser,
-                    "student_name" => "{$_SESSION['user']['l_name']}, {$_SESSION['user']['f_name']}"
-                ]);
+                    ':room' => $roomExistence['room_id']
+                ])->find();
                 
-                // NOTIFICATIONS
-                $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
-                    'school_id' => $roomExistence['school_id'], 
-                    'type' => $type,
-                ]);
+                if ($isAlrJoined) {
+                    $errors['is_joined'] = 'You are already joined in this room!';
+                } else {
+                    $this->db->query('INSERT INTO join_room_requests(school_id, room_id) VALUES (:student, :room)', [
+                        ':student'=>$this->currentUser,
+                        ':room'=>$roomExistence['room_id']
+                    ]);
+    
+                    $type = json_encode([
+                        "type" => "room_join",
+                        "room_name" => $roomExistence['room_name'],
+                        "prof_name" => $roomExistence['prof_name'],
+                        "prof_id" => $roomExistence['school_id'],
+                        "room_id" => $roomExistence['room_id'],
+                        "student_id" => $this->currentUser,
+                        "student_name" => "{$_SESSION['user']['l_name']}, {$_SESSION['user']['f_name']}"
+                    ]);
+                    
+                    // NOTIFICATIONS
+                    $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
+                        'school_id' => $roomExistence['school_id'], 
+                        'type' => $type,
+                    ]);
+                }
+    
+                // if(! empty($errors)) {
+                //     header("Location: /dashboard");
+                //     die();
+                // }
+    
+    
+                // header("Location: /dashboard");
+                // die();
             }
-
-            // if(! empty($errors)) {
-            //     header("Location: /dashboard");
-            //     die();
-            // }
-
-
-            // header("Location: /dashboard");
-            // die();
         }
 
         header('Content-Type: application/json');
