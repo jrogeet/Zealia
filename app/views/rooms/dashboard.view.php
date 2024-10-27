@@ -329,12 +329,12 @@
             
             // Displaying Rooms Ascending & Descending (based on time created)
             function displayRooms(rooms, filtering = false) {
-                // console.log('displayRooms', rooms);
+                console.log('displayRooms', rooms);
                 
 
-                if (rooms.length === 0) {
-                    dashboardTiles.remove();
-                    dashboardTable.remove();
+                if (rooms.length == 0 && filtering == false) {
+                    // dashboardTiles.remove();
+                    // dashboardTable.remove();
 
                     noRooms.innerHTML = `
                         <span class="text-4xl font-synebold text-grey2">No room found</span>
@@ -347,7 +347,7 @@
                     `;
                 } else {
                     if (filtering == true) {
-                        noRooms.remove();
+                        // noRooms.remove();
                         clearInterval(intervalID);
                         console.log('interval cleared');
                         roomsASC.innerHTML = '';

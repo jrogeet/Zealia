@@ -142,9 +142,7 @@
 
                         <!-- Student Names -->
                         <div id="roomStudentList" class="min-h-full flex flex-col overflow-x-hidden overflow-y-auto rounded-b-xl">
-                            <div id="loadingOverlay" class="z-50 w-full h-full flex items-center justify-center justify-self-center">
-                                <img src="assets/images/icons/Zealia_Logo_Flat/BLUE/DARK-1/Reversed_Star_Flat_BLUEDARK_1.png" alt="loading" class="animate-spin h-32 w-32">
-                            </div>
+
                         </div>
 
 
@@ -152,9 +150,7 @@
 
                     <!-- Requests List -->
                     <div id="roomJoinRequest" class="hidden flex-col h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
-                        <div id="loadingOverlay" class="z-50 w-full h-full flex items-center justify-center justify-self-center">
-                            <img src="assets/images/icons/Zealia_Logo_Flat/BLUE/DARK-1/Reversed_Star_Flat_BLUEDARK_1.png" alt="loading" class="animate-spin h-32 w-32">
-                        </div>
+
                     </div>
 
                     
@@ -185,9 +181,7 @@
                         <!-- Groups Container -->
                         <div id="groupsContainer" class="flex flex-wrap min-h-full w-full h-auto p-6 gap-y-5 justify-evenly">
                             <!-- Each Boxes -->
-                            <div id="loadingOverlay" class="z-50 w-full h-full flex items-center justify-center justify-self-center">
-                                <img src="assets/images/icons/Zealia_Logo_Flat/BLUE/DARK-1/Reversed_Star_Flat_BLUEDARK_1.png" alt="loading" class="animate-spin h-32 w-32">
-                            </div>
+
                         </div>
                     </div>
 
