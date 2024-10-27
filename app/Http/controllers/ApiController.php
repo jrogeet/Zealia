@@ -277,7 +277,12 @@ private function getLatestData($params)
             case 'join_room':
                 $result = $this->processJoinRoomForm($formData);
                 break;
-            // Add more case statements for other form types
+            case 'handle_request':
+                $result = $this->processHandleRequest($formData);
+                break;
+            case 'kick_student':
+                $result = $this->processKickStudent($formData);
+                break;
             default:
                 $result = $this->processDefaultForm($formData);
         }
@@ -288,6 +293,116 @@ private function getLatestData($params)
     }
 
     //       START OF FUNCTIONS for SUBMIT FORMS      //
+
+    private function processHandleRequest($formData) {
+        // dd($formData);
+        // echo $formData['buttonName'];
+        $values_array = explode(",", $formData['buttonValue']); // [0] = room_id, [1] = school_id
+        
+        if ($formData['buttonName'] == 'accept') {
+            $roomExistence = $this->db->query('select * from rooms where room_id = :id', [
+                'id' => $values_array[0]
+            ])->find();
+        
+            $prof_info = $this->db->query('select * from accounts where school_id = :id', [
+                'id' => $roomExistence['school_id']
+            ])->find();
+        
+            $roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
+        
+            // NOTIFICATIONS
+            $type = json_encode([
+                "type" => "room_accept",
+                "room_name" => $roomExistence['room_name'],
+                "prof_name" => $roomExistence['prof_name'],
+                "prof_id" => $this->currentUser,
+                "room_id" => $roomExistence['room_id'],
+                "student_id" => $values_array[1],
+            ]);
+        
+            $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
+                'school_id' => $values_array[1], 
+                'type' => $type,
+            ]);
+        
+            // DELETE the room_join notification of the student
+            $this->db->query('INSERT INTO room_list(school_id, room_id) VALUES (:student, :room) ', [
+                'student'=>$values_array[1],
+                'room'=>$values_array[0]
+            ]);
+        
+            $this->db->query('delete from join_room_requests where room_id = :room_id and school_id = :school_id', [
+                'room_id' => $values_array[0],
+                'school_id' => $values_array[1]
+            ]);
+        } else if ($formData['buttonName'] == 'decline') {
+            $roomExistence = $this->db->query('select * from rooms where room_id = :id', [
+                'id' => $values_array[0]
+            ])->find();
+        
+            $prof_info = $this->db->query('select l_name, f_name from accounts where school_id = :id', [
+                'id' => $roomExistence['school_id']
+            ])->find();
+        
+            $roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
+        
+            // NOTIFICATIONS
+            $type = json_encode([
+                "type" => "room_decline",
+                "room_name" => $roomExistence['room_name'],
+                "prof_name" => $roomExistence['prof_name'],
+                "prof_id" => $this->currentUser,
+                "room_id" => $roomExistence['room_id'],
+                "student_id" => $values_array[0],
+            ]);
+        
+            $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
+                'school_id' => $values_array[1],
+                'type' => $type,
+            ]);
+        
+            $this->db->query('delete from join_room_requests where room_id = :room_id and school_id = :school_id', [
+                ':room_id' => $values_array[0],
+                ':school_id' => $values_array[1]
+            ]);
+        }
+    }
+
+    private function processKickStudent($formData) {
+        $values_array = explode(",", $formData['buttonValue']); // [0] = room_id, [1] = school_id
+
+        // dd($formData);
+        $roomExistence = $this->db->query('select * from rooms where room_id = :id', [
+            'id' => $values_array[0],
+        ])->find();
+    
+        $prof_info = $this->db->query('select l_name, f_name from accounts where school_id = :id', [
+            'id' => $roomExistence['school_id']
+        ])->find();
+        
+        $roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
+    
+        $this->db->query('delete from room_list where room_id = :room_id and school_id = :school_id', [
+            ':room_id' => $values_array[0],
+            ':school_id' => $values_array[1]
+        ]);
+    
+        // NOTIFICATIONS
+        $type = json_encode([
+            "type" => "student_remove",
+            "room_name" => $roomExistence['room_name'],
+            "prof_name" => $roomExistence['prof_name'],
+            "prof_id" => $this->currentUser,
+            "room_id" => $roomExistence['room_id'],
+            "student_id" => $values_array[1],
+        ]);
+    
+        $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
+            'school_id' => $values_array[1], 
+            'type' => $type,
+        ]);
+
+    }
 
     private function processCreateRoomForm($formData)
     {

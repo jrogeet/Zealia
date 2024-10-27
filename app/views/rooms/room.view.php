@@ -136,12 +136,15 @@
                         <!-- Student Count -->
                         <div class="flex items-center justify-center w-full h-12 p-4 border-t border-black1">
                             <span class="text-lg font-synemed">Total: </span>
-                            <span class="mx-1 text-xl font-synemed text-blue3"><?= count($stu_info) ?> </span>
+                            <span id="studentCount" class="mx-1 text-xl font-synemed text-blue3"></span>
                             <span class="text-lg font-synemed">students.</span>
                         </div>
-                        <!-- Student Names -->
-                        <div id="roomStudentList" class="flex flex-col overflow-x-hidden overflow-y-auto rounded-b-xl">
 
+                        <!-- Student Names -->
+                        <div id="roomStudentList" class="min-h-full flex flex-col overflow-x-hidden overflow-y-auto rounded-b-xl">
+                            <div id="loadingOverlay" class="z-50 w-full h-full flex items-center justify-center justify-self-center">
+                                <img src="assets/images/icons/Zealia_Logo_Flat/BLUE/DARK-1/Reversed_Star_Flat_BLUEDARK_1.png" alt="loading" class="animate-spin h-32 w-32">
+                            </div>
                         </div>
 
 
@@ -149,7 +152,9 @@
 
                     <!-- Requests List -->
                     <div id="roomJoinRequest" class="hidden flex-col h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
-
+                        <div id="loadingOverlay" class="z-50 w-full h-full flex items-center justify-center justify-self-center">
+                            <img src="assets/images/icons/Zealia_Logo_Flat/BLUE/DARK-1/Reversed_Star_Flat_BLUEDARK_1.png" alt="loading" class="animate-spin h-32 w-32">
+                        </div>
                     </div>
 
                     
@@ -178,9 +183,11 @@
                             </div>
                     
                         <!-- Groups Container -->
-                        <div id="groupsContainer" class="flex flex-wrap w-full h-auto p-6 gap-y-5 justify-evenly">
+                        <div id="groupsContainer" class="flex flex-wrap min-h-full w-full h-auto p-6 gap-y-5 justify-evenly">
                             <!-- Each Boxes -->
-
+                            <div id="loadingOverlay" class="z-50 w-full h-full flex items-center justify-center justify-self-center">
+                                <img src="assets/images/icons/Zealia_Logo_Flat/BLUE/DARK-1/Reversed_Star_Flat_BLUEDARK_1.png" alt="loading" class="animate-spin h-32 w-32">
+                            </div>
                         </div>
                     </div>
 
@@ -337,119 +344,205 @@
 
     <!-- FETCHING -->
     <script>
+        const room_id = <?= $_GET['room_id']  ?>;
         let groupChecker = null;
+        let studentsChecker = null;
+        let requestsChecker = null;
 
         document.addEventListener('DOMContentLoaded', function() {
             const roomStudentList = document.getElementById('roomStudentList');
             const roomJoinRequest = document.getElementById('roomJoinRequest');
+            const studentCount = document.getElementById('studentCount');
 
             fetchLatestData({
                 "table1": "room_list",
                 "table2": "join_room_requests",
                 "room_id": <?= $_GET['room_id']  ?>,
                 "currentPage": "room",
-            }, displayStudents, 3000);
+            }, displayStudents, 1000);
 
             fetchLatestData ({
                 "table": "room_groups",
                 "room_id": <?= $_GET['room_id']  ?>,
             }, displayGroups, 3000);
+
+            
+            setupFormSubmissions();
         });
-
-
+        
+        function setupFormSubmissions() {
+            document.body.addEventListener('submit', function(e) {
+                if (e.target && e.target.id && e.target.id.startsWith('kickForm')) {
+                    console.log('e.target', e.target);
+                    e.preventDefault();
+                    const clickedButton = e.submitter;
+                    submitForm(e.target.id, '/api/submit-form', 'kick_student', {
+                        buttonID: clickedButton.id,
+                        buttonName: clickedButton.name,
+                        buttonValue: clickedButton.value,
+                    });
+                } else if (e.target && e.target.id && e.target.id.startsWith('requestForm')) {
+                    console.log('e.target', e.target);
+                    e.preventDefault();
+                    const clickedButton = e.submitter;
+                    submitForm(e.target.id, '/api/submit-form', 'handle_request', {
+                        buttonID: clickedButton.id,
+                        buttonName: clickedButton.name,
+                        buttonValue: clickedButton.value,
+                    });
+                }
+            });
+        }
 
         function displayGroups(groupsList){
-            const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
+            if (groupsList.length > 0) {
+                console.log('groupsList', groupsList);
+                const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
 
-            // console.log('groups', typeof(parsedGroupsList));
-            // console.log('groups', parsedGroupsList);
+                // console.log('groups', typeof(parsedGroupsList));
+                // console.log('groups', parsedGroupsList);
 
-            if (groupChecker === null || JSON.stringify(groupChecker) !== JSON.stringify(parsedGroupsList)){
-                // console.log('not equal');
-                groupChecker = parsedGroupsList;
-                const groupsContainer = document.getElementById('groupsContainer');
-                
-                groupsContainer.innerHTML = '';
+                if (groupChecker === null || JSON.stringify(groupChecker) !== JSON.stringify(parsedGroupsList)){
+                    // console.log('not equal');
+                    groupChecker = parsedGroupsList;
+                    const groupsContainer = document.getElementById('groupsContainer');
+                    
+                    groupsContainer.innerHTML = '';
 
-                parsedGroupsList.forEach((group, index) => {
-                    groupsContainer.innerHTML += `
-                                <a href="/view-group?room_id=<?= $room_info['room_id'] ?>&group=<?= $index ?>" class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
-                                    <!-- Group Head -->
-                                    <div class="flex items-center justify-center w-full h-10 bg-black1 ">
-                                        <span class="text-4xl font-synemed text-white1">Group</span>
-                                        <span class="ml-2 text-4xl font-synebold text-orange1">${index + 1}:</span>
+                    parsedGroupsList.forEach((group, index) => {
+                        groupsContainer.innerHTML += `
+                                    <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
+                                        <!-- Group Head -->
+                                        <div class="flex items-center justify-center w-full h-10 bg-black1 ">
+                                            <span class="text-4xl font-synemed text-white1">Group</span>
+                                            <span class="ml-2 text-4xl font-synebold text-orange1">${index + 1}:</span>
+                                        </div>
+        
+                                        <!-- Group Body -->
+                                        <div id="groupBody${index}" class="w-full ">
+                                            <!-- Each Member -->
+
+                                        </div>
+                                    </a>
+                        `;
+
+                        // add members to group body
+                        group.forEach(member => {
+                            document.getElementById(`groupBody${index}`).innerHTML += `
+                                    <div class="h-[6.22875rem] w-full flex">
+                                        <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-synemed">${member[0]}</span>
+                                        <span class="w-6/12  border border-black1 ${member[2] === 'Leader' ? 'text-orange1' : 'text-blue3'} flex justify-center items-center p-1 font-synemed text-xl">${member[2]}</span>
                                     </div>
-    
-                                    <!-- Group Body -->
-                                    <div id="groupBody${index}" class="w-full ">
-                                        <!-- Each Member -->
-
-                                    </div>
-                                </a>
-                    `;
-
-                    // add members to group body
-                    group.forEach(member => {
-                        document.getElementById(`groupBody${index}`).innerHTML += `
-                                <div class="h-[6.22875rem] w-full flex">
-                                    <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-synemed">${member[0]}</span>
-                                    <span class="w-6/12  border border-black1 ${member[2] === 'Leader' ? 'text-orange1' : 'text-blue3'} flex justify-center items-center p-1 font-synemed text-xl">${member[2]}</span>
-                                </div>
-                    `;
+                        `;
+                        });
                     });
-                });
-             } else {
-                // console.log('equal');
+                } else {
+                    // console.log('equal');
+                }
              }
+
+        }
+
+        function submitForm(formId, url, type, params = {}) {
+            console.log('beginning of submitForm');
+            const form = document.getElementById(formId);
+            if (!form) {
+                console.log('form not found');
+                return;
+            }
+            console.log('params', params);  
+
+            console.log('form', form);
+
+            // form.addEventListener('submit', function(e) {
+                console.log('submit event');
+                // e.preventDefault();
+                let formData = new FormData(form);
+                // formData.append('', )
+                console.log('formData', formData);
+                formData.append('form_type', type);
+
+                Object.entries(params).forEach(([key, value]) => {
+                    formData.append(key, value);
+                });
+
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                console.log('Response:', data);
+                })
+                .catch(error => console.error('Fetch Error:', error));
+            // });
         }
 
         function displayStudents(studentsList){
-            roomStudentList.innerHTML = '';
-            roomJoinRequest.innerHTML = '';
+            if (studentsChecker === null || JSON.stringify(studentsChecker) !== JSON.stringify(studentsList)){
+                console.log('not equal students');
+                studentsChecker = studentsList;
+                roomStudentList.innerHTML = '';
+                roomJoinRequest.innerHTML = '';
+                studentCount.innerHTML = '';
+                
+                studentCount.innerHTML = `<span class="mx-1 text-xl font-synemed text-blue3">${studentsList.room_list.length} </span>`;
 
-            studentsList.room_list.forEach(student => {
-                roomStudentList.innerHTML += `
-                    <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-t border-black1 p-4">
-                        <a href="#" class="text-base font-synereg">${student.l_name}, ${student.f_name}</a>
-                        <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll(); clearInterval(intervalID);">
-                    </div>
 
-                    <div id="kickConfirmation${student.school_id}"  class="fixed z-50 justify-center hidden w-screen h-screen -left-20 bg-glassmorphism -top-24">
-                        <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
-                            <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
-                                <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Confirmation</span>
-                                <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll(); fetchLatestData({'table1': 'room_list','table2': 'join_room_requests','room_id': <?= $_GET['room_id']  ?>,'currentPage': 'room',}, displayStudents, 3000);">X</button>
+                studentsList.room_list.forEach(student => {
+                    roomStudentList.innerHTML += `
+                        <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-t border-black1 p-4">
+                            <a href="#" class="text-base font-synereg">${student.l_name}, ${student.f_name}</a>
+                            <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll(); clearInterval(intervalID);">
+                        </div>
+
+                        <div id="kickConfirmation${student.school_id}"  class="fixed z-50 justify-center hidden w-screen h-screen -left-20 bg-glassmorphism -top-24">
+                            <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
+                                <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
+                                    <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Confirmation</span>
+                                    <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll(); fetchLatestData({'table1': 'room_list','table2': 'join_room_requests','room_id': <?= $_GET['room_id']  ?>,'currentPage': 'room',}, displayStudents, 3000);">X</button>
+                                </div>
+                                <form id="kickForm${student.school_id}" method="POST" class="flex flex-col items-center p-2 h-60">
+                                    <span class="text-2xl font-synebold text-red1">Remove:</span>
+                                    <span class="text-xl font-synemed">${student.l_name} ${student.f_name}</span>
+                                    <span class="text-lg font-synereg">from this room?</span>
+                                    <button type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 border rounded bg-red1 text-white1 border-black1">Confirm</button>
+                                </form>
                             </div>
-                            <form action="/room" method="POST" class="flex flex-col items-center p-2 h-60">
-                                <input type="hidden" name="room_id" value="${student.room_id}">
-                                <span class="text-2xl font-synebold text-red1">Remove:</span>
-                                <span class="text-xl font-synemed">${student.l_name} ${student.f_name}</span>
-                                <span class="text-lg font-synereg">from this room?</span>
-                                <button type="submit" name="delete" value="${student.school_id},${student.room_id}" class="w-16 border rounded bg-red1 text-white1 border-black1">Confirm</button>
+                        </div>
+                    `;
+                });
+            } else {
+                // console.log('equal students');
+            }
+
+            if (requestsChecker === null || JSON.stringify(requestsChecker) !== JSON.stringify(studentsList.join_room_requests)){
+                console.log('not equal requests');
+                requestsChecker = studentsList.join_room_requests;
+                roomJoinRequest.innerHTML = '';
+
+                studentsList.join_room_requests.forEach(request => {
+                    roomJoinRequest.innerHTML += `
+                        <div class="flex items-center justify-between w-full h-20 px-2 border bg-blue1 border-black1">
+                            <div class="flex flex-col w-52">
+                                <a href="#" class="text-base font-synereg">${request.l_name} ${request.f_name}</a>
+                                <a href="#" class="text-sm font-synereg text-grey2">${request.school_id}</a>
+                                <a href="#" class="truncate">
+                                    <span class="text-sm font-synereg text-grey2">${request.email}</span>
+                                </a>
+                            </div>
+
+                            <form id="requestForm${request.school_id}" method="POST" class="flex w-16 h-6 justify-evenly">
+                                <button id="acceptButton${request.school_id}" class="w-6 h-6 bg-cover cursor-pointer bg-check" type="submit"  name="accept" value="${request.room_id},${request.school_id}"> </button>
+                                <button id="declineButton${request.school_id}" class="w-6 h-6 bg-cover cursor-pointer bg-cross" type="submit" name="decline" value="${request.room_id},${request.school_id}"> </button>
                             </form>
                         </div>
-                    </div>
-                `;
-            });
-
-            studentsList.join_room_requests.forEach(request => {
-                roomJoinRequest.innerHTML += `
-                    <div class="flex items-center justify-between w-full h-20 px-2 border bg-blue1 border-black1">
-                        <div class="flex flex-col w-52">
-                            <a href="#" class="text-base font-synereg">${request.l_name} ${request.f_name}</a>
-                            <a href="#" class="text-sm font-synereg text-grey2">${request.school_id}</a>
-                            <a href="#" class="truncate">
-                                <span class="text-sm font-synereg text-grey2">${request.email}</span>
-                            </a>
-                        </div>
-
-                        <form method="POST" action="/room" class="flex w-16 h-6 justify-evenly">
-                            <button class="w-6 h-6 bg-cover cursor-pointer bg-check" type="submit"  name="accept" value="${request.school_id},${request.room_id}"> </button>
-                            <button class="w-6 h-6 bg-cover cursor-pointer bg-cross" type="submit" name="decline" value="${request.school_id},${request.room_id}"> </button>
-                        </form>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            } else {
+                // console.log('equal requests');
+            }
 
             // console.log(studentsList);
         }
@@ -768,17 +861,19 @@
             // Professor view
             <?php
             $cleanGroupInfo = [];
-            foreach ($decodedGroup as $index => $group) {
-                $container = [];
-                foreach ($group as $member) {
-                    $container[] = [
-                        $member[0] ?? '',  // Name
-                        $member[1] ?? '',  // Student Number
-                        $member[2] ?? ''   // Role
-                    ];
+            if (isset($decodedGroup[0])) {
+                foreach ($decodedGroup as $index => $group) {
+                    $container = [];
+                    foreach ($group as $member) {
+                        $container[] = [
+                            $member[0] ?? '',  // Name
+                            $member[1] ?? '',  // Student Number
+                            $member[2] ?? ''   // Role
+                        ];
+                    }
+                    $cleanGroupInfo[] = $container;
                 }
-                $cleanGroupInfo[] = $container;
-            }
+             }
             ?>
             const groups = <?php echo json_encode($cleanGroupInfo); ?>;
             

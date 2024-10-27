@@ -105,7 +105,6 @@
 
             <!-- TILES  -->
             <div id="dashboardTiles" class="flex justify-center max-h-[39.8rem] w-full overflow-y-auto overflow-x-hidden">         
-                <?php if(! empty($ascending_rooms)): ?>
                     <div class="hidden flex-col w-full m-4" id="rooms-ascending-container">
                         <hi class="font-synebold text-xl">Earliest</hi>
                         <!--  ROOMS  -->
@@ -142,18 +141,10 @@
                     </tbody>
                 </table>
            </div>
-                <?php else: ?>
-                    <div class="flex flex-col items-center justify-center w-full h-full">
-                        <span class="text-4xl font-synebold text-grey2">No room found</span>
-                        
-                        <?php if($_SESSION['user']['account_type'] === 'professor'):?>
-                            <span class="text-xl font-synemed">Create a room by clicking the "<span class="text-orange2">Create Room</span>" button</span>
-                        <?php elseif($_SESSION['user']['account_type'] === 'student'): ?>
-                            <span class="text-xl font-synemed">Join a room by <span class="text-orange2">entering the code</span> above</span>
-                        <?php endif; ?>
-                    </div>
 
-                <?php endif; ?>
+            <div id="noRooms" class="flex flex-col items-center justify-center w-full h-full">
+
+            </div>
         </div>
     </main>
 
@@ -315,10 +306,15 @@
     </script>
 
     <script>
+        let roomsChecker = null;
 
         document.addEventListener('DOMContentLoaded', function() {
             const rooms = <?php echo json_encode($ascending_rooms) ?>;
             // for ROOM GENERATIONS
+            const noRooms = document.getElementById('noRooms');
+            const dashboardTiles = document.getElementById('dashboardTiles');
+            const dashboardTable = document.getElementById('dashboardTable');
+
             const roomsASC = document.getElementById('rooms-ascending');
             const roomsDESC = document.getElementById('rooms-descending');
             const troomsASC = document.getElementById('t-rooms-ascending');
@@ -333,92 +329,36 @@
             
             // Displaying Rooms Ascending & Descending (based on time created)
             function displayRooms(rooms, filtering = false) {
-                if (filtering == true) {
-                    clearInterval(intervalID);
-                    console.log('interval cleared');
-                    roomsASC.innerHTML = '';
-                    roomsDESC.innerHTML = '';
-                    troomsASC.innerHTML = '';
-                    troomsDESC.innerHTML = '';
-                    
-                    if (rooms.length > 0) {
-                        rooms.forEach(room => {
-                            roomsASC.innerHTML += `
-                                <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
-                                    <div>   
-                                        <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
-                                        <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
-                                        <span class="text-base text-grey2">${room.prof_name}</span>
-                                    </div>
-                                    <span class="text-base text-grey2">${room.room_code}</span>
-                                </a>`;
-                            troomsASC.innerHTML += `
-                                <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
-                                        <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
-                                        <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
-                                    </td>
-                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
-                                </tr>`;
-                        });
-                        rooms.slice().reverse().forEach(room => {
-                            roomsDESC.innerHTML += `
-                                <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
-                                    <div>   
-                                        <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
-                                        <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
-                                        <span class="text-base text-grey2">${room.prof_name}</span>
-                                    </div>
-                                    <span class="text-base text-grey2">${room.room_code}</span>
-                                </a>`;
-                                
-                            troomsDESC.innerHTML += `
-                                <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
-                                        <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
-                                        <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
-                                    </td>
-                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                    <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
-                                </tr>`;
-                        });
-                    } else {
-                        roomsASC.innerHTML = '<p>No rooms found.</p>';
-                        roomsDESC.innerHTML = '<p>No rooms found.</p>';
-                        troomsASC.innerHTML = '<p>No rooms found.</p>';
-                        troomsDESC.innerHTML = '<p>No rooms found.</p>';
-                    }
-                } else {
-                    let ascHTML = '';
-                    let tascHTML = '';
-                    rooms.forEach((room) => {
-                        ascHTML += `<a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
-                                        <div>   
-                                            <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
-                                            <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
-                                            <span class="text-base text-grey2">${room.prof_name}</span>
-                                        </div>
-                                        <span class="text-base text-grey2">${room.room_code}</span>
-                                    </a>`;
-                        tascHTML += `
-                            <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
-                                    <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
-                                    <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
-                                </td>
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
-                            </tr>
-                        `;
-                    });
-                    roomsASC.innerHTML = ascHTML;
-                    troomsASC.innerHTML = tascHTML;
+                // console.log('displayRooms', rooms);
+                
 
-                    let descHTML = '';
-                    let tdescHTML = '';
-                    rooms.slice().reverse().forEach((room) => {
-                        descHTML += `<a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                if (rooms.length === 0) {
+                    dashboardTiles.remove();
+                    dashboardTable.remove();
+
+                    noRooms.innerHTML = `
+                        <span class="text-4xl font-synebold text-grey2">No room found</span>
+                        
+                        <?php if($_SESSION['user']['account_type'] === 'professor'):?>
+                            <span class="text-xl font-synemed">Create a room by clicking the "<span class="text-orange2">Create Room</span>" button</span>
+                        <?php elseif($_SESSION['user']['account_type'] === 'student'): ?>
+                            <span class="text-xl font-synemed">Join a room by <span class="text-orange2">entering the code</span> above</span>
+                        <?php endif; ?>
+                    `;
+                } else {
+                    if (filtering == true) {
+                        noRooms.remove();
+                        clearInterval(intervalID);
+                        console.log('interval cleared');
+                        roomsASC.innerHTML = '';
+                        roomsDESC.innerHTML = '';
+                        troomsASC.innerHTML = '';
+                        troomsDESC.innerHTML = '';
+                        
+                        if (rooms.length > 0) {
+                            rooms.forEach(room => {
+                                roomsASC.innerHTML += `
+                                    <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                         <div>   
                                             <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
                                             <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
@@ -426,20 +366,104 @@
                                         </div>
                                         <span class="text-base text-grey2">${room.room_code}</span>
                                     </a>`;
-                        tdescHTML += `
-                            <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                <td class=" h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
-                                    <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
-                                    <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
-                                </td>
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
-                            </tr>
-                        `;
-                    });
-                    roomsDESC.innerHTML = descHTML;
-                    troomsDESC.innerHTML = tdescHTML;
+                                troomsASC.innerHTML += `
+                                    <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                            <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
+                                            <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                        </td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                    </tr>`;
+                            });
+                            rooms.slice().reverse().forEach(room => {
+                                roomsDESC.innerHTML += `
+                                    <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                        <div>   
+                                            <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
+                                            <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                            <span class="text-base text-grey2">${room.prof_name}</span>
+                                        </div>
+                                        <span class="text-base text-grey2">${room.room_code}</span>
+                                    </a>`;
+                                    
+                                troomsDESC.innerHTML += `
+                                    <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                            <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
+                                            <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                        </td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                    </tr>`;
+                            });
+                        } else {
+                            roomsASC.innerHTML = '<p>No rooms found.</p>';
+                            roomsDESC.innerHTML = '<p>No rooms found.</p>';
+                            troomsASC.innerHTML = '<p>No rooms found.</p>';
+                            troomsDESC.innerHTML = '<p>No rooms found.</p>';
+                        }
+                    } else {
+                        if (roomsChecker === null || JSON.stringify(roomsChecker) !== JSON.stringify(rooms)){
+                            noRooms.remove();
+                            console.log('not equal rooms');
+                            roomsChecker = rooms;
+
+                            let ascHTML = '';
+                            let tascHTML = '';
+                            rooms.forEach((room) => {
+                                ascHTML += `<a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                                <div>   
+                                                    <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
+                                                    <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                                    <span class="text-base text-grey2">${room.prof_name}</span>
+                                                </div>
+                                                <span class="text-base text-grey2">${room.room_code}</span>
+                                            </a>`;
+                                tascHTML += `
+                                    <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                            <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
+                                            <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                        </td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                    </tr>
+                                `;
+                            });
+                            roomsASC.innerHTML = ascHTML;
+                            troomsASC.innerHTML = tascHTML;
+
+                            let descHTML = '';
+                            let tdescHTML = '';
+                            rooms.slice().reverse().forEach((room) => {
+                                descHTML += `<a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                                <div>   
+                                                    <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
+                                                    <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                                    <span class="text-base text-grey2">${room.prof_name}</span>
+                                                </div>
+                                                <span class="text-base text-grey2">${room.room_code}</span>
+                                            </a>`;
+                                tdescHTML += `
+                                    <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
+                                        <td class=" h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                            <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
+                                            <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                        </td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                    </tr>
+                                `;
+                            });
+                            roomsDESC.innerHTML = descHTML;
+                            troomsDESC.innerHTML = tdescHTML;
+                        } else {
+                            // console.log('equal rooms');
+                        }
+                    }
                 }
+                
             }
 
             // Event listeners for dropdowns
@@ -453,6 +477,7 @@
                 sectionDropdown.value = '';
                 programDropdown.value = '';
 
+                roomsChecker = null;
                 console.log('interval started again');
                 <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
                     fetchLatestData({

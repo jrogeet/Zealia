@@ -43,20 +43,20 @@
         </div>
 
         <!-- lists -->
-        <div class="relative flex mt-14 w-full">
+        <div class="relative flex w-full mt-14">
             <!-- left -->
             <div class="mx-auto ml-0 w-[50%] min-w-[37.5rem]">
-                <h2 class="text-xl font-synebold text-grey2 mb-4 text-left">Recently Created Accounts</h2>
-                <div class="container mx-auto my-6 bg-white shadow-lg rounded-lg border border-black mr-2 overflow-hidden">
+                <h2 class="mb-4 text-xl text-left font-synebold text-grey2">Recently Created Accounts</h2>
+                <div class="container mx-auto my-6 mr-2 overflow-hidden bg-white border border-black rounded-lg shadow-lg">
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
-                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">School No.</th>
-                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Name</th>
-                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Email</th>
-                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Type</th>
-                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Timestamp</th>
-                            <th class="px-1 pl-2 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Activation</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">School No.</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">Name</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">Email</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">Type</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">Activation</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,17 +64,19 @@
                             <tbody id="rcAccs">
                             <?php foreach($recentAccounts as $account) {?>  
                                 <tr>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['school_id'] ?></td>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['l_name'] ?>, <?= $account['f_name'] ?></td>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate max-w-[8rem]"><?= $account['email'] ?></td>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $account['account_type'] ?></td>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate max-w-[8rem]"><?= $account['daysAgo'] ?> days, <?= $account['hoursAgo'] ?> hours, <?= $account['minutesAgo'] ?> minutes ago</td>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">
+                                    <td class="px-1 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=<?= $account['school_id'] ?>"><?= $account['school_id'] ?></a></td>
+                                    <td class="px-1 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=<?= $account['school_id'] ?>"><?= $account['l_name'] ?>, <?= $account['f_name'] ?></a></td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate max-w-[8rem]"><a href="/admin-account-edit?id=<?= $account['school_id'] ?>"><?= $account['email'] ?></a></td>
+                                    <td class="px-1 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=<?= $account['school_id'] ?>"><?= $account['account_type'] ?></a></td>
+                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black truncate max-w-[8rem]"><a href="/admin-account-edit?id=<?= $account['school_id'] ?>"><?= $account['daysAgo'] ?> days, <?= $account['hoursAgo'] ?> hours, <?= $account['minutesAgo'] ?> minutes ago</a></td>
+                                    <td class="px-1 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200">
+                                        <a href="/admin-account-edit?id=<?= $account['school_id'] ?>">
                                         <?php if(isset($account['account_activation_hash'])): ?>
                                                 Not Yet Activated
                                         <?php else:?>
                                                 Activated
                                         <?php endif; ?>
+                                        </a>
                                     </td>
                                 </tr>
                             <?php }?>
@@ -88,17 +90,17 @@
 
             <!-- Right -->
             <div class="mx-auto mr-0 w-[50%] min-w-[37.5rem]">
-                <h2 class="text-xl font-synebold text-grey2 mb-4 text-left">Recently Created Rooms</h2>
-                <div class="container mx-auto my-6 bg-white shadow-lg rounded-lg border border-black ml-2 overflow-hidden">
+                <h2 class="mb-4 text-xl text-left font-synebold text-grey2">Recently Created Rooms</h2>
+                <div class="container mx-auto my-6 ml-2 overflow-hidden bg-white border border-black rounded-lg shadow-lg">
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
-                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Room ID</th>
-                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Room Name</th>
-                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Instructor</th>
-                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Instructor ID</th>
-                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Room Code</th>
-                            <th class="px-1 text-center pl-4 py-3 bg-blue3 text-left text-xs font-semibold text-white1 uppercase tracking-wider border-l border-r border-black">Timestamp</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room ID</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room Name</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Instructor</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Instructor ID</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room Code</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,18 +108,20 @@
                             <tbody id="rcRoom"> 
                             <?php foreach($recentRooms as $room) { ?>
                                 <tr>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_id'] ?></td>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_name'] ?></td>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black">
-                                    <?php foreach($professors as $professor) { ?>
-                                        <?php if($professor['school_id'] == $room['school_id']) { ?>
-                                            <?= $professor['f_name'] . ' ' . $professor['l_name'] ?>
+                                    <td class="px-1 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-room-edit?room_id=<?= $room['room_id'] ?>"><?= $room['room_id'] ?></a></td>
+                                    <td class="px-1 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-room-edit?room_id=<?= $room['room_id'] ?>"><?= $room['room_name'] ?></a></td>
+                                    <td class="px-1 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200">
+                                        <a href="/admin-room-edit?room_id=<?= $room['room_id'] ?>">
+                                        <?php foreach($professors as $professor) { ?>
+                                            <?php if($professor['school_id'] == $room['school_id']) { ?>
+                                                <?= $professor['f_name'] . ' ' . $professor['l_name'] ?>
+                                            <?php } ?>
                                         <?php } ?>
-                                    <?php } ?>
+                                        </a>
                                     </td>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['school_id'] ?></td>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['room_code'] ?></td>
-                                    <td class="px-1 text-center py-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black"><?= $room['daysAgo'] ?> days, <?= $room['hoursAgo'] ?> hours, <?= $room['minutesAgo'] ?> minutes ago</td>
+                                    <td class="px-1 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-room-edit?room_id=<?= $room['room_id'] ?>"><?= $room['school_id'] ?></a></td>
+                                    <td class="px-1 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-room-edit?room_id=<?= $room['room_id'] ?>"><?= $room['room_code'] ?></a></td>
+                                    <td class="px-1 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-room-edit?room_id=<?= $room['room_id'] ?>"><?= $room['daysAgo'] ?> days, <?= $room['hoursAgo'] ?> hours, <?= $room['minutesAgo'] ?> minutes ago</a></td>
                                 </tr>
                             <?php } ?>
                                 <!-- Add more rows as needed -->
