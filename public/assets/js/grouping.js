@@ -194,12 +194,12 @@ function generateGroups() {
 
             if (filteredIdNRiasec.length > 0) {
                 // Reset global arrays before generating new groups
-                // userlist = [];
-                // PI = [];
-                // writer = [];
-                // dev = [];
-                // des = [];
-                // groups = [];
+                userlist.length = 0;
+                PI.length = 0;
+                writer.length = 0;
+                dev.length = 0;
+                des.length = 0;
+                groups.length = 0;
                 console.log('In grouping.js filteredIdNRiasec:', filteredIdNRiasec);
                 
                 createList(filteredIdNRiasec);

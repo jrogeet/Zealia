@@ -134,7 +134,7 @@
                     <!-- Students List -->
                     <div id="studentListContainer" class="h-[34.5rem] flex flex-col overflow-y-hidden overflow-x-hidden rounded-b-xl">
                         <!-- Student Count -->
-                        <div class="flex items-center justify-center w-full h-12 p-4 border-t border-black1">
+                        <div class="flex items-center justify-center w-full h-12 p-4 border border-black1">
                             <span class="text-lg font-synemed">Total: </span>
                             <span id="studentCount" class="mx-1 text-xl font-synemed text-blue3"></span>
                             <span class="text-lg font-synemed">students.</span>
@@ -158,63 +158,8 @@
 
                 <!-- RIGHT BOX -->
                 <div id="rightBox" class="shadow-inside1 h-[37.5rem] w-[75%] rounded-xl flex justify-center items-center">
-                    <?php if($roomHasGroup):?>
-                        <!-- content -->
-                        <div id="groupsContent" class="flex flex-col items-center w-full h-full overflow-y-auto ">
-                            <!-- HEADER -->
-                            <div class="flex items-center w-full h-20 p-6">
-                                <span class="w-4/5 text-4xl font-synebold">GROUPS</span>
-                        
-                                <!-- downloadPDF groups btn -->
-                                <button onclick="downloadPDF()" class="flex items-center justify-center h-10 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1">Print Groups</button>
-                                <!-- edit groups btn -->
-                                <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-10 ml-4 text-lg border rounded-lg bg-blue2 w-36 font-synereg border-black1">Edit Groups</a>
-                                    
-
-                                    <!-- <form id="groupings" action="/groups" method="get">
-                                        <input type="hidden" name="grouped" id="grouped" value="<?= htmlspecialchars($encodedGroup, ENT_QUOTES, 'UTF-8') ?>">
-                                        <input type="hidden" name="room_id" value="<?= $room_id ?>">
-                                        <button type="submit" class="h-10 text-lg border rounded-lg bg-blue2 w-36 font-synereg border-black1">Edit Groups</button>
-                                    </form> -->
-                            </div>
-                    
-                            <!-- Groups Container -->
-                            <div id="groupsContainer" class="flex flex-wrap min-h-full w-full h-auto p-6 gap-y-5 justify-evenly">
-                                <!-- Each Boxes -->
-
-                            </div>
-                    </div>
 
 
-                    
-                    <!-- NO GROUPS -->
-                    <?php else: ?>
-                        <div class="flex flex-col items-center">
-                            <span class="text-4xl font-synebold">You haven't grouped the class yet.</span>
-
-                            <!-- <form id="submitGroups" action="/room" method="POST">
-                                <input type="hidden" name="_method" value="PATCH">
-                                <input type="hidden" name="grouped" value="grouped">
-                                <input type="hidden" name="genGroups" value="" id="genGroups">
-
-                                <input type="hidden" name="room" value="<?//= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
-                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="<?//= htmlspecialchars($encodedFilteredidNRiasec, ENT_QUOTES, 'UTF-8') ?>"> 
-                                <input type="hidden" name="stunotype" id="stunotype" value="<?//= count($stuNoType) ?>">
-                                <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
-                            </form> -->
-                            
-                            <form id="submitGroups" method="POST">
-                                <!-- <input type="hidden" name="_method" value="PATCH"> -->
-                                <input type="hidden" name="grouped" value="grouped">
-                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value=""> 
-                                <input type="hidden" name="stunotype" id="stunotype" value="">
-
-                                <input id="genGroups" type="hidden" name="genGroups" value="">
-                                <input type="hidden" name="room" value="<?= $_GET['room_id'] ?>">
-                                <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
-                            </form>
-                        </div>
-                    <?php endif; ?>
                 </div>
             </div>
         <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
@@ -357,15 +302,26 @@
         let studentsCount = 0;
         let membersCount = 0;
         let membersWarning = false;
+        let student_has_result = null;
+        let student_no_result = null;
 
-        let membersWarningContent = `
-            <div id="membersWarning" class="bg-red1 w-full h-10 flex items-center justify-center rounded-t-xl">
-                <span class="text-base font-synebold text-white1">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
-            </div>
-            <div class="w-full h-10 flex items-center justify-center rounded-t-xl">
-                <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[13rem] font-synebold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
-            </div>
-        `;
+        let membersWarningContent = '';
+
+        // let membersWarningContent = `
+        //     <div id="membersWarning" class="bg-red1 w-full h-10 flex items-center justify-center rounded-t-xl">
+        //         <span class="text-base font-synebold text-white1">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
+        //     </div>
+        //     <div class="w-full h-10 flex items-center justify-center rounded-t-xl">
+        //         <form id="submitGroups" method="POST">
+        //             <input type="hidden" name="grouped" value="grouped">
+        //             <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="${JSON.stringify(student_has_result)}"> 
+        //             <input type="hidden" name="stunotype" id="stunotype" value="${JSON.stringify(student_no_result)}">
+        //             <input type="hidden" name="genGroups" id="genGroups" value="">
+        //             <input type="hidden" name="room" value="${room_id}">
+        //             <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[13rem] font-synebold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
+        //         </form>
+        //     </div>
+        // `;
 
         document.addEventListener('DOMContentLoaded', function() {
             const roomStudentList = document.getElementById('roomStudentList');
@@ -420,11 +376,11 @@
         }
 
         function displayGroups(groupsList){
-            console.log('studentsCount', studentsCount);
-            console.log('membersCount', membersCount);
+            // console.log('studentsCount', studentsCount);
+            // console.log('membersCount', membersCount);
             let membersCounter = 0;
 
-            if (groupsList.length > 0) {
+            if (groupsList.length > 0 && groupsList[0]['groups_json'] !== 'null') {
                 console.log('groupsList', groupsList);
                 const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
 
@@ -432,7 +388,7 @@
                     membersCounter += group.length;
                 });
 
-                console.log('membersCounter', membersCounter);
+                // console.log('membersCounter', membersCounter);
 
                 // Checking whether members warning should be shown
                 if (groupChecker !== null && studentsCount !== membersCount && membersWarning === false) {
@@ -455,18 +411,30 @@
                     console.log('not equal');
                     console.log('parsedGroupsList', parsedGroupsList);
                     groupChecker = parsedGroupsList;
+                    
+                    const rightBox = document.getElementById('rightBox');
+                    rightBox.innerHTML = '';
+
+                    rightBox.innerHTML = `
+                        <div id="groupsContent" class="relative flex flex-col items-center w-full h-full overflow-y-hidden">
+                            <!-- HEADER -->
+                            <div class="flex items-center w-full h-20 p-6">
+                                <span class="w-4/5 text-4xl font-synebold">GROUPS</span>
+                        
+                                <!-- downloadPDF groups btn -->
+                                <button onclick="downloadPDF()" class="flex items-center justify-center h-10 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1">Print Groups</button>
+                                <!-- edit groups btn -->
+                                <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-10 ml-4 text-lg border rounded-lg bg-blue2 w-36 font-synereg border-black1">Edit Groups</a>
+                            </div>
+                    
+                            <!-- Groups Container -->
+                            <div id="groupsContainer" class="flex flex-wrap min-h-3/5 w-full h-auto overflow-y-auto p-6 gap-y-5 justify-evenly">
+                                <!-- Each Boxes -->
+                            </div>
+                        </div>
+                    `;
 
 
-                    // const groupForGenerationForm = document.getElementById('submitGroups');
-                    // const groupForGenerationValue = document.getElementById('filteredidNRiasec').value;
-
-                    // if (groupForGenerationForm) {
-                    //     console.log('groupForGeneration', groupForGeneration);
-                    //     groupForGeneration.value = JSON.stringify(parsedGroupsList);
-                    // }
-                    // console.log('filteredidNRiasec', document.getElementById('filteredidNRiasec').value);
-
-                    // MAY ERROR TO
                     const groupsContainer = document.getElementById('groupsContainer');
                     groupsContainer.innerHTML = '';
 
@@ -501,7 +469,31 @@
                 } else {
                     // console.log('equal');
                 }
-             }
+            } else if (groupsList.length === 0 || groupsList[0]['groups_json'] === 'null') {
+                const rightBox = document.getElementById('rightBox');
+                rightBox.innerHTML = '';
+
+                if (<?= $_SESSION['user']['account_type'] === 'student' ? 'true' : 'false' ?>) {
+                    console.log('student');
+                } else if (<?= $_SESSION['user']['account_type'] === 'professor' ? 'true' : 'false' ?>) {
+                    // console.log('student_has_result', student_has_result);
+                    rightBox.innerHTML = `
+                        <div id="profNoGroups" class="flex flex-col items-center">
+                            <span class="text-4xl font-synebold">You haven't grouped the class yet.</span>
+                            
+                            <form id="submitGroups" method="POST">
+                                <input type="hidden" name="grouped" value="grouped">
+                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="${student_has_result}">
+                                <input type="hidden" name="stunotype" id="stunotype" value="">
+
+                                <input id="genGroups" type="hidden" name="genGroups" value="">
+                                <input type="hidden" name="room" value="<?= $_GET['room_id'] ?>">
+                                <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+                            </form>
+                        </div>
+                    `;
+                }
+            }
         }
 
         function submitForm(formId, url, type, params = {}) {
@@ -511,6 +503,7 @@
                 console.log('form not found');
                 return;
             }
+            
             console.log('params', params);  
 
             console.log('form', form);
@@ -534,7 +527,14 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                console.log('Response:', data);
+                    console.log('Response:', data);
+                    // if (type === 'group_students' && data.success) {
+                    //     membersWarning = false;
+                    //     const groupsContent = document.getElementById('groupsContent');
+                    //     if (groupsContent) {
+                    //         groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
+                    //     }
+                    // }
                 })
                 .catch(error => console.error('Fetch Error:', error));
             // });
@@ -543,6 +543,35 @@
         function displayStudents(studentsList){
             studentsCount = studentsList.room_list.length;
             // console.log('studentsList', studentsList.room_list.length);
+
+            // if (student_has_result === null || JSON.stringify(student_has_result) !== JSON.stringify(studentsList.student_has_result)){
+            //     student_has_result = studentsList.student_has_result;
+            // }
+
+            // if (student_no_result === null || JSON.stringify(student_no_result) !== JSON.stringify(studentsList.student_no_result)){
+            //     student_no_result = studentsList.student_no_result;
+            // }
+
+                if (studentsList.student_has_result) {
+                    student_has_result = studentsList.student_has_result;
+                }
+
+                // Modify the membersWarningContent to use the current student_has_result
+                membersWarningContent = `
+                    <div id="membersWarning" class="bg-red1 w-full h-10 flex items-center justify-center rounded-t-xl">
+                        <span class="text-base font-synebold text-white1">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
+                    </div>
+                    <div class="w-full h-10 flex items-center justify-center rounded-t-xl">
+                        <form id="submitGroups" method="POST">
+                            <input type="hidden" name="grouped" value="grouped">
+                            <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
+                            <input type="hidden" name="stunotype" id="stunotype" value="">
+                            <input type="hidden" name="genGroups" id="genGroups" value="">
+                            <input type="hidden" name="room" value="${room_id}">
+                            <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[13rem] font-synebold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
+                        </form>
+                    </div>
+                `;
 
             if (studentsList.room_list.length === 0) {
                 studentCount.innerHTML = `<span class="mx-1 text-xl font-synemed text-blue3">0</span>`;
@@ -555,10 +584,21 @@
                 console.log('not equal students');
                 studentsChecker = studentsList.room_list;
 
-                const idNRiasecInput = document.getElementById('filteredidNRiasec');
-                // console.log(JSON.stringify(studentsList.student_has_result));
-                if (idNRiasecInput) {  // pag naka show yung Generate Groups Button
-                    idNRiasecInput.value = JSON.stringify(studentsList.student_has_result);
+                // const idNRiasecInput = document.getElementById('filteredidNRiasec');
+                // // console.log(JSON.stringify(studentsList.student_has_result));
+                // if (idNRiasecInput) {  // pag naka show yung Generate Groups Button
+                //     idNRiasecInput.value = JSON.stringify(student_has_result);
+                // }
+
+                if (groupChecker !== null && studentsCount !== membersCount && membersWarning === false) {
+                    membersWarning = true;
+                    const groupsContent = document.getElementById('groupsContent');
+
+                    groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
+                } else if (membersWarning === true && studentsCount === membersCount)  {
+                    membersWarning = false;
+                    const groupsContent = document.getElementById('groupsContent');
+                    groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
                 }
 
                 // UPDATING THE DOM:
@@ -566,8 +606,7 @@
                 roomJoinRequest.innerHTML = '';
                 studentCount.innerHTML = '';
                 
-                studentCount.innerHTML = `<span class="mx-1 text-xl font-synemed text-blue3">${studentsList.room_list.length} </span>`;
-
+                studentCount.innerHTML = `<span class="mx-1 text-xl font-synemed text-blue3">${studentsList.room_list.length}</span>`;
 
                 studentsList.room_list.forEach(student => {
                     roomStudentList.innerHTML += `
@@ -576,7 +615,7 @@
                             <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll(); clearInterval(intervalID);">
                         </div>
 
-                        <div id="kickConfirmation${student.school_id}"  class="fixed z-50 justify-center hidden w-screen h-screen -left-20 bg-glassmorphism -top-24">
+                        <div id="kickConfirmation${student.school_id}"  class="fixed z-50 justify-center hidden w-screen h-screen left-0 bg-glassmorphism -top-24">
                             <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
                                 <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
                                     <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Confirmation</span>
@@ -586,7 +625,7 @@
                                     <span class="text-2xl font-synebold text-red1">Remove:</span>
                                     <span class="text-xl font-synemed">${student.l_name} ${student.f_name}</span>
                                     <span class="text-lg font-synereg">from this room?</span>
-                                    <button type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 border rounded bg-red1 text-white1 border-black1">Confirm</button>
+                                    <button onclick="enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 border rounded bg-red1 text-white1 border-black1">Confirm</button>
                                 </form>
                             </div>
                         </div>
