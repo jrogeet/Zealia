@@ -34,6 +34,7 @@
 
                     <!-- <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button> -->
                     <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onclick="toggle('rooms-ascending-container'); toggle('rooms-descending-container'); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
+                    <button id="clearFilters" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">Clear Search/Filter</button>
                 </div>
 
                 <?php if ($_SESSION['user']['account_type'] === 'student'):?>
@@ -71,7 +72,7 @@
             <!-- Filter -->
             <div class="hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="flex w-4/6">
-                <div class="flex items-center h-[2.25rem] w-full bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
+                <div class="flex items-center h-[2.25rem] w-4/5  bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
                     <p class="flex text-grey1 font-synemed text-lg">Search by Filter:</p>
 
                     <!-- Year -->
@@ -98,7 +99,7 @@
                         <option class="bg-white2" value="it">IT</option>
                     </select>
 
-                    <button id="clearFilters" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">Clear Filters</button>
+                    <!-- <button id="clearFilters" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">Clear Filters</button> -->
                 </div>
                 </div>
             </div>

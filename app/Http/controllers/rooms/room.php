@@ -145,6 +145,7 @@ if ($valid) {
                     $names = explode("+", $member[0]);
                     $member[0] = "{$names[0]} {$names[1]}";
                 }
+
                 foreach ($stu_info as $student) {
                     if(isset($member[1]) && $member[1] === $student['school_id']) {
                         if (isset($student['kanban'])) {
@@ -166,20 +167,22 @@ if ($valid) {
         view('rooms/room.view.php', [
             'stu_info' => $stu_info, // STUDENTS LIST
             'encodedstu_info' => $encodedstu_info,
-            'room_info' => $room_info,
+            'room_info' => $room_info, // room details from rooms table
             'encodedRoomInfo' => $encodedRoomInfo,
-            'prof_name' => $prof_name,
-            'stu_id'=> $stu_id,
-            'requests'=>$requests,
-            'idNRiasec' => $idNRiasec,
-            'filteredidNRiasec' => $filteredidNRiasec,
+            'prof_name' => $prof_name, // professor name
+            'stu_id'=> $stu_id, // all students id in the room from room_list table
+            'requests'=>$requests, // all join requests from join_room_requests table
+            'idNRiasec' => $idNRiasec, // all students id and RIASEC type
+            // used in the dom:
+            'filteredidNRiasec' => $filteredidNRiasec, // students with personality_type
             'encodedFilteredidNRiasec' => $encodedFilteredidNRiasec,
-            'stuNoType' => $stuNoType,
+            'stuNoType' => $stuNoType, // filtered students without personality_type
             'encodedStuNoType' => $encodedStuNoType,
-            'decodedGroup' => $decodedGroup,
-            'encodedGroup' =>$encodedGroup,
-            'roomHasGroup' => $roomHasGroup,
-            'idNtype' => $idNtype,
+            // needed for the dom:
+            'decodedGroup' => $decodedGroup, // all groups
+            'encodedGroup' =>$encodedGroup, // encoded groups
+            'roomHasGroup' => $roomHasGroup, // groups in the room from room_groups table
+            'idNtype' => $idNtype, // all students id and RIASEC type
             // 'kanban' => $kanban_decoded,
         ]);
     } else {

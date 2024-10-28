@@ -150,13 +150,45 @@ function distributeRoles(){
 function generateGroups() {
     const filteredIdNRiasecElement = document.getElementById('filteredidNRiasec');
     if (filteredIdNRiasecElement) {
-        const filteredIdNRiasec = JSON.parse(filteredIdNRiasecElement.value);
-        createList(filteredIdNRiasec);
-        groupRoles(PI);
-        groupRoles(writer);
-        groupRoles(dev);
-        groupRoles(des);
-        distributeRoles();
+        try {
+            // Check if value exists and is not empty
+            const value = filteredIdNRiasecElement.value;
+            if (!value || value.trim() === '') {
+                console.error('filteredIdNRiasec value is empty');
+                return;
+            }
+
+            // Try to parse the JSON
+            const filteredIdNRiasec = JSON.parse(value);
+            
+            // Validate the parsed data
+            if (!Array.isArray(filteredIdNRiasec)) {
+                console.error('filteredIdNRiasec is not an array:', filteredIdNRiasec);
+                return;
+            }
+
+            if (filteredIdNRiasec.length > 0) {
+                // Reset global arrays before generating new groups
+                userlist = [];
+                PI = [];
+                writer = [];
+                dev = [];
+                des = [];
+                groups = [];
+                
+                createList(filteredIdNRiasec);
+                groupRoles(PI);
+                groupRoles(writer);
+                groupRoles(dev);
+                groupRoles(des);
+                distributeRoles();
+            } else {
+                console.error('filteredIdNRiasec array is empty');
+            }
+        } catch (error) {
+            console.error('Error parsing filteredIdNRiasec JSON:', error);
+            console.log('Raw value:', filteredIdNRiasecElement.value);
+        }
     } else {
         console.error('Could not find filteredidNRiasec element');
     }

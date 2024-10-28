@@ -122,8 +122,7 @@ private function getLatestData($params)
         // TABLES
         // dd($conditions);
 
-        // Build the SQL query
-        if (!empty($mulTables)) {
+        if (!empty($mulTables)) { // Multiple Tables
             $latestData = [];
             foreach ($mulTables as $tableKey => $tableName) {
                 $query = "SELECT * FROM {$tableName} ";
@@ -154,12 +153,12 @@ private function getLatestData($params)
             }
             
             // echo $query;
-            // Execute the query
             $latestData = $this->db->query($query, $conditions)->findAll();
         }
 
         if (!empty($mulTables) && in_array('room_list', $mulTables)) {
-            if (isset($currentPage) && $currentPage != '' && $currentPage == "room") {
+
+            if (isset($currentPage) && $currentPage == "room") {
                 if (! empty($latestData['room_list'])) {
                     foreach ($latestData['room_list'] as &$student) {
                         $stu_info = $this->db->query('SELECT f_name, l_name, school_id, email, result FROM accounts WHERE school_id = :school_id', [
@@ -183,8 +182,6 @@ private function getLatestData($params)
                         }
                     }
                 }
-
-
             } else {
                 foreach ($latestData as &$room) { // Use reference to modify the original array
                     $roomInfo = $this->db->query('SELECT * FROM rooms WHERE room_id = :room_id', [
@@ -193,7 +190,6 @@ private function getLatestData($params)
     
                     // dd($roomInfo);
     
-                    // Assuming $roomInfo is an array and you want to merge it
                     if (!empty($roomInfo)) {
                         $room = array_merge($room, $roomInfo); // Merge the first roomInfo into the room
                     }
@@ -210,6 +206,7 @@ private function getLatestData($params)
                 }
                 unset($room); // Unset reference to avoid accidental modifications later
             }
+
         } elseif (isset($table)) {
             if ($table ==  'rooms' || $table == 'room_list') {
                 foreach ($latestData as &$room) {
@@ -234,6 +231,34 @@ private function getLatestData($params)
                     }
                 }
                 unset($room);
+            } elseif ($table == 'room_groups') { // roomHasGroup & decodedGroups
+                $decodedGroups = json_decode($latestData[0]['groups_json'], true);
+                foreach ($decodedGroups as &$group) {
+                    foreach($group as &$member){
+                        $stu_info = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
+                            'school_id' => $member[1],
+                        ])->find();
+
+                        if (isset($stu_info['kanban'])) {
+                            $member[] = json_decode($stu_info['kanban'], true);
+                        } else {
+                            $member[] = "";
+                        }
+
+                        // foreach ($stu_info as $student) {
+                        //     if(isset($member[1]) && $member[1] === $student['school_id']) {
+                        //         if (isset($student['kanban'])) {
+                        //             $member[] = json_decode($student['kanban'], true);
+                        //         } else {
+                        //             $member[] = "";
+                        //         }
+                        //     }
+                        // }
+                    }
+                }
+                // dd($decodedGroups);
+                $encodedGroups = json_encode($decodedGroups);
+                $latestData[0]['groups_json'] = $encodedGroups;
             }
         }
 
