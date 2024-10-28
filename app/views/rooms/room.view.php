@@ -148,22 +148,15 @@
                         <div id="roomStudentList" class="min-h-3/5 flex flex-col overflow-x-hidden overflow-y-auto rounded-b-xl">
 
                         </div>
-
-
                     </div>
 
                     <!-- Requests List -->
                     <div id="roomJoinRequest" class="hidden flex-col h-[34.5rem] overflow-y-auto overflow-x-hidden rounded-b-xl">
-
                     </div>
-
-                    
                 </div>
 
                 <!-- RIGHT BOX -->
                 <div id="rightBox" class="shadow-inside1 h-[37.5rem] w-[75%] rounded-xl flex justify-center items-center">
-
-
                 </div>
             </div>
         <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
@@ -791,10 +784,10 @@
 
         <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
             console.log('currentKB', currentKB);
-            const StudButt = document.getElementById('StudButt');
-            const GrButt = document.getElementById('GrButt');
-            const students = document.getElementById('students');
-            const groupContent = document.getElementById('groups');
+            // const StudButt = document.getElementById('StudButt');
+            // const GrButt = document.getElementById('GrButt');
+            // const students = document.getElementById('students');
+            // const groupContent = document.getElementById('groups');
             const groupMembers = members;
             const groupNumber = groupNum;
 
@@ -804,46 +797,84 @@
  
             // let currentKB = currentKB;
 
-            function addTask() { // ONLY ADDS TASK PHYSICALLY, STILL NEED TO UPDATE JSON ON TASK ADD
+            function addTask() {
                 // Get values from the modal inputs
                 const taskName = document.getElementById('taskName').value;
                 const taskDate = document.getElementById('taskDate').value;
                 const taskInfo = document.getElementById('taskInfo').value;
                 const taskDestination = document.getElementById('taskDestination').value;
-                const container = document.getElementById(`${currentKB}${taskDestination}Cont`);
-                const newCard = document.createElement('div');
-
-                newCard.setAttribute('draggable', 'true');
-                newCard.classList.add('block', 'h-fit', 'py-2', 'border-b', 'border-black1', 'cursor-grab');
-                newCard.innerHTML = `
-                                    <div class="flex p-1 card cursor-grab justify-evenly" draggable="true">
-                                        <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskName}</span>
-                                        <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskDate}</span>
-                                    </div>
-                                        <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskInfo}</span>
-                                    `;
-
-                console.log("currentKB:",currentKB);
-                console.log(`${currentKB}${taskDestination}Cont`);
-
-                container.appendChild(newCard);
                 
-                // adds drag and drop functionality to new tasks
-                newCard.addEventListener('dragstart', function(event) {
-                    newCard.classList.add("dragging");
-                    newCard.classList.remove("cursor-grab");
-                    newCard.classList.add("cursor-grabbing");
+                // Validate inputs
+                if (!taskName.trim()) {
+                    alert('Task name is required');
+                    return;
+                }
+
+                // Create the task array
+                const newTask = [taskName, taskInfo, taskDate];
+                
+                // Get the member whose kanban is being updated
+                const member = members[currentKB];
+                
+                // Create the form data directly instead of relying on a form element
+                const formData = new FormData();
+                formData.append('school_id', member[1]);
+                formData.append('task', JSON.stringify(newTask));
+                formData.append('destination', taskDestination);
+                formData.append('room_id', room_id);
+                formData.append('form_type', 'update_kanban');
+
+                // Make the fetch request directly
+                fetch('/api/submit-form', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        console.error('Failed to save task:', data.message);
+                        alert('Failed to save task. Please try again.');
+                        return;
+                    }
+
+                    // If successful, update the UI
+                    const container = document.getElementById(`${currentKB}${taskDestination}Cont`);
+                    const newCard = document.createElement('div');
+                    newCard.setAttribute('draggable', 'true');
+                    newCard.classList.add('block', 'py-2', 'border-b', 'card', 'cursor-grab', 'border-black1');
+                    newCard.innerHTML = `
+                        <div class="flex p-1 cursor-grab justify-evenly">
+                            <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskName}</span>
+                            <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskDate}</span>
+                        </div>
+                        <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskInfo}</span>
+                    `;
+
+                    container.appendChild(newCard);
+                    attachDragListeners(newCard);
+                    
+                    clearModal();
+                    hide('taskModal');
+                })
+                .catch(error => {
+                    console.error('Error saving task:', error);
+                    alert('Error saving task. Please try again.');
                 });
-                newCard.addEventListener('dragend', function(event) { // To remove class after dragging
-                    newCard.classList.remove("dragging");
-                    newCard.classList.remove("cursor-grabbing");
-                    newCard.classList.add("cursor-grab");
+            }
+
+            // Helper function to attach drag listeners to a card
+            function attachDragListeners(card) {
+                card.addEventListener('dragstart', function() {
+                    card.classList.add("dragging");
+                    card.classList.remove("cursor-grab");
+                    card.classList.add("cursor-grabbing");
                 });
 
-                clearModal()
-
-                // Hide the modal
-                hide('taskModal');
+                card.addEventListener('dragend', function() {
+                    card.classList.remove("dragging");
+                    card.classList.remove("cursor-grabbing");
+                    card.classList.add("cursor-grab");
+                });
             }
 
             // for add task modal only
@@ -902,11 +933,46 @@
                     }
                 });
 
-                zone.addEventListener('drop', function(event) {
-                    event.preventDefault();
-                    const curTask = document.querySelector(".dragging");
-                    curTask.classList.remove("dragging");
+                zone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                const curTask = document.querySelector(".dragging");
+                if (!curTask) return;
+
+                curTask.classList.remove("dragging");
+
+                // Get the new destination column
+                const newDestination = zone.id.replace(`${currentKB}`, '').replace('Cont', ''); // 'todo', 'wip', or 'done'
+                
+                // Get task data from the DOM element
+                const taskName = curTask.querySelector('.font-synebold').textContent;
+                const taskDate = curTask.querySelector('.font-synemed').textContent;
+                const taskInfo = curTask.querySelector('.font-synereg').textContent;
+                
+                // Create and send form data
+                const formData = new FormData();
+                formData.append('school_id', members[currentKB][1]);
+                formData.append('task', JSON.stringify([taskName, taskInfo, taskDate]));
+                formData.append('destination', newDestination);
+                formData.append('room_id', room_id);
+                formData.append('form_type', 'update_kanban');
+                formData.append('action', 'move');
+
+                fetch('/api/submit-form', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        console.error('Failed to move task:', data.message);
+                        // Optionally revert the UI change
+                        return;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error moving task:', error);
                 });
+            });
             });
 
             // toggle hidden/flex kanban of members
@@ -977,36 +1043,36 @@
             //     });
             // });
 
-            StudButt.addEventListener('click',function(){
-                if(StudButt.classList.contains("bg-blue3")){
+            // StudButt.addEventListener('click',function(){
+            //     if(StudButt.classList.contains("bg-blue3")){
                         
-                }else{
-                    StudButt.classList.replace("bg-orange1","bg-blue3");
-                    StudButt.classList.replace("text-black1","text-white1");
-                    StudButt.classList.replace("w-2/5","w-3/5");
-                    GrButt.classList.replace("bg-blue3","bg-orange1");
-                    GrButt.classList.replace("text-white1","text-black1");
-                    GrButt.classList.replace("w-3/5","w-2/5");
-                    students.classList.remove("hidden");
-                    groupContent.classList.add("hidden");
-                }
-            })
+            //     }else{
+            //         StudButt.classList.replace("bg-orange1","bg-blue3");
+            //         StudButt.classList.replace("text-black1","text-white1");
+            //         StudButt.classList.replace("w-2/5","w-3/5");
+            //         GrButt.classList.replace("bg-blue3","bg-orange1");
+            //         GrButt.classList.replace("text-white1","text-black1");
+            //         GrButt.classList.replace("w-3/5","w-2/5");
+            //         students.classList.remove("hidden");
+            //         groupContent.classList.add("hidden");
+            //     }
+            // })
 
             
-            GrButt.addEventListener('click',function(){
-                if(GrButt.classList.contains("bg-blue3")){
+            // GrButt.addEventListener('click',function(){
+            //     if(GrButt.classList.contains("bg-blue3")){
                     
-                }else{
-                    GrButt.classList.replace("bg-orange1","bg-blue3");
-                    GrButt.classList.replace("text-black1","text-white1");
-                    GrButt.classList.replace("w-2/5","w-3/5");
-                    StudButt.classList.replace("bg-blue3","bg-orange1");
-                    StudButt.classList.replace("text-white1","text-black1");
-                    StudButt.classList.replace("w-3/5","w-2/5");
-                    students.classList.add("hidden");
-                    groupContent.classList.remove("hidden");
-                }
-            })
+            //     }else{
+            //         GrButt.classList.replace("bg-orange1","bg-blue3");
+            //         GrButt.classList.replace("text-black1","text-white1");
+            //         GrButt.classList.replace("w-2/5","w-3/5");
+            //         StudButt.classList.replace("bg-blue3","bg-orange1");
+            //         StudButt.classList.replace("text-white1","text-black1");
+            //         StudButt.classList.replace("w-3/5","w-2/5");
+            //         students.classList.add("hidden");
+            //         groupContent.classList.remove("hidden");
+            //     }
+            // })
         <?php endif; ?>
     </script>
 

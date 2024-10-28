@@ -241,40 +241,36 @@ private function getLatestData($params)
                     }
                 }
                 unset($room);
-            } elseif ($table == 'room_groups') { // roomHasGroup & decodedGroups
-                if (!empty($latestData[0]['groups_json'])) {
-                    $decodedGroups = json_decode($latestData[0]['groups_json'], true);
-                    if (is_array($decodedGroups)) {
-                        foreach ($decodedGroups as &$group) {
-                            foreach($group as &$member){
-                                $stu_info = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
-                                    'school_id' => $member[1],
-                                ])->find();
-        
-                                if (isset($stu_info['kanban'])) {
-                                    $member[] = json_decode($stu_info['kanban'], true);
-                                } else {
-                                    $member[] = "";
+            // Inside the getLatestData function, in the room_groups section
+            } elseif ($table == 'room_groups') {
+                    if (!empty($latestData[0]['groups_json'])) {
+                        $decodedGroups = json_decode($latestData[0]['groups_json'], true);
+                        if (is_array($decodedGroups)) {
+                            foreach ($decodedGroups as &$group) {
+                                foreach($group as &$member){
+                                    $stu_info = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
+                                        'school_id' => $member[1],
+                                    ])->find();
+                    
+                                    if (!empty($stu_info['kanban'])) {
+                                        $member[3] = json_decode($stu_info['kanban'], true);
+                                    } else {
+                                        $member[3] = [
+                                            $conditions['room_id'] => [
+                                                'todo' => [],
+                                                'wip' => [],
+                                                'done' => []
+                                            ]
+                                        ];
+                                    }
                                 }
-        
-                                // foreach ($stu_info as $student) {
-                                //     if(isset($member[1]) && $member[1] === $student['school_id']) {
-                                //         if (isset($student['kanban'])) {
-                                //             $member[] = json_decode($student['kanban'], true);
-                                //         } else {
-                                //             $member[] = "";
-                                //         }
-                                //     }
-                                // }
                             }
                         }
+                        
+                        $encodedGroups = json_encode($decodedGroups);
+                        $latestData[0]['groups_json'] = $encodedGroups;
                     }
-
-                    // dd($decodedGroups);
-                    $encodedGroups = json_encode($decodedGroups);
-                    $latestData[0]['groups_json'] = $encodedGroups;
                 }
-            }
         }
 
 
@@ -326,6 +322,9 @@ private function getLatestData($params)
             case 'group_students':
                 $result = $this->processGroupStudents($formData);
                 break;
+            case 'update_kanban':
+                $result = $this->processUpdateKanban($formData);
+                break;
             default:
                 $result = $this->processDefaultForm($formData);
         }
@@ -336,6 +335,64 @@ private function getLatestData($params)
     }
 
     //       START OF FUNCTIONS for SUBMIT FORMS      //
+
+    private function processUpdateKanban($formData) {
+        try {
+            // Get current kanban data
+            $currentKanban = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
+                'school_id' => $formData['school_id']
+            ])->find();
+    
+            // Decode current kanban or initialize empty structure
+            $kanbanData = [];
+            if (!empty($currentKanban['kanban'])) {
+                $kanbanData = json_decode($currentKanban['kanban'], true) ?? [];
+            }
+    
+            // Initialize room's kanban if it doesn't exist
+            if (!isset($kanbanData[$formData['room_id']])) {
+                $kanbanData[$formData['room_id']] = [
+                    'todo' => [],
+                    'wip' => [],
+                    'done' => []
+                ];
+            }
+    
+            // For move operations
+            if (isset($formData['action']) && $formData['action'] === 'move') {
+                // Remove task from all lists first
+                foreach (['todo', 'wip', 'done'] as $list) {
+                    $kanbanData[$formData['room_id']][$list] = array_filter(
+                        $kanbanData[$formData['room_id']][$list],
+                        function($task) use ($formData) {
+                            return $task[0] !== json_decode($formData['task'], true)[0];
+                        }
+                    );
+                }
+            }
+    
+            // Add task to appropriate list
+            $task = json_decode($formData['task'], true);
+            $kanbanData[$formData['room_id']][$formData['destination']][] = $task;
+    
+            // Update database
+            $this->db->query('UPDATE accounts SET kanban = :kanban WHERE school_id = :school_id', [
+                'kanban' => json_encode($kanbanData),
+                'school_id' => $formData['school_id']
+            ]);
+    
+            return [
+                'success' => true,
+                'message' => 'Kanban updated successfully',
+                'data' => $kanbanData[$formData['room_id']]
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Error updating kanban: ' . $e->getMessage()
+            ];
+        }
+    }
 
     private function processHandleRequest($formData) {
         // dd($formData);
