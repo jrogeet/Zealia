@@ -3,35 +3,39 @@
     <?php view('partials/nav.view.php')?>
 
     <?php 
-        $members = [];
-        $groupNum = 0;
+        // $members = [];
+        // $groupNum = 0;
 
-        if (isset($decodedGroup)) {
-            foreach ($decodedGroup as $index => $group) {
-                $container = [];
-                $bool = false;
-                foreach ($group as $member) {
-                    $container[] = $member;
-                    if ($_SESSION['user']['account_type'] == 'professor') {
-                        $members[$index + 1] = $member;
-                    } elseif ($member[1] === $_SESSION['user']['school_id'])  {
-                        $bool = true;
-                        $groupNum = $index+1;
-                        // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 265)
-                        $studentRole = $member[2]; 
-                    }
-                }
-                if ($bool === true) {
-                    $members = $container;
-                }  
-            }
-        }
+        // if (isset($decodedGroup)) {
+        //     foreach ($decodedGroup as $index => $group) {
+        //         $container = [];
+        //         $bool = false;
+        //         foreach ($group as $member) {
+        //             $container[] = $member;
+        //             if ($_SESSION['user']['account_type'] == 'professor') {
+        //                 $members[$index + 1] = $group;
+        //             } elseif ($member[1] === $_SESSION['user']['school_id'])  {
+        //                 $bool = true;
+        //                 $groupNum = $index+1;
+        //                 // inistore ko role ng user(student) sa $studentRole, for checking kung pwede din sya mag add ng task sa kanban (line 265)
+        //                 $studentRole = $member[2]; 
+        //             }
+        //         }
+        //         if ($bool === true) {
+        //             $members = $container;
+        //         }  
+        //     }
+        // }
+
+        //dd($members);
     ?>
     
     <main class="relative block left-1/2 transform -translate-x-1/2 h-[23.2rem] w-full top-32">
         <?php if (isset($errors['room_name'])) : ?>
             <p class="flex items-center justify-center h-12 text-2xl font-synemed text-red1"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
+
+        <?php //dd($decodedGroup) ?>
 
         <!-- Add task modal -->
         <div id="taskModal" class="absolute hidden w-screen h-screen -top-20 bg-glassmorphism z-[55]">
@@ -169,113 +173,33 @@
                 <!-- BODY -->
                 <div class="flex w-10/12 mx-auto mb-32">
                     <!-- left -->
-                    <div class="bg-white2 relative block mx-auto w-[26%] text-center justify-between items-center h-[40rem] border border-black1 px-6 py-4 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)]">
+                    <div id="leftBoxStudent" class="bg-white2 relative block mx-auto w-[26%] text-center justify-between items-center h-[40rem] border border-black1 px-6 py-4 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)]">
                         <!-- head -->
-                        <div class="flex w-full py-2">
-                            <h1 class="mx-auto ml-0 text-4xl text-left font-synebold">Group: <?php echo $groupNum ?></h1>
-                            <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1" onclick="downloadPDF()">Print Group</button>
+                        <div id="leftBoxStudentHead" class="flex w-full py-2">
+                            <!-- <h1 class="mx-auto ml-0 text-4xl text-left font-synebold">Group: <?//php echo $groupNum ?></h1>
+                            <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1" onclick="downloadPDF()">Print Group</button> -->
                         </div>
                         
                         <!-- members -->
-                        <div class="w-full py-2">
-                            <?php foreach ($members as $member){ ?>
-                                <h1 class="flex py-4 my-2 text-xl"> <span class="w-2/6 mx-auto text-left"><?php echo $member[0]; ?></span><span class="w-2/6 mx-auto text-right"><?php echo $member[2]; ?></span></h1>
+                        <div id="leftBoxStudentMembers" class="w-full py-2">
+                            <!-- <?//php foreach ($members as $member){ ?>
+                                <h1 class="flex py-4 my-2 text-xl"> <span class="w-2/6 mx-auto text-left"><?//php echo $member[0]; ?></span><span class="w-2/6 mx-auto text-right"><?//php echo $member[2]; ?></span></h1>
                                 
-                            <?php } ?>
+                            <?//php } ?> -->
                         </div>
         
                     </div>
                     
                     <!-- right -->
-                    <div class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-synemed">
+                    <div id="rightBoxStudent" class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-synemed">
                         <!-- group tabs -->
-                        <div class="flex w-full border-b border-black1">
+                        <div id="kanbanTabs" class="flex w-full border-b border-black1">
                             <!-- TO FIX: hide other kanban onclick -->
-                            <?php foreach ($members as $index => $member){ ?>
-                                <button onclick="changeKB(<?php echo $index; ?>); " id="<?php echo $member[1]; ?>" class="member <?php if($member[1] === $_SESSION['user']['school_id']): ?>bg-blue3 text-white1<?php else: ?>bg-white1<?php endif;?> w-1/4 mx-auto py-4 border-r border-l border-black1"><?php echo $member[0]; ?></button>
-                            <?php } ?>
+                            <!-- <?//php foreach ($members as $index => $member){ ?>
+                                <button onclick="changeKB(<?//php echo $index; ?>); " id="<?//php echo $member[1]; ?>" class="member <?//php if($member[1] === $_SESSION['user']['school_id']): ?>bg-blue3 text-white1<?//php else: ?>bg-white1<?//php endif;?> w-1/4 mx-auto py-4 border-r border-l border-black1"><?//php echo $member[0]; ?></button>
+                            <?//php } ?> -->
                         </div>
 
-                        <?php foreach($members as $index => $member): ?>
-                            <!-- whiteboard -->
-                            <!-- added $currentKB for default add location sa addTask() -->
-                            <div id="kanban<?= $index ?>" class="<?php if($member[1] === $_SESSION['user']['school_id']): $currentKB = $index;?>flex<?php else: ?>hidden<?php endif;?> flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
-                                <!-- add task button -->
-                                <?php if(($member[1] === $_SESSION['user']['school_id']) || ($studentRole === 'Principal Investigator')) : ?> 
-                                    <div class="flex self-end pr-4 w-fit">
-                                        <button onclick="show('taskModal')" class="px-10 border rounded-lg border-grey1 bg-green1">Add +</button>
-                                    </div>
-                                <?php endif; ?>
-
-                                <!-- lanes  -->
-                                <!-- changed id of lanes from todoCont => 3todoCont** first char = member index -->
-                                <div class="relative flex w-full gap-2 p-2 mt-2">
-                                    <!-- to do -->
-                                    <div id="<?php echo $index; ?>todoCont" class="w-1/3 overflow-hidden bg-red-300 border shadow-xl group dropzone border-black1 rounded-xl h-fit min-h-32">
-                                        <h1 class="border-b font-synebold border-black1">To Do List:</h1>
-
-                                        <?php if (!empty($member[3])) {
-                                            foreach($member[3] as $key => $room_kanban) {
-                                                if($key == $_GET['room_id']) {
-                                                    foreach($room_kanban['todo'] as $task) { ?>
-                                                        <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">                                                            
-                                                            <div class="flex p-1 cursor-grab justify-evenly">
-                                                                <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap"><?= $task[0] ?></span>
-                                                                <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap"><?= $task[2] ?></span>
-                                                            </div>
-                                                                <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap"><?= $task[1] ?></span>
-                                                        </div>
-                                        <?php       }
-                                                }
-                                            }
-                                        }
-                                        ?>
-                                    </div>                                
-                                    <!-- work in progress -->
-                                    <div id="<?php echo $index; ?>wipCont" class="w-1/3 overflow-hidden bg-blue-200 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
-                                        <h1 class="border-b font-synebold border-black1">Work in progress:</h1>
-                                        <?php 
-                                            if (!empty($member[3])) {
-                                                foreach($member[3] as $key => $room_kanban) {
-                                                    if($key == $_GET['room_id']) {
-                                                        foreach($room_kanban['wip'] as $task) { ?>
-                                                            <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">                                                            
-                                                                <div class="flex p-1 cursor-grab justify-evenly">
-                                                                    <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap"><?= $task[0] ?></span>
-                                                                    <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap"><?= $task[2] ?></span>
-                                                                </div>
-                                                                    <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap"><?= $task[1] ?></span>
-                                                            </div>
-                                        <?php           }
-                                                    }
-                                                }
-                                            }
-                                        ?>
-                                    </div>
-                                    <!-- done -->
-                                    <div id="<?php echo $index; ?>doneCont" class="w-1/3 overflow-hidden bg-green-300 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
-                                        <h1 class="border-b font-synebold border-black1">Done:</h1>
-                                        <?php 
-                                            if (!empty($member[3])) {
-                                                foreach($member[3] as $key => $room_kanban) {
-                                                    if($key == $_GET['room_id']) {
-                                                        foreach($room_kanban['done'] as $task) { ?>
-                                                            <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">                                                            
-                                                                <div class="flex p-1 cursor-grab justify-evenly">
-                                                                    <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap"><?= $task[0] ?></span>
-                                                                    <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap"><?= $task[2] ?></span>
-                                                                </div>
-                                                                    <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap"><?= $task[1] ?></span>
-                                                            </div>
-                                        <?php           }
-                                                    }
-                                                }
-                                            }
-                                        ?>
-                                    </div>
-                                </div>
-                            </div> 
-                        <?php endforeach; ?>
                     </div>
                 </div>
             <?php else: ?>
@@ -295,6 +219,9 @@
     <!-- FETCHING -->
     <script>
         const room_id = <?= $_GET['room_id']  ?>;
+        const currentUserId = '<?= $_SESSION['user']['school_id'] ?>';
+        // console.log('currentUserId', currentUserId);
+
         let groupChecker = null;
         let studentsChecker = null;
         let requestsChecker = null;
@@ -306,6 +233,11 @@
         let student_no_result = null;
 
         let membersWarningContent = '';
+
+        let members = [];
+        let groupNum = 0;
+        let studentRole = null;
+        let currentKB = 0;
 
         // let membersWarningContent = `
         //     <div id="membersWarning" class="bg-red1 w-full h-10 flex items-center justify-center rounded-t-xl">
@@ -328,12 +260,15 @@
             const roomJoinRequest = document.getElementById('roomJoinRequest');
             const studentCount = document.getElementById('studentCount');
 
-            fetchLatestData({
-                "table1": "room_list",
-                "table2": "join_room_requests",
-                "room_id": <?= $_GET['room_id']  ?>,
-                "currentPage": "room",
-            }, displayStudents, 1000);
+
+            <?php if ($_SESSION['user']['account_type'] === 'professor'): ?>
+                fetchLatestData({
+                    "table1": "room_list",
+                    "table2": "join_room_requests",
+                    "room_id": <?= $_GET['room_id']  ?>,
+                    "currentPage": "room",
+                }, displayStudents, 1000);
+            <?php endif; ?>
 
             fetchLatestData ({
                 "table": "room_groups",
@@ -381,8 +316,38 @@
             let membersCounter = 0;
 
             if (groupsList.length > 0 && groupsList[0]['groups_json'] !== 'null') {
-                console.log('groupsList', groupsList);
+                // console.log('groupsList', groupsList);
                 const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
+                console.log('parsedGroupsList', parsedGroupsList);
+
+                // for KANBAN and PDF generation
+                parsedGroupsList.forEach((group, index) => {
+                    // console.log('group ', index + 1, ':', group);
+                    let container = [];
+                    let bool = false;
+                    group.forEach(member => {
+                        // console.log('member', member);
+                        // console.log('my school id', '<?= $_SESSION['user']['school_id'] ?>');
+                        container.push(member);
+                        if (<?= $_SESSION['user']['account_type'] === 'professor' ? 'true' : 'false' ?>) {
+                            members[index + 1] = group;
+                        } else if (member[1] === '<?= $_SESSION['user']['school_id'] ?>') {
+                            // console.log('you r a member', member);
+                            bool = true;
+                            groupNum = index + 1;
+                            studentRole = member[2];
+                        }
+                    });
+
+                    if (bool === true) {
+                        members = container;
+                    }
+                });
+
+                console.log('groupNum', groupNum);
+                console.log('studentRole', studentRole);
+
+                console.log('members', members);
 
                 parsedGroupsList.forEach(group => {
                     membersCounter += group.length;
@@ -391,16 +356,18 @@
                 // console.log('membersCounter', membersCounter);
 
                 // Checking whether members warning should be shown
-                if (groupChecker !== null && studentsCount !== membersCount && membersWarning === false) {
-                    membersWarning = true;
-                    const groupsContent = document.getElementById('groupsContent');
+                <?php if ($_SESSION['user']['account_type'] === 'professor'): ?>
+                    if (groupChecker !== null && studentsCount !== membersCount && membersWarning === false) {
+                        membersWarning = true;
+                        const groupsContent = document.getElementById('groupsContent');
 
-                    groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
-                } else if (membersWarning === true && studentsCount === membersCount)  {
-                    membersWarning = false;
-                    const groupsContent = document.getElementById('groupsContent');
-                    groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
-                }
+                        groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
+                    } else if (membersWarning === true && studentsCount === membersCount)  {
+                        membersWarning = false;
+                        const groupsContent = document.getElementById('groupsContent');
+                        groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
+                    }
+                <?php endif; ?>
 
                 // console.log('groups', typeof(parsedGroupsList));
                 // console.log('groups', parsedGroupsList);
@@ -412,60 +379,195 @@
                     console.log('parsedGroupsList', parsedGroupsList);
                     groupChecker = parsedGroupsList;
                     
-                    const rightBox = document.getElementById('rightBox');
-                    rightBox.innerHTML = '';
 
-                    rightBox.innerHTML = `
-                        <div id="groupsContent" class="relative flex flex-col items-center w-full h-full overflow-y-hidden">
-                            <!-- HEADER -->
-                            <div class="flex items-center w-full h-20 p-6">
-                                <span class="w-4/5 text-4xl font-synebold">GROUPS</span>
-                        
-                                <!-- downloadPDF groups btn -->
-                                <button onclick="downloadPDF()" class="flex items-center justify-center h-10 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1">Print Groups</button>
-                                <!-- edit groups btn -->
-                                <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-10 ml-4 text-lg border rounded-lg bg-blue2 w-36 font-synereg border-black1">Edit Groups</a>
+                    <?php if ($_SESSION['user']['account_type'] === 'professor'): ?>
+                        const rightBox = document.getElementById('rightBox');
+                        rightBox.innerHTML = '';
+
+                        rightBox.innerHTML = `
+                            <div id="groupsContent" class="relative flex flex-col items-center w-full h-full overflow-y-hidden">
+                                <!-- HEADER -->
+                                <div class="flex items-center w-full h-20 p-6">
+                                    <span class="w-4/5 text-4xl font-synebold">GROUPS</span>
+                            
+                                    <!-- downloadPDF groups btn -->
+                                    <button onclick="downloadPDF()" class="flex items-center justify-center h-10 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1">Print Groups</button>
+                                    <!-- edit groups btn -->
+                                    <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-10 ml-4 text-lg border rounded-lg bg-blue2 w-36 font-synereg border-black1">Edit Groups</a>
+                                </div>
+
+                                <!-- Groups Container -->
+                                <div id="groupsContainer" class="flex flex-wrap min-h-3/5 w-full h-auto overflow-y-auto p-6 gap-y-5 justify-evenly">
+                                    <!-- Each Boxes -->
+                                </div>
                             </div>
-                    
-                            <!-- Groups Container -->
-                            <div id="groupsContainer" class="flex flex-wrap min-h-3/5 w-full h-auto overflow-y-auto p-6 gap-y-5 justify-evenly">
-                                <!-- Each Boxes -->
-                            </div>
-                        </div>
-                    `;
-
-
-                    const groupsContainer = document.getElementById('groupsContainer');
-                    groupsContainer.innerHTML = '';
-
-                    parsedGroupsList.forEach((group, index) => {
-                        groupsContainer.innerHTML += `
-                                    <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
-                                        <!-- Group Head -->
-                                        <div class="flex items-center justify-center w-full h-10 bg-black1 ">
-                                            <span class="text-4xl font-synemed text-white1">Group</span>
-                                            <span class="ml-2 text-4xl font-synebold text-orange1">${index + 1}:</span>
-                                        </div>
-        
-                                        <!-- Group Body -->
-                                        <div id="groupBody${index}" class="w-full ">
-                                            <!-- Each Member -->
-
-                                        </div>
-                                    </a>
                         `;
 
-                        // add members to group body
-                        group.forEach(member => {
-                            member[0] = member[0].replace("+", " ");
-                            document.getElementById(`groupBody${index}`).innerHTML += `
-                                    <div class="h-[6.22875rem] w-full flex">
-                                        <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-synemed">${member[0]}</span>
-                                        <span class="w-6/12  border border-black1 ${member[2] === 'Leader' ? 'text-orange1' : 'text-blue3'} flex justify-center items-center p-1 font-synemed text-xl">${member[2]}</span>
-                                    </div>
-                        `;
+
+                        const groupsContainer = document.getElementById('groupsContainer');
+                        groupsContainer.innerHTML = '';
+
+                        parsedGroupsList.forEach((group, index) => {
+                            groupsContainer.innerHTML += `
+                                        <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
+                                            <!-- Group Head -->
+                                            <div class="flex items-center justify-center w-full h-10 bg-black1 ">
+                                                <span class="text-4xl font-synemed text-white1">Group</span>
+                                                <span class="ml-2 text-4xl font-synebold text-orange1">${index + 1}:</span>
+                                            </div>
+
+                                            <!-- Group Body -->
+                                            <div id="groupBody${index}" class="w-full ">
+                                                <!-- Each Member -->
+
+                                            </div>
+                                        </a>
+                            `;
+
+                            // add members to group body
+                            group.forEach(member => {
+                                member[0] = member[0].replace("+", " ");
+                                document.getElementById(`groupBody${index}`).innerHTML += `
+                                        <div class="h-[6.22875rem] w-full flex">
+                                            <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-synemed">${member[0]}</span>
+                                            <span class="w-6/12  border border-black1 ${member[2] === 'Leader' ? 'text-orange1' : 'text-blue3'} flex justify-center items-center p-1 font-synemed text-xl">${member[2]}</span>
+                                        </div>
+                            `;
+                            });
                         });
-                    });
+                    <?php elseif ($_SESSION['user']['account_type'] === 'student'): ?>
+                        const leftBoxStudentHead = document.getElementById('leftBoxStudentHead');
+                        const leftBoxStudentMembers = document.getElementById('leftBoxStudentMembers');
+                        const rightBoxStudent = document.getElementById('rightBoxStudent');
+                        const kanbanTabs = document.getElementById('kanbanTabs');
+
+                        leftBoxStudentHead.innerHTML = '';
+                        leftBoxStudentMembers.innerHTML = '';
+
+                        rightBoxStudent.innerHTML = '';
+                        kanbanTabs.innerHTML = '';
+
+                        leftBoxStudentHead.innerHTML = `
+                            <h1 class="mx-auto ml-0 text-4xl text-left font-synebold">Group: ${groupNum}</h1>
+                            <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1" onclick="downloadPDF()">Print Group</button>
+                        `;
+
+                        members.forEach(member => {
+                            leftBoxStudentMembers.innerHTML += `
+                                <h1 class="flex py-4 my-2 text-xl"> <span class="w-2/6 mx-auto text-left">${member[0]}</span><span class="w-2/6 mx-auto text-right">${member[2]}</span></h1>
+                            `;
+                        });
+
+                        members.forEach((member, index) => {
+                            kanbanTabs.innerHTML += `
+                                <button onclick="changeKB(${index});" 
+                                        id="${member[1]}" 
+                                        class="member ${member[1] === currentUserId ? 'bg-blue3 text-white1' : 'bg-white1'} w-1/4 mx-auto py-4 border-r border-l border-black1">
+                                    ${member[0]}
+                                </button>
+                            `;
+                        });
+
+                        // Generate all kanbans
+                        let allKanbans = '';
+                        members.forEach((member, index) => {
+                            allKanbans += `
+                                <div id="kanban${index}" class="${member[1] === currentUserId ? (() => { currentKB = index; return 'flex'; })() : 'hidden'} flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
+                                    <!-- add task button -->
+                                    ${member[1] === currentUserId || studentRole === 'Principal Investigator' 
+                                        ? '<div class="flex self-end pr-4 w-fit"><button onclick="show(\'taskModal\')" class="px-10 border rounded-lg border-grey1 bg-green1">Add +</button></div>' 
+                                        : ''
+                                    }
+
+                                    <!-- lanes -->
+                                    <div class="relative flex w-full gap-2 p-2 mt-2">
+                                        <!-- to do -->
+                                        <div id="${index}todoCont" class="w-1/3 overflow-hidden bg-red-300 border shadow-xl group dropzone border-black1 rounded-xl h-fit min-h-32">
+                                            <h1 class="border-b font-synebold border-black1">To Do List:</h1>
+                                            ${generateTaskList(member[3], 'todo', room_id)}
+                                        </div>
+
+                                        <!-- work in progress -->
+                                        <div id="${index}wipCont" class="w-1/3 overflow-hidden bg-blue-200 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
+                                            <h1 class="border-b font-synebold border-black1">Work in progress:</h1>
+                                            ${generateTaskList(member[3], 'wip', room_id)}
+                                        </div>
+
+                                        <!-- done -->
+                                        <div id="${index}doneCont" class="w-1/3 overflow-hidden bg-green-300 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
+                                            <h1 class="border-b font-synebold border-black1">Done:</h1>
+                                            ${generateTaskList(member[3], 'done', room_id)}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        // Insert all kanbans after the tabs
+                        rightBoxStudent.innerHTML = kanbanTabs.outerHTML + allKanbans;
+                        attachDragAndDropListeners();
+                    <?php endif; ?>
+
+                    // Helper function to generate task list HTML
+                    function generateTaskList(memberData, listType, roomId) {
+                        if (!memberData || !Array.isArray(memberData)) return '';
+
+                        return memberData.reduce((html, roomKanban) => {
+                            if (roomKanban.room_id != roomId) return html;
+
+                            const tasks = roomKanban[listType] || [];
+                            return html + tasks.map(task => `
+                                <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">
+                                    <div class="flex p-1 cursor-grab justify-evenly">
+                                        <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${task[0]}</span>
+                                        <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${task[2]}</span>
+                                    </div>
+                                    <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${task[1]}</span>
+                                </div>
+                            `).join('');
+                        }, '');
+                    }
+
+                    
+                    // Function to reattach drag and drop listeners
+                    function attachDragAndDropListeners() {
+                        const cards = document.querySelectorAll('.card');
+                        const dropzones = document.querySelectorAll('.dropzone');
+
+                        cards.forEach(card => {
+                            card.addEventListener('dragstart', function() {
+                                card.classList.add("dragging");
+                                card.classList.remove("cursor-grab");
+                                card.classList.add("cursor-grabbing");
+                            });
+
+                            card.addEventListener('dragend', function() {
+                                card.classList.remove("dragging");
+                                card.classList.remove("cursor-grabbing");
+                                card.classList.add("cursor-grab");
+                            });
+                        });
+
+                        dropzones.forEach(zone => {
+                            zone.addEventListener('dragover', function(e) {
+                                e.preventDefault();
+                                const bottomTask = InsertAboveTask(zone, e.clientY);
+                                const curTask = document.querySelector(".dragging");
+                                
+                                if (!bottomTask) {
+                                    zone.appendChild(curTask);
+                                } else {
+                                    zone.insertBefore(curTask, bottomTask);
+                                }
+                            });
+
+                            zone.addEventListener('drop', function(e) {
+                                e.preventDefault();
+                                const curTask = document.querySelector(".dragging");
+                                curTask.classList.remove("dragging");
+                            });
+                        });
+                    }
+
                 } else {
                     // console.log('equal');
                 }
@@ -503,7 +605,7 @@
                 console.log('form not found');
                 return;
             }
-            
+
             console.log('params', params);  
 
             console.log('form', form);
@@ -677,8 +779,8 @@
     <!-- KANBAN Board -->
     <script>
         // function generateGroups() {
-        //     // const rows = <?php //echo $encodedFilteredidNRiasec; ?>;
-        //     createList(<?php echo $encodedFilteredidNRiasec; ?>)
+        //     // const rows = <?//php //echo $encodedFilteredidNRiasec; ?>;
+        //     createList(<?//php echo $encodedFilteredidNRiasec; ?>)
         //     groupRoles(PI)
         //     groupRoles(writer)
         //     groupRoles(dev)
@@ -686,19 +788,21 @@
         //     distributeRoles()
         //     // display()
         // }
+
+        <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
+            console.log('currentKB', currentKB);
             const StudButt = document.getElementById('StudButt');
             const GrButt = document.getElementById('GrButt');
             const students = document.getElementById('students');
             const groupContent = document.getElementById('groups');
+            const groupMembers = members;
+            const groupNumber = groupNum;
 
             const kbButts = document.querySelectorAll('.member');
             const dropzones = document.querySelectorAll('.dropzone');
             let cards = document.querySelectorAll('.card');
-            const groupMembers = <?php echo json_encode($members); ?>;
-            const groupNumber = <?php echo json_encode($groupNum); ?>;
-        <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
  
-            let currentKB = <?php echo $currentKB; ?>;
+            // let currentKB = currentKB;
 
             function addTask() { // ONLY ADDS TASK PHYSICALLY, STILL NEED TO UPDATE JSON ON TASK ADD
                 // Get values from the modal inputs
@@ -805,38 +909,73 @@
                 });
             });
 
+            // toggle hidden/flex kanban of members
+            // function changeKB(index){
+            //     console.log(index);
+            //     let kanbans = document.querySelectorAll('[id^="kanban"]');
+            //     currentKB = index;
 
-            
+            //     kanbans.forEach(kb =>{
+            //         kb.classList.remove('flex');
+            //         kb.classList.add('hidden');
+            //         if (kb.id == `kanban${index}`){
+            //             kb.classList.add('flex');
+            //             kb.classList.remove('hidden');
+            //         }
+            //     })
+            // }
+
+// ... existing code ...
 
             // toggle hidden/flex kanban of members
-            function changeKB(index){
+            function changeKB(index) {
                 console.log(index);
                 let kanbans = document.querySelectorAll('[id^="kanban"]');
                 currentKB = index;
 
-                kanbans.forEach(kb =>{
-                    kb.classList.remove('flex');
-                    kb.classList.add('hidden');
-                    if (kb.id == `kanban${index}`){
-                        kb.classList.add('flex');
-                        kb.classList.remove('hidden');
+                // Update tab colors
+                const tabs = document.querySelectorAll('.member');
+                tabs.forEach(tab => {
+                    const tabId = tab.id;
+                    const memberId = members[index][1];
+                    
+                    if (tabId === memberId) {
+                        tab.classList.remove('bg-white1', 'text-black1');
+                        tab.classList.add('bg-blue3', 'text-white1');
+                    } else {
+                        tab.classList.remove('bg-blue3', 'text-white1');
+                        tab.classList.add('bg-white1', 'text-black1');
                     }
-                })
+                });
+
+                // Toggle kanban visibility
+                kanbans.forEach(kb => {
+                    if (!kb.id.includes('kanbanTabs')) {
+                        kb.classList.remove('flex');
+                        kb.classList.add('hidden');
+                        if (kb.id == `kanban${index}`) {
+                            kb.classList.add('flex');
+                            kb.classList.remove('hidden');
+                        }
+                    }
+                });
             }
 
+            // ... existing code ...
+
             // toggle color of each kanban button
-            kbButts.forEach(button => {
-                button.addEventListener('click', function() {
-                    kbButts.forEach(btn => {
-                        // button visual
-                        btn.classList.remove('bg-blue3', 'text-white1');
-                        btn.classList.add('bg-white1', 'text-black1');
-                    });
-                    // button visual
-                    this.classList.add('bg-blue3', 'text-white1');
-                    this.classList.remove('bg-white1', 'text-black1');
-                });
-            });
+            // kbButts.forEach(button => {
+            //     button.addEventListener('click', function() {
+            //         kbButts.forEach(btn => {
+            //             // button visual
+            //             btn.classList.remove('bg-blue3', 'text-white1');
+            //             btn.classList.add('bg-white1', 'text-black1');
+            //         });
+            //         // button visual
+            //         this.classList.add('bg-blue3', 'text-white1');
+            //         this.classList.remove('bg-white1', 'text-black1');
+            //     });
+            // });
 
             StudButt.addEventListener('click',function(){
                 if(StudButt.classList.contains("bg-blue3")){
@@ -912,8 +1051,10 @@
 
         <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
             // Student view
-            let groupNum = <?php echo json_encode($groupNum); ?>;
-            let groupMembers = <?php echo json_encode($members); ?>;
+            let groupMembers = members;
+            console.log('groupMembers', groupMembers);
+            console.log('groupNum', groupNum);
+            console.log('members', members);
             
             let cleanData = groupMembers.map(member => [
                 member[0] || '',  // Name
