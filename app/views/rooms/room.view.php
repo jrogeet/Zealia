@@ -132,7 +132,7 @@
                     </div>
 
                     <!-- Students List -->
-                    <div id="studentListContainer" class="h-[34.5rem] flex flex-col overflow-y-auto overflow-x-hidden rounded-b-xl">
+                    <div id="studentListContainer" class="h-[34.5rem] flex flex-col overflow-y-hidden overflow-x-hidden rounded-b-xl">
                         <!-- Student Count -->
                         <div class="flex items-center justify-center w-full h-12 p-4 border-t border-black1">
                             <span class="text-lg font-synemed">Total: </span>
@@ -141,7 +141,7 @@
                         </div>
 
                         <!-- Student Names -->
-                        <div id="roomStudentList" class="min-h-full flex flex-col overflow-x-hidden overflow-y-auto rounded-b-xl">
+                        <div id="roomStudentList" class="min-h-3/5 flex flex-col overflow-x-hidden overflow-y-auto rounded-b-xl">
 
                         </div>
 
