@@ -232,33 +232,35 @@ private function getLatestData($params)
                 }
                 unset($room);
             } elseif ($table == 'room_groups') { // roomHasGroup & decodedGroups
-                $decodedGroups = json_decode($latestData[0]['groups_json'], true);
-                foreach ($decodedGroups as &$group) {
-                    foreach($group as &$member){
-                        $stu_info = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
-                            'school_id' => $member[1],
-                        ])->find();
-
-                        if (isset($stu_info['kanban'])) {
-                            $member[] = json_decode($stu_info['kanban'], true);
-                        } else {
-                            $member[] = "";
+                if (!empty($latestData[0]['groups_json'])) {
+                    $decodedGroups = json_decode($latestData[0]['groups_json'], true);
+                    foreach ($decodedGroups as &$group) {
+                        foreach($group as &$member){
+                            $stu_info = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
+                                'school_id' => $member[1],
+                            ])->find();
+    
+                            if (isset($stu_info['kanban'])) {
+                                $member[] = json_decode($stu_info['kanban'], true);
+                            } else {
+                                $member[] = "";
+                            }
+    
+                            // foreach ($stu_info as $student) {
+                            //     if(isset($member[1]) && $member[1] === $student['school_id']) {
+                            //         if (isset($student['kanban'])) {
+                            //             $member[] = json_decode($student['kanban'], true);
+                            //         } else {
+                            //             $member[] = "";
+                            //         }
+                            //     }
+                            // }
                         }
-
-                        // foreach ($stu_info as $student) {
-                        //     if(isset($member[1]) && $member[1] === $student['school_id']) {
-                        //         if (isset($student['kanban'])) {
-                        //             $member[] = json_decode($student['kanban'], true);
-                        //         } else {
-                        //             $member[] = "";
-                        //         }
-                        //     }
-                        // }
                     }
+                    // dd($decodedGroups);
+                    $encodedGroups = json_encode($decodedGroups);
+                    $latestData[0]['groups_json'] = $encodedGroups;
                 }
-                // dd($decodedGroups);
-                $encodedGroups = json_encode($decodedGroups);
-                $latestData[0]['groups_json'] = $encodedGroups;
             }
         }
 
