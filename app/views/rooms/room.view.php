@@ -160,7 +160,7 @@
                 <div class="shadow-inside1 h-[37.5rem] w-[75%] rounded-xl flex justify-center items-center">
                     <?php if($roomHasGroup):?>
                         <!-- content -->
-                        <div class="flex flex-col items-center w-full h-full overflow-y-auto ">
+                        <div id="groupsContent" class="flex flex-col items-center w-full h-full overflow-y-auto ">
                             <!-- HEADER -->
                             <div class="flex items-center w-full h-20 p-6">
                                 <span class="w-4/5 text-4xl font-synebold">GROUPS</span>
@@ -343,6 +343,19 @@
         let studentsChecker = null;
         let requestsChecker = null;
 
+        let studentsCount = 0;
+        let membersCount = 0;
+        let membersWarning = false;
+
+        let membersWarningContent = `
+            <div id="membersWarning" class="bg-red1 w-full h-10 flex items-center justify-center rounded-t-xl">
+                <span class="text-base font-synebold text-white1">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
+            </div>
+            <div class="w-full h-10 flex items-center justify-center rounded-t-xl">
+                <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[13rem] font-synebold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
+            </div>
+        `;
+
         document.addEventListener('DOMContentLoaded', function() {
             const roomStudentList = document.getElementById('roomStudentList');
             const roomJoinRequest = document.getElementById('roomJoinRequest');
@@ -389,16 +402,51 @@
         }
 
         function displayGroups(groupsList){
+            console.log('studentsCount', studentsCount);
+            console.log('membersCount', membersCount);
+            let membersCounter = 0;
+
             if (groupsList.length > 0) {
                 console.log('groupsList', groupsList);
                 const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
+
+                parsedGroupsList.forEach(group => {
+                    membersCounter += group.length;
+                });
+
+                console.log('membersCounter', membersCounter);
+
+                // Checking whether members warning should be shown
+                if (groupChecker !== null && studentsCount !== membersCount && membersWarning === false) {
+                    membersWarning = true;
+                    const groupsContent = document.getElementById('groupsContent');
+
+                    groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
+                } else if (membersWarning === true && studentsCount === membersCount)  {
+                    membersWarning = false;
+                    const groupsContent = document.getElementById('groupsContent');
+                    groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
+                }
 
                 // console.log('groups', typeof(parsedGroupsList));
                 // console.log('groups', parsedGroupsList);
 
                 if (groupChecker === null || JSON.stringify(groupChecker) !== JSON.stringify(parsedGroupsList)){
-                    // console.log('not equal');
+                    membersCount = membersCounter;
+
+                    console.log('not equal');
+                    console.log('parsedGroupsList', parsedGroupsList);
                     groupChecker = parsedGroupsList;
+
+                    // const groupForGenerationForm = document.getElementById('submitGroups');
+                    // const groupForGenerationValue = document.getElementById('filteredidNRiasec').value;
+
+                    // if (groupForGenerationForm) {
+                    //     console.log('groupForGeneration', groupForGeneration);
+                    //     groupForGeneration.value = JSON.stringify(parsedGroupsList);
+                    // }
+                    // console.log('filteredidNRiasec', document.getElementById('filteredidNRiasec').value);
+
                     const groupsContainer = document.getElementById('groupsContainer');
                     
                     groupsContainer.innerHTML = '';
@@ -422,6 +470,7 @@
 
                         // add members to group body
                         group.forEach(member => {
+                            member[0] = member[0].replace("+", " ");
                             document.getElementById(`groupBody${index}`).innerHTML += `
                                     <div class="h-[6.22875rem] w-full flex">
                                         <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-synemed">${member[0]}</span>
@@ -434,7 +483,6 @@
                     // console.log('equal');
                 }
              }
-
         }
 
         function submitForm(formId, url, type, params = {}) {
@@ -474,9 +522,19 @@
         }
 
         function displayStudents(studentsList){
-            if (studentsChecker === null || JSON.stringify(studentsChecker) !== JSON.stringify(studentsList)){
+            studentsCount = studentsList.room_list.length;
+            // console.log('studentsList', studentsList.room_list.length);
+
+            if (studentsList.room_list.length === 0) {
+                studentCount.innerHTML = `<span class="mx-1 text-xl font-synemed text-blue3">0</span>`;
+                roomStudentList.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-[34.5rem]">
+                        <span class="text-lg font-synebold text-grey2 text-center">There are no students in this room yet.</span>
+                    </div>
+                `;
+            } else if (studentsChecker === null || JSON.stringify(studentsChecker) !== JSON.stringify(studentsList.room_list)){
                 console.log('not equal students');
-                studentsChecker = studentsList;
+                studentsChecker = studentsList.room_list;
                 roomStudentList.innerHTML = '';
                 roomJoinRequest.innerHTML = '';
                 studentCount.innerHTML = '';
@@ -511,7 +569,14 @@
                 // console.log('equal students');
             }
 
-            if (requestsChecker === null || JSON.stringify(requestsChecker) !== JSON.stringify(studentsList.join_room_requests)){
+            if (studentsList.join_room_requests.length === 0) {
+                roomJoinRequest.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-[34.5rem]">
+                        <span class="text-xl font-synebold text-red1 text-center">Empty :(</span>
+                        <span class="text-lg font-synebold text-grey2 text-center">No requests for now.</span>
+                    </div>
+                `;
+            } else if (requestsChecker === null || JSON.stringify(requestsChecker) !== JSON.stringify(studentsList.join_room_requests)){
                 console.log('not equal requests');
                 requestsChecker = studentsList.join_room_requests;
                 roomJoinRequest.innerHTML = '';

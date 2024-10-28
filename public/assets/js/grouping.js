@@ -147,6 +147,21 @@ function distributeRoles(){
     document.getElementById('submitGroups').submit();
 }
 
+// function generateGroups() {
+//     const filteredIdNRiasecElement = document.getElementById('filteredidNRiasec');
+//     if (filteredIdNRiasecElement) {
+//         const filteredIdNRiasec = JSON.parse(filteredIdNRiasecElement.value);
+//         createList(filteredIdNRiasec);
+//         groupRoles(PI);
+//         groupRoles(writer);
+//         groupRoles(dev);
+//         groupRoles(des);
+//         distributeRoles();
+//     } else {
+//         console.error('Could not find filteredidNRiasec element');
+//     }
+// }
+
 function generateGroups() {
     const filteredIdNRiasecElement = document.getElementById('filteredidNRiasec');
     if (filteredIdNRiasecElement) {
@@ -169,12 +184,12 @@ function generateGroups() {
 
             if (filteredIdNRiasec.length > 0) {
                 // Reset global arrays before generating new groups
-                userlist = [];
-                PI = [];
-                writer = [];
-                dev = [];
-                des = [];
-                groups = [];
+                // userlist = [];
+                // PI = [];
+                // writer = [];
+                // dev = [];
+                // des = [];
+                // groups = [];
                 
                 createList(filteredIdNRiasec);
                 groupRoles(PI);
