@@ -144,7 +144,17 @@ function distributeRoles(){
     // console.log(JSON.stringify(groups));
 
     document.getElementById('genGroups').value = JSON.stringify(groups);
-    document.getElementById('submitGroups').submit();
+
+    // const submitEvent = new Event('submit', {
+    //     bubbles: true,
+    //     cancelable: true
+    // });
+    
+    // document.getElementById('submitGroups').dispatchEvent(submitEvent);
+    
+    // // Prevent any default form submission
+    // return false;
+    // document.getElementById('submitGroups').submit();
 }
 
 // function generateGroups() {
@@ -190,6 +200,7 @@ function generateGroups() {
                 // dev = [];
                 // des = [];
                 // groups = [];
+                console.log('In grouping.js filteredIdNRiasec:', filteredIdNRiasec);
                 
                 createList(filteredIdNRiasec);
                 groupRoles(PI);

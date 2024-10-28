@@ -168,6 +168,16 @@ private function getLatestData($params)
                         if (!empty($stu_info)) {
                             $student = array_merge($student, $stu_info);
                         }
+
+                        if ($stu_info['result'] == null || $stu_info['result'] == '') {
+                            $latestData['student_no_result'][] = $student;
+                        } else {
+                            $latestData['student_has_result'][] = [
+                                'school_id' => $stu_info['school_id'],
+                                'result' => $stu_info['result'],
+                                'name' => $stu_info['f_name'] . ' ' . $stu_info['l_name']
+                            ];
+                        }
                     }
                 }
 
@@ -310,6 +320,9 @@ private function getLatestData($params)
             case 'kick_student':
                 $result = $this->processKickStudent($formData);
                 break;
+            case 'group_students':
+                $result = $this->processGroupStudents($formData);
+                break;
             default:
                 $result = $this->processDefaultForm($formData);
         }
@@ -429,6 +442,17 @@ private function getLatestData($params)
             'type' => $type,
         ]);
 
+    }
+
+    private function processGroupStudents($formData) {
+        $decodedGroups = json_decode($_POST['genGroups'], true);
+
+        $genGroups = json_encode($decodedGroups);
+    
+        $this->db->query('INSERT INTO room_groups(room_id, groups_json) VALUES (:id, :groups)', [
+            ':id'=> $formData['room'],
+            ':groups'=> $genGroups
+        ]);
     }
 
     private function processCreateRoomForm($formData)

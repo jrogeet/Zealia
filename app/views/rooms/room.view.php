@@ -157,7 +157,7 @@
                 </div>
 
                 <!-- RIGHT BOX -->
-                <div class="shadow-inside1 h-[37.5rem] w-[75%] rounded-xl flex justify-center items-center">
+                <div id="rightBox" class="shadow-inside1 h-[37.5rem] w-[75%] rounded-xl flex justify-center items-center">
                     <?php if($roomHasGroup):?>
                         <!-- content -->
                         <div id="groupsContent" class="flex flex-col items-center w-full h-full overflow-y-auto ">
@@ -178,11 +178,11 @@
                                     </form> -->
                             </div>
                     
-                        <!-- Groups Container -->
-                        <div id="groupsContainer" class="flex flex-wrap min-h-full w-full h-auto p-6 gap-y-5 justify-evenly">
-                            <!-- Each Boxes -->
+                            <!-- Groups Container -->
+                            <div id="groupsContainer" class="flex flex-wrap min-h-full w-full h-auto p-6 gap-y-5 justify-evenly">
+                                <!-- Each Boxes -->
 
-                        </div>
+                            </div>
                     </div>
 
 
@@ -192,15 +192,26 @@
                         <div class="flex flex-col items-center">
                             <span class="text-4xl font-synebold">You haven't grouped the class yet.</span>
 
-                            <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
-                            <form id="submitGroups" action="/room" method="POST">
+                            <!-- <form id="submitGroups" action="/room" method="POST">
                                 <input type="hidden" name="_method" value="PATCH">
                                 <input type="hidden" name="grouped" value="grouped">
                                 <input type="hidden" name="genGroups" value="" id="genGroups">
 
-                                <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
-                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="<?= htmlspecialchars($encodedFilteredidNRiasec, ENT_QUOTES, 'UTF-8') ?>"> 
-                                <input type="hidden" name="stunotype" id="stunotype" value="<?= count($stuNoType) ?>">
+                                <input type="hidden" name="room" value="<?//= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
+                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="<?//= htmlspecialchars($encodedFilteredidNRiasec, ENT_QUOTES, 'UTF-8') ?>"> 
+                                <input type="hidden" name="stunotype" id="stunotype" value="<?//= count($stuNoType) ?>">
+                                <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+                            </form> -->
+                            
+                            <form id="submitGroups" method="POST">
+                                <!-- <input type="hidden" name="_method" value="PATCH"> -->
+                                <input type="hidden" name="grouped" value="grouped">
+                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value=""> 
+                                <input type="hidden" name="stunotype" id="stunotype" value="">
+
+                                <input id="genGroups" type="hidden" name="genGroups" value="">
+                                <input type="hidden" name="room" value="<?= $_GET['room_id'] ?>">
+                                <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-synebold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
                             </form>
                         </div>
                     <?php endif; ?>
@@ -373,7 +384,6 @@
                 "room_id": <?= $_GET['room_id']  ?>,
             }, displayGroups, 3000);
 
-            
             setupFormSubmissions();
         });
         
@@ -396,6 +406,14 @@
                         buttonID: clickedButton.id,
                         buttonName: clickedButton.name,
                         buttonValue: clickedButton.value,
+                    });
+                } else if (e.target && e.target.id && e.target.id.startsWith('submitGroups')) {
+                    e.preventDefault();
+                    submitForm(e.target.id, '/api/submit-form', 'group_students', {
+                        genGroups: document.getElementById('genGroups').value,
+                        room: <?= $_GET['room_id'] ?>,
+                        filteredidNRiasec: document.getElementById('filteredidNRiasec').value,
+                        stunotype: document.getElementById('stunotype').value,
                     });
                 }
             });
@@ -438,6 +456,7 @@
                     console.log('parsedGroupsList', parsedGroupsList);
                     groupChecker = parsedGroupsList;
 
+
                     // const groupForGenerationForm = document.getElementById('submitGroups');
                     // const groupForGenerationValue = document.getElementById('filteredidNRiasec').value;
 
@@ -447,8 +466,8 @@
                     // }
                     // console.log('filteredidNRiasec', document.getElementById('filteredidNRiasec').value);
 
+                    // MAY ERROR TO
                     const groupsContainer = document.getElementById('groupsContainer');
-                    
                     groupsContainer.innerHTML = '';
 
                     parsedGroupsList.forEach((group, index) => {
@@ -535,6 +554,14 @@
             } else if (studentsChecker === null || JSON.stringify(studentsChecker) !== JSON.stringify(studentsList.room_list)){
                 console.log('not equal students');
                 studentsChecker = studentsList.room_list;
+
+                const idNRiasecInput = document.getElementById('filteredidNRiasec');
+                // console.log(JSON.stringify(studentsList.student_has_result));
+                if (idNRiasecInput) {  // pag naka show yung Generate Groups Button
+                    idNRiasecInput.value = JSON.stringify(studentsList.student_has_result);
+                }
+
+                // UPDATING THE DOM:
                 roomStudentList.innerHTML = '';
                 roomJoinRequest.innerHTML = '';
                 studentCount.innerHTML = '';
