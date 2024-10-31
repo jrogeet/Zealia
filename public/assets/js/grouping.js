@@ -15,9 +15,9 @@ let grCount = 0;
 
 let groups = [];
 
-function createList(rows){ // ADD USERS TO userlist
+function createList(rows) { // ADD USERS TO userlist
     console.log('ROWS:',rows)
-    for (let row of rows){ // iterate over each person(row) in section(rows)
+    for (let row of rows) { // iterate over each person(row) in section(rows)
         let result = row['result'];
         let id = row['school_id'];
         let name = row['name'];
@@ -30,7 +30,7 @@ function createList(rows){ // ADD USERS TO userlist
         let devScore = 0;
         let desScore = 0;
 
-        for (let x in result){ //used for..in for indexing
+        for (let x in result) { //used for..in for indexing
             // 
             piScore = piScore + row[result[x]] + piPrio.indexOf(result[x]) + 1;
             wriScore = wriScore + row[result[x]] + writerPrio.indexOf(result[x]) + 1;
@@ -66,7 +66,7 @@ function createList(rows){ // ADD USERS TO userlist
 
     }
 
-    if (userlist.length%4 == 0){
+    if (userlist.length%4 == 0) {
         grCount = userlist.length/4;
     }else{
         grCount = Math.floor(userlist.length/4)+1;
@@ -78,11 +78,11 @@ function createList(rows){ // ADD USERS TO userlist
 
 }
 
-function cleanUserlist(role){
+function cleanUserlist(role) {
     let limit = userlist.length;
-    for (let user of role){
+    for (let user of role) {
         let i = 0;
-        while (i < limit){ //i represents userlist users index
+        while (i < limit) { //i represents userlist users index
             if (userlist[i][1] == user[1]){
                 userlist.splice(i,1);
                 limit--;
@@ -92,7 +92,7 @@ function cleanUserlist(role){
     }
 }
 
-function groupRoles(role){ // add user to group
+function groupRoles(role) { // add user to group
     let roleName = '';
 
     switch (role){

@@ -218,8 +218,10 @@ private function getLatestData($params)
             }
 
         } elseif (isset($table)) {
-            if ($table ==  'rooms' || $table == 'room_list') {
+            if ($table ==  'rooms') {
+            // if ($table ==  'rooms' || $table == 'room_list') {
                 foreach ($latestData as &$room) {
+    
                     $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
                         'school_id'=> $room['school_id'],
                     ])->find();
@@ -343,6 +345,9 @@ private function getLatestData($params)
                 'school_id' => $formData['school_id']
             ])->find();
     
+            // dd($formData);
+            // dd($currentKanban);
+
             // Decode current kanban or initialize empty structure
             $kanbanData = [];
             if (!empty($currentKanban['kanban'])) {
@@ -358,28 +363,47 @@ private function getLatestData($params)
                 ];
             }
     
-            // For move operations
-            if (isset($formData['action']) && $formData['action'] === 'move') {
-                // Remove task from all lists first
-                foreach (['todo', 'wip', 'done'] as $list) {
-                    $kanbanData[$formData['room_id']][$list] = array_filter(
-                        $kanbanData[$formData['room_id']][$list],
-                        function($task) use ($formData) {
-                            return $task[0] !== json_decode($formData['task'], true)[0];
-                        }
-                    );
-                }
-            }
-    
             // Add task to appropriate list
             $task = json_decode($formData['task'], true);
+
+            // For move operations
+            if (isset($formData['action']) && $formData['action'] === 'move') {
+                foreach (['todo', 'wip', 'done'] as $list) {
+                    $kanbanData[$formData['room_id']][$list] = array_values(array_filter(
+                        $kanbanData[$formData['room_id']][$list],
+                        function($existingTask) use ($task) {
+                            return $existingTask[0] !== $task[0];
+                        }
+                    ));
+                }
+            }
+
+            // if (isset($formData['action']) && $formData['action'] === 'move') {
+            //     // Remove task from all lists first
+            //     foreach (['todo', 'wip', 'done'] as $list) {
+            //         $kanbanData[$formData['room_id']][$list] = array_filter(
+            //             $kanbanData[$formData['room_id']][$list],
+            //             function($task) use ($formData) {
+            //                 return $task[0] !== json_decode($formData['task'], true)[0];
+            //             }
+            //         );
+            //     }
+            // }
+
+            // dd($task);
             $kanbanData[$formData['room_id']][$formData['destination']][] = $task;
+
+            // dd($kanbanData);
     
             // Update database
-            $this->db->query('UPDATE accounts SET kanban = :kanban WHERE school_id = :school_id', [
+            $success =$this->db->query('UPDATE accounts SET kanban = :kanban WHERE school_id = :school_id', [
                 'kanban' => json_encode($kanbanData),
                 'school_id' => $formData['school_id']
             ]);
+
+            if (!$success) {
+                throw new \Exception('Failed to update database');
+            }
     
             return [
                 'success' => true,

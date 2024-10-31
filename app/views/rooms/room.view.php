@@ -232,6 +232,10 @@
         let studentRole = null;
         let currentKB = 0;
 
+        let isUpdatingKanban = false;
+
+        const noSelectClass = studentRole === 'Principal Investigator' ? '' : 'cursor-grab select-none pointer-events-none';
+
         // let membersWarningContent = `
         //     <div id="membersWarning" class="bg-red1 w-full h-10 flex items-center justify-center rounded-t-xl">
         //         <span class="text-base font-synebold text-white1">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
@@ -304,6 +308,10 @@
         }
 
         function displayGroups(groupsList){
+            if (isUpdatingKanban) {
+                return;
+            }
+
             // console.log('studentsCount', studentsCount);
             // console.log('membersCount', membersCount);
             let membersCounter = 0;
@@ -311,7 +319,7 @@
             if (groupsList.length > 0 && groupsList[0]['groups_json'] !== 'null') {
                 // console.log('groupsList', groupsList);
                 const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
-                console.log('parsedGroupsList', parsedGroupsList);
+                // console.log('parsedGroupsList', parsedGroupsList);
 
                 // for KANBAN and PDF generation
                 parsedGroupsList.forEach((group, index) => {
@@ -337,19 +345,18 @@
                     }
                 });
 
-                console.log('groupNum', groupNum);
-                console.log('studentRole', studentRole);
+                // console.log('groupNum', groupNum);
+                // console.log('studentRole', studentRole);
 
-                console.log('members', members);
-
-                parsedGroupsList.forEach(group => {
-                    membersCounter += group.length;
-                });
-
-                // console.log('membersCounter', membersCounter);
+                // console.log('members', members);
 
                 // Checking whether members warning should be shown
                 <?php if ($_SESSION['user']['account_type'] === 'professor'): ?>
+
+                    parsedGroupsList.forEach(group => {
+                        membersCounter += group.length;
+                    });
+                    
                     if (groupChecker !== null && studentsCount !== membersCount && membersWarning === false) {
                         membersWarning = true;
                         const groupsContent = document.getElementById('groupsContent');
@@ -369,7 +376,7 @@
                     membersCount = membersCounter;
 
                     console.log('not equal');
-                    console.log('parsedGroupsList', parsedGroupsList);
+                    // console.log('parsedGroupsList', parsedGroupsList);
                     groupChecker = parsedGroupsList;
                     
 
@@ -464,6 +471,9 @@
                         // Generate all kanbans
                         let allKanbans = '';
                         members.forEach((member, index) => {
+                            console.log('Generating kanban for member:', member);
+                            console.log('Member kanban data:', member[3]); // Add this debug line
+
                             allKanbans += `
                                 <div id="kanban${index}" class="${member[1] === currentUserId ? (() => { currentKB = index; return 'flex'; })() : 'hidden'} flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
                                     <!-- add task button -->
@@ -477,19 +487,19 @@
                                         <!-- to do -->
                                         <div id="${index}todoCont" class="w-1/3 overflow-hidden bg-red-300 border shadow-xl group dropzone border-black1 rounded-xl h-fit min-h-32">
                                             <h1 class="border-b font-synebold border-black1">To Do List:</h1>
-                                            ${generateTaskList(member[3], 'todo', room_id)}
+                                            ${generateTaskList(member[1], member[3], 'todo', room_id)}
                                         </div>
 
                                         <!-- work in progress -->
                                         <div id="${index}wipCont" class="w-1/3 overflow-hidden bg-blue-200 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
                                             <h1 class="border-b font-synebold border-black1">Work in progress:</h1>
-                                            ${generateTaskList(member[3], 'wip', room_id)}
+                                            ${generateTaskList(member[1], member[3], 'wip', room_id)}
                                         </div>
 
                                         <!-- done -->
                                         <div id="${index}doneCont" class="w-1/3 overflow-hidden bg-green-300 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
                                             <h1 class="border-b font-synebold border-black1">Done:</h1>
-                                            ${generateTaskList(member[3], 'done', room_id)}
+                                            ${generateTaskList(member[1], member[3], 'done', room_id)}
                                         </div>
                                     </div>
                                 </div>
@@ -501,47 +511,110 @@
                     <?php endif; ?>
 
                     // Helper function to generate task list HTML
-                    function generateTaskList(memberData, listType, roomId) {
-                        if (!memberData || !Array.isArray(memberData)) return '';
+                    // function generateTaskList(memberData, listType, roomId) {
+                    //     if (!memberData || !Array.isArray(memberData)) return '';
 
-                        return memberData.reduce((html, roomKanban) => {
-                            if (roomKanban.room_id != roomId) return html;
+                    //     return memberData.reduce((html, roomKanban) => {
+                    //         if (roomKanban.room_id != roomId) return html;
 
-                            const tasks = roomKanban[listType] || [];
-                            return html + tasks.map(task => `
-                                <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">
-                                    <div class="flex p-1 cursor-grab justify-evenly">
-                                        <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${task[0]}</span>
-                                        <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${task[2]}</span>
+                    //         const tasks = roomKanban[listType] || [];
+                    //         return html + tasks.map(task => `
+                    //             <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">
+                    //                 <div class="flex p-1 cursor-grab justify-evenly">
+                    //                     <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${task[0]}</span>
+                    //                     <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${task[2]}</span>
+                    //                 </div>
+                    //                 <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${task[1]}</span>
+                    //             </div>
+                    //         `).join('');
+                    //     }, '');
+                    // }
+
+                    function generateTaskList(memberId, memberData, listType, roomId) {
+                        console.log('MEMBERDATA', memberData);
+                        
+                        // Check if memberData exists and has the expected structure
+                        if (!memberData || !memberData[1]) {
+                            // console.log('No task data available for', listType);
+                            return '';
+                        }
+
+                        // Get the tasks for this list type
+                        const tasks = memberData[1][listType];
+                        if (!tasks || !Array.isArray(tasks)) {
+                            console.log('No tasks found for', listType);
+                            return '';
+                        }
+
+                        let myKanban = false;
+                        if (memberId === currentUserId) {
+                            myKanban = true;
+                        } else {
+                            myKanban = false;
+                        }
+
+                        console.log('memberData[1]', typeof(memberData[1][listType][0]));
+                        console.log('memberData[1].listType', typeof(memberData[1][listType]));
+
+                        console.log('tasks', tasks);
+
+                        return tasks.map(task => {
+                            // Handle the case where the task is a string (needs parsing)
+                            let taskData = task;
+                            if (typeof task === 'string') {
+                                try {
+                                    console.log(task === 'string');
+                                    taskData = JSON.parse(task);
+                                } catch (e) {
+                                    console.error('Error parsing task:', e);
+                                    return '';
+                                }
+                            }
+                            // console.log('studentRole', studentRole === 'Principal Investigator');
+
+                            console.log('taskData', taskData);
+                            return `
+                                <div class="block py-2 border-b card h-fit border-black1 ${myKanban ? noSelectClass: ''}" draggable="${studentRole === 'Principal Investigator' || myKanban ? 'true' : 'false'}">
+                                    <div class="flex p-1 ${studentRole === 'Principal Investigator' || myKanban ? 'cursor-grab' : ''} justify-evenly">
+                                        <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskData[0]}</span>
+                                        <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskData[2]}</span>
                                     </div>
-                                    <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${task[1]}</span>
+                                    <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskData[1]}</span>
                                 </div>
-                            `).join('');
-                        }, '');
+                            `;
+                        }).join('');
                     }
 
-                    
                     // Function to reattach drag and drop listeners
                     function attachDragAndDropListeners() {
                         const cards = document.querySelectorAll('.card');
                         const dropzones = document.querySelectorAll('.dropzone');
 
                         cards.forEach(card => {
-                            card.addEventListener('dragstart', function() {
-                                card.classList.add("dragging");
-                                card.classList.remove("cursor-grab");
-                                card.classList.add("cursor-grabbing");
-                            });
+                            const isCurrentUserKanban = members[currentKB][1] === currentUserId;
 
-                            card.addEventListener('dragend', function() {
-                                card.classList.remove("dragging");
-                                card.classList.remove("cursor-grabbing");
-                                card.classList.add("cursor-grab");
-                            });
+                            if (studentRole === 'Principal Investigator' || isCurrentUserKanban) {
+                                card.addEventListener('dragstart', function() {
+                                    card.classList.add("dragging");
+                                    card.classList.remove("cursor-grab");
+                                    card.classList.add("cursor-grabbing");
+                                });
+
+                                card.addEventListener('dragend', function() {
+                                    card.classList.remove("dragging");
+                                    card.classList.remove("cursor-grabbing");
+                                    card.classList.add("cursor-grab");
+                                });
+                            }
                         });
 
                         dropzones.forEach(zone => {
                             zone.addEventListener('dragover', function(e) {
+                                const isCurrentUserKanban = members[currentKB][1] === currentUserId;
+                                if (!(studentRole === 'Principal Investigator' || isCurrentUserKanban)) {
+                                    return;
+                                }
+                                
                                 e.preventDefault();
                                 const bottomTask = InsertAboveTask(zone, e.clientY);
                                 const curTask = document.querySelector(".dragging");
@@ -554,9 +627,40 @@
                             });
 
                             zone.addEventListener('drop', function(e) {
+                                const isCurrentUserKanban = members[currentKB][1] === currentUserId;
+                                if (!(studentRole === 'Principal Investigator' || isCurrentUserKanban)) {
+                                    return;
+                                }
+
                                 e.preventDefault();
                                 const curTask = document.querySelector(".dragging");
+                                if (!curTask) return;
+
+                                console.log('curTask', curTask);
+
                                 curTask.classList.remove("dragging");
+
+                                // Get the new destination column
+                                const newDestination = zone.id.replace(`${currentKB}`, '').replace('Cont', ''); // 'todo', 'wip', or 'done'
+                                console.log(newDestination);
+                                
+                                // Get task data from the DOM element
+                                const taskName = curTask.querySelector('.font-synebold').textContent;
+                                const taskDate = curTask.querySelector('.font-synemed').textContent;
+                                const taskInfo = curTask.querySelector('.font-synereg').textContent;
+
+                                console.log(taskName, taskDate, taskInfo);
+
+                                processUpdateKanban('move', [taskName, taskInfo, taskDate], newDestination)
+                                    .then(() => {
+                                        zone.appendChild(curTask);
+                                        curTask.classList.remove("cursor-grabbing");
+                                        curTask.classList.add("cursor-grab");
+                                    })
+                                    .catch(error => {
+                                        console.error('Error moving task:', error);
+                                        // Optionally revert the UI change
+                                    });
                             });
                         });
                     }
@@ -569,7 +673,7 @@
                 rightBox.innerHTML = '';
 
                 if (<?= $_SESSION['user']['account_type'] === 'student' ? 'true' : 'false' ?>) {
-                    console.log('student');
+                    // console.log('student');
                 } else if (<?= $_SESSION['user']['account_type'] === 'professor' ? 'true' : 'false' ?>) {
                     // console.log('student_has_result', student_has_result);
                     rightBox.innerHTML = `
@@ -589,6 +693,35 @@
                     `;
                 }
             }
+        }
+
+        function processUpdateKanban(action, taskData, destination) {
+            isUpdatingKanban = true;
+
+            const formData = new FormData();
+            formData.append('school_id', members[currentKB][1]);
+            formData.append('task', JSON.stringify(taskData));
+            formData.append('destination', destination);
+            formData.append('room_id', room_id);
+            formData.append('form_type', 'update_kanban');
+            if (action) formData.append('action', action);
+
+            return fetch('/api/submit-form', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    throw new Error(data.message || 'Failed to update kanban');
+                }
+                return data;
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    isUpdatingKanban = false;
+                }, 1000);
+            })
         }
 
         function submitForm(formId, url, type, params = {}) {
@@ -812,36 +945,21 @@
 
                 // Create the task array
                 const newTask = [taskName, taskInfo, taskDate];
-                
-                // Get the member whose kanban is being updated
-                const member = members[currentKB];
-                
-                // Create the form data directly instead of relying on a form element
-                const formData = new FormData();
-                formData.append('school_id', member[1]);
-                formData.append('task', JSON.stringify(newTask));
-                formData.append('destination', taskDestination);
-                formData.append('room_id', room_id);
-                formData.append('form_type', 'update_kanban');
 
-                // Make the fetch request directly
-                fetch('/api/submit-form', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.success) {
-                        console.error('Failed to save task:', data.message);
-                        alert('Failed to save task. Please try again.');
-                        return;
-                    }
-
-                    // If successful, update the UI
+                processUpdateKanban(null, newTask, taskDestination)
+                .then(() => {
+                    // Add UI update code here
                     const container = document.getElementById(`${currentKB}${taskDestination}Cont`);
                     const newCard = document.createElement('div');
-                    newCard.setAttribute('draggable', 'true');
+                    newCard.setAttribute('draggable', `${studentRole === 'Principal Investigator' ? 'true' : 'false'}`);
                     newCard.classList.add('block', 'py-2', 'border-b', 'card', 'cursor-grab', 'border-black1');
+
+                    // Split noSelectClass into an array and add each class individually
+                    if (noSelectClass) {
+                        const classes = noSelectClass.split(' ').filter(className => className.length > 0);
+                        newCard.classList.add(...classes);
+                    }
+
                     newCard.innerHTML = `
                         <div class="flex p-1 cursor-grab justify-evenly">
                             <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskName}</span>
@@ -860,6 +978,66 @@
                     console.error('Error saving task:', error);
                     alert('Error saving task. Please try again.');
                 });
+                
+                // Get the member whose kanban is being updated
+                // const member = members[currentKB];
+                
+                // // Create the form data directly instead of relying on a form element
+                // const formData = new FormData();
+                // formData.append('school_id', member[1]);
+                // formData.append('task', JSON.stringify(newTask));
+                // formData.append('destination', taskDestination);
+                // formData.append('room_id', room_id);
+                // formData.append('form_type', 'update_kanban');
+
+                // Make the fetch request directly
+                // fetch('/api/submit-form', {
+                //     method: 'POST',
+                //     body: formData
+                // })
+                // .then(response => response.json())
+                // .then(data => {
+                //     if (!data.success) {
+                //         console.error('Failed to save task:', data.message);
+                //         alert('Failed to save task. Please try again.');
+                //         return;
+                //     }
+
+                //     console.log('data', data);
+                //     console.log('noSelectClass', noSelectClass);
+                //     console.log('studentRole', studentRole);
+                //     console.log('currentKB', currentKB);
+                //     console.log('taskDestination', taskDestination);
+
+                //     // If successful, update the UI
+                //     const container = document.getElementById(`${currentKB}${taskDestination}Cont`);
+                //     const newCard = document.createElement('div');
+                //     newCard.setAttribute('draggable', `${studentRole === 'Principal Investigator' ? 'true' : 'false'}`);
+                //     newCard.classList.add('block', 'py-2', 'border-b', 'card', 'cursor-grab', 'border-black1');
+
+                //     if (noSelectClass) {
+                //         const classes = noSelectClass.split(' ').filter(className => className.length > 0);
+                //         newCard.classList.add(...classes);
+                //     }
+
+                //     newCard.innerHTML = `
+                //         <div class="flex p-1 cursor-grab justify-evenly">
+                //             <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskName}</span>
+                //             <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskDate}</span>
+                //         </div>
+                //         <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskInfo}</span>
+                //     `;
+
+                //     container.appendChild(newCard);
+                //     attachDragListeners(newCard);
+                    
+                //     clearModal();
+                //     hide('taskModal');
+                // })
+                // .catch(error => {
+                //     console.error('Error saving task:', error);
+                //     alert('Error saving task. Please try again.');
+                // });
             }
 
             // Helper function to attach drag listeners to a card
@@ -933,46 +1111,51 @@
                     }
                 });
 
-                zone.addEventListener('drop', function(e) {
-                e.preventDefault();
-                const curTask = document.querySelector(".dragging");
-                if (!curTask) return;
+                // zone.addEventListener('drop', function(e) {
+                //     e.preventDefault();
+                //     const curTask = document.querySelector(".dragging");
+                //     if (!curTask) return;
 
-                curTask.classList.remove("dragging");
+                //     console.log('curTask',curTask);
 
-                // Get the new destination column
-                const newDestination = zone.id.replace(`${currentKB}`, '').replace('Cont', ''); // 'todo', 'wip', or 'done'
-                
-                // Get task data from the DOM element
-                const taskName = curTask.querySelector('.font-synebold').textContent;
-                const taskDate = curTask.querySelector('.font-synemed').textContent;
-                const taskInfo = curTask.querySelector('.font-synereg').textContent;
-                
-                // Create and send form data
-                const formData = new FormData();
-                formData.append('school_id', members[currentKB][1]);
-                formData.append('task', JSON.stringify([taskName, taskInfo, taskDate]));
-                formData.append('destination', newDestination);
-                formData.append('room_id', room_id);
-                formData.append('form_type', 'update_kanban');
-                formData.append('action', 'move');
+                //     curTask.classList.remove("dragging");
 
-                fetch('/api/submit-form', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.success) {
-                        console.error('Failed to move task:', data.message);
-                        // Optionally revert the UI change
-                        return;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error moving task:', error);
-                });
-            });
+                //     // Get the new destination column
+                //     const newDestination = zone.id.replace(`${currentKB}`, '').replace('Cont', ''); // 'todo', 'wip', or 'done'
+                //     console.log(newDestination);
+                    
+                //     // Get task data from the DOM element
+                //     const taskName = curTask.querySelector('.font-synebold').textContent;
+                //     const taskDate = curTask.querySelector('.font-synemed').textContent;
+                //     const taskInfo = curTask.querySelector('.font-synereg').textContent;
+
+                //     console.log(taskName, taskData, taskInfo);
+                    
+                //     // Create and send form data
+                //     const formData = new FormData();
+                //         formData.append('school_id', members[currentKB][1]);
+                //         formData.append('task', JSON.stringify([taskName, taskInfo, taskDate]));
+                //         formData.append('destination', newDestination);
+                //         formData.append('room_id', room_id);
+                //         formData.append('form_type', 'update_kanban');
+                //         formData.append('action', 'move');
+
+                //     fetch('/api/submit-form', {
+                //         method: 'POST',
+                //         body: formData
+                //     })
+                //     .then(response => response.json())
+                //     .then(data => {
+                //         if (!data.success) {
+                //             console.error('Failed to move task:', data.message);
+                //             // Optionally revert the UI change
+                //             return;
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.error('Error moving task:', error);
+                //     });
+                // });
             });
 
             // toggle hidden/flex kanban of members
