@@ -236,7 +236,8 @@
         let isUpdatingKanban = false;
         let lastDisplayedMemberId = null;
 
-        const noSelectClass = studentRole === 'Principal Investigator' ? '' : 'cursor-grab select-none pointer-events-none';
+        // const noSelectClass = studentRole === 'Principal Investigator' ? '' : 'cursor-grab select-none pointer-events-none';
+        let noSelectClass = '';
 
         // let membersWarningContent = `
         //     <div id="membersWarning" class="bg-red1 w-full h-10 flex items-center justify-center rounded-t-xl">
@@ -347,6 +348,8 @@
                     }
                 });
 
+                // console.log('members', members);
+
                 // console.log('groupNum', groupNum);
                 // console.log('studentRole', studentRole);
 
@@ -437,6 +440,8 @@
                             });
                         });
                     <?php elseif ($_SESSION['user']['account_type'] === 'student'): ?>
+                        noSelectClass = (studentRole === 'Principal Investigator' || members[currentKB][1] === currentUserId) ? '' : 'cursor-grab select-none pointer-events-none';
+                        
                         if (isUpdatingKanban) {
                             isUpdatingKanban = false;
                             return;
@@ -631,6 +636,9 @@
                         console.log('tasks', tasks);
 
                         return tasks.map(task => {
+                            const isOwnKanban = memberId === currentUserId;
+                            const canDrag = studentRole === 'Principal Investigator' || isOwnKanban;
+
                             // Handle the case where the task is a string (needs parsing)
                             let taskData = task;
                             if (typeof task === 'string') {
@@ -646,9 +654,9 @@
 
                             console.log('taskData', taskData);
                             return `
-                                <div class="block py-2 border-b card h-fit border-black1 ${myKanban ? noSelectClass: ''}" 
-                                draggable="${studentRole === 'Principal Investigator' || myKanban ? 'true' : 'false'}">
-                                    <div class="flex p-1 ${studentRole === 'Principal Investigator' || myKanban ? 'cursor-grab' : ''} justify-evenly">
+                                <div class="block py-2 border-b card h-fit border-black1 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
+                                    draggable="${canDrag}">
+                                    <div class="flex p-1 ${canDrag ? 'cursor-grab' : ''} justify-evenly">
                                         <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskData[0]}</span>
                                         <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskData[2]}</span>
                                     </div>
@@ -664,7 +672,6 @@
                         const dropzones = document.querySelectorAll('.dropzone');
                         const deleteArea = document.getElementById('deleteArea');
 
-                        
                         // Add delete area event listeners
                         deleteArea.addEventListener('dragover', function(e) {
                             e.preventDefault();
@@ -701,6 +708,7 @@
                             const isCurrentUserKanban = members[currentKB][1] === currentUserId;
 
                             if (studentRole === 'Principal Investigator' || isCurrentUserKanban) {
+                                console.log('isCurrentUserKanban', isCurrentUserKanban);
                                 card.addEventListener('dragstart', function() {
                                     card.classList.add("dragging");
                                     card.classList.remove("cursor-grab");
@@ -1070,8 +1078,15 @@
                     // Add UI update code here
                     const container = document.getElementById(`${currentKB}${taskDestination}Cont`);
                     const newCard = document.createElement('div');
-                    newCard.setAttribute('draggable', `${studentRole === 'Principal Investigator' ? 'true' : 'false'}`);
-                    newCard.classList.add('block', 'py-2', 'border-b', 'card', 'cursor-grab', 'border-black1');
+                    const canDrag = studentRole === 'Principal Investigator' || members[currentKB][1] === currentUserId;
+
+                    newCard.setAttribute('draggable', canDrag);
+                    newCard.classList.add('block', 'py-2', 'border-b', 'card', 'border-black1');
+                    if (canDrag) {
+                        newCard.classList.add('cursor-grab');
+                    } else {
+                        newCard.classList.add('select-none', 'pointer-events-none');
+                    }
 
                     // Split noSelectClass into an array and add each class individually
                     if (noSelectClass) {
