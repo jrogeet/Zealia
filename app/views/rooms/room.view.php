@@ -231,8 +231,10 @@
         let groupNum = 0;
         let studentRole = null;
         let currentKB = 0;
+        let currentKBTab = parseInt(localStorage.getItem('lastSelectedTab')) || null;
 
         let isUpdatingKanban = false;
+        let lastDisplayedMemberId = null;
 
         const noSelectClass = studentRole === 'Principal Investigator' ? '' : 'cursor-grab select-none pointer-events-none';
 
@@ -378,7 +380,6 @@
                     console.log('not equal');
                     // console.log('parsedGroupsList', parsedGroupsList);
                     groupChecker = parsedGroupsList;
-                    
 
                     <?php if ($_SESSION['user']['account_type'] === 'professor'): ?>
                         const rightBox = document.getElementById('rightBox');
@@ -436,6 +437,29 @@
                             });
                         });
                     <?php elseif ($_SESSION['user']['account_type'] === 'student'): ?>
+                        if (isUpdatingKanban) {
+                            isUpdatingKanban = false;
+                            return;
+                        }
+
+                        // First, try to get the last selected tab from localStorage
+                        let currentKBTab = parseInt(localStorage.getItem('lastSelectedTab'));
+
+                        // If no stored tab or invalid tab number, find the appropriate default
+                        if (currentKBTab === null || isNaN(currentKBTab) || currentKBTab >= members.length) {
+                            // Try to find the user's own tab first
+                            currentKBTab = members.findIndex(member => member[1] === currentUserId);
+                            
+                            // If user's tab not found, default to first tab (0)
+                            if (currentKBTab === -1) {
+                                currentKBTab = 0;
+                            }
+                        }
+
+                        // Update currentKB to match and save the current tab
+                        currentKB = currentKBTab;
+                        localStorage.setItem('lastSelectedTab', currentKBTab.toString());
+
                         const leftBoxStudentHead = document.getElementById('leftBoxStudentHead');
                         const leftBoxStudentMembers = document.getElementById('leftBoxStudentMembers');
                         const rightBoxStudent = document.getElementById('rightBoxStudent');
@@ -462,7 +486,8 @@
                             kanbanTabs.innerHTML += `
                                 <button onclick="changeKB(${index});" 
                                         id="${member[1]}" 
-                                        class="member ${member[1] === currentUserId ? 'bg-blue3 text-white1' : 'bg-white1'} w-1/4 mx-auto py-4 border-r border-l border-black1">
+                                        class="member ${index === currentKBTab ? 'bg-blue3 text-white1' : 'bg-white1 text-black1'} 
+                                            w-1/4 mx-auto py-4 border-r border-l border-black1">
                                     ${member[0]}
                                 </button>
                             `;
@@ -474,8 +499,17 @@
                             console.log('Generating kanban for member:', member);
                             console.log('Member kanban data:', member[3]); // Add this debug line
 
+                            //<div id="kanban${index}" class="${member[1] === currentUserId ? (() => { currentKB = index; return 'flex'; })() : 'hidden'} flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
+                            
+                            if (currentKBTab === null && member[1] === currentUserId) {
+                                currentKBTab = index;
+                                currentKB = index;
+                            }
+
                             allKanbans += `
-                                <div id="kanban${index}" class="${member[1] === currentUserId ? (() => { currentKB = index; return 'flex'; })() : 'hidden'} flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
+                                <div id="kanban${index}" 
+                                    class="${index === currentKBTab ? 'flex' : 'hidden'}
+                                          flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
                                     <!-- add task button -->
                                     ${member[1] === currentUserId || studentRole === 'Principal Investigator' 
                                         ? '<div class="flex self-end pr-4 w-fit"><button onclick="show(\'taskModal\')" class="px-10 border rounded-lg border-grey1 bg-green1">Add +</button></div>' 
@@ -532,29 +566,44 @@
 
                     function generateTaskList(memberId, memberData, listType, roomId) {
                         console.log('MEMBERDATA', memberData);
+
+                        console.log('Generating task list:', {
+                            memberId,
+                            memberData,
+                            listType,
+                            roomId
+                        });
                         
                         // Check if memberData exists and has the expected structure
-                        if (!memberData || !memberData[1]) {
-                            // console.log('No task data available for', listType);
+                        if (!memberData || typeof memberData !== 'object') {
+                            console.log('No task data available for', listType);
+                            return '';
+                        }
+
+                        // Check if room data exists
+                        if (!memberData[roomId]) {
+                            console.log('No data for room:', roomId);
                             return '';
                         }
 
                         // Get the tasks for this list type
-                        const tasks = memberData[1][listType];
+                        const tasks = memberData[roomId][listType];
                         if (!tasks || !Array.isArray(tasks)) {
                             console.log('No tasks found for', listType);
                             return '';
                         }
 
-                        let myKanban = false;
-                        if (memberId === currentUserId) {
-                            myKanban = true;
-                        } else {
-                            myKanban = false;
-                        }
+                        let myKanban = memberId === currentUserId;
 
-                        console.log('memberData[1]', typeof(memberData[1][listType][0]));
-                        console.log('memberData[1].listType', typeof(memberData[1][listType]));
+                        // let myKanban = false;
+                        // if (memberId === currentUserId) {
+                        //     myKanban = true;
+                        // } else {
+                        //     myKanban = false;
+                        // }
+
+                        console.log('memberData', typeof(memberData[roomId][listType][0]));
+                        console.log('memberData.listType', typeof(memberData[roomId][listType]));
 
                         console.log('tasks', tasks);
 
@@ -574,7 +623,8 @@
 
                             console.log('taskData', taskData);
                             return `
-                                <div class="block py-2 border-b card h-fit border-black1 ${myKanban ? noSelectClass: ''}" draggable="${studentRole === 'Principal Investigator' || myKanban ? 'true' : 'false'}">
+                                <div class="block py-2 border-b card h-fit border-black1 ${myKanban ? noSelectClass: ''}" 
+                                draggable="${studentRole === 'Principal Investigator' || myKanban ? 'true' : 'false'}">
                                     <div class="flex p-1 ${studentRole === 'Principal Investigator' || myKanban ? 'cursor-grab' : ''} justify-evenly">
                                         <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskData[0]}</span>
                                         <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskData[2]}</span>
@@ -1178,17 +1228,16 @@
 
             // toggle hidden/flex kanban of members
             function changeKB(index) {
-                console.log(index);
-                let kanbans = document.querySelectorAll('[id^="kanban"]');
+                console.log('Changing to tab:', index);
+                currentKBTab = index;
                 currentKB = index;
+                isUpdatingKanban = true;
+                localStorage.setItem('lastSelectedTab', index.toString());
 
                 // Update tab colors
                 const tabs = document.querySelectorAll('.member');
-                tabs.forEach(tab => {
-                    const tabId = tab.id;
-                    const memberId = members[index][1];
-                    
-                    if (tabId === memberId) {
+                tabs.forEach((tab, tabIndex) => {
+                    if (tabIndex === index) {
                         tab.classList.remove('bg-white1', 'text-black1');
                         tab.classList.add('bg-blue3', 'text-white1');
                     } else {
@@ -1198,17 +1247,54 @@
                 });
 
                 // Toggle kanban visibility
+                const kanbans = document.querySelectorAll('[id^="kanban"]');
                 kanbans.forEach(kb => {
                     if (!kb.id.includes('kanbanTabs')) {
-                        kb.classList.remove('flex');
-                        kb.classList.add('hidden');
-                        if (kb.id == `kanban${index}`) {
-                            kb.classList.add('flex');
+                        if (kb.id === `kanban${index}`) {
                             kb.classList.remove('hidden');
+                            kb.classList.add('flex');
+                        } else {
+                            kb.classList.remove('flex');
+                            kb.classList.add('hidden');
                         }
                     }
                 });
             }
+
+
+            // function changeKB(index) {
+            //     console.log(index);
+            //     let kanbans = document.querySelectorAll('[id^="kanban"]');
+            //     currentKB = index;
+            //     currentKBTab = index;
+
+            //     // Update tab colors
+            //     const tabs = document.querySelectorAll('.member');
+            //     tabs.forEach(tab => {
+            //         const tabId = tab.id;
+            //         const memberId = members[index][1];
+                    
+            //         if (tabId === memberId) {
+            //             tab.classList.remove('bg-white1', 'text-black1');
+            //             tab.classList.add('bg-blue3', 'text-white1');
+            //         } else {
+            //             tab.classList.remove('bg-blue3', 'text-white1');
+            //             tab.classList.add('bg-white1', 'text-black1');
+            //         }
+            //     });
+
+            //     // Toggle kanban visibility
+            //     kanbans.forEach(kb => {
+            //         if (!kb.id.includes('kanbanTabs')) {
+            //             kb.classList.remove('flex');
+            //             kb.classList.add('hidden');
+            //             if (kb.id == `kanban${index}`) {
+            //                 kb.classList.add('flex');
+            //                 kb.classList.remove('hidden');
+            //             }
+            //         }
+            //     });
+            // }
 
             // ... existing code ...
 

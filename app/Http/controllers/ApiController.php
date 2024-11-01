@@ -353,6 +353,8 @@ private function getLatestData($params)
             if (!empty($currentKanban['kanban'])) {
                 $kanbanData = json_decode($currentKanban['kanban'], true) ?? [];
             }
+
+            $kanbanData = $this->cleanupKanbanData($kanbanData);
     
             // Initialize room's kanban if it doesn't exist
             if (!isset($kanbanData[$formData['room_id']])) {
@@ -366,9 +368,15 @@ private function getLatestData($params)
             // Add task to appropriate list
             $task = json_decode($formData['task'], true);
 
+            // Validate destination
+            $validDestinations = ['todo', 'wip', 'done'];
+            if (!in_array($formData['destination'], $validDestinations)) {
+                throw new \Exception('Invalid destination');
+            }
+
             // For move operations
             if (isset($formData['action']) && $formData['action'] === 'move') {
-                foreach (['todo', 'wip', 'done'] as $list) {
+                foreach ($validDestinations as $list) {
                     $kanbanData[$formData['room_id']][$list] = array_values(array_filter(
                         $kanbanData[$formData['room_id']][$list],
                         function($existingTask) use ($task) {
@@ -377,6 +385,18 @@ private function getLatestData($params)
                     ));
                 }
             }
+
+            // For move operations
+            // if (isset($formData['action']) && $formData['action'] === 'move') {
+            //     foreach (['todo', 'wip', 'done'] as $list) {
+            //         $kanbanData[$formData['room_id']][$list] = array_values(array_filter(
+            //             $kanbanData[$formData['room_id']][$list],
+            //             function($existingTask) use ($task) {
+            //                 return $existingTask[0] !== $task[0];
+            //             }
+            //         ));
+            //     }
+            // }
 
             // if (isset($formData['action']) && $formData['action'] === 'move') {
             //     // Remove task from all lists first
@@ -390,7 +410,7 @@ private function getLatestData($params)
             //     }
             // }
 
-            // dd($task);
+            // Add task to appropriate list
             $kanbanData[$formData['room_id']][$formData['destination']][] = $task;
 
             // dd($kanbanData);
@@ -416,6 +436,26 @@ private function getLatestData($params)
                 'message' => 'Error updating kanban: ' . $e->getMessage()
             ];
         }
+    }
+
+    private function cleanupKanbanData($kanbanData) {
+        $validDestinations = ['todo', 'wip', 'done'];
+        
+        foreach ($kanbanData as $roomId => $roomData) {
+            // Keep only valid destinations
+            $cleanRoom = array_intersect_key($roomData, array_flip($validDestinations));
+            
+            // Ensure all valid destinations exist
+            foreach ($validDestinations as $dest) {
+                if (!isset($cleanRoom[$dest])) {
+                    $cleanRoom[$dest] = [];
+                }
+            }
+            
+            $kanbanData[$roomId] = $cleanRoom;
+        }
+        
+        return $kanbanData;
     }
 
     private function processHandleRequest($formData) {
