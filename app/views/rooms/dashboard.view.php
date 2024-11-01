@@ -358,6 +358,7 @@
                         
                         if (rooms.length > 0) {
                             rooms.forEach(room => {
+                                console.log('room', room.program);
                                 roomsASC.innerHTML += `
                                     <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                         <div>   

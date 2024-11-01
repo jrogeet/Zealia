@@ -218,8 +218,8 @@ private function getLatestData($params)
             }
 
         } elseif (isset($table)) {
-            if ($table ==  'rooms') {
-            // if ($table ==  'rooms' || $table == 'room_list') {
+            // if ($table ==  'rooms') {
+            if ($table ==  'rooms' || $table == 'room_list') {
                 foreach ($latestData as &$room) {
     
                     $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
@@ -227,6 +227,7 @@ private function getLatestData($params)
                     ])->find();
     
                     $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
+        
                     unset($profInfo['f_name']); unset($profInfo['l_name']);
                     if (!empty($profInfo)) {
                         $room = array_merge($room, $profInfo);
