@@ -139,19 +139,21 @@ if ($valid) {
         $decodedGroup = json_decode($roomHasGroup['groups_json'], true);
         $encodedGroup = json_encode($decodedGroup);
 
-        foreach($decodedGroup as &$group) {
-            foreach($group as &$member){
-                if (str_contains($member[0], '+')) {
-                    $names = explode("+", $member[0]);
-                    $member[0] = "{$names[0]} {$names[1]}";
-                }
+        if ($decodedGroup) {
+            foreach($decodedGroup as &$group) {
+                foreach($group as &$member){
+                    if (str_contains($member[0], '+')) {
+                        $names = explode("+", $member[0]);
+                        $member[0] = "{$names[0]} {$names[1]}";
+                    }
 
-                foreach ($stu_info as $student) {
-                    if(isset($member[1]) && $member[1] === $student['school_id']) {
-                        if (isset($student['kanban'])) {
-                            $member[] = json_decode($student['kanban'], true);
-                        } else {
-                            $member[] = "";
+                    foreach ($stu_info as $student) {
+                        if(isset($member[1]) && $member[1] === $student['school_id']) {
+                            if (isset($student['kanban'])) {
+                                $member[] = json_decode($student['kanban'], true);
+                            } else {
+                                $member[] = "";
+                            }
                         }
                     }
                 }

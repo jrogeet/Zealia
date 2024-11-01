@@ -370,6 +370,35 @@ private function getLatestData($params)
 
             // Validate destination
             $validDestinations = ['todo', 'wip', 'done'];
+
+            // For delete operations
+            if (isset($formData['action']) && $formData['action'] === 'delete') {
+                foreach ($validDestinations as $list) {
+                    $kanbanData[$formData['room_id']][$list] = array_values(array_filter(
+                        $kanbanData[$formData['room_id']][$list],
+                        function($existingTask) use ($task) {
+                            return $existingTask[0] !== $task[0];
+                        }
+                    ));
+                }
+                
+                // Update database without adding the task back
+                $success = $this->db->query('UPDATE accounts SET kanban = :kanban WHERE school_id = :school_id', [
+                    'kanban' => json_encode($kanbanData),
+                    'school_id' => $formData['school_id']
+                ]);
+
+                if (!$success) {
+                    throw new \Exception('Failed to update database');
+                }
+
+                return [
+                    'success' => true,
+                    'message' => 'Task deleted successfully',
+                    'data' => $kanbanData[$formData['room_id']]
+                ];
+            }
+
             if (!in_array($formData['destination'], $validDestinations)) {
                 throw new \Exception('Invalid destination');
             }

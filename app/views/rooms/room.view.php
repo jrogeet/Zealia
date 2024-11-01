@@ -482,6 +482,18 @@
                             `;
                         });
 
+                        // rightBoxStudent.innerHTML = `
+                        //     <!-- Delete Area -->
+                        //     <div id="deleteArea" class="hidden fixed bottom-0 left-0 w-full h-24 bg-red-500 flex items-center justify-center transition-all duration-300 opacity-0 z-50">
+                        //         <div class="flex items-center space-x-3 text-white">
+                        //             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        //                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        //             </svg>
+                        //             <span class="text-xl font-bold">Drop to Delete</span>
+                        //         </div>
+                        //     </div>
+                        // `;
+
                         members.forEach((member, index) => {
                             kanbanTabs.innerHTML += `
                                 <button onclick="changeKB(${index});" 
@@ -494,7 +506,18 @@
                         });
 
                         // Generate all kanbans
-                        let allKanbans = '';
+                        let allKanbans = `
+                            <!-- Delete Area -->
+                            <div id="deleteArea" class="hidden absolute bottom-0 left-0 w-full h-24 bg-red-500 flex items-center justify-center transition-all duration-300 opacity-0 z-50">
+                                <div class="flex items-center space-x-3 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                    <span class="text-xl font-bold">Drop to Delete</span>
+                                </div>
+                            </div>
+                        `;
+
                         members.forEach((member, index) => {
                             console.log('Generating kanban for member:', member);
                             console.log('Member kanban data:', member[3]); // Add this debug line
@@ -540,7 +563,7 @@
                             `;
                         });
                         // Insert all kanbans after the tabs
-                        rightBoxStudent.innerHTML = kanbanTabs.outerHTML + allKanbans;
+                        rightBoxStudent.innerHTML += kanbanTabs.outerHTML + allKanbans;
                         attachDragAndDropListeners();
                     <?php endif; ?>
 
@@ -639,6 +662,40 @@
                     function attachDragAndDropListeners() {
                         const cards = document.querySelectorAll('.card');
                         const dropzones = document.querySelectorAll('.dropzone');
+                        const deleteArea = document.getElementById('deleteArea');
+
+                        
+                        // Add delete area event listeners
+                        deleteArea.addEventListener('dragover', function(e) {
+                            e.preventDefault();
+                            this.classList.add('bg-red-600'); // Visual feedback
+                        });
+
+                        deleteArea.addEventListener('dragleave', function() {
+                            this.classList.remove('bg-red-600');
+                        });
+
+                        deleteArea.addEventListener('drop', function(e) {
+                            e.preventDefault();
+                            this.classList.remove('bg-red-600');
+                            
+                            const curTask = document.querySelector(".dragging");
+                            if (!curTask) return;
+
+                            // Get task data
+                            const taskName = curTask.querySelector('.font-synebold').textContent;
+                            const taskDate = curTask.querySelector('.font-synemed').textContent;
+                            const taskInfo = curTask.querySelector('.font-synereg').textContent;
+
+                            // Process deletion
+                            processUpdateKanban('delete', [taskName, taskInfo, taskDate], 'delete')
+                                .then(() => {
+                                    curTask.remove();
+                                })
+                                .catch(error => {
+                                    console.error('Error deleting task:', error);
+                                });
+                        });
 
                         cards.forEach(card => {
                             const isCurrentUserKanban = members[currentKB][1] === currentUserId;
@@ -648,12 +705,24 @@
                                     card.classList.add("dragging");
                                     card.classList.remove("cursor-grab");
                                     card.classList.add("cursor-grabbing");
+                                    
+                                    // Show delete area
+                                    deleteArea.classList.remove('hidden');
+                                    setTimeout(() => {
+                                        deleteArea.classList.remove('opacity-0');
+                                    }, 0);
                                 });
 
                                 card.addEventListener('dragend', function() {
                                     card.classList.remove("dragging");
                                     card.classList.remove("cursor-grabbing");
                                     card.classList.add("cursor-grab");
+                                    
+                                    // Hide delete area
+                                    deleteArea.classList.add('opacity-0');
+                                    setTimeout(() => {
+                                        deleteArea.classList.add('hidden');
+                                    }, 300);
                                 });
                             }
                         });
@@ -732,7 +801,7 @@
                             
                             <form id="submitGroups" method="POST">
                                 <input type="hidden" name="grouped" value="grouped">
-                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="${student_has_result}">
+                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
                                 <input type="hidden" name="stunotype" id="stunotype" value="">
 
                                 <input id="genGroups" type="hidden" name="genGroups" value="">
@@ -1260,6 +1329,8 @@
                     }
                 });
             }
+
+
 
 
             // function changeKB(index) {

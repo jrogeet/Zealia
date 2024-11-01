@@ -184,7 +184,25 @@ function generateGroups() {
             }
 
             // Try to parse the JSON
-            const filteredIdNRiasec = JSON.parse(value);
+            // const filteredIdNRiasec = JSON.parse(value);
+            // console.log('filteredIdNRiasec:', filteredIdNRiasec);
+
+            // Log the raw value for debugging
+            console.log('Raw value:', value);
+
+            // Try to parse the JSON, handling both string and already-parsed objects
+            let filteredIdNRiasec;
+            try {
+                // First, try parsing as JSON string
+                filteredIdNRiasec = JSON.parse(value);
+            } catch (e) {
+                // If parsing fails, check if it's already an object
+                if (typeof value === 'object') {
+                    filteredIdNRiasec = value;
+                } else {
+                    throw e; // Re-throw if it's neither valid JSON nor an object
+                }
+            }
             
             // Validate the parsed data
             if (!Array.isArray(filteredIdNRiasec)) {
