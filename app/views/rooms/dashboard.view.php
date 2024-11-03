@@ -23,11 +23,12 @@
                     </div>
 
                     <!-- search -->
-                    <form id="searchRoomForm" method="POST"  class="flex items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg pr-4 overflow-hidden">
+                    <form id="searchRoomForm" method="POST"  class="flex justify-between items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
-                        <input id="searchInput"  class="w-5/6 h-full pl-2 bg-white2" type="text" name="search_input" placeholder="Search Room">
-                        <button type="submit" class="w-1/6 bg-center bg-no-repeat bg-contain border bg-search h-5/6 border-l-grey2"></button>
+                        <input id="searchInput" oninput="checkSearch();"  class="w-8/12 h-full pl-2 bg-white2 focus:outline-none" type="text" name="search_input" placeholder="Search Room">
+                        <button id="clearSearch"  class="hidden w-1/12 text-xl text-red1">X</button>
+                        <button type="submit" class="w-3/12 bg-center bg-no-repeat bg-contain border-0 border-l bg-search h-5/6 border-l-grey2"></button>
                     </form>
 
                     <button class="h-[2.25rem] px-4 bg-orange1 text-black1 font-synemed border border-grey2 rounded-lg" onClick="toggle('filters');">Filter</button>
@@ -73,7 +74,7 @@
             <div class="hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="flex w-4/6">
                 <div class="flex items-center h-[2.25rem] w-4/5  bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
-                    <p class="flex text-grey1 font-synemed text-lg">Search by Filter:</p>
+                    <p class="flex text-lg text-grey1 font-synemed">Search by Filter:</p>
 
                     <!-- Year -->
                     <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" id="yrLevel">
@@ -106,8 +107,8 @@
 
             <!-- TILES  -->
             <div id="dashboardTiles" class="flex justify-center max-h-[39.8rem] w-full overflow-y-auto overflow-x-hidden">         
-                    <div class="hidden flex-col w-full m-4" id="rooms-ascending-container">
-                        <hi class="font-synebold text-xl">Earliest</hi>
+                    <div class="flex-col hidden w-full m-4" id="rooms-ascending-container">
+                        <hi class="text-xl font-synebold">Earliest</hi>
                         <!--  ROOMS  -->
                         <div class="flex flex-wrap content-start gap-9" id="rooms-ascending">
                             <!-- FILLED USING JAVASCRIPT -->
@@ -116,7 +117,7 @@
                     <!-- added div as fix for descending being toggled as block -->
                     <!-- <div class="hidden h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden"> -->
                     <div  class="flex flex-col w-full m-4" id="rooms-descending-container">
-                        <hi class="font-synebold text-xl">Latest</hi>
+                        <hi class="text-xl font-synebold">Latest</hi>
                         <!--  ROOMS  -->
                         <div class="flex flex-wrap content-start gap-9" id="rooms-descending">
                             <!-- FILLED USING JAVASCRIPT -->
@@ -286,6 +287,9 @@
         const jc = document.getElementById('jcButt');
         const searchDD = document.getElementById('search');
         const jcDD = document.getElementById('jc');
+        const searchInput = document.getElementById('searchInput');
+
+        const clearSearch = document.getElementById('clearSearch');
 
         search.addEventListener('click', function() {
             if (jcDD.classList.contains("hidden")){ // closes other (jcDD) if its open on search press
@@ -303,6 +307,25 @@
                 searchDD.classList.toggle('hidden');
                 jcDD.classList.toggle('hidden');
             }
+        });
+
+        function checkSearch() {
+            // console.log(searchInput.value);
+            if (searchInput.value !== '') {
+                show('clearSearch');
+            } else {
+                hide('clearSearch');
+            }
+        }
+
+        clearSearch.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            console.log('clear search input');
+            if (searchInput.value.length > 0) {
+                searchInput.value = '';
+            }
+            hide('clearSearch');
         });
     </script>
 
@@ -333,11 +356,9 @@
                 // console.log('displayRooms', rooms);
                 
 
-                if (rooms.length == 0 && filtering == false) {
-                    // dashboardTiles.remove();
-                    // dashboardTable.remove();
+                if (roomsChecker == null && rooms.length == 0 && filtering == false) {
+                    // Initial fetch and No Room
                     // console.log('no rooms');
-
                     noRooms.innerHTML = `
                         <span class="text-4xl font-synebold text-grey2">No room found</span>
                         
@@ -347,6 +368,11 @@
                             <span class="text-xl font-synemed">Join a room by <span class="text-orange2">entering the code</span> above</span>
                         <?php endif; ?>
                     `;
+                } else if (rooms.length == 0 && filtering == false) {
+                    roomsASC.innerHTML = "<p>We couldn't find any rooms that match your search criteria.</p>";
+                    roomsDESC.innerHTML = "<p>We couldn't find any rooms that match your search criteria.</p>";
+                    troomsASC.innerHTML = "<p>We couldn't find any rooms that match your search criteria.</p>";
+                    troomsDESC.innerHTML = "<p>We couldn't find any rooms that match your search criteria.</p>";
                 } else {
                     if (filtering == true) {
                         // noRooms.remove();
@@ -401,10 +427,10 @@
                                     </tr>`;
                             });
                         } else {
-                            roomsASC.innerHTML = '<p>No rooms found.</p>';
-                            roomsDESC.innerHTML = '<p>No rooms found.</p>';
-                            troomsASC.innerHTML = '<p>No rooms found.</p>';
-                            troomsDESC.innerHTML = '<p>No rooms found.</p>';
+                            roomsASC.innerHTML = "<p>We couldn't find any rooms that match your search criteria.</p>";
+                            roomsDESC.innerHTML = "<p>We couldn't find any rooms that match your search criteria.</p>";
+                            troomsASC.innerHTML = "<p>We couldn't find any rooms that match your search criteria.</p>";
+                            troomsDESC.innerHTML = "<p>We couldn't find any rooms that match your search criteria.</p>";
                         }
                     } else {
                         if (roomsChecker === null || JSON.stringify(roomsChecker) !== JSON.stringify(rooms)){
@@ -480,6 +506,11 @@
                 sectionDropdown.value = '';
                 programDropdown.value = '';
 
+                if (searchInput.value.length > 0) {
+                    searchInput.value = '';
+                    hide('clearSearch');
+                }
+
                 roomsChecker = null;
                 console.log('interval started again');
                 <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
@@ -517,6 +548,11 @@
             populateSections();
 
             function filterRooms() {
+                if (searchInput.value.length > 0) {
+                    searchInput.value = '';
+                    hide('clearSearch');
+                }
+                
                 const selectedYear = yrLevelDropdown.value;
                 const selectedSection = sectionDropdown.value;
                 const selectedProgram = programDropdown.value;
@@ -599,7 +635,6 @@
 
             searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const searchInput = document.getElementById('searchInput');
                 
                 if (searchInput || searchInput !== '') {
                     const searchTerm = searchInput.value.toLowerCase();
