@@ -80,21 +80,24 @@ private function getLatestData($params)
 {
     try {
         $mulTables = [];
-        if (isset($params['table1']) && !(isset($params['table']))) {
+
+        // DETERMINES IF MULTIPLE OR SINGLE TABLE
+        if (isset($params['table1']) && !(isset($params['table']))) { // If Multiple Tables ang finefetch:
             foreach ($params as $key =>  $value) {
                 if (str_contains($key, 'table')) {
                     $mulTables[$key] =  $value;
                     unset($params[$key]);
                 }
             }
-        } else {
+            // echo "Determined it's Multiple Tables!";
+            // dd(empty($mulTables));
+        } else { // If Single Table lang:
             $table = $params['table'] ?? 'rooms';
             unset($params['table']);
         }
 
-        // dd($mulTables);
 
-        if (isset($params['currentPage'])) {
+        if (isset($params['currentPage'])) {    // Just for some shit to be specific on which page it is being used
             $currentPage = $params['currentPage'] ?? '';
             unset($params['currentPage']);
         }
@@ -112,35 +115,103 @@ private function getLatestData($params)
         }
 
         $conditions = $params['conditions'] ?? [];
-        $orderBy = $params['order_by'] ?? '';
-        $direction = $params['direction'] ?? '';
+        // dd($conditions);
 
-        foreach ($params as $key => $value) {
-            $conditions[$key] = $value;
-        }
+        $orderBy = $params['order_by'] ?? '';
+            unset($params['order_by']);
+        $direction = $params['direction'] ?? '';
+            unset($params['direction']);
+        $limit = $params['limit'] ?? '';
+            unset($params['limit']);
+
+
 
         // TABLES
         // dd($conditions);
+        
+        // *******************************
+        // Initial Fetching from Tables: *
+        // *******************************
 
-        if (!empty($mulTables)) { // Multiple Tables
+        // Multiple Tables
+        if (!empty($mulTables)) {
+            // echo "UMPISA NG MULTIPLE TABLES";
             $latestData = [];
+            $orders = [];
+
+            // Determine and Set yung mga order
+            if (isset($params['order_by_rooms'])) {
+                // echo "table ay rooms" . $params['order_by_rooms'];
+                $orders['order_by_rooms'] = $params['order_by_rooms']; 
+                unset($params['order_by_rooms']);                 // Unset the orders (para di masama sa foreach for Conditions)
+            } 
+            
+            if (isset($params['order_by_accounts'])) {
+                // echo "table ay accounts" . $params['order_by_accounts'];
+                $orders['order_by_accounts'] = $params['order_by_accounts']; 
+                unset($params['order_by_accounts']);                 // Unset the orders (para di masama sa foreach for Conditions)
+            }
+
+
+            // Iterate through each table:
             foreach ($mulTables as $tableKey => $tableName) {
                 $query = "SELECT * FROM {$tableName} ";
+
+                // Set the ORDER query based on which TABLE
+                if (isset($orders['order_by_rooms']) && $tableName == "rooms") {
+                    $orderBy = $orders['order_by_rooms'] ?? '';
+                } elseif (isset($orders['order_by_accounts']) && $tableName == "accounts") {
+                    $orderBy = $orders['order_by_accounts'] ?? '';
+                }
+
+                // sets CONDITIONS for query
+                foreach ($params as $key => $value) {
+                    $conditions[$key] = $value;
+                }
+                // dd($conditions);
+
+                // iterate through each CONDITIONS and add them to the QUERY
                 if (!empty($conditions)) {
                     $query .= " WHERE " . implode(' AND ', array_map(function($key) {
                         return "{$key} = :{$key}"; // Correctly use the key for the placeholder
                     }, array_keys($conditions)));
                 }
+
+                // echo 'tibol nem at order bai: ' . $tableName . '   ' .  $orderBy . '  ';
+
                 // THIS ERRORS IN STUDENT DASHBOARD
-                if ($orderBy !== '' || $direction !== '') {
-                    $query .= " ORDER BY {$orderBy} {$direction}";
+                // adds these to the QUERY if they are set
+                if ($orderBy !== '') {
+                    $query .= " ORDER BY {$orderBy}";
+                }
+    
+                if ($direction !== '' ) {
+                    $query .= " {$direction}";
+                }
+    
+                if ($limit !== '') {
+                    $query .= " LIMIT {$limit}"; 
                 }
                 
                 // echo $query;
                 // Execute the query
                 $latestData[$tableName] = $this->db->query($query, $conditions)->findAll();
+                // echo "Multiple Tabs Query:";
+                // echo "<br>";
+                // echo $query;
+                // echo "<br>";
+                // dd($latestData);
+                // echo "<br>";
             }
+
         } else {
+            // Single Table
+
+            foreach ($params as $key => $value) {
+                $conditions[$key] = $value;
+            }
+            // dd($conditions);
+
             $query = "SELECT * FROM {$table} ";
             if (!empty($conditions)) {
                 $query .= " WHERE " . implode(' AND ', array_map(function($key) {
@@ -148,17 +219,27 @@ private function getLatestData($params)
                 }, array_keys($conditions)));
             }
             // THIS ERRORS IN STUDENT DASHBOARD
-            if ($orderBy !== '' || $direction !== '') {
-                $query .= " ORDER BY {$orderBy} {$direction}";
+            if ($orderBy !== '') {
+                $query .= " ORDER BY {$orderBy}";
+            }
+            if ($direction !== '' ) {
+                $query .= " {$direction}";
+            }
+            if ($limit !== '') {
+                $query .= " LIMIT {$limit}"; 
             }
             
-            // echo $query;
+            
             $latestData = $this->db->query($query, $conditions)->findAll();
         }
 
-        if (!empty($mulTables) && in_array('room_list', $mulTables)) {
 
-            if (isset($currentPage) && $currentPage == "room") {
+        // ****************************************************/
+        // Fetching of Other Data Necessary: (Multiple Tables) /
+        // *************************************************** /
+
+        if (!empty($mulTables)) {
+            if (isset($currentPage) && $currentPage == "room" && in_array('room_list', $mulTables)) {
                 if (! empty($latestData['room_list'])) {
                     foreach ($latestData['room_list'] as &$student) {
                         $stu_info = $this->db->query('SELECT f_name, l_name, school_id, email, result FROM accounts WHERE school_id = :school_id', [
@@ -192,7 +273,101 @@ private function getLatestData($params)
                         }
                     }
                 }
-            } else {
+            } elseif(isset($currentPage) && $currentPage == 'admin_dashboard') {
+                $total_users = $this->db->query('SELECT COUNT(*) FROM accounts WHERE account_type IN (:type1, :type2)',[
+                    'type1' => 'student',
+                    'type2' => 'professor',
+                ])->find();
+
+                $total_students_n_profs = $this->db->query('
+                    SELECT 
+                        COUNT(CASE WHEN account_type = :type1 THEN 1 END) AS total_students,
+                        COUNT(CASE WHEN account_type = :type2 THEN 1 END) AS total_professors
+                    FROM accounts', [
+                        'type1' => 'student',
+                        'type2' => 'professor',
+                ])->find();
+
+                // dd($total_students_n_profs);
+
+                $latestData['total_users'] = $total_users['COUNT(*)'];
+
+                $latestData['total_students'] = $total_students_n_profs['total_students'];
+                $latestData['total_instructors'] = $total_students_n_profs['total_professors'];
+
+                $total_rooms = $this->db->query('SELECT COUNT(*) FROM rooms',[
+                ])->find();
+
+                $latestData['total_rooms'] = $total_rooms['COUNT(*)'];
+
+                foreach ($latestData['rooms'] as $index => &$room) {
+                    $instructor = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :id', [
+                        "id" => $room['school_id'],
+                    ])->find();
+                    
+                    $instructor['prof_name'] = $instructor['f_name'] . ' ' . $instructor['l_name'];
+                    unset($instructor['f_name']); unset($instructor['l_name']);
+                    if (!empty($instructor)) {
+                        $room = array_merge($room, $instructor);
+                    }
+
+                    $dateString = $room['created_date'];
+                    // Set the timezone to match your database's timezone
+                    $timezone = new \DateTimeZone('Asia/Manila'); // Replace 'UTC' with your database's timezone if different
+
+                    // Create a DateTime object for the given date and time
+                    $givenDateTime = new \DateTime($dateString, $timezone);
+
+                    // Get the current date and time in the same timezone
+                    $currentDateTime = new \DateTime('now', $timezone);
+
+                    // Debugging: Print the timestamps and timezones
+                    error_log("Given DateTime: " . $givenDateTime->format('Y-m-d H:i:s') . " Timezone: " . $givenDateTime->getTimezone()->getName());
+                    error_log("Current DateTime: " . $currentDateTime->format('Y-m-d H:i:s') . " Timezone: " . $currentDateTime->getTimezone()->getName());
+
+                    // Calculate the difference between the current time and the given time
+                    $interval = $givenDateTime->diff($currentDateTime); // Note the order here
+
+                    // Extract days, hours, and minutes from the interval
+                    $daysAgo = $interval->days;
+                    $hoursAgo = $interval->h;
+                    $minutesAgo = $interval->i;
+
+                    $room['daysAgo'] = $daysAgo;
+                    $room['hoursAgo'] = $hoursAgo;
+                    $room['minutesAgo'] = $minutesAgo;
+                }
+
+                foreach ($latestData['accounts'] as $index => &$account) {
+                    $dateString = $account['reg_date'];
+            
+                    // Set the timezone to match your database's timezone
+                    $timezone = new \DateTimeZone('Asia/Manila'); // Replace 'UTC' with your database's timezone if different
+            
+                    // Create a DateTime object for the given date and time
+                    $givenDateTime = new \DateTime($dateString, $timezone);
+            
+                    // Get the current date and time in the same timezone
+                    $currentDateTime = new \DateTime('now', $timezone);
+            
+                    // Debugging: Print the timestamps and timezones
+                    error_log("Given DateTime: " . $givenDateTime->format('Y-m-d H:i:s') . " Timezone: " . $givenDateTime->getTimezone()->getName());
+                    error_log("Current DateTime: " . $currentDateTime->format('Y-m-d H:i:s') . " Timezone: " . $currentDateTime->getTimezone()->getName());
+            
+                    // Calculate the difference between the current time and the given time
+                    $interval = $givenDateTime->diff($currentDateTime); // Note the order here
+            
+                    // Extract days, hours, and minutes from the interval
+                    $daysAgo = $interval->days;
+                    $hoursAgo = $interval->h;
+                    $minutesAgo = $interval->i;
+            
+                    $account['daysAgo'] = $daysAgo;
+                    $account['hoursAgo'] = $hoursAgo;
+                    $account['minutesAgo'] = $minutesAgo;
+                }
+            } else { // currently, no one uses it?
+                echo "currently, no one uses it?";
                 foreach ($latestData as &$room) { // Use reference to modify the original array
                     $roomInfo = $this->db->query('SELECT * FROM rooms WHERE room_id = :room_id', [
                         'room_id' => $room['room_id'],
@@ -217,63 +392,120 @@ private function getLatestData($params)
                 unset($room); // Unset reference to avoid accidental modifications later
             }
 
-        } elseif (isset($table)) {
+        // Fetching of Other Data Necessary: (Single Tables)
+        } elseif (isset($table)) {         
             // if ($table ==  'rooms') {
-            if ($table ==  'rooms' || $table == 'room_list') {
-                foreach ($latestData as &$room) {
-    
-                    $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
-                        'school_id'=> $room['school_id'],
-                    ])->find();
-    
-                    $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
-        
-                    unset($profInfo['f_name']); unset($profInfo['l_name']);
-                    if (!empty($profInfo)) {
-                        $room = array_merge($room, $profInfo);
-                    }
-    
-                    if ($table == 'room_list') {
+            if ($table ==  'rooms' || $table == 'room_list') { // Mainly used by Dashboard Page
+
+                if ($table == 'room_list' || $table == 'rooms') {    
+                    foreach ($latestData as &$room) {
+                        // Get info of Room
                         $roomInfo = $this->db->query('SELECT * FROM rooms WHERE room_id = :room_id', [
                             'room_id' => $room['room_id'],
                         ])->find();
-    
+
                         if (!empty($roomInfo)) {
                             $room = array_merge($room, $roomInfo);
                         }
+                        // dd($roomInfo);
+
+                        // Get the Room's Professor Name
+                        $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
+                            'school_id'=> $roomInfo['school_id'],
+                        ])->find();
+        
+                        $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
+            
+                        unset($profInfo['f_name']); unset($profInfo['l_name']);
+                        if (!empty($profInfo)) {
+                            $room = array_merge($room, $profInfo);
+                        }
+                        // dd($room);
+    
+                    }
+                } elseif (isset($currentPage) && $currentPage == 'admin_rooms') {
+                    foreach ($latestData as $index => &$data) {
+                        $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
+                            'school_id'=> $data['school_id'],
+                        ])->find();
+        
+                        $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
+            
+                        unset($profInfo['f_name']); unset($profInfo['l_name']);
+                        if (!empty($profInfo)) {
+                            $data = array_merge($data, $profInfo);
+                        }
                     }
                 }
-                unset($room);
+                unset($data);
+
             // Inside the getLatestData function, in the room_groups section
             } elseif ($table == 'room_groups') {
-                    if (!empty($latestData[0]['groups_json'])) {
-                        $decodedGroups = json_decode($latestData[0]['groups_json'], true);
-                        if (is_array($decodedGroups)) {
-                            foreach ($decodedGroups as &$group) {
-                                foreach($group as &$member){
-                                    $stu_info = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
-                                        'school_id' => $member[1],
-                                    ])->find();
-                    
-                                    if (!empty($stu_info['kanban'])) {
-                                        $member[3] = json_decode($stu_info['kanban'], true);
-                                    } else {
-                                        $member[3] = [
-                                            $conditions['room_id'] => [
-                                                'todo' => [],
-                                                'wip' => [],
-                                                'done' => []
-                                            ]
-                                        ];
-                                    }
+                // echo "UMPISA NG ROOM_GROUPS";
+                // dd($conditions);
+                if (!empty($latestData[0]['groups_json'])) {
+                    $decodedGroups = json_decode($latestData[0]['groups_json'], true);
+                    if (is_array($decodedGroups)) {
+                        foreach ($decodedGroups as &$group) {
+                            foreach($group as &$member){
+                                $stu_info = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
+                                    'school_id' => $member[1],
+                                ])->find();
+                
+                                if (!empty($stu_info['kanban'])) {
+                                    $member[3] = json_decode($stu_info['kanban'], true);
+                                } else {
+                                    $member[3] = [
+                                        $conditions['room_id'] => [
+                                            'todo' => [],
+                                            'wip' => [],
+                                            'done' => []
+                                        ]
+                                    ];
                                 }
                             }
                         }
-                        
-                        $encodedGroups = json_encode($decodedGroups);
-                        $latestData[0]['groups_json'] = $encodedGroups;
                     }
+                    
+                    $encodedGroups = json_encode($decodedGroups);
+                    $latestData[0]['groups_json'] = $encodedGroups;
                 }
+            } elseif (isset($currentPage) && $currentPage == 'admin_accounts') {
+                $latestData['students'] = [];
+                $latestData['instructors'] = [];
+                $latestData['all'] = [];
+
+                foreach ($latestData as $index => $data) {
+                    // dd($data['account_type']);
+                    if (($index !== 'student' && $index !== 'professor') && isset($data['account_type']) &&  $data['account_type'] == 'admin') {
+                        unset($latestData[$index]);
+                        continue;
+                    } elseif (($index !== 'student' && $index !== 'professor') && isset($data['account_type']) &&  $data['account_type'] == 'student') {
+                        $latestData['students'][] = $data;
+                        $latestData['all'][] = $data;
+                        unset($latestData[$index]);
+                        continue;
+                    } elseif (($index !== 'student' && $index !== 'professor') && isset($data['account_type']) &&  $data['account_type'] == 'professor') { 
+                        $latestData['instructors'][] = $data;
+                        $latestData['all'][] = $data;
+                        unset($latestData[$index]);
+                        continue;
+                    }
+                    
+                    unset($data['password']);
+                    unset($data['reset_token_hash']);
+                    unset($data['reset_token_expires_at']);
+                    unset($data['R']);
+                    unset($data['I']);
+                    unset($data['A']);
+                    unset($data['S']);
+                    unset($data['E']);
+                    unset($data['C']);
+                    unset($data['kanban']);
+                }
+
+                // dd($latestData);
+            }
         }
 
 
