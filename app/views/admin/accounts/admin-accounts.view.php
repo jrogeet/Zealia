@@ -166,6 +166,10 @@
             }, displayAccounts, 3000);
         });
 
+        // document.addEventListener('DOMContentAction', function(){
+        //     console.log('stop touching me');
+        // }); 
+
         function displayAccounts(data) {
             if (accountsChecker === null || JSON.stringify(accountsChecker) !== JSON.stringify(data)) {
                 allList.innerHTML = '';
@@ -180,7 +184,7 @@
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.l_name}</td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.f_name}</td>
                             <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${user.email}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.result}</td>
+                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.result == null ? 'N/A': user.result}</td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.reg_date}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${user.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${user.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
                         </tr>
@@ -196,7 +200,7 @@
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.l_name}</td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.f_name}</td>
                             <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${student.email}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.result}</td>
+                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.result == null ?? 'N/A'}</td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.reg_date}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${student.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${student.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
                         </tr>
@@ -212,7 +216,7 @@
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.l_name}</td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.f_name}</td>
                             <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${instructor.email}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.result}</td>
+                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.result == null ?? 'N/A'}</td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.reg_date}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${instructor.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${instructor.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
                         </tr>

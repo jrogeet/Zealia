@@ -10,5 +10,5 @@
     <link rel="stylesheet" href="assets/css/output.css">
 
     <script src="assets/js/shared-scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="assets/js/pdf/jspdf.umd.min.js"></script>
 </head>

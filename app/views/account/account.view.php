@@ -1,7 +1,7 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
 <?php view('partials/head.view.php'); ?>
 
-<body class="static bg-white1 py-6 font-synereg w-screen h-fit mb-0 overflow-x-hidden">
+<body class="static w-screen py-6 mb-0 overflow-x-hidden bg-white1 font-synereg h-fit">
 
     <?php view('partials/nav.view.php') ?>
 
@@ -15,10 +15,10 @@
             <!-- left box -->
             <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white1 lg:bg-white2 text-left pt-2 pl-[3%] overflow-x-hidden">
                 <h5 class="text-xl text-grey2 mt-[6%]">Name</h5>
-                <h1 class="text-3xl lg:ml-4 mb-6 text-center lg:text-left"><?php echo "{$_SESSION['user']['f_name']} {$_SESSION['user']['l_name']}"; ?></h1>
+                <h1 class="mb-6 text-3xl text-center lg:ml-4 lg:text-left"><?php echo "{$_SESSION['user']['f_name']} {$_SESSION['user']['l_name']}"; ?></h1>
 
                 <h5 class="text-xl text-grey2">Student Number</h5>
-                <h1 class="text-3xl lg:ml-4 mb-6 text-center lg:text-left"><?php echo "{$_SESSION['user']['school_id']}"; ?></h1>
+                <h1 class="mb-6 text-3xl text-center lg:ml-4 lg:text-left"><?php echo "{$_SESSION['user']['school_id']}"; ?></h1>
 
                 <h5 class="text-xl text-grey2 mt-36">Change Password</h5>
                 <form method="POST" action="/account">
@@ -27,7 +27,7 @@
                         <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg mt-4" type="text" placeholder="New Password" name="new_pass" required></input>
                         <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg ml-2 lg:ml-4 mt-4" type="text" placeholder="Confirm New Password" name="conew_pass" required></input>
                     </div>
-                    <button class="relative left-1/2 transform -translate-x-1/2 border border-black1 rounded-lg px-8 h-10 bg-orange1 text-black1 mt-12">Save Changes</button>
+                    <button class="relative h-10 px-8 mt-12 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orange1 text-black1">Save Changes</button>
                 </form>
 
             </div>
@@ -37,36 +37,36 @@
                 <?php if (isset($typeNscores)):?>
 
                     <div class="relative flex mt-10">
-                        <h1 class="font-synemed text-xl text-grey2 ml-auto mt-1">RESULTS:</h1>
-                        <label class="font-syneboldextra text-4xl text-black top-12 mr-auto"><?= $typeNscores['result'] ?></label>
+                        <h1 class="mt-1 ml-auto text-xl font-synemed text-grey2">RESULTS:</h1>
+                        <label class="mr-auto text-4xl text-black font-syneboldextra top-12"><?= $typeNscores['result'] ?></label>
                     </div>
                     <div class="flex mt-16">
                         <div class="relative text-left mx-auto w-[20rem] h-5/6 pl-24">
-                            <h1 class="font-synemed text-lg text-grey2 mb-4">REALISTIC</h1>
-                            <h1 class="font-synemed text-lg text-grey2 mb-4">INVESTIGATIVE</h1>
-                            <h1 class="font-synemed text-lg text-grey2 mb-4">ARTISTIC</h1>
-                            <h1 class="font-synemed text-lg text-grey2 mb-4">SOCIAL</h1>
-                            <h1 class="font-synemed text-lg text-grey2 mb-4">ENTERPRISING</h1>
-                            <h1 class="font-synemed text-lg text-grey2 mb-4">CONVENTIONAL</h1>
+                            <h1 class="mb-4 text-lg font-synemed text-grey2">REALISTIC</h1>
+                            <h1 class="mb-4 text-lg font-synemed text-grey2">INVESTIGATIVE</h1>
+                            <h1 class="mb-4 text-lg font-synemed text-grey2">ARTISTIC</h1>
+                            <h1 class="mb-4 text-lg font-synemed text-grey2">SOCIAL</h1>
+                            <h1 class="mb-4 text-lg font-synemed text-grey2">ENTERPRISING</h1>
+                            <h1 class="mb-4 text-lg font-synemed text-grey2">CONVENTIONAL</h1>
                         </div>
                         <div class="relative text-right mx-auto w-[20rem] h-5/6 pr-32 mb-1">
-                            <h1 class="font-synemed text-xl text-black mb-4" id="r"><?= $typeNscores['R'] ?></h1>
-                            <h1 class="font-synemed text-xl text-black mb-4" id="i"><?= $typeNscores['I'] ?></h1>
-                            <h1 class="font-synemed text-xl text-black mb-4" id="a"><?= $typeNscores['A'] ?></h1>
-                            <h1 class="font-synemed text-xl text-black mb-4" id="s"><?= $typeNscores['S'] ?></h1>
-                            <h1 class="font-synemed text-xl text-black mb-4" id="e"><?= $typeNscores['E'] ?></h1>
-                            <h1 class="font-synemed text-xl text-black mb-2" id="c"><?= $typeNscores['C'] ?></h1>
+                            <h1 class="mb-4 text-xl text-black font-synemed" id="r"><?= $typeNscores['R'] ?></h1>
+                            <h1 class="mb-4 text-xl text-black font-synemed" id="i"><?= $typeNscores['I'] ?></h1>
+                            <h1 class="mb-4 text-xl text-black font-synemed" id="a"><?= $typeNscores['A'] ?></h1>
+                            <h1 class="mb-4 text-xl text-black font-synemed" id="s"><?= $typeNscores['S'] ?></h1>
+                            <h1 class="mb-4 text-xl text-black font-synemed" id="e"><?= $typeNscores['E'] ?></h1>
+                            <h1 class="mb-2 text-xl text-black font-synemed" id="c"><?= $typeNscores['C'] ?></h1>
                         </div>
                     </div>
 
-                    <div class=" flex justify-start">
+                    <div class="flex justify-start ">
                         <!-- Add this button where you want it to appear -->
-                        <button id="downloadPDF" class="relative left-1/2 transform -translate-x-1/2 border border-black1 rounded-lg p-2 h-10 mt-8  text-black1">Download PDF</button>
+                        <button id="downloadPDF" class="relative h-10 p-2 mt-8 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 text-black1">Download PDF</button>
                     </div>
-                    <a href="/test"><button class="relative left-1/2 transform -translate-x-1/2 border border-black1 rounded-lg px-8 h-10 mt-4 bg-orange1 text-black1">Retake Test</button></a>
+                    <a href="/test"><button class="relative h-10 px-8 mt-4 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orange1 text-black1">Retake Test</button></a>
                 <?php else:?>
-                    <h1 class="relative top-1/2 transform -translate-y-1/2 font-synemed text-4xl text-center">You haven't taken the test!</h1>
-                    <a href="/test"><button class="relative top-1/2 border border-grey2 rounded-2xl w-40 h-12 bg-orange1 font-synemed text-xl left-1/2 transform -translate-x-1/2">Take Test</button></a>
+                    <h1 class="relative text-4xl text-center transform -translate-y-1/2 top-1/2 font-synemed">You haven't taken the test!</h1>
+                    <a href="/test"><button class="relative w-40 h-12 text-xl transform -translate-x-1/2 border top-1/2 border-grey2 rounded-2xl bg-orange1 font-synemed left-1/2">Take Test</button></a>
                 <?php endif;?>
 
             </div>
@@ -79,10 +79,10 @@
     <script src="assets/js/shared-scripts.js"></script>
 
     <?php if (isset($typeNscores)):?>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+        <script src="assets/js/pdf/pdf.min.js"></script>
         <script>
             // Configure PDF.js worker
-            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js';
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'assets/js/pdf/pdf.worker.min.js';
         </script>
         <script>
             document.getElementById('downloadPDF').addEventListener('click', function() {

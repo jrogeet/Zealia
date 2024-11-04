@@ -1,14 +1,14 @@
 <!-- mobile nav -->
 <header class="fixed flex z-50 bg-white1 w-full min-w-[320px] top-0 min-h-10 font-synemed" id="nav">
-    <a class="ml-2 mx-auto p-2" id="burgButt"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
-    <a href="/" class="mx-auto p-2"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
-    <a class="mr-2 mx-auto p-2" id="profButt">tao</a>
+    <a class="p-2 mx-auto ml-2" id="burgButt"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
+    <a href="/" class="p-2 mx-auto"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
+    <a class="p-2 mx-auto mr-2" id="profButt">tao</a>
 
     <!-- burger dropdown -->
-    <ul id="burgDD" class="hidden z-50 bg-gradient-to-b from-white1 to-grey1 fixed z-50 block w-full h-full font-synemed top-10 text-center">
+    <ul id="burgDD" class="fixed z-50 hidden block w-full h-full text-center bg-gradient-to-b from-white1 to-grey1 font-synemed top-10">
     
-        <div class="relative w-full h-fit top-10 mt-10">
-            <a href="/" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">Home</li></a>
+        <div class="relative w-full mt-10 h-fit top-10">
+            <a href="/" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-synebold text-black1 h-fit">Home</li></a>
             
             <a href="<?php if (isset($_SESSION['user'])) {
                 if ($_SESSION['user']['account_type'] == 'admin') {
@@ -18,9 +18,9 @@
                 }
             } else {
                 echo '/login';
-            } ?>" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">Dashboard</li></a>
-            <a href="/about" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">About</li></a>
-            <a href="/submit-ticket" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">Contact</li></a>
+            } ?>" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-synebold text-black1 h-fit">Dashboard</li></a>
+            <a href="/about" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-synebold text-black1 h-fit">About</li></a>
+            <a href="/submit-ticket" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-synebold text-black1 h-fit">Contact</li></a>
         </div>
 
         
@@ -28,37 +28,37 @@
     </ul>
 
     <!-- profile dropdown -->
-    <ul id="profDD" class="hidden bg-gradient-to-b from-white1 to-grey1 fixed z-50 block w-full h-full font-synemed top-10">
+    <ul id="profDD" class="fixed z-50 hidden block w-full h-full bg-gradient-to-b from-white1 to-grey1 font-synemed top-10">
 
-        <div class="relative block top-1/3 transform -translate-y-1/2 pt-24">
+        <div class="relative block pt-24 transform -translate-y-1/2 top-1/3">
             <?php if ($_SESSION['user'] ?? false) : ?>
-                <div class="w-full h-fit text-left p-4 py-6">
+                <div class="w-full p-4 py-6 text-left h-fit">
                     <h1 class="px-2 text-3xl font-synebold text-black1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></h1>
-                    <h1 class="px-2 text-2xl font-synebold text-grey2 tracking-wider mb-6"><?= "{$_SESSION['user']['school_id']}" ?></h1>
+                    <h1 class="px-2 mb-6 text-2xl tracking-wider font-synebold text-grey2"><?= "{$_SESSION['user']['school_id']}" ?></h1>
                     
                     <?php if ($_SESSION['user']['result'] ?? true ):?>
                         <div class="flex h-12">
-                            <h1 class="relative top-0 py-4 px-0 font-synemed text-center mx-auto mr-0 text-xl text-grey2">RESULTS:</h1>
-                            <h1 class="relative top-0 py-2 px-0 font-synebold text-center mx-auto ml-0 text-3xl text-black1"><?= "{$_SESSION['user']['result']}" ?></h1>
+                            <h1 class="relative top-0 px-0 py-4 mx-auto mr-0 text-xl text-center font-synemed text-grey2">RESULTS:</h1>
+                            <h1 class="relative top-0 px-0 py-2 mx-auto ml-0 text-3xl text-center font-synebold text-black1"><?= "{$_SESSION['user']['result']}" ?></h1>
                         </div>
                     <?php else:?>
-                        <h1 class="text-center font-synemed text-2xl text-grey2 tracking-wide">take test to see result</h1>
+                        <h1 class="text-2xl tracking-wide text-center font-synemed text-grey2">take test to see result</h1>
                         
                     <?php endif;?>
 
-                    <a href="/account"><h1 class="relative text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-blue3 text-white1 w-3/4 p-2 border rounded-sm text-xs md:text-lg md:w-1/2">Account Settings</h1></a>
+                    <a href="/account"><h1 class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-blue3 text-white1 md:text-lg md:w-1/2">Account Settings</h1></a>
 
                     <form method="POST" action="/login">
                         <input type="hidden" name="_method" value="DELETE" />
-                        <button class="relative text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-red1 text-white1 w-3/4 p-2 border rounded-sm text-xs md:text-lg md:w-1/2">Log Out</button>
+                        <button class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-red1 text-white1 md:text-lg md:w-1/2">Log Out</button>
                     </form>
                 </div>
                 
 
             <?php else: ?>
-                <a href="/login"><h1 class="relative font-synebold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-32 tracking-tight bg-blue3 text-white1 w-3/4 p-2 py-4 rounded-xl border border-blue3 rounded-sm text-sm md:text-lg md:w-1/2">Sign in</h1></a>
+                <a href="/login"><h1 class="relative w-3/4 p-2 py-4 mt-32 text-sm tracking-tight text-center transform -translate-x-1/2 border rounded-sm font-synebold left-1/2 text-black1 bg-blue3 text-white1 rounded-xl border-blue3 md:text-lg md:w-1/2">Sign in</h1></a>
 
-                <a href="/register"><h1 class="relative font-synebold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-orange1 text-black1 w-3/4 p-2 py-4 rounded-xl border border-orange1 rounded-sm text-sm md:text-lg md:w-1/2">Sign up</h1></a>
+                <a href="/register"><h1 class="relative w-3/4 p-2 py-4 mt-6 text-sm tracking-tight text-center transform -translate-x-1/2 border rounded-sm font-synebold left-1/2 text-black1 bg-orange1 rounded-xl border-orange1 md:text-lg md:w-1/2">Sign up</h1></a>
             <?php endif; ?>
         </div> 
         
@@ -66,7 +66,7 @@
 </header>
 
 <!-- desktop nav -->
-<header class="fixed block bg-white1 z-50 shadow-md h-20 w-full content-center top-0" id="navbar">
+<header class="fixed top-0 z-50 content-center block w-full h-20 shadow-md bg-white1" id="navbar">
     <!-- object container -->
     <div class="flex h-fit w-full justify-between font-synesemi text-xl text-black1 mx-auto px-[1rem]">
         <!-- Main NavBar -->
@@ -76,7 +76,7 @@
             </a>
 
             <!-- text options -->
-            <ul class="relative flex my-auto w-2/3">
+            <ul class="relative flex w-2/3 my-auto">
                 <li class="mx-auto">
                     <a href="/" class="p-2">Home</a>
                 </li>
@@ -108,14 +108,14 @@
                 <!-- NOTIFICATIONS -->
                 <div id="notifContainer" class="relative inline-block">
                     <button id="notificationBtn" onclick="toggle('notificationDropdown')" class="relative cursor-pointer">
-                        <span class="notification-icon text-3xl">🔔</span>
+                        <span class="text-3xl notification-icon">🔔</span>
                         <span id="notificationCount" class="absolute -top-[2px] -right-[2px] bg-red1 text-white text-sm rounded-2xl py-[0.05rem] px-2"></span>
                     </button>
                     <div id="notificationDropdown" class="hidden flex-col absolute right-0 top-full max-h-[25rem] w-[20rem] bg-white1 border border-black1 rounded-lg shadow overflow-hidden">
-                        <div class="bg-black1 h-14 py-6 px-4 pr-6 flex justify-between items-center">
-                            <span class="font-synemed text-2xl text-orange1 ">Notifications</span>
+                        <div class="flex items-center justify-between px-4 py-6 pr-6 bg-black1 h-14">
+                            <span class="text-2xl font-synemed text-orange1 ">Notifications</span>
                             <form action="/notifications" method="POST">
-                                <button class="font-synereg text-white1 hover:text-red1 text-base " name="clear" type="submit">Clear</button>
+                                <button class="text-base font-synereg text-white1 hover:text-red1 " name="clear" type="submit">Clear</button>
                             </form>
                         </div>
                         <!-- <div class="bg-black1 h-[1px] my-2 w-64"></div> -->
@@ -126,8 +126,8 @@
                 </div>
 
                 <div class="relative text-xl">
-                    <button onclick="toggle('navDropDown')" class="z-50 flex justify-between items-center px-4 h-12 w-56  bg-blue3 border rounded-lg" id="navDDbutton">
-                        <span class="text-white1 w-4/5 text-left truncate"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
+                    <button onclick="toggle('navDropDown')" class="z-50 flex items-center justify-between w-56 h-12 px-4 border rounded-lg bg-blue3" id="navDDbutton">
+                        <span class="w-4/5 text-left truncate text-white1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
                         <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white1"></div>
                     </button>
                     <!-- TEMPO -->
@@ -442,46 +442,46 @@ const NotificationManager = {
 
             switch (jsonType.type) {
                 case "room_accept":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed h-full w-full">Your request to join <span class="font-synebold">${jsonType.room_name}</span> has been accepted.</a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="w-full h-full font-synemed">Your request to join <span class="font-synebold">${jsonType.room_name}</span> has been accepted.</a>`;
                     break;
                 case "room_decline":
                     notifMessage = `<div class="font-synemed">Your request to join <span class="font-synebold">${jsonType.room_name}</span> was declined.</div>`;
                     break;
                 case "room_join":
-                    notifMessage = `<div class="font-synemed"><span class="font-synesemi italic">${jsonType.student_name} </span>requested to join<span class="font-synebold"> ${jsonType.room_name}</span></div>`;
+                    notifMessage = `<div class="font-synemed"><span class="italic font-synesemi">${jsonType.student_name} </span>requested to join<span class="font-synebold"> ${jsonType.room_name}</span></div>`;
                     break;
                 case "created_groups":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed"><span class="font-synesemi italic">${jsonType.prof_name} </span>created groups in<span class="font-synebold"> ${jsonType.room_name}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed">Instructor <span class="italic font-synesemi">${jsonType.prof_name} </span>created groups in room:<span class="font-synebold"> ${jsonType.room_name}</span></a>`;
                     break;
                 case "change_student_group":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed"><span class="font-synesemi italic">${jsonType.prof_name}</span> transferred you from group:<span class="italic"> (${jsonType.old_group})</span> into <span class="font-synebold">${jsonType.new_group}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed"><span class="italic font-synesemi">${jsonType.prof_name}</span> transferred you from group:<span class="italic"> (${jsonType.old_group})</span> into <span class="font-synebold">${jsonType.new_group}</span></a>`;
                     break;
                 case "change_student_role":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed"><span class="font-synesemi italic">${jsonType.prof_name}</span> changed your role from:<span class="italic"> (${jsonType.old_role})</span> to <span class="font-synebold">${jsonType.new_role}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed"><span class="italic font-synesemi">${jsonType.prof_name}</span> changed your role from:<span class="italic"> (${jsonType.old_role})</span> to <span class="font-synebold">${jsonType.new_role}</span></a>`;
                     break;
                 case "room_delete":
-                    notifMessage = `<div class="font-synemed">The room  deleted room: <span class="font-synebold">${jsonType.room_name}</span></div>`;
+                    notifMessage = `<div class="font-synemed">The instructor deleted the room: <span class="font-synebold">${jsonType.room_name}</span></div>`;
                     break;
                 case "room_change":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed"><span class="font-synesemi italic">${jsonType.prof_name}</span> changed room: <span class="italic"> (${jsonType.old_room_name})</span> 's name into <span class="font-synebold">${jsonType.new_room_name}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed"><span class="italic font-synesemi">${jsonType.prof_name}</span> changed room: <span class="italic"> (${jsonType.old_room_name})</span> 's name into <span class="font-synebold">${jsonType.new_room_name}</span></a>`;
                     break;
                 case "student_remove":
                     notifMessage = `<div class="font-synemed">You were removed from room: <span class="font-synebold">${jsonType.room_name}</span></div>`;
                     break;
                 case "room_invite":
                     notifMessage = `
-                    <form action="/notifications" method="POST" class="flex justify-between items-center">
+                    <form action="/notifications" method="POST" class="flex items-center justify-between">
                         <input type="hidden" name="invite" value="${jsonType.room_id}">
                         <input type="hidden" name="notif_id" value="${notification.id}">
-                        <div class="font-synemed w-4/5">
-                            <span class="font-synesemi italic">${jsonType.prof_name} </span>
+                        <div class="w-4/5 font-synemed">
+                            <span class="italic font-synesemi">${jsonType.prof_name} </span>
                         invited you to join 
-                            <span class="font-synebold truncate"> ${jsonType.room_name}</span>
+                            <span class="truncate font-synebold"> ${jsonType.room_name}</span>
                         </div>
 
                         <div class="flex justify-between w-1/5">
-                            <button class="bg-check bg-cover h-6 w-6 cursor-pointer" type="submit"  name="accept" value="${jsonType.room_id}"> </button>
-                            <button class="bg-cross bg-cover h-6 w-6 cursor-pointer" type="submit" name="decline" value="${jsonType.room_id}"> </button>
+                            <button class="w-6 h-6 bg-cover cursor-pointer bg-check" type="submit"  name="accept" value="${jsonType.room_id}"> </button>
+                            <button class="w-6 h-6 bg-cover cursor-pointer bg-cross" type="submit" name="decline" value="${jsonType.room_id}"> </button>
                         </div>
                     </form>
                     `;
@@ -491,7 +491,7 @@ const NotificationManager = {
             
             li.innerHTML = `
                 ${notifMessage}
-                <span class="flex justify-end w-full font-synemed text-sm text-blue3">
+                <span class="flex justify-end w-full text-sm font-synemed text-blue3">
                     ${this.formatTimeAgo(new Date(notification.created_at))}
                 </span>
             `;

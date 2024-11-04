@@ -40,8 +40,10 @@ function show(showID, display = 'flex') {
         "inline-grid",
     ];
 
-    element.classList.remove(...displayClasses);
-    element.classList.add(display);
+    if (element) {
+        element.classList.remove(...displayClasses);
+        element.classList.add(display);
+    }
 }
 
 function hide(hideID) {
@@ -59,8 +61,10 @@ function hide(hideID) {
         "inline-grid",
     ];
 
-    element.classList.remove(...displayClasses);
-    element.classList.add("hidden");
+    if (element) {
+        element.classList.remove(...displayClasses);
+        element.classList.add("hidden");
+    }
 }
 
 function active(activeID,inactiveID, removeList, addList) {
@@ -86,16 +90,6 @@ function enableScroll(){
     document.body.style.overflow = 'auto'
 }
 
-document.getElementById('navDDbutton').addEventListener('click', (event) => {
-    event.stopPropagation();
-    toggleDropdown('navDropDown', 'notificationDropdown');
-});
-
-document.getElementById('notificationBtn').addEventListener('click', (event) => {
-    event.stopPropagation();
-    toggleDropdown('notificationDropdown', 'navDropDown');
-});
-
 function toggleDropdown(openId, closeId) {
     const openElement = document.getElementById(openId);
     const closeElement = document.getElementById(closeId);
@@ -111,17 +105,42 @@ function toggleDropdown(openId, closeId) {
     }
 }
 
-// Prevent hiding dropdowns when clicking inside them
-document.getElementById('navDropDown').addEventListener('click', (event) => {
-    event.stopPropagation();
-});
+// const navDDbutton = document.getElementById('navDDbutton');
+// const notificationBtn = document.getElementById('notificationBtn');
+// const navDropDown = document.getElementById('navDropDown');
+// const notificationDropDown = document.getElementById('notificationDropdown');
 
-document.getElementById('notificationDropdown').addEventListener('click', (event) => {
-    event.stopPropagation();
-});
+if (document.getElementById('navDDbutton')) {
+    document.getElementById('navDDbutton').addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleDropdown('navDropDown', 'notificationDropdown');
+    });
+}
+
+if (document.getElementById('notificationBtn')) {
+    document.getElementById('notificationBtn').addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleDropdown('notificationDropdown', 'navDropDown');
+    });
+}
+// Prevent hiding dropdowns when clicking inside them
+
+if (document.getElementById('navDropDown')) {
+    document.getElementById('navDropDown').addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+}
+
+if (document.getElementById('notificationDropdown')) {
+    document.getElementById('notificationDropdown').addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+}
 
 // Modify the body click event listener
-document.body.addEventListener('click', () => {
-    hide('navDropDown');
-    hide('notificationDropdown');
-});
+if (document.getElementById('navDDbutton') && document.getElementById('notificationDropdown')) {
+    document.body.addEventListener('click', () => {
+        hide('navDropDown');
+        hide('notificationDropdown');
+    });
+}

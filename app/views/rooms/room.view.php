@@ -145,7 +145,7 @@
                         </div>
 
                         <!-- Student Names -->
-                        <div id="roomStudentList" class="min-h-3/5 flex flex-col overflow-x-hidden overflow-y-auto rounded-b-xl">
+                        <div id="roomStudentList" class="flex flex-col overflow-x-hidden overflow-y-auto min-h-3/5 rounded-b-xl">
 
                         </div>
                     </div>
@@ -240,10 +240,10 @@
         let noSelectClass = '';
 
         // let membersWarningContent = `
-        //     <div id="membersWarning" class="bg-red1 w-full h-10 flex items-center justify-center rounded-t-xl">
+        //     <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
         //         <span class="text-base font-synebold text-white1">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
         //     </div>
-        //     <div class="w-full h-10 flex items-center justify-center rounded-t-xl">
+        //     <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
         //         <form id="submitGroups" method="POST">
         //             <input type="hidden" name="grouped" value="grouped">
         //             <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="${JSON.stringify(student_has_result)}"> 
@@ -401,7 +401,7 @@
                                 </div>
 
                                 <!-- Groups Container -->
-                                <div id="groupsContainer" class="flex flex-wrap min-h-3/5 w-full h-auto overflow-y-auto p-6 gap-y-5 justify-evenly">
+                                <div id="groupsContainer" class="flex flex-wrap w-full h-auto p-6 overflow-y-auto min-h-3/5 gap-y-5 justify-evenly">
                                     <!-- Each Boxes -->
                                 </div>
                             </div>
@@ -489,9 +489,9 @@
 
                         // rightBoxStudent.innerHTML = `
                         //     <!-- Delete Area -->
-                        //     <div id="deleteArea" class="hidden fixed bottom-0 left-0 w-full h-24 bg-red-500 flex items-center justify-center transition-all duration-300 opacity-0 z-50">
+                        //     <div id="deleteArea" class="fixed bottom-0 left-0 z-50 flex items-center justify-center hidden w-full h-24 transition-all duration-300 bg-red-500 opacity-0">
                         //         <div class="flex items-center space-x-3 text-white">
-                        //             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        //             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         //                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         //             </svg>
                         //             <span class="text-xl font-bold">Drop to Delete</span>
@@ -504,7 +504,7 @@
                                 <button onclick="changeKB(${index});" 
                                         id="${member[1]}" 
                                         class="member ${index === currentKBTab ? 'bg-blue3 text-white1' : 'bg-white1 text-black1'} 
-                                            w-1/4 mx-auto py-4 border-r border-l border-black1">
+                                            w-full mx-auto py-4 border-r border-l border-black1">
                                     ${member[0]}
                                 </button>
                             `;
@@ -513,9 +513,9 @@
                         // Generate all kanbans
                         let allKanbans = `
                             <!-- Delete Area -->
-                            <div id="deleteArea" class="hidden absolute bottom-0 left-0 w-full h-24 bg-red-500 flex items-center justify-center transition-all duration-300 opacity-0 z-50">
+                            <div id="deleteArea" class="absolute bottom-0 left-0 z-50 flex items-center justify-center hidden w-full h-24 transition-all duration-300 bg-red-500 opacity-0">
                                 <div class="flex items-center space-x-3 text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
                                     <span class="text-xl font-bold">Drop to Delete</span>
@@ -913,10 +913,10 @@
 
                 // Modify the membersWarningContent to use the current student_has_result
                 membersWarningContent = `
-                    <div id="membersWarning" class="bg-red1 w-full h-10 flex items-center justify-center rounded-t-xl">
+                    <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
                         <span class="text-base font-synebold text-white1">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
                     </div>
-                    <div class="w-full h-10 flex items-center justify-center rounded-t-xl">
+                    <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
                         <form id="submitGroups" method="POST">
                             <input type="hidden" name="grouped" value="grouped">
                             <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
@@ -932,7 +932,7 @@
                 studentCount.innerHTML = `<span class="mx-1 text-xl font-synemed text-blue3">0</span>`;
                 roomStudentList.innerHTML = `
                     <div class="flex flex-col items-center justify-center h-[34.5rem]">
-                        <span class="text-lg font-synebold text-grey2 text-center">There are no students in this room yet.</span>
+                        <span class="text-lg text-center font-synebold text-grey2">There are no students in this room yet.</span>
                     </div>
                 `;
             } else if (studentsChecker === null || JSON.stringify(studentsChecker) !== JSON.stringify(studentsList.room_list)){
@@ -970,7 +970,7 @@
                             <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll(); clearInterval(intervalID);">
                         </div>
 
-                        <div id="kickConfirmation${student.school_id}"  class="fixed z-50 justify-center hidden w-screen h-screen left-0 bg-glassmorphism -top-24">
+                        <div id="kickConfirmation${student.school_id}"  class="fixed left-0 z-50 justify-center hidden w-screen h-screen bg-glassmorphism -top-24">
                             <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
                                 <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
                                     <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Confirmation</span>
@@ -993,8 +993,8 @@
             if (studentsList.join_room_requests.length === 0) {
                 roomJoinRequest.innerHTML = `
                     <div class="flex flex-col items-center justify-center h-[34.5rem]">
-                        <span class="text-xl font-synebold text-red1 text-center">Empty :(</span>
-                        <span class="text-lg font-synebold text-grey2 text-center">No requests for now.</span>
+                        <span class="text-xl text-center font-synebold text-red1">Empty :(</span>
+                        <span class="text-lg text-center font-synebold text-grey2">No requests for now.</span>
                     </div>
                 `;
             } else if (requestsChecker === null || JSON.stringify(requestsChecker) !== JSON.stringify(studentsList.join_room_requests)){
@@ -1433,12 +1433,12 @@
 
 
     <!-- PDF GENERATION -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <script src="assets/js/pdf/jspdf.umd.min.js"></script>
+    <script src="assets/js/pdf/jspdf.plugin.autotable.min.js"></script>
+    <script src="assets/js/pdf/pdf.min.js"></script>
     <script>
     // Set the worker source for PDF.js
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'assets/js/pdf/pdf.worker.min.js';
 
     async function downloadPDF() {
         const { jsPDF } = window.jspdf;

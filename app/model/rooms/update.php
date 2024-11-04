@@ -38,17 +38,17 @@ if (isset($_POST['edit'])) {
         'room_id' => $room_id
     ]);
     
-} elseif (isset($_POST['grouped'])) {
+} //elseif (isset($_POST['grouped'])) {
 
-    $decodedGroups = json_decode($_POST['genGroups'], true);
+//     $decodedGroups = json_decode($_POST['genGroups'], true);
 
-    $genGroups = json_encode($decodedGroups);
+//     $genGroups = json_encode($decodedGroups);
 
-    $db->query('INSERT INTO room_groups(room_id, groups_json) VALUES (:id, :groups)', [
-        ':id'=> $room_id,
-        ':groups'=> $genGroups
-    ]);
-}
+//     $db->query('INSERT INTO room_groups(room_id, groups_json) VALUES (:id, :groups)', [
+//         ':id'=> $room_id,
+//         ':groups'=> $genGroups
+//     ]);
+// }
 
 // redirect the user
 header("Location: /room?room_id={$room_id}");

@@ -849,6 +849,38 @@ private function getLatestData($params)
             ':id'=> $formData['room'],
             ':groups'=> $genGroups
         ]);
+
+        // to send NOTIFICATIONS:
+        $room = $this->db->query('select * from rooms where room_id = :id', [
+            ':id' => $formData['room']
+        ])->find();
+
+        $prof_info = $this->db->query('select l_name, f_name from accounts where school_id = :id', [
+            'id' => $room['school_id']
+        ])->find();
+
+        $room['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
+
+        $type = json_encode([
+            "type" => "created_groups",
+            "room_name" => $room['room_name'],
+            "prof_name" => $room['prof_name'],
+            "prof_id" => $this->currentUser,
+            "room_id" => $room['room_id'],
+        ]);
+
+        $students = $this->db->query('SELECT * FROM room_list WHERE room_id = :id', [
+            'id' => $formData['room'],
+        ])->findAll();
+        
+        if (!empty($students)) {
+            foreach($students as $student) {
+                $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
+                    'school_id' => $student['school_id'], 
+                    'type' => $type,
+                ]);
+            }
+        }
     }
 
     private function processCreateRoomForm($formData)

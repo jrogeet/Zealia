@@ -37,7 +37,7 @@ $router->get('/dashboard', 'Http/controllers/rooms/dashboard.php')->only('auth')
 // ROOM PAGE
 $router->get('/room', 'Http/controllers/rooms/room.php')->only('auth');
 // $router->post('/room', 'model/rooms/request.php');
-// $router->patch('/room', 'model/rooms/update.php');
+$router->patch('/room', 'model/rooms/update.php');
 $router->delete('/room', 'model/rooms/destroy.php');
 
 // EDIT GROUP PAGE
