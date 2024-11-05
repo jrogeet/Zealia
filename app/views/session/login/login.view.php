@@ -31,7 +31,14 @@
             <?php endif; ?>
             
 
-            <div class="g-recaptcha pl-14 rounded-xl relative left-[50%] transform translate-x-[-50%] mt-4" data-sitekey="<?= $config['recaptcha']['site_key'] ?>"></div>
+            <?php if (hasInternetConnection()): ?>
+                <!-- Show reCAPTCHA when there's internet -->
+                <div class="g-recaptcha pl-14 rounded-xl relative left-[50%] transform translate-x-[-50%] mt-4" data-sitekey="<?= $config['recaptcha']['site_key'] ?>"></div>
+            <?php else: ?>
+                <!-- Add a hidden input when there's no internet -->
+                <input type="hidden" name="g-recaptcha-response" value="offline">
+            <?php endif; ?>
+            
             <?php if (isset($errors['recaptcha'])): ?>
                 <p class="my-0 text-sm text-center text-red-600"><?= $errors['recaptcha'] ?></p>
             <?php endif; ?>

@@ -56,7 +56,15 @@ function authorize($condition, $status = Response::FORBIDDEN) {
 }
 
 function verifyRecaptcha($recaptchaResponse) {
-    // $secretKey = "YOUR_SECRET_KEY";
+    // If we're offline and that's indicated in the response, bypass verification
+    if ($recaptchaResponse === 'offline' && !hasInternetConnection()) {
+        return true;
+    }
+
+    // If no response provided or invalid offline bypass, verification failed
+    if (!$recaptchaResponse || $recaptchaResponse === 'offline') {
+        return false;
+    }
 
     $config = \Model\App::resolve('config');
     $secretKey = $config['recaptcha']['secret_key'];
@@ -76,9 +84,79 @@ function verifyRecaptcha($recaptchaResponse) {
     );
     
     $context = stream_context_create($options);
-    $response = file_get_contents($url, false, $context);
-    $responseKeys = json_decode($response, true);
     
-    return $responseKeys["success"];
+    try {
+        $response = @file_get_contents($url, false, $context);
+        
+        if ($response === false) {
+            // If we can't verify, only bypass if there's no internet
+            return !hasInternetConnection();
+        }
+        
+        $responseKeys = json_decode($response, true);
+        return isset($responseKeys["success"]) ? $responseKeys["success"] : false;
+    } catch (\Exception $e) {
+        // If we can't verify, only bypass if there's no internet
+        return !hasInternetConnection();
+    }
 }
+
+function hasInternetConnection() {
+    $connected = @fsockopen("www.google.com", 80, $errno, $errstr, 2);
+    if ($connected) {
+        fclose($connected);
+        return true;
+    }
+    return false;
+}
+
+// function checkInternetConnection() {
+//     $connected = @fsockopen("www.google.com", 80);
+//     if ($connected) {
+//         fclose($connected);
+//         return true; // Internet is available
+//     }
+//     return false; // No internet connection
+// }
+
+// function verifyRecaptcha($recaptchaResponse) {
+//     // $secretKey = "YOUR_SECRET_KEY";
+
+//     if (!$recaptchaResponse) {
+//         return true;
+//     }
+
+//     $config = \Model\App::resolve('config');
+//     $secretKey = $config['recaptcha']['secret_key'];
+//     $url = "https://www.google.com/recaptcha/api/siteverify";
+    
+//     $data = array(
+//         'secret' => $secretKey,
+//         'response' => $recaptchaResponse
+//     );
+    
+//     $options = array(
+//         'http' => array(
+//             'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+//             'method' => 'POST',
+//             'content' => http_build_query($data)
+//         )
+//     );
+    
+//     $context = stream_context_create($options);
+    
+//     try {
+//         $response = @file_get_contents($url, false, $context);
+        
+//         // If request failed or no response
+//         if ($response === false) {
+//             return true; // Bypass verification if can't connect
+//         }
+        
+//         $responseKeys = json_decode($response, true);
+//         return $responseKeys["success"];
+//     } catch (\Exception $e) {
+//         return true; // Bypass verification if any error occurs
+//     }
+// }
 

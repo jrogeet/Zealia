@@ -15,7 +15,7 @@
         <script src="assets/js/pdf/jspdf.umd.min.js"></script>
     <?php endif; ?>
 
-    <?php if ($_SERVER['REQUEST_URI'] === '/login' || $_SERVER['REQUEST_URI']=== '/register'): ?>
+    <?php if (($_SERVER['REQUEST_URI'] === '/login' || $_SERVER['REQUEST_URI']=== '/register') && hasInternetConnection()): ?>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <?php endif; ?>
 </head>
