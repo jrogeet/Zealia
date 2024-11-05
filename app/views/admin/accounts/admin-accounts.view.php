@@ -21,7 +21,7 @@
             </form>
         </div>
 
-        <div class="max-h-[31.25rem] min-w-full border border-black rounded-xl overflow-x-hidden overflow-y-auto">
+        <!-- <div class="max-h-[31.25rem] min-w-full border border-black rounded-xl overflow-x-hidden overflow-y-hidden">
             <table class="w-full leading-normal table-fixed rounded-xl">
                 <thead class="min-w-[74.9rem] ">
                     <tr>
@@ -34,23 +34,58 @@
                         <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Registration Time</th>
                         <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Activation</th>
                     </tr>
-                </thead>
+                </thead> -->
                     <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                <tbody class="table-row-group" id="allList"> 
+                <!-- <tbody class="table-row-group" id="allList"> 
 
-                <!-- Add more rows as needed -->
                 </tbody>
 
                 <tbody class="hidden" id="studentsList"> 
 
-                    <!-- Add more rows as needed -->
                 </tbody>
 
                 <tbody class="hidden" id="instructorsList"> 
-
-                    <!-- Add more rows as needed -->
+                    
                 </tbody>
             </table>
+        </div> -->
+        <div class="border border-black rounded-xl">
+            <div class="relative">
+                <!-- Fixed Header -->
+                <div class="overflow-hidden">
+                    <table class="w-full table-fixed">
+                        <thead>
+                            <tr>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Edit</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">School ID</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Surname</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">First name</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Email</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Results</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Registration Time</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Activation</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <!-- Scrollable Body -->
+                <div class="overflow-y-auto max-h-[31.25rem]">
+                    <table class="w-full table-fixed">
+                        <tbody class="bg-white" id="allList">
+                            <!-- Your PHP loop for rows here -->
+                        </tbody>
+
+                        <tbody class="hidden bg-white" id="studentsList">
+                            <!-- Your PHP loop for student rows here -->
+                        </tbody>
+
+                        <tbody class="hidden bg-white" id="instructorsList">
+                            <!-- Your PHP loop for instructor rows here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         
         <!-- MODALS -->

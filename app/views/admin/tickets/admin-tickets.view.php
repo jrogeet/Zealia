@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <table class="min-w-full overflow-hidden leading-normal border border-black rounded-xl">
+        <!-- <table class="min-w-full overflow-hidden leading-normal border border-black rounded-xl">
             <thead>
                 <tr>
                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Status</th>
@@ -30,13 +30,45 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
                 <tbody id="pending">
-
-                    <!-- Add more rows as needed -->
+                    
                 </tbody>
             </tbody>
-        </table>
+        </table> -->
+
+
+        <div class="border border-black rounded-b-xl">
+            <div class="relative">
+                <!-- Fixed Header -->
+                <div class="overflow-hidden">
+                    <table class="w-full table-fixed">
+                        <thead>
+                            <tr>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Status</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Ticket ID</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Category</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Message</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">First Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Last Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">ID number</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Email</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <!-- Scrollable Body -->
+                <div class="overflow-y-auto max-h-[31.25rem]">
+                    <table class="w-full table-fixed">
+                        <tbody id="pending">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
 
         <div class="relative flex mt-24 mb-4">
             <h1 class="mx-auto ml-0 text-2xl font-synemed text-grey2">Solved Tickets</h1>
@@ -46,7 +78,7 @@
             </div>
         </div>
 
-        <table class="min-w-full overflow-hidden leading-normal border border-black rounded-xl">
+        <!-- <table class="min-w-full overflow-hidden leading-normal border border-black rounded-xl">
             <thead>
                 <tr>
                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Status</th>
@@ -60,13 +92,46 @@
                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> -->
                 <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                <tbody id="solved"> 
+                <!-- <tbody id="solved">  -->
                     <!-- Add more rows as needed -->
-                </tbody>
+                <!-- </tbody>
             </tbody>
-        </table>
+        </table> -->
+
+
+        <div class="border border-black rounded-b-xl">
+            <div class="relative">
+                <!-- Fixed Header -->
+                <div class="overflow-hidden">
+                    <table class="w-full table-fixed">
+                        <thead>
+                            <tr>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Status</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Ticket ID</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Category</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Message</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">First Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Last Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">ID number</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Email</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <!-- Scrollable Body -->
+                <div class="overflow-y-auto max-h-[31.25rem]">
+                    <table class="w-full table-fixed">
+                        <tbody id="solved">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
         <div class="relative flex mt-12 mb-4">
             <h1 class="mx-auto ml-0 text-2xl font-synemed text-grey2">Unresolved Tickets</h1>
@@ -76,7 +141,7 @@
             </div>
         </div>
 
-        <table class="min-w-full overflow-hidden leading-normal border border-black rounded-xl">
+        <!-- <table class="min-w-full overflow-hidden leading-normal border border-black rounded-xl">
             <thead>
                 <tr>
                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Status</th>
@@ -90,14 +155,46 @@
                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> -->
                 <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                <tbody id="unresolved"> 
+                <!-- <tbody id="unresolved">  -->
                     <!-- Add more rows as needed -->
-                </tbody>
+                <!-- </tbody>
             </tbody>
-        </table>
+        </table> -->
         
+
+        <div class="border border-black rounded-b-xl">
+            <div class="relative">
+                <!-- Fixed Header -->
+                <div class="overflow-hidden">
+                    <table class="w-full table-fixed">
+                        <thead>
+                            <tr>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Status</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Ticket ID</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Category</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Message</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">First Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Last Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">ID number</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Email</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <!-- Scrollable Body -->
+                <div class="overflow-y-auto max-h-[31.25rem]">
+                    <table class="w-full table-fixed">
+                        <tbody id="unresolved">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -119,16 +216,21 @@
 
         function displayTickets(data){
             if (ticketsChecker === null || JSON.stringify(ticketsChecker) !== JSON.stringify(data)) {
+                let solvedCounter = 0;
+                let unresolvedCounter = 0;
+                let pendingCounter = 0;
+                
                 ticketsChecker = data;
 
                 pending.innerHTML = '';
                 solved.innerHTML = '';
                 unresolved.innerHTML = '';
-                // console.log(data);
+                console.log(data);
                 
                 data.forEach(ticket => {
                     // console.log(data);
                     if (ticket.status === "solved") {
+                        solvedCounter += 1;
                         console.log('Solved:', data);
                         solved.innerHTML += `
                             <tr>
@@ -144,6 +246,7 @@
                             </tr>
                         `;
                     } else if (ticket.status === "unresolved") {
+                        unresolvedCounter += 1;
                         console.log('Unsolved:', data);
                         unresolved.innerHTML += `
                             <tr>
@@ -159,6 +262,7 @@
                             </tr>
                         `;
                     } else  if (ticket.status == null) {
+                        pendingCounter += 1;
                         console.log('Pending:', data);
                         pending.innerHTML += `
                             <tr>
@@ -175,6 +279,32 @@
                         `;
                     }
                 });
+
+                console.log(solvedCounter, unresolvedCounter, pendingCounter);
+
+                if (solvedCounter === 0) {
+                    solved.innerHTML = `
+                        <tr>
+                            <td colspan="9"  class="px-5 py-5 text-xl text-center bg-white rounded-b-xl text-grey1">Empty</td>
+                        </tr>
+                    `;
+                }
+
+                if (unresolvedCounter === 0) {
+                    unresolved.innerHTML = `
+                        <tr>
+                            <td colspan="9"  class="px-5 py-5 text-xl text-center bg-white rounded-b-xl text-grey1">Empty</td>
+                        </tr>
+                    `;
+                }
+
+                if (pendingCounter === 0) {
+                    pending.innerHTML = `
+                        <tr>
+                            <td colspan="9"  class="px-5 py-5 text-xl text-center bg-white rounded-b-xl text-grey1">Empty</td>
+                        </tr>
+                    `;
+                }
             }
         }
     </script>

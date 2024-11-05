@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <table class="min-w-full overflow-hidden leading-normal border border-black table-fixed rounded-xl">
+        <!-- <table class="min-w-full overflow-hidden leading-normal border border-black table-fixed rounded-xl">
             <thead>
                 <tr>
                 <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Edit</th>
@@ -24,12 +24,39 @@
                 <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Time Created</th>
                 </tr>
             </thead>
-            <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
             <tbody id="roomsTBody">
-
-                <!-- Add more rows as needed -->
             </tbody>
-        </table>
+        </table> -->
+        
+        <div class="border border-black rounded-xl">
+            <div class="relative">
+                <!-- Fixed Header -->
+                <div class="overflow-hidden">
+                    <table class="w-full table-fixed">
+                        <thead>
+                            <tr>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Edit</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room ID</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room Name</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase truncate border-l border-r border-black bg-blue3 text-white1">Instructor Name</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Instructor ID</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room Code</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Time Created</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <!-- Scrollable Body -->
+                <div class="overflow-y-auto max-h-[31.25rem]">
+                    <table class="w-full table-fixed">
+                        <tbody id="roomsTBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
     </div>
     
 
