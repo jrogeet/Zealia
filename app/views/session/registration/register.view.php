@@ -35,7 +35,7 @@
                     <p class="text-center text-sm text-red-600 my-1"><?= $errors['password-number'] ?></p>
                 <?php endif; ?>
 
-            <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-8 bg-white1" placeholder="Confirm password" type="password" name="confirm_password" required></input></br>
+            <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-4 bg-white1" placeholder="Confirm password" type="password" name="confirm_password" required></input></br>
 
                 <?php if (isset($errors['password-match'])): ?>
                     <p class="text-center text-sm text-red-600 my-0"><?= $errors['password-match'] ?></p>
@@ -43,7 +43,7 @@
 
             <?php if (hasInternetConnection()): ?>
                 <!-- Show reCAPTCHA when there's internet -->
-                <div class="g-recaptcha pl-14 rounded-xl relative left-[50%] transform translate-x-[-50%] mt-4" data-sitekey="<?= $config['recaptcha']['site_key'] ?>"></div>
+                <div class="g-recaptcha pl-14 rounded-xl relative left-[50%] transform translate-x-[-50%] mb-2" data-sitekey="<?= $config['recaptcha']['site_key'] ?>"></div>
             <?php else: ?>
                 <!-- Add a hidden input when there's no internet -->
                 <input type="hidden" name="g-recaptcha-response" value="offline">

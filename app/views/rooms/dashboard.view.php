@@ -151,22 +151,25 @@
     </main>
 
     <div id="createRoom" class="fixed z-50 justify-center hidden w-full h-full bg-glassmorphism">
-        <div class="relative flex flex-col h-64 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
-            <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
-                <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Confirmation</span>
+        <div class="relative flex flex-col h-64 border rounded-t-lg bg-white2 w-96 border-black1 top-1/3">
+            <div class="flex items-center justify-between h-12 border rounded-t-lg bg-blue3 border-black1">
+                <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Create:</span>
                 <button class="w-1/5 h-full rounded bg-red1" onClick="hide('createRoom'); enableScroll();">X</button>
             </div>
-            <form id="createRoomForm" method="POST" class="flex flex-col items-center h-64 p-2">
+            <form id="createRoomForm" method="POST" class="flex flex-col gap-2 h-72 p-2">
                 <input type="hidden" name="create" value="create">
                 <input type="hidden" name="asc" value="<?= htmlspecialchars($encoded_ascending_rooms, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="desc" value="<?= htmlspecialchars($encoded_descending_rooms, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>"> 
 
-                <span class="text-xl font-synebold">Enter Room name:</span>
-                <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter room name" required>
-                <div class="flex">
+                <div class="flex items-center">
+                    <span class="text-base font-synemed mr-2">Enter Room name:</span>
+                    <input name="room_name" class="h-[1.75rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-2 py-4 mb-2 rounded-lg" placeholder="Enter room name" required>
+                </div>
+                
+                <div class="flex items-center">
                     <label>Year Level:</label>
-                    <select name="year_level">
+                    <select name="year_level" class="ml-2 p-1 border border-grey2 rounded-lg">
                         <option value="1st year">1st year</option>
                         <option value="2nd year">2nd year</option>
                         <option value="3rd year">3rd year</option>
@@ -174,25 +177,26 @@
                     </select>
                 </div>
 
-                <div class="flex">
+                <div class="flex items-center">
                     <label>Program:</label>
-                    <select name="program">
+                    <select name="program" class="ml-2 p-1 border border-grey2 rounded-lg">
                         <option value="cs">CS</option>
                         <option value="it">IT</option>
                     </select>
                 </div>
 
                 <!-- <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter section:" required> -->
-                <div class="flex">
+                <div class="flex items-center">
+                    <label class=" mr-1">Section:</label>
                     <label for="yearPrefix">Y</label>
-                    <input type="text" id="yearPrefix" maxlength="1" class="year-prefix" pattern="[A-Z0-9]" placeholder="A or 1" required>
+                    <input type="text" id="yearPrefix" maxlength="1" class="ml-1 w-14 p-1 border border-grey2 rounded-lg" pattern="[A-Z0-9]" placeholder="A or 1" required>
                     <span>-</span>
-                    <input type="text" id="sectionSuffix" maxlength="1" class="section-suffix" pattern="[A-Z0-9]" placeholder="A or 1" required>
+                    <input type="text" id="sectionSuffix" maxlength="1" class="w-14 p-1 border border-grey2 rounded-lg" pattern="[A-Z0-9]" placeholder="A or 1" required>
                 </div>
                 
                 <input type="hidden" id="combinedSection" name="section">
 
-                <button type="submit" class="p-1 mt-2 border rounded bg-orange1 text-black1 border-black1">Create Room</button>
+                <button type="submit" class="p-1 mt-2 border rounded bg-orange1 text-black1 border-black1 hover:bg-black1 hover:text-orange1">Create Room</button>
             </form>
         </div>
     </div>
