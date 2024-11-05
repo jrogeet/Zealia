@@ -5,12 +5,12 @@ const subBut = document.getElementById('sub');
 const opCount = 3-tempRes.length;
 
 const id = getParameterByName('id');
-const rCount = getParameterByName('r');
-const iCount = getParameterByName('i');
-const aCount = getParameterByName('a');
-const sCount = getParameterByName('s');
-const eCount = getParameterByName('e');
-const cCount = getParameterByName('c');
+let rCount = getParameterByName('r');
+let iCount = getParameterByName('i');
+let aCount = getParameterByName('a');
+let sCount = getParameterByName('s');
+let eCount = getParameterByName('e');
+let cCount = getParameterByName('c');
 
 var selCounter = 0;
 var selected = ''
@@ -186,6 +186,29 @@ function checker(checkbox) {
 }
 
 function submit(){
+
+    for (let letter of selected){
+        switch (letter){
+            case 'R':
+                rCount++;
+                break
+            case 'I':
+                iCount++;
+                break
+            case 'A':
+                aCount++;
+                break
+            case 'S':
+                sCount++;
+                break
+            case 'E':
+                eCount++;
+                break
+            case 'C':
+                cCount++;
+                break
+        }
+    }
 
     finalRes = tempRes+selected;
 
