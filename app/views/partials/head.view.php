@@ -10,5 +10,12 @@
     <link rel="stylesheet" href="assets/css/output.css">
 
     <script src="assets/js/shared-scripts.js"></script>
-    <script src="assets/js/pdf/jspdf.umd.min.js"></script>
+
+    <?php if ($_SERVER['REQUEST_URI'] === '/account' || strpos($_SERVER['REQUEST_URI'], '/room') !== false): ?>
+        <script src="assets/js/pdf/jspdf.umd.min.js"></script>
+    <?php endif; ?>
+
+    <?php if ($_SERVER['REQUEST_URI'] === '/login' || $_SERVER['REQUEST_URI']=== '/register'): ?>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <?php endif; ?>
 </head>

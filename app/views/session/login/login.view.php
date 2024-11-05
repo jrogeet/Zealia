@@ -3,7 +3,7 @@
 <body class="font-synereg bg-white1">
     <?php view('partials/nav.view.php')?>
 
-    <div class="pt-16 pb-10 bg-white1 sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[50%] transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-[26.25rem] h-fit"> 
+    <div class="pt-16 pb-10 bg-white1 sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-[26.25rem] h-fit"> 
 
         <!-- <div>
             <?php //if(isset($loginmessage)): ?>
@@ -21,17 +21,23 @@
             <a class="text-xs relative right-[-60%] top-1 my-0 text-red-600" href="/forgot">Forgot password?</a></br>
             
             <?php if (isset($errors['password'])): ?>
-                <p class="text-center text-sm text-red-600 my-0"><?= $errors['password'] ?></p>
+                <p class="my-0 text-sm text-center text-red-600"><?= $errors['password'] ?></p>
             <?php elseif (isset($errors['school_id'])):?>
-                <p class="text-center text-sm text-red-600 my-0"><?= $errors['school_id'] ?></p>
+                <p class="my-0 text-sm text-center text-red-600"><?= $errors['school_id'] ?></p>
             <?php elseif (isset($errors['activate'])): ?>
-                <p class="text-center text-sm text-red-600 my-0"><?= $errors['activate']?></p>
+                <p class="my-0 text-sm text-center text-red-600"><?= $errors['activate']?></p>
             <?php elseif (isset($errors['regexist'])): ?>
-                <p class="text-center text-sm text-red-600 my-0"><?= $errors['regexist'] ?></p>
+                <p class="my-0 text-sm text-center text-red-600"><?= $errors['regexist'] ?></p>
+            <?php endif; ?>
+            
+
+            <div class="g-recaptcha pl-14 rounded-xl relative left-[50%] transform translate-x-[-50%] mt-4" data-sitekey="<?= $config['recaptcha']['site_key'] ?>"></div>
+            <?php if (isset($errors['recaptcha'])): ?>
+                <p class="my-0 text-sm text-center text-red-600"><?= $errors['recaptcha'] ?></p>
             <?php endif; ?>
 
             <button class="text-lg h-10 w-2/3 text-center text-white border border-blue3 bg-blue3 rounded-xl relative left-[50%] transform translate-x-[-50%] mt-2 mb-0" type="submit" name="login">Sign in</button></br>
-            <h6 class="text-xs text-center mt-2 mb-0" >Don't have an account? <a class="text-blue3" href="/register">Create an account</a></h6></br>
+            <h6 class="mt-2 mb-0 text-xs text-center" >Don't have an account? <a class="text-blue3" href="/register">Create an account</a></h6></br>
 
         </form>
     </div>

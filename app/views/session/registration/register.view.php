@@ -4,7 +4,7 @@
     <?php view('partials/nav.view.php')?>
 
 
-    <div class="pt-16 pb-10 sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[26.25rem] sm:w-[26.25rem] h-fit"> 
+    <div class="pt-16 pb-10 sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[60%] transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[26.25rem] sm:w-[26.25rem] h-fit"> 
 
         <h1 class="mb-14 mx-12 text-[6vw] sm:text-4xl text-center">Create an account</h1>
         <?php if (isset($errors['regexist'])): ?>
@@ -39,6 +39,11 @@
 
                 <?php if (isset($errors['password-match'])): ?>
                     <p class="text-center text-sm text-red-600 my-0"><?= $errors['password-match'] ?></p>
+                <?php endif; ?>
+
+            <div class="g-recaptcha pl-14 rounded-xl relative left-[50%] transform translate-x-[-50%] mt-4" data-sitekey="<?= $config['recaptcha']['site_key'] ?>"></div>
+                <?php if (isset($errors['recaptcha'])): ?>
+                    <p class="my-0 text-sm text-center text-red-600"><?= $errors['recaptcha'] ?></p>
                 <?php endif; ?>
 
             <button class="text-lg h-10 w-2/3 text-center text-white border border-blue3 bg-blue3 rounded-xl relative left-[50%] transform translate-x-[-50%] mb-2" type="submit" name="register">Sign Up</button></br>

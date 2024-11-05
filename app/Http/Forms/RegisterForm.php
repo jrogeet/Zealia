@@ -7,8 +7,12 @@ class RegisterForm
     protected $errors = [];
 
     // Check User's input: school_id & password
-    public function validate($school_id, $email, $fname, $lname, $password, $confirm_password)
+    public function validate($school_id, $email, $fname, $lname, $password, $confirm_password, $recaptchaResponse)
     {
+        if (!verifyRecaptcha($recaptchaResponse)) {
+            $this->errors['recaptcha'] = 'Please complete the reCAPTCHA';
+        }
+
         // Validate input
         
         if (! Validator::email($email)) {

@@ -14,11 +14,13 @@ $lname = $_POST["lname"];
 $password = $_POST["password"];
 $confirm_password = $_POST["confirm_password"];
 
+$recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
+
 $form = new RegisterForm;
 
 // validate form inputs
 
-if ($form->validate($school_id, $email, $fname, $lname, $password, $confirm_password))
+if ($form->validate($school_id, $email, $fname, $lname, $password, $confirm_password, $recaptchaResponse))
 {
     $auth = new Authenticator();
     switch ($auth->attempt($school_id, $password, 'r', $email))

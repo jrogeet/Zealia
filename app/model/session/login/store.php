@@ -7,9 +7,11 @@ use Core\Session;
 $school_id = $_POST['school_id'];
 $password = $_POST['password'];
 
+$recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
+
 $form = new LoginForm();
 
-if ($form->validate($school_id, $password))
+if ($form->validate($school_id, $password, $recaptchaResponse))
 {
     $auth = new Authenticator();
     // Authenticate(Check from DataBase) and Redirect / Throw errors
