@@ -6,10 +6,10 @@
     <div class="z-40 relative block w-full h-fit py-12 px-6 min-w-[75rem] mb-16">
         <div class="relative flex mb-12">
             <h1 class="mx-auto ml-6 text-3xl font-synebold">Account List</h1>
-            <div class="flex w-64 mx-auto text-lg font-synemed">
-                <button onclick="show('allList','table-row-group'); hide('studentsList'); hide('profsList');" class="mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">All</button>
-                <button onclick="show('studentsList','table-row-group'); hide('allList'); hide('profsList');" class="mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Students</button>
-                <button onclick="show('instructorsList','table-row-group'); hide('allList'); hide('studentsList');" class="mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Instructors</button>
+            <div class="flex w-64 gap-2 mx-auto text-lg font-synemed">
+                <button onclick="show('allList','table-row-group'); hide('studentsList'); hide('profsList');" class="mx-auto text-center border border-black rounded-lg p-auto px-2 w-28 bg-blue2 hover:bg-blue3 hover:text-white1">All</button>
+                <button onclick="show('studentsList','table-row-group'); hide('allList'); hide('profsList');" class="mx-auto text-center border border-black rounded-lg p-auto px-2 w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Students</button>
+                <button onclick="show('instructorsList','table-row-group'); hide('allList'); hide('studentsList');" class="mx-auto text-center border border-black rounded-lg p-auto px-2 w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Instructors</button>
             </div>
             <form method="POST" action="/admin-accounts" class="flex mx-auto w-fit">
                 <input name="search_input" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1" required>
@@ -49,7 +49,7 @@
                 </tbody>
             </table>
         </div> -->
-        <div class="border border-black rounded-xl">
+        <div class="border border-black rounded-xl overflow-hidden">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">

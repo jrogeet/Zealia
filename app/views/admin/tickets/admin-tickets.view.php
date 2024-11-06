@@ -101,7 +101,7 @@
         </table> -->
 
 
-        <div class="border border-black rounded-b-xl">
+        <div class="border border-black rounded-b-xl overflow-hidden">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">
