@@ -1637,24 +1637,36 @@
         }
 
         const pdfBlob = doc.output('blob', { type: 'application/pdf' });
-        const blobUrl = URL.createObjectURL(pdfBlob);
         const filename = isStudent ? 
             `${roomName}-group-${groupNum}.pdf` : 
             `all_groups_info-${roomName}.pdf`;
 
-        const previewWindow = window.open(blobUrl, '_blank');
-            
-        // Clean up the Blob URL when the preview window is closed
-        if (previewWindow) {
-            previewWindow.onload = () => {
-                previewWindow.document.title = filename;
-            };
-            
-            // Cleanup after a delay to ensure the PDF loads
-            setTimeout(() => {
-                URL.revokeObjectURL(blobUrl);
-            }, 1000);
+        // Create a download link
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(pdfBlob);
+        downloadLink.download = filename;
+
+        // Create a preview link
+        const previewLink = document.createElement('a');
+        previewLink.href = URL.createObjectURL(pdfBlob);
+        previewLink.target = '_blank';
+
+        // Create a dialog to ask user preference
+        const userChoice = confirm('Would you like to:\nOK - Download the PDF\nCancel - Preview in new tab');
+
+        if (userChoice) {
+            // User chose to download
+            downloadLink.click();
+        } else {
+            // User chose to preview
+            previewLink.click();
         }
+
+        // Clean up the Blob URLs after a delay
+        setTimeout(() => {
+            URL.revokeObjectURL(downloadLink.href);
+            URL.revokeObjectURL(previewLink.href);
+        }, 1000);
     }
     </script>
 </body>
