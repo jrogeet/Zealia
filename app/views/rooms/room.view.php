@@ -1469,8 +1469,9 @@
         const instructorName = "<?php echo $prof_name['f_name'] . ' ' . $prof_name['l_name']; ?>";
         const timestamp = new Date().toLocaleString(); // Get current timestamp
         const roomCode = "<?php echo $room_info['room_code']; ?>";
+        const isStudent = <?php echo $_SESSION['user']['account_type'] === 'student' ? 'true' : 'false'; ?>;
 
-        <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
+        if (isStudent) {
             // Student view
             let groupMembers = members;
             console.log('groupMembers', groupMembers);
@@ -1543,8 +1544,9 @@
             doc.text(`Instructor: ${instructorName}`, 20, doc.internal.pageSize.height - 20);
             doc.text(`Generated on: ${timestamp}`, 20, doc.internal.pageSize.height - 10);
 
-            doc.save(`${roomCode}-group-${groupNum}.pdf`);
-        <?php else: ?>
+            // doc.save(`${roomCode}-group-${groupNum}.pdf`);
+
+        } else {
             // Professor view
             <?php
             $cleanGroupInfo = [];
@@ -1631,8 +1633,28 @@
                 doc.text(`Generated on: ${timestamp}`, 20, doc.internal.pageSize.height - 10);
             });
 
-            doc.save(`all_groups_info-${roomCode}.pdf`);
-        <?php endif; ?>
+            // doc.save(`all_groups_info-${roomCode}.pdf`);
+        }
+
+        const pdfBlob = doc.output('blob', { type: 'application/pdf' });
+        const blobUrl = URL.createObjectURL(pdfBlob);
+        const filename = isStudent ? 
+            `${roomName}-group-${groupNum}.pdf` : 
+            `all_groups_info-${roomName}.pdf`;
+
+        const previewWindow = window.open(blobUrl, '_blank');
+            
+        // Clean up the Blob URL when the preview window is closed
+        if (previewWindow) {
+            previewWindow.onload = () => {
+                previewWindow.document.title = filename;
+            };
+            
+            // Cleanup after a delay to ensure the PDF loads
+            setTimeout(() => {
+                URL.revokeObjectURL(blobUrl);
+            }, 1000);
+        }
     }
     </script>
 </body>
