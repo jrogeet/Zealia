@@ -3,16 +3,19 @@ namespace Core;
 
 use Model\App;
 use Model\Database;
+use Model\Logger;
 
 
 // Authenticate Login & Registration of User
 class Authenticator
 {
     protected $db;
-
+    protected $logger;
     public function __construct()
     {
         $this->db = App::resolve(Database::class);
+        // $this->logger = App::resolve(Logger::class);
+        $this->logger = new Logger($this->db);
     }
 
     // Login & Register Attempt
@@ -46,6 +49,12 @@ class Authenticator
                     return -1; // -1 = Failed Login (Password didn't match)
                 }
             } else {
+                $this->logger->log(
+                    'LOGIN',
+                    'failed',
+                    'user',
+                    $school_id
+                );
                 return -1; // -1 = Failed Login (User doesn't exist)
             }
         // Register
@@ -60,6 +69,16 @@ class Authenticator
             if ($user) {
                 return 0; // Show Error: (School ID or Email already used)
             } else {
+                $this->logger->log(
+                    'REGISTER',
+                    'success',
+                    'user',
+                    $school_id,
+                    [
+                        'email' => $email,
+                        'account_type' => $user['account_type']
+                    ]
+                );
                 return 1; // Register to database and Send Email for activation
             }
         }
@@ -98,6 +117,13 @@ class Authenticator
     }
 
     public function login($user) {
+        $this->logger->log(
+            'LOGIN',
+            'success',
+            'user',
+            $user['school_id']
+        );
+
         // These are accessible within the website upon login
         $_SESSION['user'] = [
             'school_id'=> $user['school_id'],
@@ -111,6 +137,13 @@ class Authenticator
     }
     
     public function logout() {
+        $this->logger->log(
+            'LOGOUT',
+            'success',
+            'user',
+            $_SESSION['user']['school_id']
+        );
+
         Session::destroy();
     }
 }

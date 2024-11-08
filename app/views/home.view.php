@@ -39,6 +39,18 @@
         </div>
     </div>
 
+    <?//php // Check if the client is behind a proxy (HTTP_X_FORWARDED_FOR header)
+        // if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        //     // This header may contain multiple IPs, so we take the first one
+        //     $user_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        // } else {
+        //     // If no proxy header, just use the remote address
+        //     $user_ip = $_SERVER['REMOTE_ADDR'];
+        // }
+
+        // echo "User IP address: " . $user_ip;
+    ?>
+
     <!-- second part mobile -->
     <div class="flex lg:hidden justify-center items-center ">
         <div class="relative block w-full min-h-[106.25rem] py-10 justify-evenly bg-howtouse bg-no-repeat bg-cover bg-center selection:bg-blue3 selection:text-white1">
