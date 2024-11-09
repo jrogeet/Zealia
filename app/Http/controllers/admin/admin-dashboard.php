@@ -47,12 +47,12 @@ if ($_SESSION['user']['account_type'] === "admin") {
 
 
     $students = [];
-    $professors = [];
+    $instructors = [];
     foreach ($accounts as $account) {
         if ($account['account_type'] === "student") {
             $students[] = $account;
-        } elseif ($account['account_type'] === "professor") {
-            $professors[] = $account;
+        } elseif ($account['account_type'] === "instructor") {
+            $instructors[] = $account;
         }
     }
 
@@ -92,7 +92,7 @@ if ($_SESSION['user']['account_type'] === "admin") {
     view('admin/admin-dashboard.view.php', [
         'accounts' => $accounts,
         'students' => $students,
-        'professors' => $professors,
+        'instructors' => $instructors,
         'rooms' => $rooms,
         'recentAccounts' => $recentAccounts,
         'recentRooms' => $recentRooms,

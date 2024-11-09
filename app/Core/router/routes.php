@@ -22,11 +22,11 @@ $router->post('/account', 'model/account/change.php')->only('auth');
 
 // TEST PAGEs
 $router->get('/test', 'Http/controllers/account/test.php')->only('auth');
-$router->post('/test', 'model/account/test-page.php')->only('auth');
+// $router->post('/test', 'model/account/test-page.php')->only('auth');
 $router->get('/tieOpt', 'Http/controllers/account/test-tieOpt.php')->only('auth');
 $router->get('/result', 'Http/controllers/account/test-result.php')->only('auth');
 $router->post('/result', 'model/account/test-result.php')->only('auth');
-$router->get('/sample-grouping', 'Http/controllers/account/sample-grouping.php')->only('auth');
+// $router->get('/sample-grouping', 'Http/controllers/account/sample-grouping.php')->only('auth');
 
 $router->get('/profile', 'Http/controllers/account/profile.php')->only('auth');
 
@@ -86,6 +86,3 @@ $router->get('/admin-view-log', 'Http/controllers/admin/logs/admin-view-log.php'
 
 $router->get('/submit-ticket', 'Http/controllers/admin/submit-ticket.php');
 $router->post('/submit-ticket', 'model/admin/submit-ticket.php');
-
-
-

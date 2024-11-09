@@ -1,11 +1,12 @@
 <?php
 
-
 use Model\App;
 use Model\Database;
+use Model\Logger;
 use Core\Validator;
 
 $db = App::resolve(Database::class);
+$logger = new Logger($db);
 
 $errors = [];
 
@@ -14,7 +15,7 @@ if (isset($_POST["cur_pass"])) {
     $newpass = $_POST["new_pass"];
     $conewpass = $_POST["conew_pass"];
 
-    $pass = $db->query('select password from accounts where school_id = :id', [
+    $pass = $db->query('SELECT password FROM accounts WHERE school_id = :id', [
         ':id' => $_SESSION['user']['school_id']
     ])->find();
 
@@ -47,7 +48,14 @@ if (isset($_POST["cur_pass"])) {
             'errors'=> $errors
         ]);
     } else {
-        $db->query('update accounts set password = :pass where school_id = :id', [
+        $logger->log(
+            'PASSWORD CHANGE',
+            'success',
+            'user',
+            $_SESSION['user']['school_id'],
+        );
+
+        $db->query('UPDATE accounts SET password = :pass WHERE school_id = :id', [
             ':pass' => password_hash($newpass, PASSWORD_DEFAULT),
             ':id' => $_SESSION['user']['school_id']
         ]);
@@ -55,47 +63,4 @@ if (isset($_POST["cur_pass"])) {
         header('Location: /account');
         exit();
     }
-} elseif (isset($_POST['f_name']) || isset($_POST['l_name'])) {
-
-    if (!empty($_POST['f_name'])) {
-        $db->query('UPDATE accounts SET f_name = :f_name WHERE school_id = :id', [
-            ':f_name' => $_POST['f_name'],
-            ':id' => $_SESSION['user']['school_id']
-        ]);
-
-    }
-    
-    if (!empty($_POST['l_name'])) {
-        $db->query('UPDATE accounts SET l_name = :l_name WHERE school_id = :id', [
-            ':l_name' => $_POST['l_name'],
-            ':id' => $_SESSION['user']['school_id']
-        ]);
-    }
-
-    header('Location: /account');
-    exit();
-} elseif (isset($_POST['school_id'])) {
-    $isTaken = $db->query('SELECT school_id FROM accounts WHERE school_id = :id', [
-        'id' => $_POST['school_id'],
-    ])->find();
-
-    if ($isTaken) {
-        $errors['school_id'] = 'The School ID you was trying to change to, was already taken!';
-    }
-
-    if (! empty($errors)) {
-        return view('account/account.view.php', [
-            'errors'=> $errors
-        ]);
-    } else {
-        $db->query('update accounts set school_id = :school_id where school_id = :id', [
-            ':school_id' => $_POST['school_id'],
-            ':id' => $_SESSION['user']['school_id']
-        ]);
-
-        header('Location: /account');
-        exit();
-    }
-
-
 }

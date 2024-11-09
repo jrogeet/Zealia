@@ -12,26 +12,26 @@ if ($_SESSION['user']['account_type'] === "admin") {
         ])->findAll();
 
     $students = [];
-    $professors = [];
+    $instructors = [];
     foreach ($accounts as $account) {
         if ($account['account_type'] === "student") {
             $students[] = $account;
-        } elseif ($account['account_type'] === "professor") {
-            $professors[] = $account;
+        } elseif ($account['account_type'] === "instructor") {
+            $instructors[] = $account;
         }
     }
 
     $encoded_accounts = json_encode($accounts);
     $encoded_students = json_encode($students);
-    $encoded_professors = json_encode($professors);
+    $encoded_instructors = json_encode($instructors);
     
     view('admin/accounts/admin-accounts.view.php', [
         'accounts' => $accounts,
         'students' => $students,
-        'professors' => $professors,
+        'instructors' => $instructors,
         'encoded_accounts' => $encoded_accounts,
         'encoded_students' => $encoded_students,
-        'encoded_professors' => $encoded_professors,
+        'encoded_instructors' => $encoded_instructors,
     ]);
 
 } else {

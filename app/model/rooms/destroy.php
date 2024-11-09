@@ -2,8 +2,10 @@
 
 use Model\Database;
 use Model\App;
+use Model\Logger;
 
 $db = App::resolve(Database::class);
+$logger = new Logger($db);
 
 $currentUser = $_SESSION['user']['school_id'];
 
@@ -45,6 +47,16 @@ if (!empty($students)) {
 $db->query('delete from rooms where room_id = :id', [
     ':id' => $_POST['room_id']
 ]);
+
+$logger->log(
+    'DELETE ROOM',
+    'success',
+    'room',
+    $currentUser,
+    [
+        'room_id' => $_POST['room_id'],
+    ]
+);
 
 header('location: /dashboard');
 exit();

@@ -21,8 +21,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["current_id"] = $l_school_id;
                 if($log['account_type'] === 'student') {
                     $_SESSION['current_type'] = 'student';
-                } elseif($log['account_type'] === 'professor') {
-                    $_SESSION['current_type'] = 'professor';
+                } elseif($log['account_type'] === 'instructor') {
+                    $_SESSION['current_type'] = 'instructor';
                 } else {
                     $_SESSION['current_type'] = 'admin';
                 }
@@ -33,8 +33,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["current_id"] = $l_school_id;
                 if($log['account_type'] === 'student') {
                     $_SESSION['current_type'] = 'student';
-                } elseif($log['account_type'] === 'professor') {
-                    $_SESSION['current_type'] = 'professor';
+                } elseif($log['account_type'] === 'instructor') {
+                    $_SESSION['current_type'] = 'instructor';
                 } else {
                     $_SESSION['current_type'] = 'admin';
                 }

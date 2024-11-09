@@ -11,7 +11,7 @@ if ($_SESSION['user']['account_type'] === "admin") {
     $rooms = $db->query("select * from rooms", [
         ])->findAll();
     
-    $instructors = $db->query("select * from accounts where account_type = 'professor'", [
+    $instructors = $db->query("select * from accounts where account_type = 'instructor'", [
         ])->findAll();
     
     foreach ($rooms as &$room) {

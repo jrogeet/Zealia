@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 use Model\Database;
 use Model\App;
+use Model\Logger;
 use Core\Validator;
 
 class ApiController
 {
     private $db;
     private $currentUser;
+    protected $logger;
 
     public function __construct()
     {
         // session_start();
         $this->db = App::resolve(Database::class);
         $this->currentUser = $_SESSION['user']['school_id'] ?? null;
+        $this->logger = new Logger($this->db);
         session_write_close();
     }
 
@@ -276,16 +279,16 @@ private function getLatestData($params)
             } elseif(isset($currentPage) && $currentPage == 'admin_dashboard') {
                 $total_users = $this->db->query('SELECT COUNT(*) FROM accounts WHERE account_type IN (:type1, :type2)',[
                     'type1' => 'student',
-                    'type2' => 'professor',
+                    'type2' => 'instructor',
                 ])->find();
 
                 $total_students_n_profs = $this->db->query('
                     SELECT 
                         COUNT(CASE WHEN account_type = :type1 THEN 1 END) AS total_students,
-                        COUNT(CASE WHEN account_type = :type2 THEN 1 END) AS total_professors
+                        COUNT(CASE WHEN account_type = :type2 THEN 1 END) AS total_instructors
                     FROM accounts', [
                         'type1' => 'student',
-                        'type2' => 'professor',
+                        'type2' => 'instructor',
                 ])->find();
 
                 // dd($total_students_n_profs);
@@ -293,7 +296,7 @@ private function getLatestData($params)
                 $latestData['total_users'] = $total_users['COUNT(*)'];
 
                 $latestData['total_students'] = $total_students_n_profs['total_students'];
-                $latestData['total_instructors'] = $total_students_n_profs['total_professors'];
+                $latestData['total_instructors'] = $total_students_n_profs['total_instructors'];
 
                 $total_rooms = $this->db->query('SELECT COUNT(*) FROM rooms',[
                 ])->find();
@@ -409,7 +412,7 @@ private function getLatestData($params)
                         }
                         // dd($roomInfo);
 
-                        // Get the Room's Professor Name
+                        // Get the Room's Instructor Name
                         $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
                             'school_id'=> $roomInfo['school_id'],
                         ])->find();
@@ -477,15 +480,15 @@ private function getLatestData($params)
 
                 foreach ($latestData as $index => $data) {
                     // dd($data['account_type']);
-                    if (($index !== 'student' && $index !== 'professor') && isset($data['account_type']) &&  $data['account_type'] == 'admin') {
+                    if (($index !== 'student' && $index !== 'instructor') && isset($data['account_type']) &&  $data['account_type'] == 'admin') {
                         unset($latestData[$index]);
                         continue;
-                    } elseif (($index !== 'student' && $index !== 'professor') && isset($data['account_type']) &&  $data['account_type'] == 'student') {
+                    } elseif (($index !== 'student' && $index !== 'instructor') && isset($data['account_type']) &&  $data['account_type'] == 'student') {
                         $latestData['students'][] = $data;
                         $latestData['all'][] = $data;
                         unset($latestData[$index]);
                         continue;
-                    } elseif (($index !== 'student' && $index !== 'professor') && isset($data['account_type']) &&  $data['account_type'] == 'professor') { 
+                    } elseif (($index !== 'student' && $index !== 'instructor') && isset($data['account_type']) &&  $data['account_type'] == 'instructor') { 
                         $latestData['instructors'][] = $data;
                         $latestData['all'][] = $data;
                         unset($latestData[$index]);
@@ -625,6 +628,18 @@ private function getLatestData($params)
                     throw new \Exception('Failed to update database');
                 }
 
+                $this->logger->log(
+                    'DELETE KANBAN TASK', 
+                    'success',
+                    'user',
+                    $formData['school_id'],
+                    [
+                        'task' => $formData['task'],
+                        'destination' => $formData['destination'],
+                        'action' => $formData['action'] ?? 'move'
+                    ]
+                );
+
                 return [
                     'success' => true,
                     'message' => 'Task deleted successfully',
@@ -646,31 +661,33 @@ private function getLatestData($params)
                         }
                     ));
                 }
+
+                $this->logger->log(
+                    'MOVE KANBAN TASK', 
+                    'success',
+                    'user',
+                    $formData['school_id'],
+                    [
+                        'task' => $formData['task'],
+                        'destination' => $formData['destination'],
+                        'action' => $formData['action'] ?? 'move'
+                    ]
+                );
             }
 
-            // For move operations
-            // if (isset($formData['action']) && $formData['action'] === 'move') {
-            //     foreach (['todo', 'wip', 'done'] as $list) {
-            //         $kanbanData[$formData['room_id']][$list] = array_values(array_filter(
-            //             $kanbanData[$formData['room_id']][$list],
-            //             function($existingTask) use ($task) {
-            //                 return $existingTask[0] !== $task[0];
-            //             }
-            //         ));
-            //     }
-            // }
-
-            // if (isset($formData['action']) && $formData['action'] === 'move') {
-            //     // Remove task from all lists first
-            //     foreach (['todo', 'wip', 'done'] as $list) {
-            //         $kanbanData[$formData['room_id']][$list] = array_filter(
-            //             $kanbanData[$formData['room_id']][$list],
-            //             function($task) use ($formData) {
-            //                 return $task[0] !== json_decode($formData['task'], true)[0];
-            //             }
-            //         );
-            //     }
-            // }
+            if (! isset($formData['action'])) {
+                $this->logger->log(
+                    'ADD KANBAN TASK', 
+                    'success',
+                    'user',
+                    $formData['school_id'],
+                    [
+                        'task' => $formData['task'],
+                        'destination' => $formData['destination'],
+                        'action' => $formData['action'] ?? 'move'
+                    ]
+                );
+            }
 
             // Add task to appropriate list
             $kanbanData[$formData['room_id']][$formData['destination']][] = $task;
@@ -678,7 +695,7 @@ private function getLatestData($params)
             // dd($kanbanData);
     
             // Update database
-            $success =$this->db->query('UPDATE accounts SET kanban = :kanban WHERE school_id = :school_id', [
+            $success = $this->db->query('UPDATE accounts SET kanban = :kanban WHERE school_id = :school_id', [
                 'kanban' => json_encode($kanbanData),
                 'school_id' => $formData['school_id']
             ]);
@@ -750,6 +767,19 @@ private function getLatestData($params)
                 'school_id' => $values_array[1], 
                 'type' => $type,
             ]);
+
+            $this->logger->log(
+                'ACCEPT JOIN REQUEST',
+                'success',
+                'room',
+                $this->currentUser,
+                [
+                    'student_id' => $values_array[1],
+                    'room_id' => $roomExistence['room_id'],
+                    'room_name' => $roomExistence['room_name'],
+                    'prof_name' => $roomExistence['prof_name'],
+                ]
+            );
         
             // DELETE the room_join notification of the student
             $this->db->query('INSERT INTO room_list(school_id, room_id) VALUES (:student, :room) ', [
@@ -761,7 +791,7 @@ private function getLatestData($params)
                 'room_id' => $values_array[0],
                 'school_id' => $values_array[1]
             ]);
-        } else if ($formData['buttonName'] == 'decline') {
+        } elseif ($formData['buttonName'] == 'decline') {
             $roomExistence = $this->db->query('select * from rooms where room_id = :id', [
                 'id' => $values_array[0]
             ])->find();
@@ -781,6 +811,19 @@ private function getLatestData($params)
                 "room_id" => $roomExistence['room_id'],
                 "student_id" => $values_array[0],
             ]);
+
+            $this->logger->log(
+                'DECLINE JOIN REQUEST',
+                'success',
+                'room',
+                $this->currentUser,
+                [
+                    'student_id' => $values_array[1],
+                    'room_id' => $roomExistence['room_id'],
+                    'room_name' => $roomExistence['room_name'],
+                    'prof_name' => $roomExistence['prof_name'],
+                ]
+            );
         
             $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
                 'school_id' => $values_array[1],
@@ -812,6 +855,17 @@ private function getLatestData($params)
             ':room_id' => $values_array[0],
             ':school_id' => $values_array[1]
         ]);
+
+        $this->logger->log(
+            'KICK STUDENT',
+            'success',
+            'room',
+            $this->currentUser,
+            [
+                'room_id' => $roomExistence['room_id'],
+                'student_id' => $values_array[1],
+            ]
+        );
     
         // NOTIFICATIONS
         $type = json_encode([
@@ -840,9 +894,32 @@ private function getLatestData($params)
         ])->find();
     
         if (! empty($groupCheck)) {
+            $this->logger->log(
+                'RE-GENERATE GROUPS',
+                'success',
+                'room',
+                $this->currentUser,
+                [
+                    'old_groups' => $groupCheck['groups_json'],
+                    'room_id' => $formData['room'],
+                    'group_count' => count($decodedGroups),
+                ]
+            );
+
             $this->db->query('DELETE FROM room_groups WHERE room_id = :id', [
                 ':id'=> $formData['room'],
             ]);
+        } else {
+            $this->logger->log(
+                'GENERATE GROUPS',
+                'success',
+                'room',
+                $this->currentUser,
+                [
+                    'room_id' => $formData['room'],
+                    'group_count' => count($decodedGroups),
+                ]
+            );
         }
         
         $this->db->query('INSERT INTO room_groups(room_id, groups_json) VALUES (:id, :groups)', [
@@ -937,6 +1014,20 @@ private function getLatestData($params)
             'section' => $formData['section']
         ]);
 
+        $this->logger->log(
+            'CREATE ROOM',
+            'success',
+            'room',
+            $formData['school_id'],
+            [
+                'room_name' => $_POST['room_name'],
+                'room_code' => $room_code,
+                'year_level' => $_POST['year_level'],
+                'program' => $_POST['program'],
+                'section' => $_POST['section']
+            ]
+        );
+
         return ['success' => true, 'message' => 'Room created successfully', 'data' => $formData];
     }
 
@@ -978,6 +1069,18 @@ private function getLatestData($params)
                         ':student'=>$this->currentUser,
                         ':room'=>$roomExistence['room_id']
                     ]);
+
+                    $this->logger->log(
+                        'JOIN ROOM',
+                        'success',
+                        'room',
+                        $this->currentUser,
+                        [
+                            'room_id' => $roomExistence['room_id'],
+                            'room_name' => $roomExistence['room_name'],
+                            'instructor_id' => $roomExistence['school_id']
+                        ]
+                    );
     
                     $type = json_encode([
                         "type" => "room_join",

@@ -11,6 +11,8 @@
     <div class="relative block w-screen h-full text-center top-10 lg:top-24">
         <h1 class="relative font-synebold text-[6vw] lg:text-3xl">Account Settings</h1>
 
+        <?= 'TO DO: Change Password Errors  & Success messages!' ?>
+
         <div class="relative flex flex-wrap w-full h-fit">
             <!-- left box -->
             <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white1 lg:bg-white2 text-left pt-2 pl-[3%] overflow-x-hidden">
@@ -22,10 +24,10 @@
 
                 <h5 class="text-xl text-grey2 mt-36">Change Password</h5>
                 <form method="POST" action="/account">
-                    <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg lg:ml-4 mt-4" type="text" placeholder="Current Password" name="cur_pass" required></input>
+                    <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg lg:ml-4 mt-4" type="password" placeholder="Current Password" name="cur_pass" required></input>
                     <div class="flex mt-2 lg:ml-4">
-                        <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg mt-4" type="text" placeholder="New Password" name="new_pass" required></input>
-                        <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg ml-2 lg:ml-4 mt-4" type="text" placeholder="Confirm New Password" name="conew_pass" required></input>
+                        <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg mt-4" type="password" placeholder="New Password" name="new_pass" required></input>
+                        <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg ml-2 lg:ml-4 mt-4" type="password" placeholder="Confirm New Password" name="conew_pass" required></input>
                     </div>
                     <button class="relative h-10 px-8 mt-12 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orange1 text-black1">Save Changes</button>
                 </form>

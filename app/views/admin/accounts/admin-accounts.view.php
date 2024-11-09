@@ -15,7 +15,7 @@
                 <input name="search_input" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1" required>
                 <input type="hidden" name="search">
                 <input type="hidden" name="encoded_students" value="<?= htmlspecialchars($encoded_students, ENT_QUOTES, 'UTF-8')?>">
-                <input type="hidden" name="encoded_professors" value="<?= htmlspecialchars($encoded_professors, ENT_QUOTES, 'UTF-8')?>">
+                <input type="hidden" name="encoded_instructors" value="<?= htmlspecialchars($encoded_instructors, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="encoded_accounts" value="<?= htmlspecialchars($encoded_accounts, ENT_QUOTES, 'UTF-8')?>">
                 <button type="submit" class="mx-auto ml-4 border rounded-lg border-grey2 bg-orange1 w-28 text-black1">Search</button>
             </form>
@@ -143,7 +143,7 @@
             <form method="POST" action="/admin-accounts" class="flex w-[60%] h-[90%] border border-black  rounded-2xl mx-auto p-6 pl-8">
                 <input type="hidden" name="encoded_accounts" value="<?= htmlspecialchars($encoded_accounts, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="encoded_students" value="<?= htmlspecialchars($encoded_students, ENT_QUOTES, 'UTF-8')?>">
-                <input type="hidden" name="encoded_professors" value="<?= htmlspecialchars($encoded_professors, ENT_QUOTES, 'UTF-8')?>">
+                <input type="hidden" name="encoded_instructors" value="<?= htmlspecialchars($encoded_instructors, ENT_QUOTES, 'UTF-8')?>">
                 
                 <div class="block w-[70%] h-full mx-auto">
 
@@ -151,7 +151,7 @@
                     <select name="account_type" class="relative w-1/3 h-10 pl-4 mb-2 text-sm border border-black rounded-lg bg-blue2" name="category" id="reason" placeholder="Select Category" required>
                         <option class="bg-white2" value="">Select User Type:</option>
                         <option class="bg-white2" value="account">Admin</option>
-                        <option class="bg-white2" value="rooms">Professor</option>
+                        <option class="bg-white2" value="rooms">instructor</option>
                         <option class="bg-white2" value="groups">Student</option>
                     </select>
                     

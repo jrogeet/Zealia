@@ -53,7 +53,7 @@
 
                         <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg"  type="submit">Join</button>
                     </form>
-                <?php elseif ($_SESSION['user']['account_type'] === 'professor'): ?>
+                <?php elseif ($_SESSION['user']['account_type'] === 'instructor'): ?>
                     <!-- <form class="flex justify-between gap-4" method="POST" action="/dashboard">
                         <input type="hidden" name="create" value="create">
                         <input type="hidden" name="asc" value="<?= htmlspecialchars($encoded_ascending_rooms, ENT_QUOTES, 'UTF-8')?>">
@@ -156,20 +156,20 @@
                 <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Create:</span>
                 <button class="w-1/5 h-full rounded bg-red1" onClick="hide('createRoom'); enableScroll();">X</button>
             </div>
-            <form id="createRoomForm" method="POST" class="flex flex-col gap-2 h-72 p-2">
+            <form id="createRoomForm" method="POST" class="flex flex-col gap-2 p-2 h-72">
                 <input type="hidden" name="create" value="create">
                 <input type="hidden" name="asc" value="<?= htmlspecialchars($encoded_ascending_rooms, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="desc" value="<?= htmlspecialchars($encoded_descending_rooms, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>"> 
 
                 <div class="flex items-center">
-                    <span class="text-base font-synemed mr-2">Enter Room name:</span>
+                    <span class="mr-2 text-base font-synemed">Enter Room name:</span>
                     <input name="room_name" class="h-[1.75rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-2 py-4 mb-2 rounded-lg" placeholder="Enter room name" required>
                 </div>
                 
                 <div class="flex items-center">
                     <label>Year Level:</label>
-                    <select name="year_level" class="ml-2 p-1 border border-grey2 rounded-lg">
+                    <select name="year_level" class="p-1 ml-2 border rounded-lg border-grey2">
                         <option value="1st year">1st year</option>
                         <option value="2nd year">2nd year</option>
                         <option value="3rd year">3rd year</option>
@@ -179,7 +179,7 @@
 
                 <div class="flex items-center">
                     <label>Program:</label>
-                    <select name="program" class="ml-2 p-1 border border-grey2 rounded-lg">
+                    <select name="program" class="p-1 ml-2 border rounded-lg border-grey2">
                         <option value="cs">CS</option>
                         <option value="it">IT</option>
                     </select>
@@ -187,11 +187,11 @@
 
                 <!-- <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter section:" required> -->
                 <div class="flex items-center">
-                    <label class=" mr-1">Section:</label>
+                    <label class="mr-1 ">Section:</label>
                     <label for="yearPrefix">Y</label>
-                    <input type="text" id="yearPrefix" maxlength="1" class="ml-1 w-14 p-1 border border-grey2 rounded-lg" pattern="[A-Z0-9]" placeholder="A or 1" required>
+                    <input type="text" id="yearPrefix" maxlength="1" class="p-1 ml-1 border rounded-lg w-14 border-grey2" pattern="[A-Z0-9]" placeholder="A or 1" required>
                     <span>-</span>
-                    <input type="text" id="sectionSuffix" maxlength="1" class="w-14 p-1 border border-grey2 rounded-lg" pattern="[A-Z0-9]" placeholder="A or 1" required>
+                    <input type="text" id="sectionSuffix" maxlength="1" class="p-1 border rounded-lg w-14 border-grey2" pattern="[A-Z0-9]" placeholder="A or 1" required>
                 </div>
                 
                 <input type="hidden" id="combinedSection" name="section">
@@ -216,7 +216,7 @@
                     <p class=""><?= $errors['is_joined'] ?></p>
                 <?php endif; ?>
                 <button class="relative top-1/2 w-1/6 py-1 mt-1 ml-2 mr-2 bg-orange1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Join</button>
-            <?php elseif ($_SESSION['user']['account_type'] === 'professor'): ?>
+            <?php elseif ($_SESSION['user']['account_type'] === 'instructor'): ?>
                 <?php if (isset($errors['room_name'])) : ?>
                     <p class=""><?= $errors['room_name'] ?></p>
                 <?php endif; ?>
@@ -248,7 +248,7 @@
                 <input class="w-5/6 pl-2 mx-auto border border-black1" type="number" id="room_code" name="room_code" placeholder="Enter room code" required>
                 <button type="submit" class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-blue3 text-white1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Join</button>
 
-            <?php elseif ($_SESSION['user']['account_type'] === 'professor'): ?>
+            <?php elseif ($_SESSION['user']['account_type'] === 'instructor'): ?>
 
                 <input type="hidden" name="create" value="create">
                 <input type="hidden" name="asc" value="<?= htmlspecialchars($encoded_ascending_rooms, ENT_QUOTES, 'UTF-8')?>">
@@ -366,7 +366,7 @@
                     noRooms.innerHTML = `
                         <span class="text-4xl font-synebold text-grey2">No room found</span>
                         
-                        <?php if($_SESSION['user']['account_type'] === 'professor'):?>
+                        <?php if($_SESSION['user']['account_type'] === 'instructor'):?>
                             <span class="text-xl font-synemed">Create a room by clicking the "<span class="text-orange2">Create Room</span>" button</span>
                         <?php elseif($_SESSION['user']['account_type'] === 'student'): ?>
                             <span class="text-xl font-synemed">Join a room by <span class="text-orange2">entering the code</span> above</span>
@@ -517,7 +517,7 @@
 
                 roomsChecker = null;
                 console.log('interval started again');
-                <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
+                <?php if($_SESSION['user']['account_type'] == 'instructor'): ?>
                     fetchLatestData({
                         "table": "rooms"
                     }, displayRooms, 3000);
@@ -566,7 +566,7 @@
 
                 if (isDefaultFilter) {
                     console.log('interval started again');
-                    <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
+                    <?php if($_SESSION['user']['account_type'] == 'instructor'): ?>
                         fetchLatestData({
                             "table": "rooms"
                         }, displayRooms, 3000);
@@ -598,7 +598,7 @@
             submitForm('createRoomForm', '/api/submit-form', 'create_room');
             submitForm('joinRoomForm', '/api/submit-form', 'join_room');
 
-            <?php if($_SESSION['user']['account_type'] == 'professor'): ?>
+            <?php if($_SESSION['user']['account_type'] == 'instructor'): ?>
                 fetchLatestData({
                     "table": "rooms"
                 }, displayRooms, 3000);

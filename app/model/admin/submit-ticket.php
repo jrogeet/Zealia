@@ -2,10 +2,11 @@
 
 use Model\App;
 use Model\Database;
+use Model\Logger;
 use Core\Validator;
 
 $db = App::resolve(Database::class);
-
+$logger = new Logger($db);
 
 $category = $_POST['category'];
 $f_name = $_POST['f_name'];
@@ -31,6 +32,13 @@ if (isset($_POST['category'], $_POST['f_name'], $_POST['l_name'], $_POST['school
             if (!$result) {
                 throw new Exception("Failed to insert data.");
             }
+
+            $logger->log(
+                'SUBMIT TICKET',
+                'success',
+                'ticket',
+                $school_id,
+            );
 
             return view('admin/submit-ticket.view.php', [
                 'sent' => true

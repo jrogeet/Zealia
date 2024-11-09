@@ -11,7 +11,7 @@ if (isset($_POST['search'])) {
     unset($_POST['search']);
     $accounts = json_decode($_POST['encoded_accounts'], true);
     $students = json_decode($_POST['encoded_students'], true);
-    $professors = json_decode($_POST['encoded_professors'], true);
+    $instructors = json_decode($_POST['encoded_instructors'], true);
 
     $search_input = $_POST['search_input'];
 
@@ -25,13 +25,13 @@ if (isset($_POST['search'])) {
         }
     }
 
-    $searched_professors = [];
-    foreach ($professors as $professor) {
-        if (stripos($professor['f_name'], $search_input) !== false 
-        || stripos($professor['l_name'], $search_input) !== false 
-        || stripos($professor['school_id'], $search_input) !== false
-        || stripos($professor['email'], $search_input) !== false) {
-            $searched_professors[] = $professor;
+    $searched_instructors = [];
+    foreach ($instructors as $instructor) {
+        if (stripos($instructor['f_name'], $search_input) !== false 
+        || stripos($instructor['l_name'], $search_input) !== false 
+        || stripos($instructor['school_id'], $search_input) !== false
+        || stripos($instructor['email'], $search_input) !== false) {
+            $searched_instructors[] = $instructor;
         }
     }
 
@@ -48,20 +48,20 @@ if (isset($_POST['search'])) {
     view('admin/accounts/admin-accounts.view.php', [
         'accounts' => $searched_accounts,
         'students' => $searched_students,
-        'professors' => $searched_professors,
+        'instructors' => $searched_instructors,
         'encoded_accounts' => $_POST['encoded_accounts'],
         'encoded_students' => $_POST['encoded_students'],
-        'encoded_professors' => $_POST['encoded_professors'],
+        'encoded_instructors' => $_POST['encoded_instructors'],
     ]);
 
 } elseif (isset($_POST['create'])) {
     unset($_POST['create']);
     $encoded_accounts = $_POST['encoded_accounts'];
     $encoded_students = $_POST['encoded_students'];
-    $encoded_professors = $_POST['encoded_professors'];
+    $encoded_instructors = $_POST['encoded_instructors'];
     $accounts = json_decode($encoded_accounts, true);
     $students = json_decode($encoded_students, true);
-    $professors = json_decode($encoded_professors, true);
+    $instructors = json_decode($encoded_instructors, true);
 
     $account_type = $_POST['account_type'];
     $f_name = $_POST['f_name'];
@@ -78,10 +78,10 @@ if (isset($_POST['search'])) {
             view('admin/accounts/admin-accounts.view.php', [
                 'accounts' => $accounts,
                 'students' => $students,
-                'professors' => $professors,
+                'instructors' => $instructors,
                 'encoded_accounts' => $encoded_accounts,
                 'encoded_students' => $encoded_students,
-                'encoded_professors' => $encoded_professors,
+                'encoded_instructors' => $encoded_instructors,
                 'idExists' => $idExists,
             ]);
 
@@ -91,10 +91,10 @@ if (isset($_POST['search'])) {
             view('admin/accounts/admin-accounts.view.php', [
                 'accounts' => $accounts,
                 'students' => $students,
-                'professors' => $professors,
+                'instructors' => $instructors,
                 'encoded_accounts' => $encoded_accounts,
                 'encoded_students' => $encoded_students,
-                'encoded_professors' => $encoded_professors,
+                'encoded_instructors' => $encoded_instructors,
                 'emailExists' => $emailExists,
             ]);
 
@@ -120,10 +120,10 @@ if (isset($_POST['search'])) {
             view('admin/accounts/admin-accounts.view.php', [
                 'accounts' => $accounts,
                 'students' => $students,
-                'professors' => $professors,
+                'instructors' => $instructors,
                 'encoded_accounts' => $encoded_accounts,
                 'encoded_students' => $encoded_students,
-                'encoded_professors' => $encoded_professors,
+                'encoded_instructors' => $encoded_instructors,
                 'emailExists' => $emailExists,
                 'success' => $success,
             ]);

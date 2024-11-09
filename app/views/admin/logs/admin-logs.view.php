@@ -27,7 +27,6 @@
                                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Status</th>
                                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Target Type</th>
                                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Target ID</th>
-                                    <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Details</th>
                                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
                                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">IP Address</th>
                                     <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Device Info</th>
@@ -78,7 +77,6 @@
                                 <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1">${log.status}</td>
                                 <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1">${log.target_type}</td>
                                 <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1">${log.target_id}</td>
-                                <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1">${log.details}</td>
                                 <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1">${log.created_at}</td>
                                 <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1">${log.ip_address}</td>
                                 <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1">${log.user_agent}</td>
@@ -91,7 +89,7 @@
 
 
                     }
-                }  
+                }
             });
         </script>
 </body>

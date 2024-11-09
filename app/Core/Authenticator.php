@@ -21,7 +21,7 @@ class Authenticator
     // Login & Register Attempt
     // l = Login 
     // r = Register
-    public function attempt($school_id, $password, $attempt_type, $email = '')
+    public function attempt($school_id, $password, $attempt_type, $email = '', $name = null)
     {
         // Login
         if ($attempt_type == 'l'){
@@ -43,22 +43,57 @@ class Authenticator
 
                         return 1; // 1 = Redirect to User's Dashboard
                     } else {
+                        // Email not activated Error
+
+                        $this->logger->log(
+                            'LOGIN',
+                            'failed',
+                            'user',
+                            $school_id,
+                            [
+                                'errors' => [
+                                    'email'=> "Email not activated"
+                                ]
+                            ]
+                        );
+
                         return -2; // -2 = Email not activated Error
                     }
                 } else {
+                    // Failed Login (Password didn't match)
+
+                    $this->logger->log(
+                        'LOGIN',
+                        'failed',
+                        'user',
+                        $school_id,
+                        [
+                            'errors' => [
+                                'password'=> "Password is not correct"
+                            ]
+                        ]
+                    );
+
                     return -1; // -1 = Failed Login (Password didn't match)
                 }
             } else {
+                // Failed Login (User doesn't exist)
+                
                 $this->logger->log(
                     'LOGIN',
                     'failed',
                     'user',
-                    $school_id
+                    $school_id,
+                    [
+                        'errors' => [
+                            'id'=> "Account ID doesn't exist"
+                        ]
+                    ]
                 );
                 return -1; // -1 = Failed Login (User doesn't exist)
             }
         // Register
-        } else if ($attempt_type == 'r'){
+        } elseif ($attempt_type == 'r'){
             // Check if user already exists
             $user = $this->db
             ->query('select * from accounts where school_id = :school_id or email = :email', [
@@ -67,18 +102,39 @@ class Authenticator
             ])->find();
 
             if ($user) {
-                return 0; // Show Error: (School ID or Email already used)
-            } else {
+                // Failed Register: (School ID or Email already used)
+
+                // identify user type (student or instructor)
+                $email_parts = explode('@', $email);
+                $domain = array_pop($email_parts);
+                if ($domain === 'student.fatima.edu.ph') {
+                    $usertype = 'student';
+                } elseif ($domain === 'fatima.edu.ph') {
+                    $usertype = 'instructor';
+                }
+
                 $this->logger->log(
                     'REGISTER',
-                    'success',
+                    'failed',
                     'user',
                     $school_id,
                     [
+                        'school_id' => $school_id, 
                         'email' => $email,
-                        'account_type' => $user['account_type']
+                        'name' => $name,
+                        'account_type' => $usertype,
+                        'errors' => [
+                            'exist'=> 'School ID or Email already used'
+                        ]
                     ]
                 );
+
+                return 0; // Show Error: (School ID or Email already used)
+            } else {
+                // SUCCESSFUL REGISTRATION:
+
+                // added to logs in register() function below
+                
                 return 1; // Register to database and Send Email for activation
             }
         }
@@ -92,14 +148,28 @@ class Authenticator
         $activation_token = bin2hex(random_bytes(16));
         $activation_token_hash = hash("sha256", $activation_token);
 
-        // identify user type (student or professor)
+        // identify user type (student or instructor)
         $email_parts = explode('@', $email);
         $domain = array_pop($email_parts);
         if ($domain === 'student.fatima.edu.ph') {
             $usertype = 'student';
         } elseif ($domain === 'fatima.edu.ph') {
-            $usertype = 'professor';
+            $usertype = 'instructor';
         }
+
+        $this->logger->log(
+            'REGISTER',
+            'success',
+            'user',
+            $school_id,
+            [
+                'school_id' => $school_id, 
+                'email' => $email,
+                'f_name' => $fname,
+                'l_name' => $lname,
+                'account_type' => $usertype
+            ]
+        );
 
         // Insert data to Database
         $this->db->query("INSERT INTO accounts(school_id, email, password, l_name, f_name, account_type, account_activation_hash)

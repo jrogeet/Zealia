@@ -59,12 +59,12 @@
                 <h1 class="relative mb-4 text-2xl font-synesemi" >Step: 1</h1>
                 <h1 class="relative pl-4 mb-2 text-lg">Complete the RIASEC test.</h1>
                 <h1 class="relative pl-4 mb-2 text-lg">Start by taking the RIASEC Test to determine your interests and strengths.</h1>
-                <h1 class="relative pl-4 mb-2 text-lg">Once you've finished the test, join the designated room set up by your professor.</h1>
+                <h1 class="relative pl-4 mb-2 text-lg">Once you've finished the test, join the designated room set up by your instructor.</h1>
             </div>
 
             <div class="relative block pl-6 pr-2 w-5/6 font-synemed mx-auto mr-[8%] text-right top-[26rem] max-w-[18rem]" >
                 <h1 class="relative mb-4 text-2xl font-synesemi" >Step: 2</h1>
-                <h1 class="relative pr-4 mb-2 text-lg">After you've entered the room, wait patiently for your professor to generate groups of students based on their RIASEC types.</h1>
+                <h1 class="relative pr-4 mb-2 text-lg">After you've entered the room, wait patiently for your instructor to generate groups of students based on their RIASEC types.</h1>
                 <h1 class="relative pr-4 mb-2 text-lg">This ensures that the groupings are balanced and fair.</h1>
             </div>
 
@@ -89,13 +89,13 @@
                     <span class="text-2xl font-synereg">Start by taking the RIASEC Test to determine your interests and strengths.</span>
                 </div>
                 
-                <span class="text-2xl font-synereg">Once you've finished the test, join the designated room set up by your professor.</span>
+                <span class="text-2xl font-synereg">Once you've finished the test, join the designated room set up by your instructor.</span>
             </div>
 
             <div class="flex flex-col justify-between ml-[41.6rem] h-[17.3125rem] w-[27.0625rem] text-right">
                 <span class="text-4xl font-synebold">Step 2:</span>
 
-                <span class="text-2xl font-synereg">After you've entered the room, wait patiently for your professor to generate groups of students based on their RIASEC types. </span>
+                <span class="text-2xl font-synereg">After you've entered the room, wait patiently for your instructor to generate groups of students based on their RIASEC types. </span>
                 
                 <span class="text-2xl font-synereg">This ensures that the groupings are balanced and fair.</span>
             </div>

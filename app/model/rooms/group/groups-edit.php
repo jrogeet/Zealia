@@ -5,8 +5,10 @@ use Core\Validator;
 
 use Model\Database;
 use Model\App;
+use Model\Logger;
 
 $db = App::resolve(Database::class);
+$logger = new Logger($db);
 
 $currentUser = $_SESSION['user']['school_id'];
 
@@ -38,6 +40,18 @@ if ($room_info['school_id'] == $currentUser) {
             ':groups_json' => $reasons['groups_json'],
         ]);
     }
+
+    $logger->log(
+        'EDIT GROUPS',
+        'success',
+        'room',
+        $currentUser,
+        [
+            'room_id' => $room_id,
+            'groups_json' => $encoded_modGroups,
+            'reasons' => $encoded_reasons,
+        ]
+    );
 
     header("Location: /room?room_id={$room_id}");
     exit();
