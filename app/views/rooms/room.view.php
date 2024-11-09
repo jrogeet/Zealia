@@ -1652,7 +1652,7 @@
         previewLink.target = '_blank';
 
         // Create a dialog to ask user preference
-        const userChoice = confirm('Would you like to:\nOK - Download the PDF\nCancel - Preview in new tab');
+        const userChoice = confirm('Would you like to:\nOK - Download the PDF\nCancel - Preview it first in a new tab');
 
         if (userChoice) {
             // User chose to download
