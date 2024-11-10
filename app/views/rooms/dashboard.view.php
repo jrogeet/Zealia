@@ -645,7 +645,7 @@
                     if (searchTerm) {
                         fetch(`/api/search?search=${searchTerm}`, {
                             method: 'POST',
-                            body: new URLSearchParams('searchInput=' + searchTerm)
+                            body: new URLSearchParams('searchInput=' + searchTerm + '&currentPage=dashboard')
                         })
                         .then(res => res.json())  // Assuming the response is JSON
                         .then(data => {

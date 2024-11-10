@@ -49,30 +49,135 @@ class ApiController
 
     public function search($params)
     {
-        $searchTerm = $params['search'] ?? '';
-        // echo $params['search'];
+        try {
+            $searchTerm = $params['search'] ?? '';
+            $currentPage = isset($params['currentPage']) ? $params['currentPage'] : '';
+            // echo $params['search'];
+    
+            if ($currentPage == "admin_accounts") {
+                // Search in accounts table
+                $query = "SELECT * FROM accounts WHERE 
+                    school_id LIKE :search OR 
+                    f_name LIKE :search OR 
+                    l_name LIKE :search OR 
+                    email LIKE :search";
 
-        $results = $this->db->query('SELECT * FROM rooms WHERE room_name LIKE :searchTerm OR room_code LIKE :searchTerm', [
-            'searchTerm' => '%' . $searchTerm . '%',
-        ])->findAll();
+                $searchParam = "%{$searchTerm}%";
+                $results = $this->db->query($query, ['search' => $searchParam])->findAll();
 
-        foreach ($results as &$result) {
-            $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
-                'school_id'=> $result['school_id'],
-            ])->find();
+                $formattedResults = [
+                    'students' => [],
+                    'instructors' => [],
+                    'all' => []
+                ];
 
-            $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
-            unset($profInfo['f_name']); unset($profInfo['l_name']);
-            if (!empty($profInfo)) {
-                $result = array_merge($result, $profInfo);
+                foreach ($results as $result) {
+                    if ($result['account_type'] === 'admin') {
+                        continue;
+                    } elseif ($result['account_type'] === 'student') {
+                        $formattedResults['students'][] = $result;
+                        $formattedResults['all'][] = $result;
+                    } elseif ($result['account_type'] === 'instructor') {
+                        $formattedResults['instructors'][] = $result;
+                        $formattedResults['all'][] = $result;
+                    }
+                    // Remove sensitive data
+                    unset($result['password']);
+                    unset($result['reset_token_hash']);
+                    unset($result['reset_token_expires_at']);
+                    unset($result['R']);
+                    unset($result['I']);
+                    unset($result['A']);
+                    unset($result['S']);
+                    unset($result['E']);
+                    unset($result['C']);
+                    unset($result['kanban']);
+                }
+
+                $results = $formattedResults;
+
+            } elseif ($currentPage == "admin_rooms") {
+                // Search in rooms table
+                $query = "SELECT * FROM rooms WHERE 
+                    room_id LIKE :search OR 
+                    room_name LIKE :search OR 
+                    room_code LIKE :search OR 
+                    school_id LIKE :search";
+    
+                $searchParam = "%{$searchTerm}%";
+                $results = $this->db->query($query, ['search' => $searchParam])->findAll();
+    
+                // Get instructor names for each room
+                foreach ($results as &$room) {
+                    $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
+                        'school_id'=> $room['school_id'],
+                    ])->find();
+    
+                    if ($profInfo) {
+                        $room['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
+                    }
+                }
+            
+            } elseif ($currentPage == "admin_tickets") {
+                // Search in tickets table
+                $query = "SELECT * FROM ticket WHERE 
+                    ticket_id LIKE :search OR 
+                    category LIKE :search OR 
+                    message LIKE :search OR 
+                    f_name LIKE :search OR 
+                    l_name LIKE :search OR 
+                    school_id LIKE :search OR 
+                    email LIKE :search";
+            
+                $searchParam = "%{$searchTerm}%";
+                $results = $this->db->query($query, ['search' => $searchParam])->findAll();
+            
+                $formattedResults = [
+                    'pending' => [],
+                    'solved' => [],
+                    'unresolved' => []
+                ];
+            
+                foreach ($results as $result) {
+                    if ($result['status'] === "solved") {
+                        $formattedResults['solved'][] = $result;
+                    } elseif ($result['status'] === "unresolved") {
+                        $formattedResults['unresolved'][] = $result;
+                    } elseif ($result['status'] === null) {
+                        $formattedResults['pending'][] = $result;
+                    }
+                }
+            
+                $results = $formattedResults;
+            } elseif ($currentPage === 'dashboard') {
+                $results = $this->db->query('SELECT * FROM rooms WHERE room_name LIKE :searchTerm OR room_code LIKE :searchTerm', [
+                    'searchTerm' => '%' . $searchTerm . '%',
+                ])->findAll();
+        
+                foreach ($results as &$result) {
+                    $profInfo = $this->db->query('SELECT f_name, l_name FROM accounts WHERE school_id = :school_id', [
+                        'school_id'=> $result['school_id'],
+                    ])->find();
+        
+                    $profInfo['prof_name'] = $profInfo['f_name'] . ' ' . $profInfo['l_name'];
+                    unset($profInfo['f_name']); unset($profInfo['l_name']);
+                    if (!empty($profInfo)) {
+                        $result = array_merge($result, $profInfo);
+                    }
+                }
             }
+
+            // echo 'Results:';
+            // dd($results);
+    
+            header('Content-Type: application/json');
+            echo json_encode($results);
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            http_response_code(500);
+            echo json_encode(['error' => 'An error occurred while searching']);
+            exit;
         }
-
-        // echo 'Results:';
-        // dd($results);
-
-        header('Content-Type: application/json');
-        echo json_encode($results);
     }
 
 // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv

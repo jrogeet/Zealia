@@ -11,44 +11,19 @@
                 <button onclick="show('studentsList','table-row-group'); hide('allList'); hide('profsList');" class="mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Students</button>
                 <button onclick="show('instructorsList','table-row-group'); hide('allList'); hide('studentsList');" class="mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Instructors</button>
             </div>
-            <form method="POST" action="/admin-accounts" class="flex mx-auto w-fit">
-                <input name="search_input" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1" required>
-                <input type="hidden" name="search">
-                <input type="hidden" name="encoded_students" value="<?= htmlspecialchars($encoded_students, ENT_QUOTES, 'UTF-8')?>">
-                <input type="hidden" name="encoded_instructors" value="<?= htmlspecialchars($encoded_instructors, ENT_QUOTES, 'UTF-8')?>">
-                <input type="hidden" name="encoded_accounts" value="<?= htmlspecialchars($encoded_accounts, ENT_QUOTES, 'UTF-8')?>">
+            <form id="searchAccountForm" method="POST" action="/admin-accounts" class="flex mx-auto w-fit">
+                <input id="searchInput" oninput="checkSearch();" name="search_input" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1" required>
+                <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1">X</button>
+                <!-- <input type="hidden" name="search"> -->
+
                 <button type="submit" class="mx-auto ml-4 border rounded-lg border-grey2 bg-orange1 w-28 text-black1">Search</button>
             </form>
         </div>
-
-        <!-- <div class="max-h-[31.25rem] min-w-full border border-black rounded-xl overflow-x-hidden overflow-y-hidden">
-            <table class="w-full leading-normal table-fixed rounded-xl">
-                <thead class="min-w-[74.9rem] ">
-                    <tr>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Edit</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">School ID</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Surname</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">First name</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Email</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Results</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Registration Time</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Activation</th>
-                    </tr>
-                </thead> -->
-                    <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                <!-- <tbody class="table-row-group" id="allList"> 
-
-                </tbody>
-
-                <tbody class="hidden" id="studentsList"> 
-
-                </tbody>
-
-                <tbody class="hidden" id="instructorsList"> 
-                    
-                </tbody>
-            </table>
-        </div> -->
+    
+        <div class="hidden" id="searchResultsHead">
+            <h2>Search Results for: <span id="searchTerm"></span></h2>
+        </div>
+        
         <div class="border border-black rounded-xl">
             <div class="relative">
                 <!-- Fixed Header -->
@@ -206,6 +181,7 @@
         // }); 
 
         function displayAccounts(data) {
+            console.log(data);
             if (accountsChecker === null || JSON.stringify(accountsChecker) !== JSON.stringify(data)) {
                 allList.innerHTML = '';
                 studentsList.innerHTML = '';
@@ -235,7 +211,7 @@
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.l_name}</td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.f_name}</td>
                             <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${student.email}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.result == null ?? 'N/A'}</td>
+                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.result == null ? 'N/A': student.result}</td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.reg_date}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${student.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${student.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
                         </tr>
@@ -251,7 +227,7 @@
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.l_name}</td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.f_name}</td>
                             <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${instructor.email}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.result == null ?? 'N/A'}</td>
+                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.result == null ? 'N/A': instructor.result}</td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.reg_date}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${instructor.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${instructor.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
                         </tr>
@@ -263,5 +239,66 @@
             }
         }
         
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const searchForm = document.getElementById('searchAccountForm');
+
+        function checkSearch() {
+            if (searchInput.value !== '') {
+                show('clearSearch');
+            } else {
+                hide('clearSearch');
+            }
+        }
+
+        clearSearch.addEventListener('click', function(event) {
+            event.preventDefault();
+            if (searchInput.value.length > 0) {
+                searchInput.value = '';
+            }
+            hide('clearSearch');
+
+            hide('searchResultsHead');
+            document.getElementById('searchTerm').innerHTML = '';
+
+            fetchLatestData({
+                "table": "accounts",
+                "currentPage": "admin_accounts",
+            }, displayAccounts, 3000);
+        });
+
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (searchInput && searchInput.value !== '') {
+                const searchTerm = searchInput.value.toLowerCase();
+                if (searchTerm) {
+                    fetch(`/api/search?search=${searchTerm}`, {
+                        method: 'POST',
+                        body: new URLSearchParams('searchInput=' + searchTerm + '&currentPage=admin_accounts')
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data) {
+                            clearInterval(intervalID);
+                            displayAccounts(data);
+
+                            show('searchResultsHead');
+                            document.getElementById('searchTerm').innerHTML = searchTerm;
+                        } else {
+                            console.log('no matching accounts found');
+                        }
+                    })
+                    .catch(e => {
+                        console.error('Error: ' + e);
+                    });
+                } else {
+                    fetchLatestData({
+                        "table": "accounts",
+                        "currentPage": "admin_accounts",
+                    }, displayAccounts, 3000);
+                }
+            }
+        });
     </script>
 </body>
