@@ -79,7 +79,7 @@
                     <option class="bg-white2" value="groups">Groups</option>
                     <option class="bg-white2" value="other">Other (specify in text box below)</option>
                 </select>
-                <textarea class="relative w-2/3 p-4 mb-2 text-sm border border-black h-2/6 max-h-2/6 rounded-xl bg-white1" placeholder="Message for concern..." name="message" id="message" required></textarea></br>
+                <textarea class="relative w-2/3 p-4 mb-2 text-sm border border-black form-textarea h-2/6 max-h-2/6 rounded-xl bg-white1" placeholder="Message for concern..." name="message" id="message" required></textarea></br>
 
                 <?php if (hasInternetConnection()): ?>
                 <!-- Show reCAPTCHA when there's internet -->

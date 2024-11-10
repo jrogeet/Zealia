@@ -21,34 +21,6 @@
             </form>
         </div>
 
-        <!-- <div class="max-h-[31.25rem] min-w-full border border-black rounded-xl overflow-x-hidden overflow-y-hidden">
-            <table class="w-full leading-normal table-fixed rounded-xl">
-                <thead class="min-w-[74.9rem] ">
-                    <tr>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Edit</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">School ID</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Surname</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">First name</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Email</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Results</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Registration Time</th>
-                        <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Activation</th>
-                    </tr>
-                </thead> -->
-                    <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                <!-- <tbody class="table-row-group" id="allList"> 
-
-                </tbody>
-
-                <tbody class="hidden" id="studentsList"> 
-
-                </tbody>
-
-                <tbody class="hidden" id="instructorsList"> 
-                    
-                </tbody>
-            </table>
-        </div> -->
         <div class="border border-black rounded-xl">
             <div class="relative">
                 <!-- Fixed Header -->
