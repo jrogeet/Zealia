@@ -25,31 +25,44 @@ module.exports = {
       },
 
       colors: {
-        white1: '#FFF6E9',
-        white2: '#E6DDD2',
-        grey1: '#99948C',
-        grey2: '#807B75',
-        black1: '#2B2D2F',
-        blue3: '#03346E', // (3, 52, 110) IN RGB
-        blue2: '#6EACDA',
-        blue1: '#E2EEF8',
-        orange1: '#DF9F5E', // (223, 159, 94) IN RGB
-        orange2: '#F68614', // (246, 134, 20) in rgb
-        red1: '#B31312',
-        green1: '#0DE830',
+        blackpri: '#1A1A1A',
+        blackhead: '#2D2D2D',
+        blacksec: '#404040',
+        blackless: '#666666',
+        white: '#FFFFFF',
+        whitecon: '#F8F8F8',
+        whitealt: '#F5F5F5',
+        whitebord: '#EEEEEE',
+
+        greenmain: '#A4D867',
+        purplemain: '#D8B0CF',
+        peachmain: '#FFB6C1',
+        yellowmain: '#FFE575',
+        orangemain: '#FF9980',
+        bluemain: '#95C1E1',
+
+        rederr: '#FF6B6B',
+        greensuccess: '#69DB7C',
+        blueinfo: '#4DABF7',
+        greydisabled: '#E9ECEF',
       },
       content: {
         'gen-team': '"generate teams by passion"',
       },
 
       fontFamily: {
-        eurostile: "eurostile",
-        synereg: ['Syne-Reg', 'sans-serif'],
-        synemed: ['Syne-Med', 'sans-serif'],
-        synesemi: ['Syne-semibold', 'sans-serif'],
-        synebold: ['Syne-bold', 'sans-serif'],
-        syneboldextra: ['Syne-Extrabold', 'sans-serif'],
-        
+        ginto: ['ginto', 'sans-serif'],
+
+        clashreg: ['clash-reg', 'sans-serif'],
+        clashmed: ['clash-med', 'sans-serif'],
+        clashbold: ['clash-bold', 'sans-serif'],
+        clashsemibold: ['clash-semibold', 'sans-serif'],
+
+        satoshireg: ['satoshi-reg', 'sans-serif'],
+        satoshimed: ['satoshi-med', 'sans-serif'],
+        satoshilight: ['satoshi-light', 'sans-serif'],
+        satoshiblack: ['satoshi-black', 'sans-serif'],
+
       },
 
       height: {

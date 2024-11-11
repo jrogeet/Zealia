@@ -3,40 +3,55 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'eurostile';
-    src: url('/assets/fonts/Eurostile-Extended-Regular.ttf');
+    font-family: 'ginto';
+    src: url('/assets/fonts/Ginto/Ginto-Nord-Ultra.woff') format('woff');
 }
 
 @font-face {
-    font-family: 'syne-reg';
-    src: url('/assets/fonts/syne/Syne-Regular.ttf') format('truetype');
+    font-family: 'clash-reg';
+    src: url('/assets/fonts/Clash/ClashDisplay-Regular.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: 'syne-med';
-    src: url('/assets/fonts/syne/Syne-Medium.ttf') format('truetype');
+    font-family: 'clash-med';
+    src: url('/assets/fonts/Clash/ClashDisplay-Medium.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: 'syne-semibold';
-    src: url('/assets/fonts/syne/Syne-Bold.ttf') format('truetype');
+    font-family: 'clash-bold';
+    src: url('/assets/fonts/Clash/ClashDisplay-Bold.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: 'syne-bold';
-    src: url('/assets/fonts/syne/Syne-Bold.ttf') format('truetype');
+    font-family: 'clash-semibold';
+    src: url('/assets/fonts/Clash/ClashDisplay-Semibold.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: 'syne-extrabold';
-    src: url('/assets/fonts/syne/Syne-ExtraBold.ttf') format('truetype');
+    font-family: 'satoshi-reg';
+    src: url('/assets/fonts/Satoshi/Satoshi-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'satoshi-med';
+    src: url('/assets/fonts/Satoshi/Satoshi-Medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'satoshi-light';
+    src: url('/assets/fonts/Satoshi/Satoshi-Light.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'satoshi-black';
+    src: url('/assets/fonts/Satoshi/Satoshi-Black.woff2') format('woff2');
 }
 
 
 
 @layer components {
     .bg-glassmorphism {
-        @apply rounded-lg border;
+        @apply border rounded-lg;
         background: rgba(255, 255, 255, 0.3);
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         backdrop-filter: blur( 4px );
