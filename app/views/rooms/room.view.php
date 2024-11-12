@@ -72,7 +72,7 @@
             <div class="max-w-[64rem] flex flex-col truncate ">
                 <span class="mr-1 text-3xl font-synebold text-black1"><?= $room_info['room_name'] ?></span>
                 <span class="mr-1 text-2xl font-synemed text-grey2">Room Code: <?= $room_info['room_code'] ?></span>
-                <span class="mb-2 mr-1 text-xl font-synereg text-grey2">Instructor: <?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></span>
+
             </div>
             
             <!-- gear button for prof -->
@@ -83,7 +83,7 @@
             
             <!-- prof name for student -->
             <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
-                <h1 class="text-3xl font-synebold text-black1"><?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></h1>
+                <h1 class="text-2xl font-synebold text-black1">Instructor: <?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></h1>
             <?php endif; ?>
         </div>
 
