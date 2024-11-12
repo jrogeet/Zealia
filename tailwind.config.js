@@ -21,7 +21,8 @@ module.exports = {
         'back': "url('/assets/images/icons/back.png')",
         'clear': "url('/assets/images/icons/clear.png')",
         'edit': "url('/assets/images/icons/edit.png')",
-        'loading': "url('/assets/images/pacman-loading.gif')"
+        'loading': "url('/assets/images/pacman-loading.gif')",
+        'mesh-yellow': "url('/assets/images/mesh-yellow.png')",
       },
 
       colors: {

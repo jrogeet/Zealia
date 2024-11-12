@@ -9,9 +9,7 @@
 
 <style>
     <?php 
-        
         include base_path('public/assets/css/shared-styles.css');
-
     ?>
 
 </style>

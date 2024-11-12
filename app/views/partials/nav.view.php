@@ -80,7 +80,7 @@
                 </div>
 
             <?php else: ?>
-                <a href="/login" class="bg-greenmain border border-blackpri rounded-lg h-10 w-[6.25rem] flex justify-center items-center">Sign In</a>
+                <a href="/login" class="border border-blackpri rounded-lg h-10 w-[6.25rem] flex justify-center items-center">Sign In</a>
                 <a href="/register" class="bg-greenmain border border-blackpri rounded-lg h-10 w-[6.25rem] flex justify-center items-center"> Sign Up</a>
             <?php endif; ?>
         </div> 

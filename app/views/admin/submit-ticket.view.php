@@ -93,7 +93,7 @@
                     <p class="mb-4 text-sm text-center text-red-600"><?= $errors['recaptcha'] ?></p>
                 <?php endif; ?>
                 
-                <button class="w-2/3 h-10 text-lg text-center border text-blackpri font-satoshimed border-bluemain bg-bluemain rounded-xl" type="submit" name="login">Submit</button>
+                <button class="w-2/3 h-10 text-lg text-center bg-opacity-50 border text-blackpri font-satoshimed border-yellowmain bg-yellowmain rounded-xl" type="submit" name="login">Submit</button>
             </form>
         </div>
 
