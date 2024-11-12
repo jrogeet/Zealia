@@ -1,12 +1,12 @@
 <header class="fixed z-50 content-center block h-20 shadow-md rounded-b-xl bg-glassmorphism-nav" id="navbar">
     <!-- object container -->
-    <div class="flex items-center justify-between mx-auto px-8 h-[4.5rem]  w-[65.8125rem]">
+    <div class="flex items-center justify-between mx-auto pl-8 pr-6 h-[4.5rem]  w-[65.8125rem]">
         <!-- Main NavBar -->
-        <a href="/">
-                <img class="h-12" src="assets/images/zealia-logos/Zealia_Logo_Flat/z-green-border.png" alt="Zealia Logo"/>
-        </a>
 
-        <nav class=" bg-blue-400 items-center w-[26.5rem]">
+        <nav class="flex items-center w-[32.5rem]">
+            <a href="/">
+                <img class="h-12 mr-12" src="assets/images/zealia-logos/Zealia_Logo_Flat/z-green-border.png" alt="Zealia Logo"/>
+            </a>
             <!-- text options -->
             <ul class="flex justify-between w-full text-xl font-satoshimed">
                 <li>
@@ -43,14 +43,14 @@
                         <span class="text-3xl notification-icon">🔔</span>
                         <span id="notificationCount" class="absolute -top-[2px] -right-[2px] bg-red1 text-rederr text-sm font-clashmed rounded-2xl py-[0.05rem] px-2"></span>
                     </button>
-                    <div id="notificationDropdown" class="hidden flex-col absolute right-0 top-full max-h-[25rem] w-[20rem] bg-white1 border border-black1 rounded-lg shadow overflow-hidden">
-                        <div class="flex items-center justify-between px-4 py-6 pr-6 bg-black1 h-14">
-                            <span class="text-2xl font-synemed text-orange1 ">Notifications</span>
+                    <div id="notificationDropdown" class="hidden flex-col absolute -right-26 top-12 max-h-[25rem] w-[18.8rem] bg-white border border-blackpri rounded-lg shadow overflow-hidden">
+                        <div class="flex items-center justify-between h-10 px-4 py-2 pr-6 bg-blackpri">
+                            <span class="text-2xl font-satoshimed text-yellowmain ">Notifications</span>
                             <form action="/notifications" method="POST">
-                                <button class="text-base font-synereg text-white1 hover:text-red1 " name="clear" type="submit">Clear</button>
+                                <button class="text-base text-white font-satoshireg hover:text-rederr " name="clear" type="submit">Clear</button>
                             </form>
                         </div>
-                        <!-- <div class="bg-black1 h-[1px] my-2 w-64"></div> -->
+                        <!-- <div class="bg-blackpri h-[1px] my-2 w-64"></div> -->
                         <ol id="notificationList" class="flex flex-col overflow-y-auto">
 
                         </ol>
@@ -58,18 +58,18 @@
                 </div>
 
                 <div class="relative text-xl ">
-                    <button onclick="toggle('navDropDown')" class="z-50 flex items-center justify-between w-56 h-12 px-4 border rounded-lg bg-greenmain" id="navDDbutton">
-                        <span class="w-4/5 text-left truncate text-white1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
+                    <button onclick="toggle('navDropDown')" class="z-50 flex items-center justify-between w-48 h-10 px-4 border rounded-lg bg-greenmain" id="navDDbutton">
+                        <span class="w-4/5 text-lg text-left truncate text-blackpri"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
                         <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-black"></div>
                     </button>
                     <!-- TEMPO -->
 
-                    <div class="z-40 hidden absolute flex-col justify-evenly bg-whitecon h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 rounded-b-2xl" id="navDropDown">
+                    <div class="z-40 hidden absolute flex-col justify-evenly bg-whitecon h-[6.5rem] w-48 top-[2.375rem] px-2 border-2 rounded-b-2xl" id="navDropDown">
                         <a href="<?php if($_SESSION['user']['account_type'] === 'admin'):?>/admin-settings<?php else: ?>/account<?php endif; ?>">
                             <span class="">Account Settings</span>
                         </a>
 
-                        <div class="w-52 h-[1.5px] bg-black1"></div>
+                        <div class="w-42 h-[1.2px] bg-blackpri"></div>
 
                         <form method="POST" action="/login">
                             <input type="hidden" name="_method" value="DELETE" />
@@ -80,7 +80,7 @@
                 </div>
 
             <?php else: ?>
-                <a href="/login" class="bg-blue3 border border-blackpri rounded-lg h-10 w-[6.25rem] flex justify-center items-center">Sign In</a>
+                <a href="/login" class="bg-greenmain border border-blackpri rounded-lg h-10 w-[6.25rem] flex justify-center items-center">Sign In</a>
                 <a href="/register" class="bg-greenmain border border-blackpri rounded-lg h-10 w-[6.25rem] flex justify-center items-center"> Sign Up</a>
             <?php endif; ?>
         </div> 
@@ -353,8 +353,8 @@ const NotificationManager = {
         try {
             const li = document.createElement('li');
             li.className = isRead 
-                ? 'w-full flex flex-col p-2 bg-white1 unread border-black1 border-t-[2px] text-base ' 
-                : 'w-full flex flex-col p-2 bg-white2 unread border-black1 border-t-[2px] text-base';
+                ? 'w-full flex flex-col p-2 bg-white unread border-blackpri border-t-[2px] text-base ' 
+                : 'w-full flex flex-col p-2 bg-white2 unread border-blackpri border-t-[2px] text-base';
             li.dataset.notificationId = notification.id;
 
             // Safely handle notification type
@@ -373,41 +373,41 @@ const NotificationManager = {
 
             switch (jsonType.type) {
                 case "room_accept":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="w-full h-full font-synemed">Your request to join <span class="font-synebold">${jsonType.room_name}</span> has been accepted.</a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="w-full h-full font-satoshimed">Your request to join <span class="font-satoshiblack">${jsonType.room_name}</span> has been accepted.</a>`;
                     break;
                 case "room_decline":
-                    notifMessage = `<div class="font-synemed">Your request to join <span class="font-synebold">${jsonType.room_name}</span> was declined.</div>`;
+                    notifMessage = `<div class="font-satoshimed">Your request to join <span class="font-satoshiblack">${jsonType.room_name}</span> was declined.</div>`;
                     break;
                 case "room_join":
-                    notifMessage = `<div class="font-synemed"><span class="italic font-synesemi">${jsonType.student_name} </span>requested to join<span class="font-synebold"> ${jsonType.room_name}</span></div>`;
+                    notifMessage = `<div class="font-satoshimed"><span class="italic font-clashmed">${jsonType.student_name} </span>requested to join<span class="font-satoshiblack"> ${jsonType.room_name}</span></div>`;
                     break;
                 case "created_groups":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed">Instructor <span class="italic font-synesemi">${jsonType.prof_name} </span>created groups in room:<span class="font-synebold"> ${jsonType.room_name}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed">Instructor <span class="italic font-clashmed">${jsonType.prof_name} </span>created groups in room:<span class="font-satoshiblack"> ${jsonType.room_name}</span></a>`;
                     break;
                 case "change_student_group":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed"><span class="italic font-synesemi">${jsonType.prof_name}</span> transferred you from group:<span class="italic"> (${jsonType.old_group})</span> into <span class="font-synebold">${jsonType.new_group}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed"><span class="italic font-clashmed">${jsonType.prof_name}</span> transferred you from group:<span class="italic"> (${jsonType.old_group})</span> into <span class="font-satoshiblack">${jsonType.new_group}</span></a>`;
                     break;
                 case "change_student_role":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed"><span class="italic font-synesemi">${jsonType.prof_name}</span> changed your role from:<span class="italic"> (${jsonType.old_role})</span> to <span class="font-synebold">${jsonType.new_role}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed"><span class="italic font-clashmed">${jsonType.prof_name}</span> changed your role from:<span class="italic"> (${jsonType.old_role})</span> to <span class="font-satoshiblack">${jsonType.new_role}</span></a>`;
                     break;
                 case "room_delete":
-                    notifMessage = `<div class="font-synemed">The instructor deleted the room: <span class="font-synebold">${jsonType.room_name}</span></div>`;
+                    notifMessage = `<div class="font-satoshimed">The instructor deleted the room: <span class="font-satoshiblack">${jsonType.room_name}</span></div>`;
                     break;
                 case "room_change":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-synemed"><span class="italic font-synesemi">${jsonType.prof_name}</span> changed room: <span class="italic"> (${jsonType.old_room_name})</span> 's name into <span class="font-synebold">${jsonType.new_room_name}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed"><span class="italic font-clashmed">${jsonType.prof_name}</span> changed room: <span class="italic"> (${jsonType.old_room_name})</span> 's name into <span class="font-satoshiblack">${jsonType.new_room_name}</span></a>`;
                     break;
                 case "student_remove":
-                    notifMessage = `<div class="font-synemed">You were removed from room: <span class="font-synebold">${jsonType.room_name}</span></div>`;
+                    notifMessage = `<div class="font-satoshimed">You were removed from room: <span class="font-satoshiblack">${jsonType.room_name}</span></div>`;
                     break;
                 case "room_invite":
                     notifMessage = `
                     <form action="/notifications" method="POST" class="flex items-center justify-between">
                         <input type="hidden" name="invite" value="${jsonType.room_id}">
                         <input type="hidden" name="notif_id" value="${notification.id}">
-                        <div class="w-4/5 font-synemed">
-                            <span class="italic font-synesemi">${jsonType.prof_name} </span>
+                        <div class="w-4/5 font-satoshimed">
+                            <span class="italic font-clashmed">${jsonType.prof_name} </span>
                         invited you to join 
-                            <span class="truncate font-synebold"> ${jsonType.room_name}</span>
+                            <span class="truncate font-satoshiblack"> ${jsonType.room_name}</span>
                         </div>
 
                         <div class="flex justify-between w-1/5">
@@ -422,7 +422,7 @@ const NotificationManager = {
             
             li.innerHTML = `
                 ${notifMessage}
-                <span class="flex justify-end w-full text-sm font-synemed text-blue3">
+                <span class="flex justify-end w-full text-sm font-satoshimed text-blackless">
                     ${this.formatTimeAgo(new Date(notification.created_at))}
                 </span>
             `;

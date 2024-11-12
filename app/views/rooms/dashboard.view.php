@@ -4,38 +4,39 @@
     <?php view('partials/nav.view.php')?>
 
     <!-- desktop -->
-    <main class="hidden lg:block relative left-1/2 transform -translate-x-1/2 h-[41rem] w-[97%] mb-40 top-32">
+    <!-- <main class="hidden lg:block relative left-1/2 transform -translate-x-1/2 h-[41rem] w-[97%] mb-40 top-32"> -->
+    <main class="min-h-[41rem] flex flex-col justify-between w-[97%]  mt-20">
 
         <!-- title -->
-        <span class="relative block left-[3vw] font-synebold text-5xl text-blackpri">Dashboard</span>
+        <span class="relative block left-[3vw] font-clashsemibold text-5xl text-blackpri">Dashboard</span>
 
         <!-- box -->
-        <div class="block relative left-1/2 transform -translate-x-1/2 h-[43.75rem] w-[97%] min-w-[65rem] border-blackpri border-2 rounded-t-[1.25rem] mt-4">
+        <div class="block relative left-1/2 transform -translate-x-1/2 h-[43.75rem] w-[97%] min-w-[65rem] border-blackpri border-2 rounded-t-[1.25rem] mt-4 overflow-hidden">
             <!-- header -->
             <div class="h-[3.75rem] border-blackpri border-b-2 flex justify-between items-center px-5 overflow-hidden">
                 <!-- search & arrangement -->
                 <div class="flex justify-between gap-4 ">
                     <!-- tiles / table -->
                     <div class="flex justify-between h-[2.25rem] w-[4.875rem]">
-                        <button class="bg-tiles h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg " onClick="show('dashboardTiles'); hide('dashboardTable');"></button>
+                        <button class="bg-tiles h-[2.25rem] w-[2.25rem] border border-blackless rounded-lg " onClick="show('dashboardTiles'); hide('dashboardTable');"></button>
 
-                        <button class="bg-table h-[2.25rem] w-[2.25rem] bordeblock relative transform -translate-x-1/2r border-grey2 rounded-lg ml-2" onClick="show('dashboardTable'); hide('dashboardTiles');"></button>
+                        <button class="bg-table h-[2.25rem] w-[2.25rem] bordeblock relative transform -translate-x-1/2r border-blackless rounded-lg ml-2" onClick="show('dashboardTable'); hide('dashboardTiles');"></button>
                     </div>
 
                     <!-- search -->
-                    <form id="searchRoomForm" method="POST"  class="flex justify-between items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-synemed rounded-lg overflow-hidden">
+                    <form id="searchRoomForm" method="POST"  class="flex justify-between items-center h-[2.25rem] w-[30rem] bg-whitecon border border-blackless text-grey1 font-satoshimed rounded-lg overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
-                        <input id="searchInput" oninput="checkSearch();"  class="w-8/12 h-full pl-2 bg-white2 focus:outline-none" type="text" name="search_input" placeholder="Search Room">
+                        <input id="searchInput" oninput="checkSearch();"  class="w-8/12 h-full pl-2 bg-whitecon focus:outline-none" type="text" name="search_input" placeholder="Search Room">
                         <button id="clearSearch"  class="hidden w-1/12 text-xl text-red1">X</button>
-                        <button type="submit" class="w-3/12 bg-center bg-no-repeat bg-contain border-0 border-l bg-search h-5/6 border-l-grey2"></button>
+                        <button type="submit" class="w-3/12 bg-center bg-no-repeat bg-contain border-0 border-l bg-search h-5/6 border-l-blackless"></button>
                     </form>
 
-                    <button class="h-[2.25rem] px-4 bg-orange1 text-blackpri font-synemed border border-grey2 rounded-lg" onClick="toggle('filters');">Filter</button>
+                    <button class="h-[2.25rem] px-4 bg-orange1 text-blackpri font-satoshimed border border-blackless rounded-lg" onClick="toggle('filters');">Filter</button>
 
-                    <!-- <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button> -->
-                    <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onclick="toggle('rooms-ascending-container'); toggle('rooms-descending-container'); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
-                    <button id="clearFilters" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">Clear Search/Filter</button>
+                    <!-- <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-blackless rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button> -->
+                    <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-blackless rounded-lg" onclick="toggle('rooms-ascending-container'); toggle('rooms-descending-container'); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
+                    <button id="clearFilters" class="mx-auto bg-red1 text-blacksec h-[2.25rem] w-[10rem] rounded-lg font-satoshimed">Clear Search/Filter</button>
                 </div>
 
                 <?php if ($_SESSION['user']['account_type'] === 'student'):?>
@@ -48,7 +49,7 @@
 
                         <input type="hidden" name="join" value="join">
                         
-                        <input class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" type="number" id="room_code" name="room_code" placeholder="Enter room code">
+                        <input class="h-[2.25rem] w-[12.5rem] bg-whitecon border border-blackless font-satoshimed text-grey1 text-base px-4" type="number" id="room_code" name="room_code" placeholder="Enter room code">
 
 
                         <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg"  type="submit">Join</button>
@@ -63,9 +64,9 @@
                         <?php if (isset($errors['room_name'])) : ?>
                             <p class=""><?= $errors['room_name'] ?></p>
                         <?php endif; ?>
-                        <!-- <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter room name" required> -->
+                        <!-- <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-whitecon border border-blackless font-satoshimed text-grey1 text-base px-4" placeholder="Enter room name" required> -->
                         <!-- <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg"  type="submit">Create</button> -->
-                        <button onclick="show('createRoom'); disableScroll();" class="bg-orange1 h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg">Create</button>
+                        <button onclick="show('createRoom'); disableScroll();" class="bg-blackpri text-greenmain h-[2.25rem] w-[6.25rem] font-synesemi rounded-lg">Create</button>
                     <!-- </form> -->
                 <?php endif;?>
             </div>
@@ -73,34 +74,34 @@
             <!-- Filter -->
             <div class="hidden bg-white1 w-full h-[3.75rem] border-blackpri border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="flex w-4/6">
-                <div class="flex items-center h-[2.25rem] w-4/5  bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
-                    <p class="flex text-lg text-grey1 font-synemed">Search by Filter:</p>
+                <div class="flex items-center h-[2.25rem] w-4/5  bg-white1 border border-white font-satoshimed rounded-lg pr-4 overflow-hidden">
+                    <p class="flex text-lg text-grey1 font-satoshimed">Search by Filter:</p>
 
                     <!-- Year -->
-                    <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" id="yrLevel">
-                        <option class="bg-white2" value="">Year Level</option>
-                        <option class="bg-white2" value="1st year">1st Year</option>
-                        <option class="bg-white2" value="2nd year">2nd Year</option>
-                        <option class="bg-white2" value="3rd year">3rd Year</option>
-                        <option class="bg-white2" value="4th year">4th Year</option>
+                    <select class="mx-auto  h-[2.25rem] w-[10rem] rounded-lg pl-2 font-satoshimed" id="yrLevel">
+                        <option class="bg-whitecon" value="">Year Level</option>
+                        <option class="bg-whitecon" value="1st year">1st Year</option>
+                        <option class="bg-whitecon" value="2nd year">2nd Year</option>
+                        <option class="bg-whitecon" value="3rd year">3rd Year</option>
+                        <option class="bg-whitecon" value="4th year">4th Year</option>
                     </select>
 
                     <!-- Section -->
-                    <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" id="section">
-                        <option class="bg-white2" value="">Section</option>
-                        <option class="bg-white2" value="A">A</option>
-                        <option class="bg-white2" value="B">B</option>
-                        <option class="bg-white2" value="C">C</option>
+                    <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-satoshimed" id="section">
+                        <option class="bg-whitecon" value="">Section</option>
+                        <option class="bg-whitecon" value="A">A</option>
+                        <option class="bg-whitecon" value="B">B</option>
+                        <option class="bg-whitecon" value="C">C</option>
                     </select>
 
                     <!-- Program -->
-                    <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-synemed" id="program">
-                        <option class="bg-white2" value="">Program</option>
-                        <option class="bg-white2" value="cs">CS</option>
-                        <option class="bg-white2" value="it">IT</option>
+                    <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-satoshimed" id="program">
+                        <option class="bg-whitecon" value="">Program</option>
+                        <option class="bg-whitecon" value="cs">CS</option>
+                        <option class="bg-whitecon" value="it">IT</option>
                     </select>
 
-                    <!-- <button id="clearFilters" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-synemed">Clear Filters</button> -->
+                    <!-- <button id="clearFilters" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-satoshimed">Clear Filters</button> -->
                 </div>
                 </div>
             </div>
@@ -108,7 +109,7 @@
             <!-- TILES  -->
             <div id="dashboardTiles" class="flex justify-center max-h-[39.8rem] w-full overflow-y-auto overflow-x-hidden">         
                     <div class="flex-col hidden w-full m-4" id="rooms-ascending-container">
-                        <hi class="text-xl font-synebold">Earliest</hi>
+                        <hi class="text-xl font-clashmed">Earliest</hi>
                         <!--  ROOMS  -->
                         <div class="flex flex-wrap content-start gap-9" id="rooms-ascending">
                             <!-- FILLED USING JAVASCRIPT -->
@@ -117,7 +118,7 @@
                     <!-- added div as fix for descending being toggled as block -->
                     <!-- <div class="hidden h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden"> -->
                     <div  class="flex flex-col w-full m-4" id="rooms-descending-container">
-                        <hi class="text-xl font-synebold">Latest</hi>
+                        <hi class="text-xl font-clashmed">Latest</hi>
                         <!--  ROOMS  -->
                         <div class="flex flex-wrap content-start gap-9" id="rooms-descending">
                             <!-- FILLED USING JAVASCRIPT -->
@@ -129,17 +130,17 @@
             <!-- TABLE -->
             <div id="dashboardTable" class="hidden w-full h-full overflow-x-hidden overflow-y-auto scrollbar-thumb-blue-500 scrollbar-thumb-rounded">
                 <table class="max-h-[39.8rem] w-full table-fixed">
-                    <thead class="h-10 text-xl bg-blue3 max-h-10 font-synereg">
+                    <thead class="h-10 text-xl bg-greenmain max-h-10 font-satoshireg">
                         <tr class="">
-                            <th class="border-2 border-blackpri text-white1 w-[29rem]">Room Name</th>
-                            <th class="border-2 border-blackpri text-white1 w-[29rem]">Instructor Name</th>
-                            <th class="border-2 border-blackpri text-white1 w-[29rem]">Room Code</th>
+                            <th class="border-2 border-blackpri text-blacksec w-[29rem]">Room Name</th>
+                            <th class="border-2 border-blackpri text-blacksec w-[29rem]">Instructor Name</th>
+                            <th class="border-2 border-blackpri text-blacksec w-[29rem]">Room Code</th>
                         </tr>
                     </thead>
 
-                    <tbody class="hidden w-full h-40 min-h-40" id="t-rooms-ascending">
+                    <tbody class="hidden w-full min-h-40" id="t-rooms-ascending">
                     </tbody>
-                    <tbody class="w-full h-40 min-h-40" id="t-rooms-descending">
+                    <tbody class="w-full min-h-40" id="t-rooms-descending">
                     </tbody>
                 </table>
            </div>
@@ -151,10 +152,10 @@
     </main>
 
     <div id="createRoom" class="fixed z-50 justify-center hidden w-full h-full bg-glassmorphism">
-        <div class="relative flex flex-col h-64 border rounded-t-lg bg-white2 w-96 border-blackpri top-1/3">
-            <div class="flex items-center justify-between h-12 border rounded-t-lg bg-blue3 border-blackpri">
-                <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Create:</span>
-                <button class="w-1/5 h-full rounded bg-red1" onClick="hide('createRoom'); enableScroll();">X</button>
+        <div class="relative flex flex-col h-64 border rounded-t-lg bg-whitecon w-96 border-blackpri top-1/3">
+            <div class="flex items-center justify-between h-12 border rounded-t-lg bg-blackpri border-blackpri">
+                <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Create:</span>
+                <button class="w-6 h-6 rounded-full bg-rederr" onClick="hide('createRoom'); enableScroll();">X</button>
             </div>
             <form id="createRoomForm" method="POST" class="flex flex-col gap-2 p-2 h-72">
                 <input type="hidden" name="create" value="create">
@@ -163,13 +164,13 @@
                 <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>"> 
 
                 <div class="flex items-center">
-                    <span class="mr-2 text-base font-synemed">Enter Room name:</span>
-                    <input name="room_name" class="h-[1.75rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-2 py-4 mb-2 rounded-lg" placeholder="Enter room name" required>
+                    <span class="mr-2 text-base font-satoshimed">Enter Room name:</span>
+                    <input name="room_name" class="h-[1.75rem] w-[12.5rem] bg-whitecon border border-blackless font-satoshimed text-grey1 text-base px-2 py-4 mb-2 rounded-lg" placeholder="Enter room name" required>
                 </div>
                 
                 <div class="flex items-center">
                     <label>Year Level:</label>
-                    <select name="year_level" class="p-1 ml-2 border rounded-lg border-grey2">
+                    <select name="year_level" class="p-1 ml-2 border rounded-lg border-blackless">
                         <option value="1st year">1st year</option>
                         <option value="2nd year">2nd year</option>
                         <option value="3rd year">3rd year</option>
@@ -179,24 +180,24 @@
 
                 <div class="flex items-center">
                     <label>Program:</label>
-                    <select name="program" class="p-1 ml-2 border rounded-lg border-grey2">
+                    <select name="program" class="p-1 ml-2 border rounded-lg border-blackless">
                         <option value="cs">CS</option>
                         <option value="it">IT</option>
                     </select>
                 </div>
 
-                <!-- <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-synemed text-grey1 text-base px-4" placeholder="Enter section:" required> -->
+                <!-- <input name="section" class="h-[2.25rem] w-[12.5rem] bg-whitecon border border-blackless font-satoshimed text-grey1 text-base px-4" placeholder="Enter section:" required> -->
                 <div class="flex items-center">
                     <label class="mr-1 ">Section:</label>
                     <label for="yearPrefix">Y</label>
-                    <input type="text" id="yearPrefix" maxlength="1" class="p-1 ml-1 border rounded-lg w-14 border-grey2" pattern="[A-Z0-9]" placeholder="A or 1" required>
+                    <input type="text" id="yearPrefix" maxlength="1" class="p-1 ml-1 border rounded-lg w-14 border-blackless" pattern="[A-Z0-9]" placeholder="A or 1" required>
                     <span>-</span>
-                    <input type="text" id="sectionSuffix" maxlength="1" class="p-1 border rounded-lg w-14 border-grey2" pattern="[A-Z0-9]" placeholder="A or 1" required>
+                    <input type="text" id="sectionSuffix" maxlength="1" class="p-1 border rounded-lg w-14 border-blackless" pattern="[A-Z0-9]" placeholder="A or 1" required>
                 </div>
                 
                 <input type="hidden" id="combinedSection" name="section">
 
-                <button type="submit" class="p-1 mt-2 border rounded bg-orange1 text-blackpri border-blackpri hover:bg-blackpri hover:text-orange1">Create Room</button>
+                <button type="submit" class="p-1 mt-2 border rounded bg-greenmain text-blackpri border-blackpri hover:bg-blackpri hover:text-greenmain">Create Room</button>
             </form>
         </div>
     </div>
@@ -205,8 +206,8 @@
     <div class="relative block w-full mt-10 text-center lg:hidden h-fit">
 
         <!-- label -->
-        <div class="flex p-4 bg-gradient-to-t from-white1 to-white2">
-            <h1 class="font-synebold text-[5vw] mx-auto ml-2 mt-1">Dashboard</h1>
+        <div class="flex p-4 bg-gradient-to-t from-white1 to-whitecon">
+            <h1 class="font-clashbold text-[5vw] mx-auto ml-2 mt-1">Dashboard</h1>
             <button class="relative top-1/2 w-1/6 py-1 mt-1 mr-2 bg-blue3 text-white1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="searchButt">Search</button>
 
             <?php if ($_SESSION['user']['account_type'] === 'student'):?>
@@ -225,7 +226,7 @@
         </div>
 
         <!-- search dropdown -->
-        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-white2" id="search">
+        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-whitecon" id="search">
             <input type="hidden" name="search" value="search">
             <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
 
@@ -234,7 +235,7 @@
         </form>
 
         <!-- create/join dropdown -->
-        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-white2" id="jc">
+        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-whitecon" id="jc">
 
             <?php if ($_SESSION['user']['account_type'] === 'student'):?>
 
@@ -269,12 +270,12 @@
         <!-- rooms -->
         <div class="relative flex flex-wrap w-full px-0 py-4 h-fit">
             <?php foreach($ascending_rooms as $rooms) { ?>
-                <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 relative flex flex-wrap mx-auto min-w-[19rem] h-32 w-[48%] rounded-2xl m-2 py-2">
+                <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-whitecon relative flex flex-wrap mx-auto min-w-[19rem] h-32 w-[48%] rounded-2xl m-2 py-2">
                     <div class="w-full">   
-                        <h1 class="text-2xl truncate font-synemed"><?= $rooms['room_name'] ?></h1>
-                        <span class="text-base text-grey2"><?= $rooms['prof_name'] ?></span>
+                        <h1 class="text-2xl truncate font-satoshimed"><?= $rooms['room_name'] ?></h1>
+                        <span class="text-base text-blackless"><?= $rooms['prof_name'] ?></span>
                     </div>
-                    <span class="w-full text-base text-grey2"><?= $rooms['room_code'] ?></span>
+                    <span class="w-full text-base text-blackless"><?= $rooms['room_code'] ?></span>
                 </a>
             <?php } ?>
         </div>  
@@ -364,12 +365,12 @@
                     // Initial fetch and No Room
                     // console.log('no rooms');
                     noRooms.innerHTML = `
-                        <span class="text-4xl font-synebold text-grey2">No room found</span>
+                        <span class="text-4xl font-clashbold text-blackless">No room found</span>
                         
                         <?php if($_SESSION['user']['account_type'] === 'instructor'):?>
-                            <span class="text-xl font-synemed">Create a room by clicking the "<span class="text-orange2">Create Room</span>" button</span>
+                            <span class="text-xl font-satoshimed">Create a room by clicking the "<span class="text-orange2">Create Room</span>" button</span>
                         <?php elseif($_SESSION['user']['account_type'] === 'student'): ?>
-                            <span class="text-xl font-synemed">Join a room by <span class="text-orange2">entering the code</span> above</span>
+                            <span class="text-xl font-satoshimed">Join a room by <span class="text-orange2">entering the code</span> above</span>
                         <?php endif; ?>
                     `;
                 } else if (rooms.length == 0 && filtering == false) {
@@ -391,43 +392,43 @@
                             rooms.forEach(room => {
                                 console.log('room', room.program);
                                 roomsASC.innerHTML += `
-                                    <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                    <a href="/room?room_id=${room.room_id}" class="bg-whitecon flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                         <div>   
-                                            <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
-                                            <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
-                                            <span class="text-base text-grey2">${room.prof_name}</span>
+                                            <h1 class="text-2xl truncate font-satoshimed">${room.room_name}</h1>
+                                            <h1 class="text-base text-blackless">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                            <span class="text-base text-blackless">${room.prof_name}</span>
                                         </div>
-                                        <span class="text-base text-grey2">${room.room_code}</span>
+                                        <span class="text-base text-blackless">${room.room_code}</span>
                                     </a>`;
                                 troomsASC.innerHTML += `
-                                    <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synemed text-2xl px-4 truncate">
+                                    <tr class="h-40 max-h-[10rem] hover:bg-whitecon ">
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshimed text-2xl px-4 truncate">
                                             <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
-                                            <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                            <a href="/room?room_id=${room.room_id}" class="text-base text-blackless">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
                                         </td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshireg text-2xl text-center text-blackless break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshireg text-2xl text-center text-blackless"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
                                     </tr>`;
                             });
                             rooms.slice().reverse().forEach(room => {
                                 roomsDESC.innerHTML += `
-                                    <a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                    <a href="/room?room_id=${room.room_id}" class="bg-whitecon flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                         <div>   
-                                            <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
-                                            <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
-                                            <span class="text-base text-grey2">${room.prof_name}</span>
+                                            <h1 class="text-2xl truncate font-satoshimed">${room.room_name}</h1>
+                                            <h1 class="text-base text-blackless">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                            <span class="text-base text-blackless">${room.prof_name}</span>
                                         </div>
-                                        <span class="text-base text-grey2">${room.room_code}</span>
+                                        <span class="text-base text-blackless">${room.room_code}</span>
                                     </a>`;
                                     
                                 troomsDESC.innerHTML += `
-                                    <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synemed text-2xl px-4 truncate">
+                                    <tr class="h-40 max-h-[10rem] hover:bg-whitecon ">
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshimed text-2xl px-4 truncate">
                                             <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
-                                            <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                            <a href="/room?room_id=${room.room_id}" class="text-base text-blackless">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
                                         </td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshireg text-2xl text-center text-blackless break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshireg text-2xl text-center text-blackless"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
                                     </tr>`;
                             });
                         } else {
@@ -445,22 +446,22 @@
                             let ascHTML = '';
                             let tascHTML = '';
                             rooms.forEach((room) => {
-                                ascHTML += `<a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                ascHTML += `<a href="/room?room_id=${room.room_id}" class="bg-whitecon flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                                 <div>   
-                                                    <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
-                                                    <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
-                                                    <span class="text-base text-grey2">${room.prof_name}</span>
+                                                    <h1 class="text-2xl truncate font-satoshimed">${room.room_name}</h1>
+                                                    <h1 class="text-base text-blackless">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                                    <span class="text-base text-blackless">${room.prof_name}</span>
                                                 </div>
-                                                <span class="text-base text-grey2">${room.room_code}</span>
+                                                <span class="text-base text-blackless">${room.room_code}</span>
                                             </a>`;
                                 tascHTML += `
-                                    <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synemed text-2xl px-4 truncate">
+                                    <tr class="h-40 max-h-[10rem] hover:bg-whitecon ">
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshimed text-2xl px-4 truncate">
                                             <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
-                                            <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                            <a href="/room?room_id=${room.room_id}" class="text-base text-blackless">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
                                         </td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshireg text-2xl text-center text-blackless break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshireg text-2xl text-center text-blackless"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
                                     </tr>
                                 `;
                             });
@@ -470,22 +471,22 @@
                             let descHTML = '';
                             let tdescHTML = '';
                             rooms.slice().reverse().forEach((room) => {
-                                descHTML += `<a href="/room?room_id=${room.room_id}" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                                descHTML += `<a href="/room?room_id=${room.room_id}" class="bg-whitecon flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                                 <div>   
-                                                    <h1 class="text-2xl truncate font-synemed">${room.room_name}</h1>
-                                                    <h1 class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
-                                                    <span class="text-base text-grey2">${room.prof_name}</span>
+                                                    <h1 class="text-2xl truncate font-satoshimed">${room.room_name}</h1>
+                                                    <h1 class="text-base text-blackless">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</h1>
+                                                    <span class="text-base text-blackless">${room.prof_name}</span>
                                                 </div>
-                                                <span class="text-base text-grey2">${room.room_code}</span>
+                                                <span class="text-base text-blackless">${room.room_code}</span>
                                             </a>`;
                                 tdescHTML += `
-                                    <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                        <td class=" h-40 max-w-[29.13rem] border-2 border-blackpri font-synemed text-2xl px-4 truncate">
+                                    <tr class="h-40 max-h-[10rem] hover:bg-whitecon ">
+                                        <td class=" h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshimed text-2xl px-4 truncate">
                                             <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
-                                            <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
+                                            <a href="/room?room_id=${room.room_id}" class="text-base text-blackless">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
                                         </td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshireg text-2xl text-center text-blackless break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-satoshireg text-2xl text-center text-blackless"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
                                     </tr>
                                 `;
                             });
@@ -538,13 +539,13 @@
             function populateSections() {
                 const sections = [...new Set(rooms.map(room => room.section))]; // Extract unique sections
                 
-                sectionDropdown.innerHTML = `<option class="bg-white2" value="">Section</option>`;
+                sectionDropdown.innerHTML = `<option class="bg-whitecon" value="">Section</option>`;
                 
                 sections.forEach(section => {
                     const option = document.createElement('option');
                     option.value = section;
                     option.textContent = section;
-                    option.classList.add('bg-white2');
+                    option.classList.add('bg-whitecon');
                     sectionDropdown.appendChild(option);
                 });
             }
