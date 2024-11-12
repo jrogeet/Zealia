@@ -90,35 +90,35 @@
 
 <script>
 
-    const nav1 = document.getElementById('nav');
-    const nav2 = document.getElementById('navbar');
-    const navDesk = document.getElementById('navbar');
-    const burger = document.getElementById('burgButt');
-    const profile = document.getElementById('profButt');
-    const burgDD = document.getElementById('burgDD');
-    const profDD = document.getElementById('profDD');
+    // const nav1 = document.getElementById('nav');
+    // const nav2 = document.getElementById('navbar');
+    // const navDesk = document.getElementById('navbar');
+    // const burger = document.getElementById('burgButt');
+    // const profile = document.getElementById('profButt');
+    // const burgDD = document.getElementById('burgDD');
+    // const profDD = document.getElementById('profDD');
 
-    const att = document.createAttribute("onresize"); //adds onresize="changeNav()" to the body
-    // Set a value of the class attribute
-    att.value = "changeNav()";
-    // Add the class attribute to the first h1;
-    document.getElementsByTagName("body")[0].setAttributeNode(att);
+    // const att = document.createAttribute("onresize"); //adds onresize="changeNav()" to the body
+    // // Set a value of the class attribute
+    // att.value = "changeNav()";
+    // // Add the class attribute to the first h1;
+    // document.getElementsByTagName("body")[0].setAttributeNode(att);
 
-    function chooseNav() {
-        if (window.innerWidth >= 1024) {
-            window.activeNav = nav2;
-            nav1.classList.add("hidden");
-            nav2.classList.remove("hidden");
-        } else {
-            window.activeNav = nav1;
-            nav2.classList.add("hidden");
-            nav1.classList.remove("hidden");
-        }
-    }
+    // function chooseNav() {
+    //     if (window.innerWidth >= 1024) {
+    //         window.activeNav = nav2;
+    //         nav1.classList.add("hidden");
+    //         nav2.classList.remove("hidden");
+    //     } else {
+    //         window.activeNav = nav1;
+    //         nav2.classList.add("hidden");
+    //         nav1.classList.remove("hidden");
+    //     }
+    // }
 
-    function changeNav() {
-        chooseNav(); // Reuse the same logic
-    }
+    // function changeNav() {
+    //     chooseNav(); // Reuse the same logic
+    // }
 
     // keep track of previous scroll position
     let prevScrollPos = window.scrollY;
@@ -155,35 +155,35 @@
         prevScrollPos = currentScrollPos;
     });
 
-    // Handle zoom and resize events
-    window.addEventListener('resize', function() {
-        chooseNav();
-        // Reset nav visibility on resize
-        if (window.activeNav) {
-            window.activeNav.classList.remove('hidden');
-        }
-    });
+    // // Handle zoom and resize events
+    // window.addEventListener('resize', function() {
+    //     chooseNav();
+    //     // Reset nav visibility on resize
+    //     if (window.activeNav) {
+    //         window.activeNav.classList.remove('hidden');
+    //     }
+    // });
 
-    // Initial setup
-    chooseNav();
+    // // Initial setup
+    // chooseNav();
 
-    burger.addEventListener('click', function() {
-        if (profDD.classList.contains("hidden")){ // closes other (profDD) if its open on burger press
-            burgDD.classList.toggle('hidden');
-        }else{
-            profDD.classList.toggle('hidden');
-            burgDD.classList.toggle('hidden');
-        }
-    });
+    // burger.addEventListener('click', function() {
+    //     if (profDD.classList.contains("hidden")){ // closes other (profDD) if its open on burger press
+    //         burgDD.classList.toggle('hidden');
+    //     }else{
+    //         profDD.classList.toggle('hidden');
+    //         burgDD.classList.toggle('hidden');
+    //     }
+    // });
 
-    profile.addEventListener('click', function() {
-        if (burgDD.classList.contains("hidden")){
-            profDD.classList.toggle('hidden');
-        }else{
-            burgDD.classList.toggle('hidden');
-            profDD.classList.toggle('hidden');
-        }
-    });
+    // profile.addEventListener('click', function() {
+    //     if (burgDD.classList.contains("hidden")){
+    //         profDD.classList.toggle('hidden');
+    //     }else{
+    //         burgDD.classList.toggle('hidden');
+    //         profDD.classList.toggle('hidden');
+    //     }
+    // });
 
 </script>
 

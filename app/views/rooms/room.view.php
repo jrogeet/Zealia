@@ -23,6 +23,35 @@
         <!-- STUDENT VIEW --> 
         <?php if ($_SESSION['user']['account_type'] === 'student'):?>
             <?php if(isset($decodedGroup)): ?>
+
+        <!-- Add task modal -->
+        <div id="taskModal" class="absolute hidden w-screen h-screen -top-20 bg-glassmorphism z-[55]">
+            <div class="relative block text-center left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/3 w-[40%] h-fit bg-white1 border border-grey1 shadow-xl rounded-xl p-2">
+                
+                <div class="flex w-full">                        
+                    <h1 class="block mx-auto mt-2 ml-2 text-xl text-left font-synebold text-grey2">Add Task</h1>
+                    <button onclick="hide('taskModal'),clearModal()" class="pt-1 pr-2 mx-auto mr-2 text-3xl">X</button>
+                </div>
+
+                <!-- TODO: ADD VALUES INTO JSON -->
+                    <div class="flex w-full">                        
+                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl border-b border-black bg-white1 font-synemed" placeholder="Task Name" name="task" id="taskName" required>
+                        <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-synemed" placeholder="Date" name="date" id="taskDate">
+                    </div>
+                    
+                    <div class="flex w-full">                        
+                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base border-b border-black bg-white1 font-synemed text-grey2" placeholder="Description" name="info" id="taskInfo">
+                        <select class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-synemed text-grey2" name="destination" id="taskDestination">
+                            <option class="text-grey2" value="todo">To do</option>
+                            <option class="text-grey2" value="wip">Work in Progress</option>
+                            <option class="text-grey2" value="done">Done</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" onclick="addTask()" class="p-0 px-10 mt-10 mb-4 text-lg rounded-lg bg-green1 text-black1 font-synebold">Add</button>
+
+            </div>
+        </div>
         <!-- Body (Groups & Kanban) -->
          <div class="flex justify-between w-full border-t-2 border-black">
             <!-- Group -->
@@ -60,98 +89,20 @@
                      </div>
                     
                     <div class="flex items-center justify-center  min-h-[8.33%]">
-                        <button class="px-4 border rounded-lg border-purplemain text-blackpri font-clashmed">Print Group</button>
+                        <button onclick="downloadPDF()" class="px-4 border rounded-lg border-purplemain text-blackpri font-clashmed">Print Group</button>
                     </div>
                 </div>
             </div>
             <!-- Kanban -->
             <div id="rightBoxStudent" class="flex justify-between w-9/12 h-auto min-h-[32rem]">
                 <!-- To Do Column -->
-                <div class="bg-whitecon border border-whitebord flex flex-col items-center rounded-xl h-fit w-[21rem] p-5 shrink-0">
-                    <div class="w-full">
-                        <h3 class="text-xl font-clashsemibold">To Do</h3>
-                    </div>
-                    
-                    <div class="w-[19rem] rounded-xl mt-[1.38rem]">
-                        <!-- Each Task -->
-                        <div class="flex flex-col mb-4 bg-orangemain rounded-xl">
-                            <!-- Task Title -->
-                            <div class="h-[2.28rem] p-2 border-b border-black">
-                                <span class="text-base font-satoshimed">Finish Web Design</span>
-                            </div>
 
-                            <!-- Task Description & Date -->
-                            <div class="flex h-[6.78rem]">
-                               <div class="p-2 truncate border-r border-black text-wrap">
-                                    <p class="text-base font-satoshimed text-blackpri">Description blah blah blah this will go to the next line then will ... in the end i forgot what it’s called uh...</p>
-                               </div>
-
-                               <div class="p-2">
-                                    <span class="text-base font-satoshimed text-blackpri">October 21, 2024</span>
-                               </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- In Progress Column -->
-                <div class="bg-whitecon border border-whitebord flex flex-col items-center rounded-xl h-fit w-[21rem] p-5 shrink-0">
-                    <div class="w-full">
-                        <h3 class="text-xl font-clashsemibold">In Progress</h3>
-                    </div>
-                    
-                    <div class="w-[19rem] rounded-xl mt-[1.38rem]">
-                        <!-- Each Task -->
-                        <div class="flex flex-col mb-4 bg-greenmain rounded-xl">
-                            <!-- Task Title -->
-                            <div class="h-[2.28rem] p-2 border-b border-black">
-                                <span class="text-base font-satoshimed">Finish Web Design</span>
-                            </div>
 
-                            <!-- Task Description & Date -->
-                            <div class="flex h-[6.78rem]">
-                               <div class="p-2 truncate border-r border-black text-wrap">
-                                    <p class="text-base font-satoshimed text-blackpri">Description blah blah blah this will go to the next line then will ... in the end i forgot what it’s called uh...</p>
-                               </div>
-
-                               <div class="p-2">
-                                    <span class="text-base font-satoshimed text-blackpri">October 21, 2024</span>
-                               </div>
-                            </div>
-                        </div>
-
-                       
-                    </div>
-                </div>
 
                 <!-- Done Column -->
-                <div class="bg-whitecon border border-whitebord flex flex-col items-center rounded-xl h-fit w-[21rem] p-5 shrink-0">
-                    <div class="w-full">
-                        <h3 class="text-xl font-clashsemibold">Done</h3>
-                    </div>
-                    
-                    <div class="w-[19rem] rounded-xl mt-[1.38rem]">
-                        <!-- Each Task -->
-                        <div class="flex flex-col mb-4 bg-greenmain rounded-xl">
-                            <!-- Task Title -->
-                            <div class="h-[2.28rem] p-2 border-b border-black">
-                                <span class="text-base font-satoshimed">Finish Web Design</span>
-                            </div>
 
-                            <!-- Task Description & Date -->
-                            <div class="flex h-[6.78rem]">
-                               <div class="p-2 truncate border-r border-black text-wrap">
-                                    <p class="text-base font-satoshimed text-blackpri">Description blah blah blah this will go to the next line then will ... in the end i forgot what it’s called uh...</p>
-                               </div>
-
-                               <div class="p-2">
-                                    <span class="text-base font-satoshimed text-blackpri">October 21, 2024</span>
-                               </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
             </div>
         </div>
             <?php else: ?>
@@ -465,40 +416,43 @@
                         const leftBoxStudentHead = document.getElementById('leftBoxStudentHead');
                         const leftBoxStudentMembers = document.getElementById('leftBoxStudentMembers');
                         const rightBoxStudent = document.getElementById('rightBoxStudent');
-                        const kanbanTabs = document.getElementById('kanbanTabs');
+                        // const kanbanTabs = document.getElementById('kanbanTabs');
 
                         leftBoxStudentHead.innerHTML = '';
                         leftBoxStudentMembers.innerHTML = '';
 
                         rightBoxStudent.innerHTML = '';
-                        kanbanTabs.innerHTML = '';
+                        // kanbanTabs.innerHTML = '';
 
                         leftBoxStudentHead.innerHTML = `
                             <h3 class="text-4xl font-clashsemibold ">Group ${groupNum}</h3>
                         `;
 
-                        members.forEach(member => {
+                        members.forEach((member, index) => {
+                            let separatedName = member[0].split(' ');
+                            let lastName = separatedName.pop();
+                            
                             if (member[2] === 'Principal Investigator') {
                                 leftBoxStudentMembers.innerHTML += `
-                                    <div class="flex flex-col w-[96%] py-2 rounded-lg hover:bg-greydisabled hover:cursor-pointer">
+                                    <div onclick="changeKB(${index});" class="flex flex-col w-[96%] py-2 rounded-lg hover:bg-greydisabled hover:cursor-pointer">
                                         <div class="flex items-center">
                                             <img src="assets/images/vectors/shapes/Zealia-Star-Yellow.svg" alt="star" class="h-4 ml-1 mr-1">
                                             <h6 class="text-xs font-satoshireg">${member[2]}</h6>
                                         </div>
 
                                         <div class="flex flex-col w-full px-6">
-                                            <span class="text-xl font-clashbold">Basquiat</span>
-                                            <span class="text-base font-satoshireg">Jean Michael</span>
+                                            <span class="text-xl font-clashbold">${lastName}</span>
+                                            <span class="text-base font-satoshireg">${separatedName.join(' ')}</span>
                                         </div>
                                     </div>
                                 `;
                             } else {
                                 leftBoxStudentMembers.innerHTML += `
-                                    <div class="flex flex-col w-[96%] py-2 rounded-l-lg hover:bg-greydisabled hover:cursor-pointer">
+                                    <div onclick="changeKB(${index});" class="flex flex-col w-[96%] py-2 rounded-l-lg hover:bg-greydisabled hover:cursor-pointer">
                                         <div class="flex flex-col w-full px-6">
                                             <h6 class="text-xs font-satoshireg">System Developer</h6>
-                                            <span class="text-xl font-clashbold">Basquiat</span>
-                                            <span class="text-base font-satoshireg">Jean Michael</span>
+                                            <span class="text-xl font-clashbold">${lastName}</span>
+                                            <span class="text-base font-satoshireg">${separatedName.join(' ')}</span>
                                         </div>
                                     </div>
                                 `;
@@ -520,16 +474,16 @@
                         //     </div>
                         // `;
 
-                        members.forEach((member, index) => {
-                            kanbanTabs.innerHTML += `
-                                <button onclick="changeKB(${index});" 
-                                        id="${member[1]}" 
-                                        class="member ${index === currentKBTab ? 'bg-blue3 text-white1' : 'bg-white1 text-black1'} 
-                                            w-full mx-auto py-4 border-r border-l border-black1">
-                                    ${member[0]}
-                                </button>
-                            `;
-                        });
+                        // members.forEach((member, index) => {
+                        //     kanbanTabs.innerHTML += `
+                        //         <button onclick="changeKB(${index});" 
+                        //                 id="${member[1]}" 
+                        //                 class="member ${index === currentKBTab ? 'bg-blue3 text-white1' : 'bg-white1 text-black1'} 
+                        //                     w-full mx-auto py-4 border-r border-l border-black1">
+                        //             ${member[0]}
+                        //         </button>
+                        //     `;
+                        // });
 
                         // Generate all kanbans
                         let allKanbans = `
@@ -568,28 +522,46 @@
                                     <!-- lanes -->
                                     <div class="relative flex w-full gap-2 p-2 mt-2">
                                         <!-- to do -->
-                                        <div id="${index}todoCont" class="w-1/3 overflow-hidden bg-red-300 border shadow-xl group dropzone border-black1 rounded-xl h-fit min-h-32">
-                                            <h1 class="border-b font-synebold border-black1">To Do List:</h1>
-                                            ${generateTaskList(member[1], member[3], 'todo', room_id)}
+                                        <div id="${index}todoCont" class="dropzone group bg-whitecon border border-whitebord flex flex-col items-center rounded-xl h-fit  min-h-32 w-[21rem] p-5 shrink-0">
+                                            <div class="w-full">
+                                                <h3 class="text-xl font-clashsemibold">To Do</h3>
+                                            </div>
+                                            
+                                            <div class="w-[19rem] rounded-xl mt-[1.38rem]">
+                                                <!-- Each Task -->
+                                                ${generateTaskList(member[1], member[3], 'todo', room_id)}
+                                            </div>
                                         </div>
 
                                         <!-- work in progress -->
-                                        <div id="${index}wipCont" class="w-1/3 overflow-hidden bg-blue-200 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
-                                            <h1 class="border-b font-synebold border-black1">Work in progress:</h1>
-                                            ${generateTaskList(member[1], member[3], 'wip', room_id)}
+                                        <div id="${index}wipCont" class="dropzone bg-whitecon border border-whitebord flex flex-col items-center rounded-xl h-fit min-h-32 w-[21rem] p-5 shrink-0">
+                                            <div class="w-full">
+                                                <h3 class="text-xl font-clashsemibold">In Progress</h3>
+                                            </div>
+                                            
+                                            <div class="w-[19rem] rounded-xl mt-[1.38rem]">
+                                                <!-- Each Task -->
+                                                ${generateTaskList(member[1], member[3], 'wip', room_id)}
+                                            </div>
                                         </div>
 
                                         <!-- done -->
-                                        <div id="${index}doneCont" class="w-1/3 overflow-hidden bg-green-300 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
-                                            <h1 class="border-b font-synebold border-black1">Done:</h1>
-                                            ${generateTaskList(member[1], member[3], 'done', room_id)}
+                                        <div id="${index}doneCont" class="dropzone bg-whitecon border border-whitebord flex flex-col items-center rounded-xl h-fit min-h-32 w-[21rem] p-5 shrink-0">
+                                            <div class="w-full">
+                                                <h3 class="text-xl font-clashsemibold">Done</h3>
+                                            </div>
+                                            
+                                            <div class="w-[19rem] rounded-xl mt-[1.38rem]">
+                                                <!-- Each Task -->
+                                                ${generateTaskList(member[1], member[3], 'done', room_id)}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             `;
                         });
                         // Insert all kanbans after the tabs
-                        rightBoxStudent.innerHTML += kanbanTabs.outerHTML + allKanbans;
+                        rightBoxStudent.innerHTML += allKanbans;
                         attachDragAndDropListeners();
                     <?php endif; ?>
 
@@ -674,14 +646,31 @@
                             // console.log('studentRole', studentRole === 'Principal Investigator');
 
                             console.log('taskData', taskData);
+                            // <div class="block py-2 border-b card h-fit border-black1 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
+                            //         draggable="${canDrag}">
+                            //         <div class="flex p-1 ${canDrag ? 'cursor-grab' : ''} justify-evenly">
+                            //             <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskData[0]}</span>
+                            //             <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskData[2]}</span>
+                            //         </div>
+                            //         <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskData[1]}</span>
+                            //     </div>
                             return `
-                                <div class="block py-2 border-b card h-fit border-black1 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
-                                    draggable="${canDrag}">
-                                    <div class="flex p-1 ${canDrag ? 'cursor-grab' : ''} justify-evenly">
-                                        <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskData[0]}</span>
-                                        <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskData[2]}</span>
+                                <div class="flex flex-col mb-4 card bg-orangemain rounded-xl  ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" draggable="${canDrag}">
+                                    <!-- Task Title -->
+                                    <div class="${canDrag ? 'cursor-grab' : ''} h-[2.28rem] p-2 border-b border-black">
+                                        <span class="text-base font-satoshireg">${taskData[0]}</span>
                                     </div>
-                                    <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskData[1]}</span>
+
+                                    <!-- Task Description & Date -->
+                                    <div class="${canDrag ? 'cursor-grab' : ''} flex h-[6.78rem]">
+                                        <div class="w-9/12 p-2 truncate border-r border-black text-wrap">
+                                            <p class="text-base font-satoshilight text-blackpri">${taskData[1]}</p>
+                                        </div>
+
+                                        <div class="flex flex-col justify-end w-3/12 p-2 text-wrap">
+                                            <span class="text-base font-satoshimed text-blackpri">${taskData[2]}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             `;
                         }).join('');
@@ -711,9 +700,9 @@
                             if (!curTask) return;
 
                             // Get task data
-                            const taskName = curTask.querySelector('.font-synebold').textContent;
-                            const taskDate = curTask.querySelector('.font-synemed').textContent;
-                            const taskInfo = curTask.querySelector('.font-synereg').textContent;
+                            const taskName = curTask.querySelector('.font-satoshireg').textContent;
+                            const taskDate = curTask.querySelector('.font-satoshimed').textContent;
+                            const taskInfo = curTask.querySelector('.font-satoshilight').textContent;
 
                             // Process deletion
                             processUpdateKanban('delete', [taskName, taskInfo, taskDate], 'delete')
@@ -793,9 +782,9 @@
                                 console.log(newDestination);
                                 
                                 // Get task data from the DOM element
-                                const taskName = curTask.querySelector('.font-synebold').textContent;
-                                const taskDate = curTask.querySelector('.font-synemed').textContent;
-                                const taskInfo = curTask.querySelector('.font-synereg').textContent;
+                                const taskName = curTask.querySelector('.font-satoshireg').textContent;
+                                const taskDate = curTask.querySelector('.font-satoshimed').textContent;
+                                const taskInfo = curTask.querySelector('.font-satoshilight').textContent;
 
                                 console.log(taskName, taskDate, taskInfo);
 
@@ -1102,7 +1091,7 @@
                     const canDrag = studentRole === 'Principal Investigator' || members[currentKB][1] === currentUserId;
 
                     newCard.setAttribute('draggable', canDrag);
-                    newCard.classList.add('block', 'py-2', 'border-b', 'card', 'border-black1');
+                    newCard.classList.add('flex', 'flex-col', 'mb-4', 'card', 'bg-orangemain', 'rounded-xl');
                     if (canDrag) {
                         newCard.classList.add('cursor-grab');
                     } else {
@@ -1115,12 +1104,27 @@
                         newCard.classList.add(...classes);
                     }
 
+                    // <div class="flex p-1 cursor-grab justify-evenly">
+                    //         <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskName}</span>
+                    //         <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskDate}</span>
+                    //     </div>
+                    //     <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskInfo}</span>
                     newCard.innerHTML = `
-                        <div class="flex p-1 cursor-grab justify-evenly">
-                            <span class="px-4 mx-auto ml-1 text-base text-left border-b font-synebold border-grey2 text-black1 text-wrap">${taskName}</span>
-                            <span class="pl-1 mx-auto mr-2 text-sm font-synemed text-black1 text-wrap">${taskDate}</span>
+                        <!-- Task Title -->
+                        <div class="${canDrag ? 'cursor-grab' : ''} h-[2.28rem] p-2 border-b border-black">
+                            <span class="text-base font-satoshireg">${taskName}</span>
                         </div>
-                        <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskInfo}</span>
+
+                        <!-- Task Description & Date -->
+                        <div class="${canDrag ? 'cursor-grab' : ''} flex h-[6.78rem]">
+                            <div class="w-9/12 p-2 truncate border-r border-black text-wrap">
+                                <p class="text-base font-satoshilight text-blackpri">${taskInfo}</p>
+                            </div>
+
+                            <div class="flex flex-col justify-end w-3/12 p-2 text-wrap">
+                                <span class="text-base font-satoshimed text-blackpri">${taskDate}</span>
+                            </div>
+                        </div>
                     `;
 
                     container.appendChild(newCard);
