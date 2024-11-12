@@ -14,7 +14,7 @@ if ($_SESSION['user']['account_type'] === 'student') {
     ])->find();
 
     $valid = $stuIsMember;
-} elseif ($_SESSION['user']['account_type'] === 'professor') {
+} elseif ($_SESSION['user']['account_type'] === 'instructor') {
     $roomIsProfs = $db->query('select * from rooms where room_id = :room_id and school_id = :prof_id', [
         ':room_id'=>$_GET['room_id'],
         ':prof_id'=>$currentUser,
@@ -24,7 +24,7 @@ if ($_SESSION['user']['account_type'] === 'student') {
 
 
 if ($valid) {
-        // Room Infos: Room Name, Professor ID, Room Code
+        // Room Infos: Room Name, Instructor ID, Room Code
         // room_name, school_id, room_code
 
 // School ID of All Room Members
@@ -171,7 +171,7 @@ if ($valid) {
             'encodedstu_info' => $encodedstu_info,
             'room_info' => $room_info, // room details from rooms table
             'encodedRoomInfo' => $encodedRoomInfo,
-            'prof_name' => $prof_name, // professor name
+            'prof_name' => $prof_name, // instructor name
             'stu_id'=> $stu_id, // all students id in the room from room_list table
             'requests'=>$requests, // all join requests from join_room_requests table
             'idNRiasec' => $idNRiasec, // all students id and RIASEC type

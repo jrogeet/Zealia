@@ -1,7 +1,7 @@
 <?php
 // CONTROLLER FILE
 
-// PROFESSOR'S DASHBOARD
+// INSTRUCTOR'S DASHBOARD
 
 use Model\Database;
 use Model\App;
@@ -27,7 +27,7 @@ $stuRooms = $db->query('select * from room_list where school_id = :id', [
 // storing the room infos 
 $room_info = [];
 
-if ($_SESSION['user']['account_type'] === 'professor') {
+if ($_SESSION['user']['account_type'] === 'instructor') {
     foreach ($profRooms as $room) {
         $room_info[] = $db->query('select * from rooms where room_id = :room_id', [
             ':room_id'=>$room['room_id'],

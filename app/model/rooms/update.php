@@ -2,9 +2,11 @@
 
 use Model\Database;
 use Model\App;
+use Model\Logger;
 use Core\Validator;
 
 $db = App::resolve(Database::class);
+$logger = new Logger($db);
 
 $currentUser = $_SESSION['user']['school_id'];
 
@@ -38,18 +40,18 @@ if (isset($_POST['edit'])) {
         'room_id' => $room_id
     ]);
     
-} //elseif (isset($_POST['grouped'])) {
-
-//     $decodedGroups = json_decode($_POST['genGroups'], true);
-
-//     $genGroups = json_encode($decodedGroups);
-
-//     $db->query('INSERT INTO room_groups(room_id, groups_json) VALUES (:id, :groups)', [
-//         ':id'=> $room_id,
-//         ':groups'=> $genGroups
-//     ]);
-// }
-
+    $logger->log(
+        'EDIT ROOM NAME',
+        'success',
+        'room',
+        $currentUser,
+        [
+            'room_id' => $room_id,
+            'old_name' => $room['room_name'],
+            'new_name' => $_POST['room_name'],
+        ]
+    );
+}
 // redirect the user
 header("Location: /room?room_id={$room_id}");
 exit();

@@ -4,8 +4,10 @@ use Core\Validator;
 
 use Model\Database;
 use Model\App;
+use Model\Logger;
 
 $db = App::resolve(Database::class);
+$logger = new Logger($db);
 
 $id = $_POST['id'];
 
@@ -23,6 +25,18 @@ if (isset($_POST['edit'])) {
             ':f_name' => $f_name,
             ':id' => $id,
         ]);
+
+        $logger->log(
+            'ADMIN: EDIT ACCOUNT FIRST NAME',
+            'success',
+            'user',
+            $id,
+            [
+                'school_id' => $id,
+                'new_f_name' => $f_name,
+                'old_f_name' => $decoded_allUserInfo['f_name'],
+            ]
+        );
     } 
 
     if (! empty($l_name)) {
@@ -30,6 +44,18 @@ if (isset($_POST['edit'])) {
             ':l_name' => $l_name,
             ':id' => $id,
         ]);
+
+        $logger->log(
+            'ADMIN: EDIT ACCOUNT LAST NAME',
+            'success',
+            'user',
+            $id,
+            [
+                'school_id' => $id,
+                'new_l_name' => $l_name,
+                'old_l_name' => $decoded_allUserInfo['l_name'],
+            ]
+        );
     } 
 
     if (! empty($school_id)) {
@@ -37,6 +63,18 @@ if (isset($_POST['edit'])) {
             ':school_id' => $school_id,
             ':id' => $id,
         ]);
+
+        $logger->log(
+            'ADMIN: EDIT ACCOUNT SCHOOL ID',
+            'success',
+            'user',
+            $id,
+            [
+                'school_id' => $id,
+                'new_school_id' => $school_id,
+                'old_school_id' => $decoded_allUserInfo['school_id'],
+            ]
+        );
     } 
 
     if (! empty($email)) {
@@ -44,6 +82,18 @@ if (isset($_POST['edit'])) {
             ':email' => $email,
             ':id' => $id,
         ]);
+
+        $logger->log(
+            'ADMIN: EDIT ACCOUNT EMAIL',
+            'success',
+            'user',
+            $id,
+            [
+                'school_id' => $id,
+                'new_email' => $email,
+                'old_email' => $decoded_allUserInfo['email'],
+            ]
+        );
     }
 
     if (! empty($password)) {
@@ -52,8 +102,16 @@ if (isset($_POST['edit'])) {
                 ':password' => password_hash($password, PASSWORD_DEFAULT),
                 ':id' => $id,
             ]);
-        } else {
 
+            $logger->log(
+                'ADMIN: EDIT ACCOUNT PASSWORD',
+                'success',
+                'user',
+                $id,
+                [
+                    'school_id' => $id,
+                ]
+            );
         }
     }
 
@@ -73,6 +131,13 @@ if (isset($_POST['edit'])) {
     $db->query('delete from accounts where school_id = :id', [
         ':id' => $id,
     ]);
+
+    $logger->log(
+        'ADMIN: DELETE ACCOUNT',
+        'success',
+        'user',
+        $id,
+    );
 
     header("Location: /admin-accounts");
     exit();

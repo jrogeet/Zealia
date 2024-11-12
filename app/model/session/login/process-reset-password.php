@@ -2,9 +2,11 @@
 
 use Model\App;
 use Model\Database;
+use Model\Logger;
 use Core\Validator;
 
 $db = App::resolve(Database::class);
+$logger = new Logger($db);
 
 $token = $_POST["token"];
 $password = $_POST["password"];
@@ -61,6 +63,13 @@ $db->query("UPDATE accounts SET password = :pass
     ":reset_hash" => $token_hash
 ]);
 
+$logger->log(
+    'PASSWORD RESET',
+    'success',
+    'user',
+    $account['school_id'],
+);
+
 $mail = require base_path('app/model/mailer.php');
 
 $mail->setFrom('ambitionxmbti@gmail.com', 'AMBITION');
@@ -82,6 +91,5 @@ try {
     echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
 }
 
-view("session/login/login.view.php", [
-    "loginmessage" => "Your password has been changed successfully!"
-]);
+header("Location: /login");
+exit();

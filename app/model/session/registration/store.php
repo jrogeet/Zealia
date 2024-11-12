@@ -18,12 +18,14 @@ $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
 $form = new RegisterForm;
 
+$name  = "{$fname} ' ' {$lname}";
+
 // validate form inputs
 
 if ($form->validate($school_id, $email, $fname, $lname, $password, $confirm_password, $recaptchaResponse))
 {
     $auth = new Authenticator();
-    switch ($auth->attempt($school_id, $password, 'r', $email))
+    switch ($auth->attempt($school_id, $password, 'r', $email, $name))
     {
         case 0:
             $form->error('regexist', 'School ID or Email already used in an account. <br>Please try to login');

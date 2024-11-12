@@ -12,7 +12,7 @@
         //         $bool = false;
         //         foreach ($group as $member) {
         //             $container[] = $member;
-        //             if ($_SESSION['user']['account_type'] == 'professor') {
+        //             if ($_SESSION['user']['account_type'] == 'instructor') {
         //                 $members[$index + 1] = $group;
         //             } elseif ($member[1] === $_SESSION['user']['school_id'])  {
         //                 $bool = true;
@@ -76,7 +76,7 @@
             </div>
             
             <!-- gear button for prof -->
-            <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
+            <?php if ($_SESSION['user']['account_type'] === 'instructor'):?>
                 <button class="flex items-center justify-center w-10 h-10 mr-2 border rounded border-black1" onClick="show('changeRoomNameInput'); hide('roomName');">
                     <img class="w-8 h-8" src="assets/images/icons/settings.png">
                 </button>
@@ -88,7 +88,7 @@
         </div>
 
         <!-- FOR PROF -->
-        <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
+        <?php if ($_SESSION['user']['account_type'] === 'instructor'):?>
             <!-- HEADER.Change room name menu -->
             <div id="changeRoomNameInput" class="relative items-center justify-between hidden w-10/12 mt-10 transform -translate-x-1/2 left-1/2 h-fit">
                 <div class="flex items-center w-fit justify-evenly ">
@@ -261,7 +261,7 @@
             const studentCount = document.getElementById('studentCount');
 
 
-            <?php if ($_SESSION['user']['account_type'] === 'professor'): ?>
+            <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
                 fetchLatestData({
                     "table1": "room_list",
                     "table2": "join_room_requests",
@@ -333,7 +333,7 @@
                         // console.log('member', member);
                         // console.log('my school id', '<?= $_SESSION['user']['school_id'] ?>');
                         container.push(member);
-                        if (<?= $_SESSION['user']['account_type'] === 'professor' ? 'true' : 'false' ?>) {
+                        if (<?= $_SESSION['user']['account_type'] === 'instructor' ? 'true' : 'false' ?>) {
                             members[index + 1] = group;
                         } else if (member[1] === '<?= $_SESSION['user']['school_id'] ?>') {
                             // console.log('you r a member', member);
@@ -356,7 +356,7 @@
                 // console.log('members', members);
 
                 // Checking whether members warning should be shown
-                <?php if ($_SESSION['user']['account_type'] === 'professor'): ?>
+                <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
 
                     parsedGroupsList.forEach(group => {
                         membersCounter += group.length;
@@ -384,7 +384,7 @@
                     // console.log('parsedGroupsList', parsedGroupsList);
                     groupChecker = parsedGroupsList;
 
-                    <?php if ($_SESSION['user']['account_type'] === 'professor'): ?>
+                    <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
                         const rightBox = document.getElementById('rightBox');
                         rightBox.innerHTML = '';
 
@@ -801,7 +801,7 @@
 
                 if (<?= $_SESSION['user']['account_type'] === 'student' ? 'true' : 'false' ?>) {
                     // console.log('student');
-                } else if (<?= $_SESSION['user']['account_type'] === 'professor' ? 'true' : 'false' ?>) {
+                } else if (<?= $_SESSION['user']['account_type'] === 'instructor' ? 'true' : 'false' ?>) {
                     // console.log('student_has_result', student_has_result);
                     rightBox.innerHTML = `
                         <div id="profNoGroups" class="flex flex-col items-center">
@@ -1469,8 +1469,9 @@
         const instructorName = "<?php echo $prof_name['f_name'] . ' ' . $prof_name['l_name']; ?>";
         const timestamp = new Date().toLocaleString(); // Get current timestamp
         const roomCode = "<?php echo $room_info['room_code']; ?>";
+        const isStudent = <?php echo $_SESSION['user']['account_type'] === 'student' ? 'true' : 'false'; ?>;
 
-        <?php if ($_SESSION['user']['account_type'] === 'student'): ?>
+        if (isStudent) {
             // Student view
             let groupMembers = members;
             console.log('groupMembers', groupMembers);
@@ -1543,9 +1544,10 @@
             doc.text(`Instructor: ${instructorName}`, 20, doc.internal.pageSize.height - 20);
             doc.text(`Generated on: ${timestamp}`, 20, doc.internal.pageSize.height - 10);
 
-            doc.save(`${roomCode}-group-${groupNum}.pdf`);
-        <?php else: ?>
-            // Professor view
+            // doc.save(`${roomCode}-group-${groupNum}.pdf`);
+
+        } else {
+            // instructor view
             <?php
             $cleanGroupInfo = [];
             if (isset($decodedGroup[0])) {
@@ -1631,8 +1633,40 @@
                 doc.text(`Generated on: ${timestamp}`, 20, doc.internal.pageSize.height - 10);
             });
 
-            doc.save(`all_groups_info-${roomCode}.pdf`);
-        <?php endif; ?>
+            // doc.save(`all_groups_info-${roomCode}.pdf`);
+        }
+
+        const pdfBlob = doc.output('blob', { type: 'application/pdf' });
+        const filename = isStudent ? 
+            `${roomName}-group-${groupNum}.pdf` : 
+            `all_groups_info-${roomName}.pdf`;
+
+        // Create a download link
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(pdfBlob);
+        downloadLink.download = filename;
+
+        // Create a preview link
+        const previewLink = document.createElement('a');
+        previewLink.href = URL.createObjectURL(pdfBlob);
+        previewLink.target = '_blank';
+
+        // Create a dialog to ask user preference
+        const userChoice = confirm('Would you like to:\nOK - Download the PDF\nCancel - Preview it first in a new tab');
+
+        if (userChoice) {
+            // User chose to download
+            downloadLink.click();
+        } else {
+            // User chose to preview
+            previewLink.click();
+        }
+
+        // Clean up the Blob URLs after a delay
+        setTimeout(() => {
+            URL.revokeObjectURL(downloadLink.href);
+            URL.revokeObjectURL(previewLink.href);
+        }, 1000);
     }
     </script>
 </body>
