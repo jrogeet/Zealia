@@ -1,10 +1,10 @@
 <!-- mobile/desktop footer -->
-<footer class="relative left-0 top-[100%] mt-10 transform translate-y-full bg-blue3 items-center h-auto w-[100vw] py-4 bottom-0">
-    <div class="h-fit w-[100%] flex flex-col justify-between px-10">
+<footer class="flex justify-center mt-10 border-t border-blackpri bg-whitecon items-center h-[33.75rem] w-screen">
+    <div class="flex flex-col justify-between max-w-[96rem] px-10 h-full">
         <div class="flex justify-between mb-12">
             <ul class="flex flex-col font-synereg text-[5vw]  xl:text-4xl text-blue2">
                 <li class="inline-block">
-                    <a href="/" class="">Home</a>
+                    <a href="/" class="font-satoshimed">Home</a>
                 </li>
                 
                 <li class="inline-block">
@@ -16,19 +16,17 @@
                         }
                     } else {
                         echo '/login';
-                    } ?>" class="">Dashboard</a>
+                    } ?>" class="font-satoshimed">Dashboard</a>
                 </li>
 
                 <li class="inline-block">
-                    <a href="/about" class="">About</a>
+                    <a href="/about" class="font-satoshimed">About</a>
                 </li>
 
             </ul>
-            <a class="font-synebold text-[5vw] xl:text-4xl text-white1" href="/submit-ticket">Submit a Ticket</a>
+            <a class="font-satoshimed text-[5vw] xl:text-4xl text-white1" href="/submit-ticket">Submit a Ticket</a>
         </div>
 
-        <div class="relative flex left-1/2 tranform -translate-x-1/2 w-fit">
-            <img class="mx-auto h-auto w-[95%]" src="assets/images/zealia-logos/full/white.png">
-        </div>
+        <img class="" src="assets/images/zealia-logos/Zealia_Logo_Flat/z-green-with-text.png" alt="zealia logo">
     </div>
 </footer>

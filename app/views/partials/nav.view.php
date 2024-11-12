@@ -1,87 +1,20 @@
-<!-- mobile nav -->
-<header class="fixed flex z-50 bg-white1 w-full min-w-[320px] top-0 min-h-10 font-synemed" id="nav">
-    <a class="p-2 mx-auto ml-2" id="burgButt"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
-    <a href="/" class="p-2 mx-auto"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
-    <a class="p-2 mx-auto mr-2" id="profButt">tao</a>
-
-    <!-- burger dropdown -->
-    <ul id="burgDD" class="fixed z-50 hidden block w-full h-full text-center bg-gradient-to-b from-white1 to-grey1 font-synemed top-10">
-    
-        <div class="relative w-full mt-10 h-fit top-10">
-            <a href="/" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-synebold text-black1 h-fit">Home</li></a>
-            
-            <a href="<?php if (isset($_SESSION['user'])) {
-                if ($_SESSION['user']['account_type'] == 'admin') {
-                    echo '/admin';
-                } else {
-                    echo '/dashboard';
-                }
-            } else {
-                echo '/login';
-            } ?>" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-synebold text-black1 h-fit">Dashboard</li></a>
-            <a href="/about" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-synebold text-black1 h-fit">About</li></a>
-            <a href="/submit-ticket" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-synebold text-black1 h-fit">Contact</li></a>
-        </div>
-
-        
-        
-    </ul>
-
-    <!-- profile dropdown -->
-    <ul id="profDD" class="fixed z-50 hidden block w-full h-full bg-gradient-to-b from-white1 to-grey1 font-synemed top-10">
-
-        <div class="relative block pt-24 transform -translate-y-1/2 top-1/3">
-            <?php if ($_SESSION['user'] ?? false) : ?>
-                <div class="w-full p-4 py-6 text-left h-fit">
-                    <h1 class="px-2 text-3xl font-synebold text-black1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></h1>
-                    <h1 class="px-2 mb-6 text-2xl tracking-wider font-synebold text-grey2"><?= "{$_SESSION['user']['school_id']}" ?></h1>
-                    
-                    <?php if ($_SESSION['user']['result'] ?? true ):?>
-                        <div class="flex h-12">
-                            <h1 class="relative top-0 px-0 py-4 mx-auto mr-0 text-xl text-center font-synemed text-grey2">RESULTS:</h1>
-                            <h1 class="relative top-0 px-0 py-2 mx-auto ml-0 text-3xl text-center font-synebold text-black1"><?= "{$_SESSION['user']['result']}" ?></h1>
-                        </div>
-                    <?php else:?>
-                        <h1 class="text-2xl tracking-wide text-center font-synemed text-grey2">take test to see result</h1>
-                        
-                    <?php endif;?>
-
-                    <a href="/account"><h1 class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-blue3 text-white1 md:text-lg md:w-1/2">Account Settings</h1></a>
-
-                    <form method="POST" action="/login">
-                        <input type="hidden" name="_method" value="DELETE" />
-                        <button class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-red1 text-white1 md:text-lg md:w-1/2">Log Out</button>
-                    </form>
-                </div>
-                
-
-            <?php else: ?>
-                <a href="/login"><h1 class="relative w-3/4 p-2 py-4 mt-32 text-sm tracking-tight text-center transform -translate-x-1/2 border rounded-sm font-synebold left-1/2 text-black1 bg-blue3 text-white1 rounded-xl border-blue3 md:text-lg md:w-1/2">Sign in</h1></a>
-
-                <a href="/register"><h1 class="relative w-3/4 p-2 py-4 mt-6 text-sm tracking-tight text-center transform -translate-x-1/2 border rounded-sm font-synebold left-1/2 text-black1 bg-orange1 rounded-xl border-orange1 md:text-lg md:w-1/2">Sign up</h1></a>
-            <?php endif; ?>
-        </div> 
-        
-    </ul>
-</header>
-
 <!-- desktop nav -->
-<header class="fixed top-0 z-50 content-center block w-full h-20 shadow-md bg-white1" id="navbar">
+<header class="z-50 content-center block h-20 shadow-md rounded-b-xl bg-white1" id="navbar">
     <!-- object container -->
-    <div class="flex h-fit w-full justify-between font-synesemi text-xl text-black1 mx-auto px-[1rem]">
+    <div class="flex items-center justify-between mx-auto px-8 h-[4.5rem]  w-[65.8125rem]">
         <!-- Main NavBar -->
-        <nav class="relative flex w-1/2 h-14 gap-14 ">
-            <a href="/">
-                <img class="w-0 h-0 max-h-14 max-w-14 sm:w-14 sm:h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png" alt="Zealia Logo"/>
-            </a>
+        <a href="/">
+                <img class="h-12" src="assets/images/zealia-logos/Zealia_Logo_Flat/z-green-border.png" alt="Zealia Logo"/>
+        </a>
 
+        <nav class=" bg-blue-400 items-center w-[26.5rem]">
             <!-- text options -->
-            <ul class="relative flex w-2/3 my-auto">
-                <li class="mx-auto">
+            <ul class="flex justify-between w-full text-xl font-satoshimed">
+                <li>
                     <a href="/" class="p-2">Home</a>
                 </li>
                 
-                <li class="mx-auto">
+                <li>
                     <a href="<?php if (isset($_SESSION['user'])) {
                         if ($_SESSION['user']['account_type'] == 'admin') {
                             echo '/admin';
@@ -93,17 +26,17 @@
                     } ?>" class="p-2">Dashboard</a>
                 </li>
 
-                <li class="mx-auto">
+                <li>
                     <a href="/about" class="p-2">About</a>
                 </li>
-                <li class="mx-auto">
+                <li>
                     <a href="/submit-ticket" class="p-2">Contact</a>
                 </li>
             </ul>
         </nav>
 
         <!-- LOGIN & SIGNUP Part -->
-        <div class="relative flex gap-[1.44rem] items-center">
+        <div class="w-[13.5rem] flex justify-between items-center text-blackpri font-clashmed">
             <?php if ($_SESSION['user'] ?? false) : ?>
                 <!-- NOTIFICATIONS -->
                 <div id="notifContainer" class="relative inline-block">
@@ -145,32 +78,11 @@
                         </form>
                     </div>
 
-                    <!-- <label class="">                          
-                        <ul class="">
-                            <a href="/account">
-                                <li class="">
-                                    <span class="">Account Settings</span>
-                                </li>
-                            </a>
-                            <li class=""></li>
-                            <li class="">
-                                <form method="POST" action="/login">
-                                    <input type="hidden" name="_method" value="DELETE" />
-                                    <button class="text-red1">Log Out</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </label> -->
                 </div>
 
             <?php else: ?>
-                <a href="/login" class="bg-blue3 rounded-lg h-10 w-[6.25rem] flex justify-center items-center">
-                    <span class="text-white">Sign In</span>
-                </a>
-
-                <a href="/register" class="bg-orange1 rounded-lg h-10 w-[6.25rem] flex justify-center items-center">
-                    <span class="text-offBlack">Sign Up</span>
-                </a>
+                <a href="/login" class="bg-blue3 border border-blackpri rounded-lg h-10 w-[6.25rem] flex justify-center items-center">Sign In</a>
+                <a href="/register" class="bg-greenmain border border-blackpri rounded-lg h-10 w-[6.25rem] flex justify-center items-center"> Sign Up</a>
             <?php endif; ?>
         </div> 
     </div>
