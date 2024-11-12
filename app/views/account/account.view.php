@@ -11,8 +11,6 @@
     <div class="relative block w-screen h-full text-center top-10 lg:top-24">
         <h1 class="relative font-synebold text-[6vw] lg:text-3xl">Account Settings</h1>
 
-        <?= 'TO DO: Change Password Errors  & Success messages!' ?>
-
         <div class="relative flex flex-wrap w-full h-fit">
             <!-- left box -->
             <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white1 lg:bg-white2 text-left pt-2 pl-[3%] overflow-x-hidden">

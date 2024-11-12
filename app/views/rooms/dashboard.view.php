@@ -10,7 +10,7 @@
         <span class="relative block left-[3vw] font-synebold text-5xl text-black1">Dashboard</span>
 
         <!-- box -->
-        <div class="block relative left-1/2 transform -translate-x-1/2 h-[43.75rem] w-[97%] min-w-[65rem] border-black1 border-2 rounded-t-[1.25rem] mt-4">
+        <div class="block relative left-1/2 transform -translate-x-1/2 min-h-[43.75rem] w-[97%] min-w-[65rem] border-black1 border-2 rounded-t-[1.25rem] mt-4">
             <!-- header -->
             <div class="h-[3.75rem] border-black1 border-b-2 flex justify-between items-center px-5 overflow-hidden">
                 <!-- search & arrangement -->

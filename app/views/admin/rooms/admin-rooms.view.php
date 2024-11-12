@@ -6,11 +6,22 @@
 
     <div class="relative flex mb-12">
         <h1 class="mx-auto ml-6 text-3xl font-synebold">Room List</h1>
-        <form id="searchRoomForm" method="POST" action="/admin-rooms" class="flex mr-6 w-fit">
-            <input id="searchInput" oninput="checkSearch();" name="search_input" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1" required>
-            <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1">X</button>
-            <button type="submit" class="mx-auto ml-4 border rounded-lg border-grey2 bg-orange1 w-28 text-black1">Search</button>
-        </form>
+        <div class="flex gap-4 mx-auto w-fit">
+            <div class="flex items-center">
+                <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white1" onchange="handleSort()">
+                    <option value="">Sort by...</option>
+                    <option value="date_asc">Date (Oldest First)</option>
+                    <option value="date_desc">Date (Newest First)</option>
+                    <option value="name_asc">Room Name (A-Z)</option>
+                    <option value="name_desc">Room Name (Z-A)</option>
+                </select>
+                <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
+            </div>
+            <div class="flex items-center">
+                <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1">
+                <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSearch()">X</button>
+            </div>
+        </div>
     </div>
 
     <div class="hidden" id="searchResultsHead">
@@ -55,23 +66,106 @@
         const roomsTBody = document.getElementById('roomsTBody');
         let roomsChecker = null;
         
-        document.addEventListener('DOMContentLoaded', function() {
+        let originalData = [];
+
+        function handleSort() {
+            const sortBy = document.getElementById('sortBy').value;
+            if (sortBy) {
+                clearInterval(intervalID);
+                document.getElementById('clearSort').classList.remove('hidden');
+            }
+            
+            const rows = Array.from(roomsTBody.getElementsByTagName('tr'));
+
+            rows.sort((a, b) => {
+                if (sortBy === 'date_asc' || sortBy === 'date_desc') {
+                    const dateA = new Date(a.cells[6].textContent);
+                    const dateB = new Date(b.cells[6].textContent);
+                    return sortBy === 'date_asc' ? dateA - dateB : dateB - dateA;
+                } else if (sortBy === 'name_asc' || sortBy === 'name_desc') {
+                    const nameA = a.cells[2].textContent.toLowerCase();
+                    const nameB = b.cells[2].textContent.toLowerCase();
+                    return sortBy === 'name_asc' 
+                        ? nameA.localeCompare(nameB)
+                        : nameB.localeCompare(nameA);
+                }
+                return 0;
+            });
+
+            roomsTBody.innerHTML = '';
+            rows.forEach(row => roomsTBody.appendChild(row));
+        }
+
+        function clearSort() {
+            document.getElementById('sortBy').value = '';
+            document.getElementById('clearSort').classList.add('hidden');
+            displayRooms(originalData);
+            startFetching();
+        }
+
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const clearSearchBtn = document.getElementById('clearSearch');
+            const rows = Array.from(roomsTBody.getElementsByTagName('tr'));
+            
+            if (searchTerm) {
+                clearInterval(intervalID);
+                clearSearchBtn.classList.remove('hidden');
+                
+                rows.forEach(row => {
+                    const roomId = row.cells[1].textContent.toLowerCase();
+                    const roomName = row.cells[2].textContent.toLowerCase();
+                    const instructorName = row.cells[3].textContent.toLowerCase();
+                    const instructorId = row.cells[4].textContent.toLowerCase();
+                    const roomCode = row.cells[5].textContent.toLowerCase();
+                    
+                    if (roomId.includes(searchTerm) || 
+                        roomName.includes(searchTerm) || 
+                        instructorName.includes(searchTerm) || 
+                        instructorId.includes(searchTerm) || 
+                        roomCode.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+                
+                show('searchResultsHead');
+                document.getElementById('searchTerm').innerHTML = searchTerm;
+            } else {
+                clearSearch();
+            }
+        }
+
+        function clearSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const clearSearchBtn = document.getElementById('clearSearch');
+            const rows = Array.from(roomsTBody.getElementsByTagName('tr'));
+            
+            searchInput.value = '';
+            clearSearchBtn.classList.add('hidden');
+            hide('searchResultsHead');
+            document.getElementById('searchTerm').innerHTML = '';
+            
+            rows.forEach(row => row.style.display = '');
+            startFetching();
+        }
+
+        function startFetching() {
             fetchLatestData({
                 "table": "rooms",
                 "currentPage": "admin_rooms",
             }, displayRooms, 3000);
-        });
+        }
 
         function displayRooms(data) {
-            // console.log(data);
             if (roomsChecker === null || JSON.stringify(data) !== JSON.stringify(roomsChecker)) {
                 roomsChecker = data;
-                console.log(roomsChecker);
+                originalData = data; // Store original data for reset purposes
                 
                 roomsTBody.innerHTML = '';
 
                 data.forEach(room => {
-                    // console.log('room:', room);
                     roomsTBody.innerHTML += `
                         <tr>
                             <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-room-edit?room_id=${room.room_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
@@ -84,68 +178,23 @@
                         </tr>
                     `;
                 });
-            }
-        }
 
-        const searchInput = document.getElementById('searchInput');
-        const clearSearch = document.getElementById('clearSearch');
-        const searchForm = document.getElementById('searchRoomForm');
+                // Maintain current sort if active
+                const sortBy = document.getElementById('sortBy').value;
+                if (sortBy) {
+                    handleSort();
+                }
 
-        function checkSearch() {
-            if (searchInput.value !== '') {
-                show('clearSearch');
-            } else {
-                hide('clearSearch');
-            }
-        }
-
-        clearSearch.addEventListener('click', function(event) {
-            event.preventDefault();
-            if (searchInput.value.length > 0) {
-                searchInput.value = '';
-            }
-            hide('clearSearch');
-            hide('searchResultsHead');
-            document.getElementById('searchTerm').innerHTML = '';
-
-            fetchLatestData({
-                "table": "rooms",
-                "currentPage": "admin_rooms",
-            }, displayRooms, 3000);
-        });
-
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            if (searchInput && searchInput.value !== '') {
-                const searchTerm = searchInput.value.toLowerCase();
+                // Maintain search if active
+                const searchTerm = document.getElementById('searchInput').value;
                 if (searchTerm) {
-                    fetch(`/api/search?search=${searchTerm}`, {
-                        method: 'POST',
-                        body: new URLSearchParams('searchInput=' + searchTerm + '&currentPage=admin_rooms')
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data) {
-                            clearInterval(intervalID);
-                            displayRooms(data);
-
-                            show('searchResultsHead');
-                            document.getElementById('searchTerm').innerHTML = searchTerm;
-                        } else {
-                            console.log('no matching rooms found');
-                        }
-                    })
-                    .catch(e => {
-                        console.error('Error: ' + e);
-                    });
-                } else {
-                    fetchLatestData({
-                        "table": "rooms",
-                        "currentPage": "admin_rooms",
-                    }, displayRooms, 3000);
+                    handleSearch();
                 }
             }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            startFetching();
         });
     </script>
 </body>

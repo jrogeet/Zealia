@@ -4,20 +4,29 @@
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="z-40 relative block w-full h-fit py-12 px-6 min-w-[75rem] mb-16">
-        <div class="relative flex mb-12">
+        <div class="flex justify-between mb-12">
             <h1 class="mx-auto ml-6 text-3xl font-synebold">Account List</h1>
             <div class="flex w-64 gap-2 mx-auto text-lg font-synemed">
-                <button onclick="show('allList','table-row-group'); hide('studentsList'); hide('profsList');" class="mx-auto text-center border border-black rounded-lg p-auto px-2 w-28 bg-blue2 hover:bg-blue3 hover:text-white1">All</button>
-                <button onclick="show('studentsList','table-row-group'); hide('allList'); hide('profsList');" class="mx-auto text-center border border-black rounded-lg p-auto px-2 w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Students</button>
-                <button onclick="show('instructorsList','table-row-group'); hide('allList'); hide('studentsList');" class="mx-auto text-center border border-black rounded-lg p-auto px-2 w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Instructors</button>
+                <button onclick="show('allList','table-row-group'); hide('studentsList'); hide('profsList');" class="px-2 mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">All</button>
+                <button onclick="show('studentsList','table-row-group'); hide('allList'); hide('profsList');" class="px-2 mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Students</button>
+                <button onclick="show('instructorsList','table-row-group'); hide('allList'); hide('studentsList');" class="px-2 mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Instructors</button>
             </div>
-            <form id="searchAccountForm" method="POST" action="/admin-accounts" class="flex mx-auto w-fit">
-                <input id="searchInput" oninput="checkSearch();" name="search_input" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1" required>
-                <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1">X</button>
-                <!-- <input type="hidden" name="search"> -->
-
-                <button type="submit" class="mx-auto ml-4 border rounded-lg border-grey2 bg-orange1 w-28 text-black1">Search</button>
-            </form>
+            <div class="flex gap-4 mx-auto w-fit">
+                <div class="flex items-center">
+                    <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white1" onchange="handleSort()">
+                        <option value="">Sort by...</option>
+                        <option value="date_asc">Date (Oldest First)</option>
+                        <option value="date_desc">Date (Newest First)</option>
+                        <option value="name_asc">Name (A-Z)</option>
+                        <option value="name_desc">Name (Z-A)</option>
+                    </select>
+                    <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
+                </div>
+                <div class="flex items-center">
+                    <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1">
+                    <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSearch()">X</button>
+                </div>
+            </div>
         </div>
     
         <div class="hidden" id="searchResultsHead">
@@ -169,136 +178,181 @@
 
         let accountsChecker = null;
 
+        let originalData = {
+            all: [],
+            students: [],
+            instructors: []
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
+            startFetching();
+        });
+
+        function startFetching() {
             fetchLatestData({
                 "table": "accounts",
                 "currentPage": "admin_accounts",
             }, displayAccounts, 3000);
-        });
-
-        // document.addEventListener('DOMContentAction', function(){
-        //     console.log('stop touching me');
-        // }); 
-
-        function displayAccounts(data) {
-            console.log(data);
-            if (accountsChecker === null || JSON.stringify(accountsChecker) !== JSON.stringify(data)) {
-                allList.innerHTML = '';
-                studentsList.innerHTML = '';
-                instructorsList.innerHTML = '';
-
-                data.all.forEach(user => {
-                   allList.innerHTML += `
-                        <tr>
-                            <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${user.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.school_id}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.l_name}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.f_name}</td>
-                            <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${user.email}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.result == null ? 'N/A': user.result}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.reg_date}</td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${user.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${user.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
-                        </tr>
-                   `;
-                    
-                });
-
-                data.students.forEach(student => {
-                   studentsList.innerHTML += `
-                        <tr>
-                            <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${student.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.school_id}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.l_name}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.f_name}</td>
-                            <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${student.email}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.result == null ? 'N/A': student.result}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.reg_date}</td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${student.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${student.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
-                        </tr>
-                   `;
-                    
-                });
-
-                data.instructors.forEach(instructor => {
-                    instructorsList.innerHTML += `
-                        <tr>
-                            <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${instructor.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.school_id}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.l_name}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.f_name}</td>
-                            <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${instructor.email}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.result == null ? 'N/A': instructor.result}</td>
-                            <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.reg_date}</td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${instructor.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${instructor.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
-                        </tr>
-                    `;
-                    
-                });
-            } else {
-                console.log('no new data.')
-            }
-        }
-        
-        const searchInput = document.getElementById('searchInput');
-        const clearSearch = document.getElementById('clearSearch');
-        const searchForm = document.getElementById('searchAccountForm');
-
-        function checkSearch() {
-            if (searchInput.value !== '') {
-                show('clearSearch');
-            } else {
-                hide('clearSearch');
-            }
         }
 
-        clearSearch.addEventListener('click', function(event) {
-            event.preventDefault();
-            if (searchInput.value.length > 0) {
-                searchInput.value = '';
+        function handleSort() {
+            const sortBy = document.getElementById('sortBy').value;
+            if (sortBy) {
+                clearInterval(intervalID);
+                document.getElementById('clearSort').classList.remove('hidden');
             }
-            hide('clearSearch');
-
-            hide('searchResultsHead');
-            document.getElementById('searchTerm').innerHTML = '';
-
-            fetchLatestData({
-                "table": "accounts",
-                "currentPage": "admin_accounts",
-            }, displayAccounts, 3000);
-        });
-
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
             
-            if (searchInput && searchInput.value !== '') {
-                const searchTerm = searchInput.value.toLowerCase();
-                if (searchTerm) {
-                    fetch(`/api/search?search=${searchTerm}`, {
-                        method: 'POST',
-                        body: new URLSearchParams('searchInput=' + searchTerm + '&currentPage=admin_accounts')
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data) {
-                            clearInterval(intervalID);
-                            displayAccounts(data);
+            const currentList = document.querySelector('tbody:not(.hidden)');
+            const rows = Array.from(currentList.getElementsByTagName('tr'));
 
-                            show('searchResultsHead');
-                            document.getElementById('searchTerm').innerHTML = searchTerm;
-                        } else {
-                            console.log('no matching accounts found');
-                        }
-                    })
-                    .catch(e => {
-                        console.error('Error: ' + e);
-                    });
-                } else {
-                    fetchLatestData({
-                        "table": "accounts",
-                        "currentPage": "admin_accounts",
-                    }, displayAccounts, 3000);
+            rows.sort((a, b) => {
+                if (sortBy === 'date_asc' || sortBy === 'date_desc') {
+                    const dateA = new Date(a.cells[6].textContent);
+                    const dateB = new Date(b.cells[6].textContent);
+                    return sortBy === 'date_asc' ? dateA - dateB : dateB - dateA;
+                } else if (sortBy === 'name_asc' || sortBy === 'name_desc') {
+                    const nameA = a.cells[2].textContent.toLowerCase();
+                    const nameB = b.cells[2].textContent.toLowerCase();
+                    return sortBy === 'name_asc' 
+                        ? nameA.localeCompare(nameB)
+                        : nameB.localeCompare(nameA);
                 }
+                return 0;
+            });
+
+            while (currentList.firstChild) {
+                currentList.removeChild(currentList.firstChild);
+            }
+            rows.forEach(row => currentList.appendChild(row));
+        }
+
+        function clearSort() {
+            document.getElementById('sortBy').value = '';
+            document.getElementById('clearSort').classList.add('hidden');
+            displayAccounts(originalData);
+            startFetching();
+        }
+
+        function handleSearch() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const currentList = document.querySelector('tbody:not(.hidden)');
+    const rows = Array.from(currentList.getElementsByTagName('tr'));
+    
+    if (searchTerm) {
+        clearInterval(intervalID);
+        clearSearchBtn.classList.remove('hidden');
+        
+        // Hide all rows first
+        rows.forEach(row => {
+            const schoolId = row.cells[1].textContent.toLowerCase();
+            const lastName = row.cells[2].textContent.toLowerCase();
+            const firstName = row.cells[3].textContent.toLowerCase();
+            const email = row.cells[4].textContent.toLowerCase();
+            
+            // Check if any field contains the search term
+            if (schoolId.includes(searchTerm) || 
+                lastName.includes(searchTerm) || 
+                firstName.includes(searchTerm) || 
+                email.includes(searchTerm)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
             }
         });
+        
+        show('searchResultsHead');
+        document.getElementById('searchTerm').innerHTML = searchTerm;
+    } else {
+        clearSearch();
+    }
+}
+
+function clearSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const currentList = document.querySelector('tbody:not(.hidden)');
+    const rows = Array.from(currentList.getElementsByTagName('tr'));
+    
+    searchInput.value = '';
+    clearSearchBtn.classList.add('hidden');
+    hide('searchResultsHead');
+    document.getElementById('searchTerm').innerHTML = '';
+    
+    // Show all rows
+    rows.forEach(row => row.style.display = '');
+    
+    startFetching();
+}
+
+
+function displayAccounts(data) {
+    console.log(data);
+    if (accountsChecker === null || JSON.stringify(accountsChecker) !== JSON.stringify(data)) {
+        allList.innerHTML = '';
+        studentsList.innerHTML = '';
+        instructorsList.innerHTML = '';
+
+        data.all.forEach(user => {
+            allList.innerHTML += `
+                <tr>
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${user.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.school_id}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.l_name}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.f_name}</td>
+                    <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${user.email}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.result == null ? 'N/A': user.result}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.reg_date}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${user.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${user.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
+                </tr>
+            `;
+        });
+
+        data.students.forEach(student => {
+            studentsList.innerHTML += `
+                <tr>
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${student.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.school_id}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.l_name}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.f_name}</td>
+                    <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${student.email}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.result == null ? 'N/A': student.result}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.reg_date}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${student.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${student.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
+                </tr>
+            `;
+        });
+
+        data.instructors.forEach(instructor => {
+            instructorsList.innerHTML += `
+                <tr>
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${instructor.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.school_id}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.l_name}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.f_name}</td>
+                    <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${instructor.email}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.result == null ? 'N/A': instructor.result}</td>
+                    <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.reg_date}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ${instructor.account_activation_hash !== '' ? 'text-green1': 'text-red1'} border-l border-r border-black"> ${instructor.account_activation_hash == '' ? 'Not Yet Activated': 'Activated'}</td>
+                </tr>
+            `;
+        });
+
+        // Maintain current sort if active
+        const sortBy = document.getElementById('sortBy').value;
+        if (sortBy) {
+            handleSort();
+        }
+
+        // Maintain search if active
+        const searchTerm = document.getElementById('searchInput').value;
+        if (searchTerm) {
+            handleSearch();
+        }
+    } else {
+        console.log('no new data.')
+    }
+}
+        
     </script>
 </body>
