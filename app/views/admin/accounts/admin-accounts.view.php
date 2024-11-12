@@ -24,7 +24,7 @@
             <h2>Search Results for: <span id="searchTerm"></span></h2>
         </div>
         
-        <div class="border border-black rounded-xl">
+        <div class="border border-black rounded-xl overflow-hidden">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">

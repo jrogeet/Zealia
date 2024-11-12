@@ -21,7 +21,7 @@
             <h1 class="mx-auto ml-0 text-2xl font-synemed text-grey2">Pending Tickets</h1>
         </div>
 
-        <div class="border border-black rounded-b-xl">
+        <div class="border border-black rounded-b-xl overflow-hidden">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">
@@ -58,7 +58,7 @@
             <h1 class="mx-auto ml-0 text-2xl font-synemed text-grey2">Solved Tickets</h1>
         </div>
 
-        <div class="border border-black rounded-b-xl">
+        <div class="border border-black rounded-b-xl overflow-hidden">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">
@@ -94,7 +94,7 @@
             <h1 class="mx-auto ml-0 text-2xl font-synemed text-grey2">Unresolved Tickets</h1>
         </div>
 
-        <div class="border border-black rounded-b-xl">
+        <div class="border border-black rounded-b-xl overflow-hidden">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">
