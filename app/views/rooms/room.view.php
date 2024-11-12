@@ -457,9 +457,6 @@
                                     </div>
                                 `;
                             }
-
-
-
                         });
 
                         // rightBoxStudent.innerHTML = `
@@ -527,7 +524,7 @@
                                                 <h3 class="text-xl font-clashsemibold">To Do</h3>
                                             </div>
                                             
-                                            <div class="w-[19rem] rounded-xl mt-[1.38rem]">
+                                            <div class="w-[19rem] h-auto rounded-xl mt-[1.38rem]">
                                                 <!-- Each Task -->
                                                 ${generateTaskList(member[1], member[3], 'todo', room_id)}
                                             </div>
@@ -655,16 +652,18 @@
                             //         <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskData[1]}</span>
                             //     </div>
                             return `
-                                <div class="flex flex-col mb-4 card bg-orangemain rounded-xl  ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" draggable="${canDrag}">
+                                <div class="flex flex-col w-full max-w-full mb-4 card rounded-xl ${listType == 'todo' ? 'bg-orangemain' : listType == 'wip' ? 'bg-bluemain' : listType == 'done' ? 'bg-greenmain' : ''} ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" draggable="${canDrag}">
                                     <!-- Task Title -->
-                                    <div class="${canDrag ? 'cursor-grab' : ''} h-[2.28rem] p-2 border-b border-black">
+                                    <div class="${canDrag ? 'cursor-grab' : ''} h-[2.28rem] flex items-center p-2 border-b border-black">
                                         <span class="text-base font-satoshireg">${taskData[0]}</span>
                                     </div>
 
                                     <!-- Task Description & Date -->
                                     <div class="${canDrag ? 'cursor-grab' : ''} flex h-[6.78rem]">
-                                        <div class="w-9/12 p-2 truncate border-r border-black text-wrap">
-                                            <p class="text-base font-satoshilight text-blackpri">${taskData[1]}</p>
+                                        <div class="w-9/12 p-2 border-r border-black">
+                                            <p class="text-base break-words whitespace-normal font-satoshilight text-blackpri">
+                                                ${taskData[1]}
+                                            </p>
                                         </div>
 
                                         <div class="flex flex-col justify-end w-3/12 p-2 text-wrap">
@@ -672,8 +671,25 @@
                                         </div>
                                     </div>
                                 </div>
+
                             `;
                         }).join('');
+                    }
+
+                    // Helper function to find the closest card
+                    function getClosestCard(container, mouseY) {
+                        const cards = [...container.querySelectorAll('.card:not(.dragging)')];
+                        
+                        return cards.reduce((closest, child) => {
+                            const box = child.getBoundingClientRect();
+                            const offset = mouseY - box.top - box.height / 2;
+                            
+                            if (offset < 0 && offset > closest.offset) {
+                                return { offset: offset, element: child };
+                            } else {
+                                return closest;
+                            }
+                        }, { offset: Number.NEGATIVE_INFINITY }).element;
                     }
 
                     // Function to reattach drag and drop listeners
@@ -719,7 +735,31 @@
 
                             if (studentRole === 'Principal Investigator' || isCurrentUserKanban) {
                                 console.log('isCurrentUserKanban', isCurrentUserKanban);
-                                card.addEventListener('dragstart', function() {
+                                // card.addEventListener('dragstart', function(e) {
+
+                                //     e.target.style.opacity = '0.7';
+                                //     card.classList.add("dragging");
+                                //     card.classList.remove("cursor-grab");
+                                //     card.classList.add("cursor-grabbing");
+                                    
+                                //     // Show delete area
+                                //     deleteArea.classList.remove('hidden');
+                                //     setTimeout(() => {
+                                //         deleteArea.classList.remove('opacity-0');
+                                //     }, 0);
+                                // });
+
+                                card.addEventListener('dragstart', function(e) {
+                                    // Create a clone of the card for the drag image
+                                    const dragImage = card.cloneNode(true);
+                                    dragImage.style.position = 'absolute';
+                                    dragImage.style.top = '-1000px';
+                                    document.body.appendChild(dragImage);
+                                    
+                                    // Set the drag image
+                                    e.dataTransfer.setDragImage(dragImage, 0, 0);
+                                    
+                                    // Add dragging styles
                                     card.classList.add("dragging");
                                     card.classList.remove("cursor-grab");
                                     card.classList.add("cursor-grabbing");
@@ -728,10 +768,13 @@
                                     deleteArea.classList.remove('hidden');
                                     setTimeout(() => {
                                         deleteArea.classList.remove('opacity-0');
+                                        // Remove the clone
+                                        document.body.removeChild(dragImage);
                                     }, 0);
                                 });
 
-                                card.addEventListener('dragend', function() {
+                                card.addEventListener('dragend', function(e) {
+                                    e.target.style.opacity = '1';
                                     card.classList.remove("dragging");
                                     card.classList.remove("cursor-grabbing");
                                     card.classList.add("cursor-grab");
@@ -746,21 +789,78 @@
                         });
 
                         dropzones.forEach(zone => {
-                            zone.addEventListener('dragover', function(e) {
-                                const isCurrentUserKanban = members[currentKB][1] === currentUserId;
-                                if (!(studentRole === 'Principal Investigator' || isCurrentUserKanban)) {
-                                    return;
-                                }
+                            // zone.addEventListener('dragover', function(e) {
+                            //     const isCurrentUserKanban = members[currentKB][1] === currentUserId;
+                            //     if (!(studentRole === 'Principal Investigator' || isCurrentUserKanban)) {
+                            //         return;
+                            //     }
                                 
+                            //     e.preventDefault();
+                            //     const bottomTask = InsertAboveTask(zone, e.clientY);
+                            //     const curTask = document.querySelector(".dragging");
+                                
+                            //     if (!bottomTask) {
+                            //         zone.appendChild(curTask);
+                            //     } else {
+                            //         zone.insertBefore(curTask, bottomTask);
+                            //     }
+                            // });
+                            // zone.addEventListener('dragover', (e) => {
+                            //     e.preventDefault();
+                            //     e.stopPropagation();
+                                
+                            //     // Add visual feedback
+                            //     zone.classList.add('bg-opacity-50');
+                                
+                            //     const draggingCard = document.querySelector(".dragging");
+                            //     if (!draggingCard) return;
+
+                            //     const closestCard = getClosestCard(zone, e.clientY);
+                            //     if (closestCard) {
+                            //         zone.insertBefore(draggingCard, closestCard);
+                            //     } else {
+                            //         zone.appendChild(draggingCard);
+                            //     }
+                            // });
+
+                            zone.addEventListener('dragover', (e) => {
                                 e.preventDefault();
-                                const bottomTask = InsertAboveTask(zone, e.clientY);
-                                const curTask = document.querySelector(".dragging");
+                                e.stopPropagation();
                                 
-                                if (!bottomTask) {
-                                    zone.appendChild(curTask);
-                                } else {
-                                    zone.insertBefore(curTask, bottomTask);
+                                // Add visual feedback
+                                zone.classList.add('bg-opacity-50');
+                                
+                                const draggingCard = document.querySelector(".dragging");
+                                if (!draggingCard) return;
+
+                                    // Remove any inline styles that might have been added
+                                    draggingCard.style.width = '';
+                                    draggingCard.style.height = '';
+
+                                // Ensure the card maintains its layout during drag
+                                draggingCard.classList.add('flex', 'flex-col', 'w-full', 'min-w-full', 'max-w-full', 'mb-4', 'rounded-xl');
+                                
+                                // Maintain the background color based on the destination zone
+                                const destinationType = zone.id.replace(`${currentKB}`, '').replace('Cont', '');
+                                draggingCard.classList.remove('bg-orangemain', 'bg-bluemain', 'bg-greenmain');
+                                if (destinationType === 'todo') {
+                                    draggingCard.classList.add('bg-orangemain');
+                                } else if (destinationType === 'wip') {
+                                    draggingCard.classList.add('bg-bluemain');
+                                } else if (destinationType === 'done') {
+                                    draggingCard.classList.add('bg-greenmain');
                                 }
+
+                                const closestCard = getClosestCard(zone, e.clientY);
+                                if (closestCard) {
+                                    zone.insertBefore(draggingCard, closestCard);
+                                } else {
+                                    zone.appendChild(draggingCard);
+                                }
+                            });
+
+                            zone.addEventListener('dragleave', () => {
+                                zone.classList.remove('bg-opacity-50');
                             });
 
                             zone.addEventListener('drop', function(e) {
@@ -1091,7 +1191,7 @@
                     const canDrag = studentRole === 'Principal Investigator' || members[currentKB][1] === currentUserId;
 
                     newCard.setAttribute('draggable', canDrag);
-                    newCard.classList.add('flex', 'flex-col', 'mb-4', 'card', 'bg-orangemain', 'rounded-xl');
+                    newCard.classList.add('flex', 'flex-col', 'mb-4', 'card', 'w-full', 'max-w-full', 'bg-bluemain', 'rounded-xl');
                     if (canDrag) {
                         newCard.classList.add('cursor-grab');
                     } else {
@@ -1111,14 +1211,16 @@
                     //     <span class="relative block ml-10 text-base text-left font-synereg text-black1 text-wrap">${taskInfo}</span>
                     newCard.innerHTML = `
                         <!-- Task Title -->
-                        <div class="${canDrag ? 'cursor-grab' : ''} h-[2.28rem] p-2 border-b border-black">
+                        <div class="${canDrag ? 'cursor-grab' : ''} h-[2.28rem] flex items-center p-2 border-b border-black">
                             <span class="text-base font-satoshireg">${taskName}</span>
                         </div>
 
                         <!-- Task Description & Date -->
                         <div class="${canDrag ? 'cursor-grab' : ''} flex h-[6.78rem]">
-                            <div class="w-9/12 p-2 truncate border-r border-black text-wrap">
-                                <p class="text-base font-satoshilight text-blackpri">${taskInfo}</p>
+                            <div class="w-9/12 p-2 border-r border-black">
+                                <p class="text-base break-words whitespace-normal font-satoshilight text-blackpri">
+                                    ${taskInfo}
+                                </p>
                             </div>
 
                             <div class="flex flex-col justify-end w-3/12 p-2 text-wrap">
@@ -1201,16 +1303,36 @@
 
             // Helper function to attach drag listeners to a card
             function attachDragListeners(card) {
+                // card.addEventListener('dragstart', function() {
+                //     card.classList.add("dragging");
+                //     card.classList.remove("cursor-grab");
+                //     card.classList.add("cursor-grabbing");
+                // });
+
+                // card.addEventListener('dragend', function() {
+                //     card.classList.remove("dragging");
+                //     card.classList.remove("cursor-grabbing");
+                //     card.classList.add("cursor-grab");
+                // });
+
                 card.addEventListener('dragstart', function() {
                     card.classList.add("dragging");
                     card.classList.remove("cursor-grab");
                     card.classList.add("cursor-grabbing");
+                    
+                    // Maintain card layout during drag
+                    card.style.width = card.offsetWidth + 'px';  // Preserve width
+                    card.style.height = card.offsetHeight + 'px'; // Preserve height
                 });
 
                 card.addEventListener('dragend', function() {
                     card.classList.remove("dragging");
                     card.classList.remove("cursor-grabbing");
                     card.classList.add("cursor-grab");
+                    
+                    // Remove inline styles after drag
+                    card.style.width = '';
+                    card.style.height = '';
                 });
             }
 
@@ -1269,69 +1391,7 @@
                         zone.insertBefore(curTask, bottomTask);
                     }
                 });
-
-                // zone.addEventListener('drop', function(e) {
-                //     e.preventDefault();
-                //     const curTask = document.querySelector(".dragging");
-                //     if (!curTask) return;
-
-                //     console.log('curTask',curTask);
-
-                //     curTask.classList.remove("dragging");
-
-                //     // Get the new destination column
-                //     const newDestination = zone.id.replace(`${currentKB}`, '').replace('Cont', ''); // 'todo', 'wip', or 'done'
-                //     console.log(newDestination);
-                    
-                //     // Get task data from the DOM element
-                //     const taskName = curTask.querySelector('.font-synebold').textContent;
-                //     const taskDate = curTask.querySelector('.font-synemed').textContent;
-                //     const taskInfo = curTask.querySelector('.font-synereg').textContent;
-
-                //     console.log(taskName, taskData, taskInfo);
-                    
-                //     // Create and send form data
-                //     const formData = new FormData();
-                //         formData.append('school_id', members[currentKB][1]);
-                //         formData.append('task', JSON.stringify([taskName, taskInfo, taskDate]));
-                //         formData.append('destination', newDestination);
-                //         formData.append('room_id', room_id);
-                //         formData.append('form_type', 'update_kanban');
-                //         formData.append('action', 'move');
-
-                //     fetch('/api/submit-form', {
-                //         method: 'POST',
-                //         body: formData
-                //     })
-                //     .then(response => response.json())
-                //     .then(data => {
-                //         if (!data.success) {
-                //             console.error('Failed to move task:', data.message);
-                //             // Optionally revert the UI change
-                //             return;
-                //         }
-                //     })
-                //     .catch(error => {
-                //         console.error('Error moving task:', error);
-                //     });
-                // });
             });
-
-            // toggle hidden/flex kanban of members
-            // function changeKB(index){
-            //     console.log(index);
-            //     let kanbans = document.querySelectorAll('[id^="kanban"]');
-            //     currentKB = index;
-
-            //     kanbans.forEach(kb =>{
-            //         kb.classList.remove('flex');
-            //         kb.classList.add('hidden');
-            //         if (kb.id == `kanban${index}`){
-            //             kb.classList.add('flex');
-            //             kb.classList.remove('hidden');
-            //         }
-            //     })
-            // }
 
 // ... existing code ...
 

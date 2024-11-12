@@ -7,12 +7,12 @@
     <main class="hidden lg:block relative left-1/2 transform -translate-x-1/2 h-[41rem] w-[97%] mb-40 top-32">
 
         <!-- title -->
-        <span class="relative block left-[3vw] font-synebold text-5xl text-black1">Dashboard</span>
+        <span class="relative block left-[3vw] font-synebold text-5xl text-blackpri">Dashboard</span>
 
         <!-- box -->
-        <div class="block relative left-1/2 transform -translate-x-1/2 h-[43.75rem] w-[97%] min-w-[65rem] border-black1 border-2 rounded-t-[1.25rem] mt-4">
+        <div class="block relative left-1/2 transform -translate-x-1/2 h-[43.75rem] w-[97%] min-w-[65rem] border-blackpri border-2 rounded-t-[1.25rem] mt-4">
             <!-- header -->
-            <div class="h-[3.75rem] border-black1 border-b-2 flex justify-between items-center px-5 overflow-hidden">
+            <div class="h-[3.75rem] border-blackpri border-b-2 flex justify-between items-center px-5 overflow-hidden">
                 <!-- search & arrangement -->
                 <div class="flex justify-between gap-4 ">
                     <!-- tiles / table -->
@@ -31,7 +31,7 @@
                         <button type="submit" class="w-3/12 bg-center bg-no-repeat bg-contain border-0 border-l bg-search h-5/6 border-l-grey2"></button>
                     </form>
 
-                    <button class="h-[2.25rem] px-4 bg-orange1 text-black1 font-synemed border border-grey2 rounded-lg" onClick="toggle('filters');">Filter</button>
+                    <button class="h-[2.25rem] px-4 bg-orange1 text-blackpri font-synemed border border-grey2 rounded-lg" onClick="toggle('filters');">Filter</button>
 
                     <!-- <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button> -->
                     <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onclick="toggle('rooms-ascending-container'); toggle('rooms-descending-container'); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
@@ -71,7 +71,7 @@
             </div>
 
             <!-- Filter -->
-            <div class="hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
+            <div class="hidden bg-white1 w-full h-[3.75rem] border-blackpri border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="flex w-4/6">
                 <div class="flex items-center h-[2.25rem] w-4/5  bg-white1 border border-white font-synemed rounded-lg pr-4 overflow-hidden">
                     <p class="flex text-lg text-grey1 font-synemed">Search by Filter:</p>
@@ -131,9 +131,9 @@
                 <table class="max-h-[39.8rem] w-full table-fixed">
                     <thead class="h-10 text-xl bg-blue3 max-h-10 font-synereg">
                         <tr class="">
-                            <th class="border-2 border-black1 text-white1 w-[29rem]">Room Name</th>
-                            <th class="border-2 border-black1 text-white1 w-[29rem]">Instructor Name</th>
-                            <th class="border-2 border-black1 text-white1 w-[29rem]">Room Code</th>
+                            <th class="border-2 border-blackpri text-white1 w-[29rem]">Room Name</th>
+                            <th class="border-2 border-blackpri text-white1 w-[29rem]">Instructor Name</th>
+                            <th class="border-2 border-blackpri text-white1 w-[29rem]">Room Code</th>
                         </tr>
                     </thead>
 
@@ -151,8 +151,8 @@
     </main>
 
     <div id="createRoom" class="fixed z-50 justify-center hidden w-full h-full bg-glassmorphism">
-        <div class="relative flex flex-col h-64 border rounded-t-lg bg-white2 w-96 border-black1 top-1/3">
-            <div class="flex items-center justify-between h-12 border rounded-t-lg bg-blue3 border-black1">
+        <div class="relative flex flex-col h-64 border rounded-t-lg bg-white2 w-96 border-blackpri top-1/3">
+            <div class="flex items-center justify-between h-12 border rounded-t-lg bg-blue3 border-blackpri">
                 <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Create:</span>
                 <button class="w-1/5 h-full rounded bg-red1" onClick="hide('createRoom'); enableScroll();">X</button>
             </div>
@@ -196,7 +196,7 @@
                 
                 <input type="hidden" id="combinedSection" name="section">
 
-                <button type="submit" class="p-1 mt-2 border rounded bg-orange1 text-black1 border-black1 hover:bg-black1 hover:text-orange1">Create Room</button>
+                <button type="submit" class="p-1 mt-2 border rounded bg-orange1 text-blackpri border-blackpri hover:bg-blackpri hover:text-orange1">Create Room</button>
             </form>
         </div>
     </div>
@@ -229,7 +229,7 @@
             <input type="hidden" name="search" value="search">
             <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
 
-            <input class="w-5/6 pl-2 mx-auto border border-black1" name="search_input" placeholder="Room Name">
+            <input class="w-5/6 pl-2 mx-auto border border-blackpri" name="search_input" placeholder="Room Name">
             <button type="submit" class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-blue3 text-white1 mx-auto text-[3vw] rounded-sm text-sm h-full">Search</button>
         </form>
 
@@ -245,7 +245,7 @@
                 <?php endif; ?>
 
                 <input type="hidden" name="join" value="join">
-                <input class="w-5/6 pl-2 mx-auto border border-black1" type="number" id="room_code" name="room_code" placeholder="Enter room code" required>
+                <input class="w-5/6 pl-2 mx-auto border border-blackpri" type="number" id="room_code" name="room_code" placeholder="Enter room code" required>
                 <button type="submit" class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-blue3 text-white1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Join</button>
 
             <?php elseif ($_SESSION['user']['account_type'] === 'instructor'): ?>
@@ -259,8 +259,8 @@
                     <p class=""><?= $errors['room_name'] ?></p>
                 <?php endif; ?>
 
-                <input class="w-5/6 pl-2 mx-auto border border-black1" name="room_name" placeholder="Enter room name" required>
-                <button class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-orange1 text-black1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Create</button>
+                <input class="w-5/6 pl-2 mx-auto border border-blackpri" name="room_name" placeholder="Enter room name" required>
+                <button class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-orange1 text-blackpri mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Create</button>
 
             <?php endif;?>
         
@@ -401,12 +401,12 @@
                                     </a>`;
                                 troomsASC.innerHTML += `
                                     <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synemed text-2xl px-4 truncate">
                                             <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
                                             <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
                                         </td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
                                     </tr>`;
                             });
                             rooms.slice().reverse().forEach(room => {
@@ -422,12 +422,12 @@
                                     
                                 troomsDESC.innerHTML += `
                                     <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synemed text-2xl px-4 truncate">
                                             <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
                                             <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
                                         </td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
                                     </tr>`;
                             });
                         } else {
@@ -455,12 +455,12 @@
                                             </a>`;
                                 tascHTML += `
                                     <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synemed text-2xl px-4 truncate">
                                             <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
                                             <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
                                         </td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
                                     </tr>
                                 `;
                             });
@@ -480,12 +480,12 @@
                                             </a>`;
                                 tdescHTML += `
                                     <tr class="h-40 max-h-[10rem] hover:bg-blue1 ">
-                                        <td class=" h-40 max-w-[29.13rem] border-2 border-black1 font-synemed text-2xl px-4 truncate">
+                                        <td class=" h-40 max-w-[29.13rem] border-2 border-blackpri font-synemed text-2xl px-4 truncate">
                                             <a href="/room?room_id=${room.room_id}">${room.room_name}</a>
                                             <a href="/room?room_id=${room.room_id}" class="text-base text-grey2">BS${room.program.toUpperCase()} ${room.year_level[0]}-${room.section}</a>
                                         </td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
-                                        <td class="h-40 max-w-[29.13rem] border-2 border-black1 font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2 break-words"><a href="/room?room_id=${room.room_id}">${room.prof_name}</a></td>
+                                        <td class="h-40 max-w-[29.13rem] border-2 border-blackpri font-synereg text-2xl text-center text-grey2"><a href="/room?room_id=${room.room_id}">${room.room_code}</a></td>
                                     </tr>
                                 `;
                             });
