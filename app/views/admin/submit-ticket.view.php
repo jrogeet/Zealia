@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white1 w-screen lg:min-w-[75rem] h-fit overflow-x-hidden">
+<body class="flex flex-col justify-between mx-auto items-center overflow-x-hidden min-h-auto h-screen w-[96rem] bg-white1">
     <?php view('partials/nav.view.php'); ?>
     <!-- MODALS -->
     <?php if(isset($sent)): ?>

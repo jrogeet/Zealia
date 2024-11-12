@@ -1,5 +1,5 @@
 <!-- desktop nav -->
-<header class="z-50 content-center block h-20 shadow-md rounded-b-xl bg-white1" id="navbar">
+<header class="fixed z-50 content-center block h-20 shadow-md rounded-b-xl bg-glassmorphism-nav" id="navbar">
     <!-- object container -->
     <div class="flex items-center justify-between mx-auto px-8 h-[4.5rem]  w-[65.8125rem]">
         <!-- Main NavBar -->
@@ -36,7 +36,7 @@
         </nav>
 
         <!-- LOGIN & SIGNUP Part -->
-        <div class="w-[13.5rem] flex justify-between items-center text-blackpri font-clashmed">
+        <div class="min-w-[13.5rem] flex justify-between items-center text-blackpri font-clashmed ">
             <?php if ($_SESSION['user'] ?? false) : ?>
                 <!-- NOTIFICATIONS -->
                 <div id="notifContainer" class="relative inline-block">
@@ -58,14 +58,14 @@
                     </div>
                 </div>
 
-                <div class="relative text-xl">
-                    <button onclick="toggle('navDropDown')" class="z-50 flex items-center justify-between w-56 h-12 px-4 border rounded-lg bg-blue3" id="navDDbutton">
+                <div class="relative text-xl ">
+                    <button onclick="toggle('navDropDown')" class="z-50 flex items-center justify-between w-56 h-12 px-4 border rounded-lg bg-greenmain" id="navDDbutton">
                         <span class="w-4/5 text-left truncate text-white1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
-                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white1"></div>
+                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-black"></div>
                     </button>
                     <!-- TEMPO -->
 
-                    <div class="z-40 hidden absolute flex-col justify-evenly bg-white1 h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 rounded-b-2xl" id="navDropDown">
+                    <div class="z-40 hidden absolute flex-col justify-evenly bg-whitecon h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 rounded-b-2xl" id="navDropDown">
                         <a href="<?php if($_SESSION['user']['account_type'] === 'admin'):?>/admin-settings<?php else: ?>/account<?php endif; ?>">
                             <span class="">Account Settings</span>
                         </a>
@@ -105,28 +105,67 @@
     // Add the class attribute to the first h1;
     document.getElementsByTagName("body")[0].setAttributeNode(att);
 
-    function chooseNav(){
-        if (window.innerWidth >= 1024){
-            nav = nav2
-            nav1.classList.add("hidden");
-        }else{
-            nav = nav1
-            nav2.classList.add("hidden");
-        }
-    }
-
-    function changeNav(){
-        if (window.innerWidth >= 1024){
-            nav = nav2
+    function chooseNav() {
+        if (window.innerWidth >= 1024) {
+            window.activeNav = nav2;
             nav1.classList.add("hidden");
             nav2.classList.remove("hidden");
-        }else{
-            nav = nav1
+        } else {
+            window.activeNav = nav1;
             nav2.classList.add("hidden");
             nav1.classList.remove("hidden");
         }
     }
 
+    function changeNav() {
+        chooseNav(); // Reuse the same logic
+    }
+
+    // keep track of previous scroll position
+    let prevScrollPos = window.scrollY;
+    let isNavVisible = true;
+
+    window.addEventListener('scroll', function() {
+        // Get the currently active nav element
+        const nav = window.activeNav;
+        if (!nav) return;
+
+        // current scroll position
+        const currentScrollPos = window.scrollY;
+        
+        // Determine if we should show/hide the nav
+        if (currentScrollPos < 40) {
+            // Always show nav at top of page
+            isNavVisible = true;
+        } else if (currentScrollPos > prevScrollPos) {
+            // Scrolling DOWN
+            isNavVisible = false;
+        } else {
+            // Scrolling UP
+            isNavVisible = true;
+        }
+
+        // Apply visibility
+        if (isNavVisible) {
+            nav.classList.remove('hidden');
+        } else {
+            nav.classList.add('hidden');
+        }
+
+        // update previous scroll position
+        prevScrollPos = currentScrollPos;
+    });
+
+    // Handle zoom and resize events
+    window.addEventListener('resize', function() {
+        chooseNav();
+        // Reset nav visibility on resize
+        if (window.activeNav) {
+            window.activeNav.classList.remove('hidden');
+        }
+    });
+
+    // Initial setup
     chooseNav();
 
     burger.addEventListener('click', function() {
@@ -145,25 +184,6 @@
             burgDD.classList.toggle('hidden');
             profDD.classList.toggle('hidden');
         }
-    });
-
-    // keep track of previous scroll position
-    let prevScrollPos = window.pageYOffset;
-
-    window.addEventListener('scroll', function() {
-    // current scroll position
-    const currentScrollPos = window.pageYOffset;
-
-    if(prevScrollPos < currentScrollPos && currentScrollPos > 40){
-        // user has scrolled up
-        nav.classList.add('hidden')
-    }else if(prevScrollPos > currentScrollPos) {
-        // user has scrolled down
-        nav.classList.remove('hidden')
-    }
-
-    // update previous scroll position
-    prevScrollPos = currentScrollPos;
     });
 
 </script>

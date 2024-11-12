@@ -58,6 +58,13 @@
         -webkit-backdrop-filter: blur( 4px );
         border-color: rgba(255, 255, 255, 0.18);
     }
+
+    .bg-glassmorphism-nav {
+        border-radius: 0rem 0rem 0.75rem 0.75rem;
+        border: 1px solid #EEE;
+        background: rgba(238, 238, 238, 0.50);
+        backdrop-filter: blur(24.299999237060547px);
+    }
 }
 
 ::-webkit-scrollbar {
