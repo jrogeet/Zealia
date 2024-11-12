@@ -1,4 +1,3 @@
-<!-- desktop nav -->
 <header class="fixed z-50 content-center block h-20 shadow-md rounded-b-xl bg-glassmorphism-nav" id="navbar">
     <!-- object container -->
     <div class="flex items-center justify-between mx-auto px-8 h-[4.5rem]  w-[65.8125rem]">
@@ -42,7 +41,7 @@
                 <div id="notifContainer" class="relative inline-block">
                     <button id="notificationBtn" onclick="toggle('notificationDropdown')" class="relative cursor-pointer">
                         <span class="text-3xl notification-icon">🔔</span>
-                        <span id="notificationCount" class="absolute -top-[2px] -right-[2px] bg-red1 text-white text-sm rounded-2xl py-[0.05rem] px-2"></span>
+                        <span id="notificationCount" class="absolute -top-[2px] -right-[2px] bg-red1 text-rederr text-sm font-clashmed rounded-2xl py-[0.05rem] px-2"></span>
                     </button>
                     <div id="notificationDropdown" class="hidden flex-col absolute right-0 top-full max-h-[25rem] w-[20rem] bg-white1 border border-black1 rounded-lg shadow overflow-hidden">
                         <div class="flex items-center justify-between px-4 py-6 pr-6 bg-black1 h-14">

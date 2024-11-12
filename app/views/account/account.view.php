@@ -1,7 +1,7 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
 <?php view('partials/head.view.php'); ?>
 
-<body class="static w-screen py-6 mb-0 overflow-x-hidden bg-white1 font-synereg h-fit">
+<body class="flex flex-col justify-between mx-auto items-center overflow-x-hidden min-h-auto h-screen w-[96rem] bg-white1">
 
     <?php view('partials/nav.view.php') ?>
 

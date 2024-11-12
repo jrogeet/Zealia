@@ -162,24 +162,18 @@
             </div>
         <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
             <?php if(isset($decodedGroup)): ?>
-                
-                <?php //dd($members) ?>
+            
                 <!-- BODY -->
                 <div class="flex w-10/12 mx-auto mb-32">
                     <!-- left -->
                     <div id="leftBoxStudent" class="bg-white2 relative block mx-auto w-[26%] text-center justify-between items-center h-[40rem] border border-black1 px-6 py-4 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)]">
                         <!-- head -->
                         <div id="leftBoxStudentHead" class="flex w-full py-2">
-                            <!-- <h1 class="mx-auto ml-0 text-4xl text-left font-synebold">Group: <?//php echo $groupNum ?></h1>
-                            <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1" onclick="downloadPDF()">Print Group</button> -->
+                        
                         </div>
                         
                         <!-- members -->
                         <div id="leftBoxStudentMembers" class="w-full py-2">
-                            <!-- <?//php foreach ($members as $member){ ?>
-                                <h1 class="flex py-4 my-2 text-xl"> <span class="w-2/6 mx-auto text-left"><?//php echo $member[0]; ?></span><span class="w-2/6 mx-auto text-right"><?//php echo $member[2]; ?></span></h1>
-                                
-                            <?//php } ?> -->
                         </div>
         
                     </div>
