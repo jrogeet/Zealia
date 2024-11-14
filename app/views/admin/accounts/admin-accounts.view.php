@@ -97,9 +97,9 @@
                     </div>
                 
                     <div class="flex flex-col items-center justify-center p-4 h-5/6 ">
-                        <p class="text-black font-synemed">Your concern was <span class="text-green1">successfully</span> sent to us,</p>
-                        <p class="mb-3 font-synemed">please wait for an email for our response.</p>
-                        <p class="text-2xl font-synereg text-grey2">=)</p>
+                        <p class="text-black font-synemed">ID already exists</p>
+                        <p class="mb-3 font-synemed">please use another ID.</p>
+                        <p class="text-2xl font-synereg text-grey2">=(</p>
                     </div>
                 </div>
             </div>
@@ -107,14 +107,14 @@
             <div id="emailExists" class="fixed top-0 left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism">
                 <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
                     <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                        <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Ticket Sent</span>
+                        <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Warning</span>
                         <button class="w-10 h-full rounded bg-red1" onClick="hide('emailExists'); enableScroll();">X</button>
                     </div>
                 
                     <div class="flex flex-col items-center justify-center p-4 h-5/6 ">
-                        <p class="text-black font-synemed">Your concern was <span class="text-green1">successfully</span> sent to us,</p>
-                        <p class="mb-3 font-synemed">please wait for an email for our response.</p>
-                        <p class="text-2xl font-synereg text-grey2">=)</p>
+                        <p class="text-black font-synemed">Email already exists</p>
+                        <p class="mb-3 font-synemed">please use another email.</p>
+                        <p class="text-2xl font-synereg text-grey2">=(</p>
                     </div>
                 </div>
             </div>
@@ -128,33 +128,34 @@
                 <input type="hidden" name="encoded_accounts" value="<?= htmlspecialchars($encoded_accounts, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="encoded_students" value="<?= htmlspecialchars($encoded_students, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="encoded_instructors" value="<?= htmlspecialchars($encoded_instructors, ENT_QUOTES, 'UTF-8')?>">
-                
+                <input type="hidden" name="create" value="create">
+                    
                 <div class="block w-[70%] h-full mx-auto">
 
                     <h1 class="text-grey2 mt-[5%]">User Type</h1>
                     <select name="account_type" class="relative w-1/3 h-10 pl-4 mb-2 text-sm border border-black rounded-lg bg-blue2" name="category" id="reason" placeholder="Select Category" required>
                         <option class="bg-white2" value="">Select User Type:</option>
-                        <option class="bg-white2" value="account">Admin</option>
-                        <option class="bg-white2" value="rooms">instructor</option>
-                        <option class="bg-white2" value="groups">Student</option>
+                        <option class="bg-white2" value="admin">Admin</option>
+                        <option class="bg-white2" value="instructor">instructor</option>
+                        <option class="bg-white2" value="student">Student</option>
                     </select>
                     
                     <h1 class="text-grey2 mt-[5%] mt-4">Name</h1>
                     <div class="flex">
-                        <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="First Name" required></input>
-                        <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white1" placeholder="Last Name" required></input>
+                        <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="First Name" required>
+                        <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white1" placeholder="Last Name" required>
                     </div>
 
                     <h1 class="text-grey2 mt-[5%] mt-4">School number</h1>
-                    <input name="school_id" type="number" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="ID number" required></input>
+                    <input name="school_id" type="number" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="ID number" required>
 
                     <h1 class="text-grey2 mt-[5%] mt-4">Email</h1>
-                    <input name="email" type="email" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="Email" required></input>
+                    <input name="email" type="email" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="Email" required>
                     
                     <h1 class="text-grey2 mt-[5%] mt-4">Set Password</h1>
                     <div class="flex">
-                        <input name="password" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="Password" required></input>
-                        <input name="c_password" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white1" placeholder="Confirm Password" required></input>
+                        <input name="password" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="Password" required>
+                        <input name="c_password" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white1" placeholder="Confirm Password" required>
                     </div>
                 </div>
 

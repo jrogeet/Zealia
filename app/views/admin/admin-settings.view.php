@@ -6,63 +6,68 @@
     <div class="relative flex w-full h-fit py-12 px-6 min-w-[75rem]">
 
         <div class="relative block w-[70%] h-[40rem] mt-2">
-            <h1 class="text-3xl font-synemed mb-12">Change Admin Information</h1>
+            <h1 class="mb-12 text-3xl font-synemed">Edit Account Information</h1>
 
             <div class="flex w-[80%] h-[90%] border border-black  rounded-2xl ml-12 p-6 pl-8">
                 <div class="block w-[70%] h-full mx-auto">
-                    <h1 class="text-grey2 mt-[5%] mt-4">Name</h1>
+                    <form method="POST" action="/admin-settings">
+                        <?php if (!empty($errors)): ?>
+                            <div class="mb-4 text-red-500">
+                                <?php foreach ($errors as $error): ?>
+                                    <p><?= $error ?></p>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                        <h1 class="text-grey2 mt-[5%] mt-4">Name</h1>
+                        <div class="flex">
+                            <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="First Name">
+                            <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white1" placeholder="Last Name">
+                        </div>
 
-                    <div class="flex">
-                        <input type="text" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="First Name"></input>
-                        <input type="text" class="ml-4 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Last Name"></input>
-                    </div>
+                        <h1 class="text-grey2 mt-[5%] mt-4">School number</h1>
+                        <input name="school_id" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="ID number">
 
-                    <h1 class="text-grey2 mt-[5%] mt-4">School number</h1>
+                        <h1 class="text-grey2 mt-[5%] mt-4">Email</h1>
+                        <input name="email" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="Email">
+                        
+                        <h1 class="text-grey2 mt-[5%] mt-4">Change Password</h1>
+                        <div class="flex">
+                            <input name="password" type="password" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="New Password">
+                            <input name="c_password" type="password" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white1" placeholder="Confirm Password">
+                        </div>
 
-                    <input type="text" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="ID number"></input>
-
-                    <h1 class="text-grey2 mt-[5%] mt-4">Email</h1>
-
-                    <input type="text" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Email"></input>
-                    
-                    <h1 class="text-grey2 mt-[5%] mt-4">Change Password</h1>
-
-                    <div class="flex">
-                        <input type="text" class="ml-0 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="New Password"></input>
-
-                        <input type="text" class="ml-4 w-1/3 h-10 border border-grey2 rounded-lg bg-white1 pl-2" placeholder="Confirm Password"></input>
-                    </div>
-                </div>
-
-                <div class="block w-[30%] h-full mx-auto">
-                    <button class="mx-auto border border-black rounded-lg w-full h-10 mt-[31rem] bg-orange1 text-black1">Save Changes</button>
+                        <div class="block w-[30%] h-full mx-auto">
+                            <button type="submit" class="w-full h-10 mx-auto border border-black rounded-lg mt-[8rem] bg-orange1 text-black1">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <div class="relative block w-[30%] h-[40rem] mt-[5.7rem]">
+        <div class="relative block w-[40%] h-[40rem] mt-[5.7rem]">
             <div class="block w-[80%] h-[90%] border border-black rounded-2xl ml-12 overflow-hidden">
-                <h1 class="w-full h-10 bg-blue3 text-center text-white1 font-synemed pt-2">Admin List</h1>
+                <h1 class="w-full h-10 pt-2 text-center bg-blue3 text-white1 font-synemed">Admin List</h1>
 
-                <div class="flex w-full h-12 border-b border-black p-1">
-                    <input type="text" class="w-[74%] h-[98%] mx-auto border border-grey2 rounded-lg pl-2" placeholder="Enter ID number to add">
+                <?php foreach ($admins as $admin): ?>
+                <div class="flex w-full p-2 border-b border-black h-fit">
+                    <div class="block w-full mx-auto ml-2">
+                        <div class="flex flex-col">
+                            <h5 class="">Name:</h5>
+                            <h1 class="text-lg"><?= htmlspecialchars($admin['l_name'] . ', ' . $admin['f_name']) ?></h1>
+                        </div>
+                        <div class="flex flex-col">
+                            <h5 class="">Admin ID: </h5>
+                            <h5 class="mb-4 text-base text-grey2"><?= htmlspecialchars($admin['school_id']) ?></h5>
+                        </div>
 
-                    <button class="w-[24%] h-[98%] mx-auto bg-orange1 font-synemed text-black1 border border-grey2 rounded-lg">Add</button>
-                </div>
+                        <div class="flex flex-col">
+                            <h5 class="">Email:</h5>
+                            <h5 class="text-grey2"><?= htmlspecialchars($admin['email']) ?></h5>
+                        </div>
 
-                
-                <div class="flex w-full h-fit border-b border-black p-2">
-                    <div class="block w-2/3 mx-auto ml-2">
-                        <h1 class="text-xl">Surname, First Name M.</h1>
-                        <h5 class="text-grey2 text-lg mb-4">1234</h5>
-                        <h5 class="text-grey2">adminemail@fatima.edu.ph</h5>
                     </div>
-                    <div>
-                        <!-- di ko mapagana ung pic di nag lload -->
-                        <button class="relative top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-8 h-8 bg-red1 mx-auto text-3xl">X</button>
-                        <!-- <img src="public\assets\images\icons\cross.png"> -->
-                    </div>
                 </div>
+                <?php endforeach; ?>
             </div>
 
 
