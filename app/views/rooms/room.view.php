@@ -172,27 +172,19 @@
                             <!-- <h1 class="mx-auto ml-0 text-4xl text-left font-synebold">Group: <?//php echo $groupNum ?></h1>
                             <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1" onclick="downloadPDF()">Print Group</button> -->
                         </div>
-                        
                         <!-- members -->
-                        <div id="leftBoxStudentMembers" class="w-full py-2">
-                            <!-- <?//php foreach ($members as $member){ ?>
-                                <h1 class="flex py-4 my-2 text-xl"> <span class="w-2/6 mx-auto text-left"><?//php echo $member[0]; ?></span><span class="w-2/6 mx-auto text-right"><?//php echo $member[2]; ?></span></h1>
-                                
-                            <?//php } ?> -->
+                         <!-- <div id="leftBoxStudentMembers" class="w-full py-2">
+                        </div>-->
+                        <div id="kanbanTabs" class="flex flex-col w-full border-b border-black1">
+                            
                         </div>
-        
+
+                        <button class="flex items-center justify-center h-10 mx-auto text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1" onclick="downloadPDF()">Print Group</button>
                     </div>
                     
                     <!-- right -->
                     <div id="rightBoxStudent" class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-synemed">
                         <!-- group tabs -->
-                        <div id="kanbanTabs" class="flex w-full border-b border-black1">
-                            <!-- TO FIX: hide other kanban onclick -->
-                            <!-- <?//php foreach ($members as $index => $member){ ?>
-                                <button onclick="changeKB(<?//php echo $index; ?>); " id="<?//php echo $member[1]; ?>" class="member <?//php if($member[1] === $_SESSION['user']['school_id']): ?>bg-blue3 text-white1<?//php else: ?>bg-white1<?//php endif;?> w-1/4 mx-auto py-4 border-r border-l border-black1"><?//php echo $member[0]; ?></button>
-                            <?//php } ?> -->
-                        </div>
-
                     </div>
                 </div>
             <?php else: ?>
@@ -466,26 +458,25 @@
                         localStorage.setItem('lastSelectedTab', currentKBTab.toString());
 
                         const leftBoxStudentHead = document.getElementById('leftBoxStudentHead');
-                        const leftBoxStudentMembers = document.getElementById('leftBoxStudentMembers');
+                        // const leftBoxStudentMembers = document.getElementById('leftBoxStudentMembers');
                         const rightBoxStudent = document.getElementById('rightBoxStudent');
                         const kanbanTabs = document.getElementById('kanbanTabs');
 
                         leftBoxStudentHead.innerHTML = '';
-                        leftBoxStudentMembers.innerHTML = '';
+                        // leftBoxStudentMembers.innerHTML = '';
 
                         rightBoxStudent.innerHTML = '';
                         kanbanTabs.innerHTML = '';
 
                         leftBoxStudentHead.innerHTML = `
                             <h1 class="mx-auto ml-0 text-4xl text-left font-synebold">Group: ${groupNum}</h1>
-                            <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-white2 w-36 font-synereg border-black1" onclick="downloadPDF()">Print Group</button>
                         `;
 
-                        members.forEach(member => {
-                            leftBoxStudentMembers.innerHTML += `
-                                <h1 class="flex py-4 my-2 text-xl"> <span class="w-2/6 mx-auto text-left">${member[0]}</span><span class="w-2/6 mx-auto text-right">${member[2]}</span></h1>
-                            `;
-                        });
+                        // members.forEach(member => {
+                        //     leftBoxStudentMembers.innerHTML += `
+                        //         <h1 class="flex py-4 my-2 text-xl"> <span class="w-2/6 mx-auto text-left">${member[0]}</span><span class="w-2/6 mx-auto text-right">${member[2]}</span></h1>
+                        //     `;
+                        // });
 
                         // rightBoxStudent.innerHTML = `
                         //     <!-- Delete Area -->
@@ -501,12 +492,10 @@
 
                         members.forEach((member, index) => {
                             kanbanTabs.innerHTML += `
-                                <button onclick="changeKB(${index});" 
-                                        id="${member[1]}" 
-                                        class="member ${index === currentKBTab ? 'bg-blue3 text-white1' : 'bg-white1 text-black1'} 
-                                            w-full mx-auto py-4 border-r border-l border-black1">
+                                <div onclick="changeKB(${index});" id="${member[1]}" class="flex flex-col member ${index === currentKBTab ? 'bg-blue3 text-white1' : 'bg-white1 text-black1'} w-full mx-auto py-4 border-r border-l border-black1">
                                     ${member[0]}
-                                </button>
+                                    ${member[2]}
+                                </div>
                             `;
                         });
 
@@ -568,7 +557,7 @@
                             `;
                         });
                         // Insert all kanbans after the tabs
-                        rightBoxStudent.innerHTML += kanbanTabs.outerHTML + allKanbans;
+                        rightBoxStudent.innerHTML += allKanbans;
                         attachDragAndDropListeners();
                     <?php endif; ?>
 

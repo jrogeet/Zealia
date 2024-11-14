@@ -21,7 +21,8 @@ module.exports = {
         'back': "url('/assets/images/icons/back.png')",
         'clear': "url('/assets/images/icons/clear.png')",
         'edit': "url('/assets/images/icons/edit.png')",
-        'loading': "url('/assets/images/pacman-loading.gif')"
+        'loading': "url('/assets/images/pacman-loading.gif')",
+        'mesh-yellow': "url('/assets/images/mesh-yellow.png')",
       },
 
       colors: {
@@ -49,7 +50,18 @@ module.exports = {
         synesemi: ['Syne-semibold', 'sans-serif'],
         synebold: ['Syne-bold', 'sans-serif'],
         syneboldextra: ['Syne-Extrabold', 'sans-serif'],
-        
+
+        ginto: ['ginto', 'sans-serif'],
+
+        clashreg: ['clash-reg', 'sans-serif'],
+        clashmed: ['clash-med', 'sans-serif'],
+        clashbold: ['clash-bold', 'sans-serif'],
+        clashsemibold: ['clash-semibold', 'sans-serif'],
+
+        satoshireg: ['satoshi-reg', 'sans-serif'],
+        satoshimed: ['satoshi-med', 'sans-serif'],
+        satoshilight: ['satoshi-light', 'sans-serif'],
+        satoshiblack: ['satoshi-black', 'sans-serif'],
       },
 
       height: {
@@ -92,4 +104,3 @@ module.exports = {
   },
   plugins: [],
 }
-
