@@ -4,7 +4,7 @@
     <?php view('partials/nav.view.php')?>
 
     <main class="h-[41rem] w-[87.5rem] mt-20 flex flex-col space-between">
-        <h1 class="text-3xl font-synereg">Change Password</h1>
+        <h1 class="text-3xl font-satoshimed">Change Password</h1>
         <form method="post" action="/reset" class="flex flex-col">
                 <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
 
@@ -22,7 +22,7 @@
                 <?php elseif (isset($errors['password-confirm'])): ?>
                                 <p class=""><?= $errors['password-confirm'] ?></p>
                 <?php endif; ?>
-                <button  class="w-3/6 py-2 text-xl border bg-blue3 hover:bg-orange1 hover:text-black1 border-blue3 rounded-xl font-synereg text-white1" type="submit">Change Password</button>
+                <button  class="w-3/6 py-2 text-xl border bg-blue3 hover:bg-orange1 hover:text-black1 border-blue3 rounded-xl font-satoshimed text-white1" type="submit">Change Password</button>
         </form>
     </main>
     

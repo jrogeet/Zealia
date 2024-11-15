@@ -8,7 +8,7 @@
         <div class="flex items-center justify-center h-fit">
             <div class="flex items-center justify-center w-full h-full py-6 bg-no-repeat bg-cover bg-cropped-breakdance">
                 <div class="relative flex items-center justify-center">
-                    <h1 class="relative font-synereg bg-orange1 text-xs px-2.5 selection:bg-black1 selection:text-orange1">generate teams by passion</h1>
+                    <h1 class="relative font-satoshimed bg-orange1 text-xs px-2.5 selection:bg-black1 selection:text-orange1">generate teams by passion</h1>
                 </div>
             </div>
         </div>
@@ -26,8 +26,8 @@
             <div class=" h-full w-[63.9375rem] flex justify-center items-center bg-cropped-breakdance bg-cover bg-no-repeat">
                 <div class="relative flex items-center justify-center">
                     <img class="h-[7.8125rem]" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png" alt="ZealiaLogoStarTrail-2.png"/>
-                    <span class="font-syneboldextra text-black1 text-[6.875rem]">ealia</span>
-                    <span class="absolute font-synereg bg-orange1 bottom-4 -right-9 text-base px-2.5 selection:bg-black1 selection:text-orange1">generate teams by passion</span>
+                    <span class="font-ginto text-black1 text-[5.6rem]">ealia</span>
+                    <span class="absolute font-satoshimed bg-orange1 bottom-4 -right-9 text-base px-2.5 selection:bg-black1 selection:text-orange1">generate teams by passion</span>
                 </div>
             </div>
         </div>
@@ -55,21 +55,21 @@
     <div class="flex items-center justify-center lg:hidden ">
         <div class="relative block w-full min-h-[106.25rem] py-10 justify-evenly bg-howtouse bg-no-repeat bg-cover bg-center selection:bg-blue3 selection:text-white1">
 
-            <div class="relative block pl-2 w-5/6 h-fit font-synemed mx-auto ml-[8%] top-[8rem] max-w-[18rem]" >
-                <h1 class="relative mb-4 text-2xl font-synesemi" >Step: 1</h1>
+            <div class="relative block pl-2 w-5/6 h-fit font-satoshimed mx-auto ml-[8%] top-[8rem] max-w-[18rem]" >
+                <h1 class="relative mb-4 text-2xl font-satoshiblack" >Step: 1</h1>
                 <h1 class="relative pl-4 mb-2 text-lg">Complete the RIASEC test.</h1>
                 <h1 class="relative pl-4 mb-2 text-lg">Start by taking the RIASEC Test to determine your interests and strengths.</h1>
                 <h1 class="relative pl-4 mb-2 text-lg">Once you've finished the test, join the designated room set up by your instructor.</h1>
             </div>
 
-            <div class="relative block pl-6 pr-2 w-5/6 font-synemed mx-auto mr-[8%] text-right top-[26rem] max-w-[18rem]" >
-                <h1 class="relative mb-4 text-2xl font-synesemi" >Step: 2</h1>
+            <div class="relative block pl-6 pr-2 w-5/6 font-satoshimed mx-auto mr-[8%] text-right top-[26rem] max-w-[18rem]" >
+                <h1 class="relative mb-4 text-2xl font-satoshiblack" >Step: 2</h1>
                 <h1 class="relative pr-4 mb-2 text-lg">After you've entered the room, wait patiently for your instructor to generate groups of students based on their RIASEC types.</h1>
                 <h1 class="relative pr-4 mb-2 text-lg">This ensures that the groupings are balanced and fair.</h1>
             </div>
 
-            <div class="relative block pl-2 w-5/6 h-fit font-synemed mx-auto ml-[8%] top-[38rem] max-w-[18rem]" >
-                <h1 class="relative mb-4 text-2xl font-synesemi" >Step: 3</h1>
+            <div class="relative block pl-2 w-5/6 h-fit font-satoshimed mx-auto ml-[8%] top-[38rem] max-w-[18rem]" >
+                <h1 class="relative mb-4 text-2xl font-satoshiblack" >Step: 3</h1>
                 <h1 class="relative pl-4 mb-2 text-lg">Collaborate, & Create!</h1>
                 <h1 class="relative pl-4 mb-2 text-lg">Once your groups have been formed, work with your assigned members to brainstorm and plan tasks and activities.</h1>
                 <h1 class="relative pl-4 mb-2 text-lg">Take advantage of the opportunity to interact, share ideas, and leverage each other's talents to achieve success!</h1>
@@ -82,33 +82,33 @@
     <div class="hidden lg:flex justify-center items-center my-8 min-h-[112.5rem]">
         <div class="flex flex-col justify-evenly bg-howtouse bg-no-repeat bg-cover min-h-[106.25rem] w-[72rem] border-2 border-black1 rounded-2xl selection:bg-blue3 selection:text-white1">
             <div class="flex flex-col justify-between -mt-20 ml-24 h-[17.3125rem] w-[27.0625rem]">
-                <span class="text-4xl font-synebold">Step 1:</span>
+                <span class="text-4xl font-clashbold">Step 1:</span>
 
                 <div class="flex flex-col">
-                    <span class="text-2xl font-synereg">Complete the RIASEC test.</span>
-                    <span class="text-2xl font-synereg">Start by taking the RIASEC Test to determine your interests and strengths.</span>
+                    <span class="text-2xl font-satoshimed">Complete the RIASEC test.</span>
+                    <span class="text-2xl font-satoshimed">Start by taking the RIASEC Test to determine your interests and strengths.</span>
                 </div>
                 
-                <span class="text-2xl font-synereg">Once you've finished the test, join the designated room set up by your instructor.</span>
+                <span class="text-2xl font-satoshimed">Once you've finished the test, join the designated room set up by your instructor.</span>
             </div>
 
             <div class="flex flex-col justify-between ml-[41.6rem] h-[17.3125rem] w-[27.0625rem] text-right">
-                <span class="text-4xl font-synebold">Step 2:</span>
+                <span class="text-4xl font-clashbold">Step 2:</span>
 
-                <span class="text-2xl font-synereg">After you've entered the room, wait patiently for your instructor to generate groups of students based on their RIASEC types. </span>
+                <span class="text-2xl font-satoshimed">After you've entered the room, wait patiently for your instructor to generate groups of students based on their RIASEC types. </span>
                 
-                <span class="text-2xl font-synereg">This ensures that the groupings are balanced and fair.</span>
+                <span class="text-2xl font-satoshimed">This ensures that the groupings are balanced and fair.</span>
             </div>
 
             <div class="flex flex-col justify-between ml-24 h-[17.3125rem] w-[27.0625rem]">
-                <span class="text-4xl font-synebold">Step 3:</span>
+                <span class="text-4xl font-clashbold">Step 3:</span>
 
                 <div class="flex flex-col">
-                    <span class="text-2xl font-synereg">Collaborate, & Create!</span>
-                    <span class="text-2xl font-synereg">Once your groups have been formed, work with your assigned members to brainstorm and plan tasks and activities.</span>
+                    <span class="text-2xl font-satoshimed">Collaborate, & Create!</span>
+                    <span class="text-2xl font-satoshimed">Once your groups have been formed, work with your assigned members to brainstorm and plan tasks and activities.</span>
                 </div>
                 
-                <span class="text-2xl font-synereg">Take advantage of the opportunity to interact, share ideas, and leverage each other's talents to achieve success!</span>
+                <span class="text-2xl font-satoshimed">Take advantage of the opportunity to interact, share ideas, and leverage each other's talents to achieve success!</span>
             </div>
         </div>
     </div>

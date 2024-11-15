@@ -1,11 +1,11 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg bg-white2">
+<body class="static flex font-satoshimed bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
     <div class="relative block w-full h-fit py-12 px-6 min-w-[75rem]">
 
     <div class="relative flex mb-12">
-        <h1 class="mx-auto ml-6 text-3xl font-synebold">Room List</h1>
+        <h1 class="mx-auto ml-6 text-3xl font-clashbold">Room List</h1>
         <div class="flex gap-4 mx-auto w-fit">
             <div class="flex items-center">
                 <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white1" onchange="handleSort()">

@@ -1,11 +1,11 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg bg-white2">
+<body class="static flex font-satoshimed bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="relative block w-full h-fit py-12 px-6 min-w-[75rem]">
         <div class="flex justify-between mb-8">
-            <h1 class="text-4xl font-synebold">TICKETS</h1>
+            <h1 class="text-4xl font-clashbold">TICKETS</h1>
             <div class="flex gap-4">
                 <div class="flex items-center">
                     <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white1" onchange="handleSort()">
@@ -29,11 +29,11 @@
         </div>
 
         <div id="searchResultsHead" class="hidden mt-4">
-            <h2 class="text-xl font-synemed text-grey2">Search Results for: <span id="searchTerm"></span></h2>
+            <h2 class="text-xl font-satoshimed text-grey2">Search Results for: <span id="searchTerm"></span></h2>
         </div>
 
         <div class="relative flex mt-12 mb-4">
-            <h1 class="mx-auto ml-0 text-2xl font-synemed text-grey2">Pending Tickets</h1>
+            <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Pending Tickets</h1>
         </div>
 
         <div class="border border-black rounded-b-xl overflow-hidden">
@@ -70,7 +70,7 @@
 
 
         <div class="relative flex mt-24 mb-4">
-            <h1 class="mx-auto ml-0 text-2xl font-synemed text-grey2">Solved Tickets</h1>
+            <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Solved Tickets</h1>
         </div>
 
         <div class="border border-black rounded-b-xl overflow-hidden">
@@ -106,7 +106,7 @@
         </div>
 
         <div class="relative flex mt-12 mb-4">
-            <h1 class="mx-auto ml-0 text-2xl font-synemed text-grey2">Unresolved Tickets</h1>
+            <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Unresolved Tickets</h1>
         </div>
 
         <div class="border border-black rounded-b-xl overflow-hidden">

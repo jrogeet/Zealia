@@ -1,4 +1,4 @@
-<div class="z-10 relative block w-72 h-[100vh] text-white2 font-synereg min-w-[18rem] min-h-[75rem]">
+<div class="z-10 relative block w-72 h-[100vh] text-white2 font-satoshimed min-w-[18rem] min-h-[75rem]">
 
     <div class="fixed h-screen p-6 bg-blue3 w-72">
         <div class="relative">

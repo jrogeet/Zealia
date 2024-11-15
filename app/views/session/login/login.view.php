@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="font-synereg bg-white1">
+<body class="font-satoshimed bg-white1">
     <?php view('partials/nav.view.php')?>
 
     <div class="pt-16 pb-10 bg-white1 sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-[26.25rem] h-fit"> 

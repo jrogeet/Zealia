@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="font-synereg bg-white1">
+<body class="font-satoshimed bg-white1">
     <?php view('partials/nav.view.php')?>
 
 

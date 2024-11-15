@@ -1,11 +1,11 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg bg-white2">
+<body class="static flex font-satoshimed bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="block w-full h-fit p-12 min-w-[75rem]">
-        <h1 class="text-3xl text-black font-synebold"><?= $user['f_name'] . ' ' . $user['l_name'] ?></h1>
-        <h2 class="mt-2 text-2xl text-grey2 font-synemed">User Logs for ID: <?= $school_id ?></h2>
+        <h1 class="text-3xl text-black font-clashbold"><?= $user['f_name'] . ' ' . $user['l_name'] ?></h1>
+        <h2 class="mt-2 text-2xl text-grey2 font-satoshimed">User Logs for ID: <?= $school_id ?></h2>
 
         <div class="flex gap-4 mt-8">
             <div class="flex items-center">
@@ -16,7 +16,7 @@
                 </select>
                 <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
             </div>
-            <button class="flex items-center justify-center h-10 px-4 text-lg border rounded-lg bg-white2 font-synereg border-black1" onclick="downloadPDF()">Print Logs</button>
+            <button class="flex items-center justify-center h-10 px-4 text-lg border rounded-lg bg-white2 font-satoshimed border-black1" onclick="downloadPDF()">Print Logs</button>
         </div>
 
         <div class="mt-8 overflow-hidden border border-black rounded-xl">

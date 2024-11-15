@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg bg-white2">
+<body class="static flex font-satoshimed bg-white2">
 
     <?php view('partials/admin-nav.view.php'); ?>
 
@@ -17,27 +17,27 @@
         <div class="flex w-full mt-8">
 
             <a href="/admin-accounts" class="mx-auto ml-0 border border-black rounded-2xl h-52 w-[24%] bg-orange1 p-4">
-                <h1 class="text-lg font-synemed text-grey-200">Total no. of</h1>
-                <h1 class="text-lg font-synemed text-grey-200">Users:</h1>
-                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="userCount"></h1>
+                <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
+                <h1 class="text-lg font-satoshimed text-grey-200">Users:</h1>
+                <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="userCount"></h1>
             </a>
 
             <a href="/admin-accounts" class="mx-auto border border-black rounded-2xl h-52 w-[24%] bg-blue2 p-4">
-                <h1 class="text-lg font-synemed text-grey-200">Total no. of</h1>
-                <h1 class="text-lg font-synemed text-grey-200">Students:</h1>
-                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="studCount"></h1>
+                <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
+                <h1 class="text-lg font-satoshimed text-grey-200">Students:</h1>
+                <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="studCount"></h1>
             </a>
 
             <a href="/admin-accounts" class="mx-auto border border-black rounded-2xl h-52 w-[24%] bg-blue2 p-4">
-                <h1 class="text-lg font-synemed text-grey-200">Total no. of</h1>
-                <h1 class="text-lg font-synemed text-grey-200">Instructors:</h1>
-                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="insCount"></h1>
+                <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
+                <h1 class="text-lg font-satoshimed text-grey-200">Instructors:</h1>
+                <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="insCount"></h1>
             </a>
 
             <a href="/admin-rooms" class="mx-auto mr-0 border border-black rounded-2xl h-52 w-[24%] bg-white2 p-4">
-                <h1 class="text-lg font-synemed text-grey-200">Total no. of</h1>
-                <h1 class="text-lg font-synemed text-grey-200">Rooms:</h1>
-                <h1 class="text-right text-[6.5rem] font-synebold -mt-8" id="roomCount"></h1>
+                <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
+                <h1 class="text-lg font-satoshimed text-grey-200">Rooms:</h1>
+                <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="roomCount"></h1>
             </a>
     
         </div>
@@ -46,7 +46,7 @@
         <div class="relative flex w-full mt-14">
             <!-- left -->
             <div class="mx-auto ml-0 w-[50%] min-w-[37.5rem]">
-                <h2 class="mb-4 text-xl text-left font-synebold text-grey2">Recently Created Accounts</h2>
+                <h2 class="mb-4 text-xl text-left font-clashbold text-grey2">Recently Created Accounts</h2>
                 <div class="container mx-auto my-6 mr-2 overflow-hidden bg-white border border-black rounded-lg shadow-lg">
                     <table class="min-w-full leading-normal">
                         <thead>
@@ -72,7 +72,7 @@
 
             <!-- Right -->
             <div class="mx-auto mr-0 w-[50%] min-w-[37.5rem]">
-                <h2 class="mb-4 text-xl text-left font-synebold text-grey2">Recently Created Rooms</h2>
+                <h2 class="mb-4 text-xl text-left font-clashbold text-grey2">Recently Created Rooms</h2>
                 <div class="container mx-auto my-6 ml-2 overflow-hidden bg-white border border-black rounded-lg shadow-lg">
                     <table class="min-w-full leading-normal">
                         <thead>

@@ -1,12 +1,12 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg bg-white2">
+<body class="static flex font-satoshimed bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="relative block w-full h-32 py-12 px-6 min-w-[75rem]">
         <div class="relative block w-full h-[40rem] mt-2">
             <a href="/admin-accounts" class="px-2 text-3xl border rounded-lg bg-blue3 border-black1 text-white1">◀</a>
-            <h1 class="mb-12 text-3xl text-grey2 font-synemed">Edit <span class="text-black1"><?= $allUserInfo['f_name'] ?> <?= $allUserInfo['l_name'] ?></span>'s Information</h1>
+            <h1 class="mb-12 text-3xl text-grey2 font-satoshimed">Edit <span class="text-black1"><?= $allUserInfo['f_name'] ?> <?= $allUserInfo['l_name'] ?></span>'s Information</h1>
 
             <div class="flex w-[60%] h-[90%] bg-white1 border border-black  rounded-2xl mx-auto p-6 pl-8">
                 <!-- EDIT -->

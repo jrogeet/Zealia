@@ -1,11 +1,11 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg bg-white2">
+<body class="static flex font-satoshimed bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="relative block w-full h-fit py-12 px-6 min-w-[75rem]">
 
-        <h1 class="text-3xl text-grey2 font-synemed mb-12">Edit <span class="text-black1 truncate"><?= $allRoomInfo['room_name'] ?></span> Information</h1>
+        <h1 class="text-3xl text-grey2 font-satoshimed mb-12">Edit <span class="text-black1 truncate"><?= $allRoomInfo['room_name'] ?></span> Information</h1>
         
         <div class="flex">
             <div class="relative block w-[60%]">
@@ -25,10 +25,10 @@
             </div>
     
             <div class="relative block w-[30%] border border-black rounded-2xl ml-12 overflow-hidden">
-                <h1 class="w-full h-10 bg-blue3 text-center text-white1 font-synemed pt-2">Students</h1>
+                <h1 class="w-full h-10 bg-blue3 text-center text-white1 font-satoshimed pt-2">Students</h1>
                 <div class="flex w-full h-12 border-b border-black p-1">
                     <input type="text" class="w-[74%] h-[98%] mx-auto border border-grey2 rounded-lg pl-2" placeholder="Enter ID number to add">
-                    <button class="w-[24%] h-[98%] mx-auto bg-orange1 font-synemed text-black1 border border-grey2 rounded-lg">Add</button>
+                    <button class="w-[24%] h-[98%] mx-auto bg-orange1 font-satoshimed text-black1 border border-grey2 rounded-lg">Add</button>
                 </div>
                 <?php foreach($roomStudents as $student): ?>    
                 <div class="flex w-full h-fit border-b border-black p-2">
@@ -47,7 +47,7 @@
             </div>
     
             <div class="relative block w-[30%] border border-black rounded-2xl ml-12 overflow-hidden">
-                <h1 class="w-full h-10 bg-blue3 text-center text-white1 font-synemed pt-2">Groups</h1>
+                <h1 class="w-full h-10 bg-blue3 text-center text-white1 font-satoshimed pt-2">Groups</h1>
                 <?php foreach($decoded_roomGroups as $index => $group): ?>
                 <div class="flex w-full h-fit border-b border-black p-2">
                     <div class="block w-2/3 mx-auto ml-2">

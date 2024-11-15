@@ -1,7 +1,7 @@
 <!-- white container -->
 <header class="relative block bg-white1 z-50 shadow-md h-20 w-full content-center" id="navbar">
     <!-- object container -->
-    <div class="flex h-fit w-full justify-between font-synesemi text-xl text-black1 border border-black mx-auto px-[1rem]">
+    <div class="flex h-fit w-full justify-between font-satoshiblack text-xl text-black1 border border-black mx-auto px-[1rem]">
         <!-- Main NavBar -->
         <nav class="relative flex w-1/2 h-14 gap-14 bg-red-300">
             <a href="/">

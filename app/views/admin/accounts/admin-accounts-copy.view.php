@@ -1,12 +1,12 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg bg-white2">
+<body class="static flex font-satoshimed bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="z-40 relative block w-full h-fit py-12 px-6 min-w-[75rem] mb-16">
         <div class="relative flex mb-12">
-            <h1 class="mx-auto ml-6 text-3xl font-synebold">Account List</h1>
-            <div class="flex w-64 mx-auto text-lg font-synemed">
+            <h1 class="mx-auto ml-6 text-3xl font-clashbold">Account List</h1>
+            <div class="flex w-64 mx-auto text-lg font-satoshimed">
                 <button onclick="show('allList','table-row-group'); hide('studentsList'); hide('profsList');" class="mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">All</button>
                 <button onclick="show('studentsList','table-row-group'); hide('allList'); hide('profsList');" class="mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Students</button>
                 <button onclick="show('instructorsList','table-row-group'); hide('allList'); hide('studentsList');" class="mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Instructors</button>
@@ -93,14 +93,14 @@
         <div id="success" class="fixed top-0 left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism">
             <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
                 <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                    <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Account created</span>
+                    <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Account created</span>
                     <button class="w-10 h-full rounded bg-red1" onClick="hide('success'); enableScroll();">X</button>
                 </div>
             
                 <div class="flex flex-col items-center justify-center p-4 h-5/6 ">
-                    <p class="text-black font-synemed">Account <span class="text-green1">successfully</span> created,</p>
-                    <p class="mb-3 font-synemed"></p>
-                    <p class="text-2xl font-synereg text-grey2">=)</p>
+                    <p class="text-black font-satoshimed">Account <span class="text-green1">successfully</span> created,</p>
+                    <p class="mb-3 font-satoshimed"></p>
+                    <p class="text-2xl font-satoshimed text-grey2">=)</p>
                 </div>
             </div>
         </div>
@@ -108,14 +108,14 @@
             <div id="idExists" class="fixed top-0 left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism">
                 <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
                     <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                        <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Ticket Sent</span>
+                        <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Ticket Sent</span>
                         <button class="w-10 h-full rounded bg-red1" onClick="hide('idExists'); enableScroll();">X</button>
                     </div>
                 
                     <div class="flex flex-col items-center justify-center p-4 h-5/6 ">
-                        <p class="text-black font-synemed">Your concern was <span class="text-green1">successfully</span> sent to us,</p>
-                        <p class="mb-3 font-synemed">please wait for an email for our response.</p>
-                        <p class="text-2xl font-synereg text-grey2">=)</p>
+                        <p class="text-black font-satoshimed">Your concern was <span class="text-green1">successfully</span> sent to us,</p>
+                        <p class="mb-3 font-satoshimed">please wait for an email for our response.</p>
+                        <p class="text-2xl font-satoshimed text-grey2">=)</p>
                     </div>
                 </div>
             </div>
@@ -123,14 +123,14 @@
             <div id="emailExists" class="fixed top-0 left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism">
                 <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
                     <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                        <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Ticket Sent</span>
+                        <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Ticket Sent</span>
                         <button class="w-10 h-full rounded bg-red1" onClick="hide('emailExists'); enableScroll();">X</button>
                     </div>
                 
                     <div class="flex flex-col items-center justify-center p-4 h-5/6 ">
-                        <p class="text-black font-synemed">Your concern was <span class="text-green1">successfully</span> sent to us,</p>
-                        <p class="mb-3 font-synemed">please wait for an email for our response.</p>
-                        <p class="text-2xl font-synereg text-grey2">=)</p>
+                        <p class="text-black font-satoshimed">Your concern was <span class="text-green1">successfully</span> sent to us,</p>
+                        <p class="mb-3 font-satoshimed">please wait for an email for our response.</p>
+                        <p class="text-2xl font-satoshimed text-grey2">=)</p>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
 
         <div class="relative block w-full h-[40rem] mt-12">
             
-            <h1 class="mb-12 text-3xl font-synemed">Create User Account</h1>
+            <h1 class="mb-12 text-3xl font-satoshimed">Create User Account</h1>
 
             <form method="POST" action="/admin-accounts" class="flex w-[60%] h-[90%] border border-black  rounded-2xl mx-auto p-6 pl-8">
                 <input type="hidden" name="encoded_accounts" value="<?= htmlspecialchars($encoded_accounts, ENT_QUOTES, 'UTF-8')?>">

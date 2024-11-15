@@ -1,12 +1,12 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg bg-white2">
+<body class="static flex font-satoshimed bg-white2">
 
     <?php view('partials/admin-nav.view.php'); ?>
     
     <div class="relative block w-full h-fit py-12 px-6 min-w-[75rem]">
         <div class="relative flex mt-12 mb-4">
-            <h1 class="mx-auto ml-0 text-2xl font-synemed text-grey2">Logs</h1>
+            <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Logs</h1>
             <div class="flex gap-4 mr-6 w-fit">
                 <div class="flex items-center">
                     <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white1" onchange="handleSort()">

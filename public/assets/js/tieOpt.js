@@ -57,9 +57,9 @@ function partialInjection(string) {
         var code =          `
                                 
                                 <div class="relative z-10 w-7/12 transform translate-x-[-50%] left-1/2 flex object-center my-12">
-                                    <h1 class="relative text-right mr-[-0.3rem] text-8xl font-synebold text-orange2">${initial}</h1>
+                                    <h1 class="relative text-right mr-[-0.3rem] text-8xl font-clashbold text-orange2">${initial}</h1>
                                     <div class="relative inline-block w-full">
-                                        <h1 class="relative flex h-2/5 mt-[0.9rem] font-synebold text-xl pl-[0.2rem<p class="relative pl-[.3rem] mt-[-1rem] font-synereg">${desc}</p>
+                                        <h1 class="relative flex h-2/5 mt-[0.9rem] font-clashbold text-xl pl-[0.2rem<p class="relative pl-[.3rem] mt-[-1rem] font-satoshimed">${desc}</p>
                                     </div>
                                 </div>
                             `;

@@ -11,14 +11,14 @@
     <!-- <div id="customModal ${member[1]} ${groupNum}" class="z-50 flex bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
         <div class="bg-white1 flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
             <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Custom Role:</span>
+                <span class="text-white1 w-4/5 text-lg font-satoshimed pl-2">Custom Role:</span>
                 <button class="bg-red1 h-full w-10 rounded" onClick="hide('customModal ${member[1]} ${groupNum}'); enableScroll();">X</button>
             </div>
         
             <div class="h-5/6 flex flex-col justify-evenly items-center p-4">
                 <div class="w-full">
-                    <p class="font-synemed text-black">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
-                    <input id="customInput ${member[1]} ${groupNum}" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-synereg">
+                    <p class="font-satoshimed text-black">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
+                    <input id="customInput ${member[1]} ${groupNum}" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed">
                 </div>
 
                 <button onclick="customRole(`${member[1]} ${groupNum}`)" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded">Confirm</button>
@@ -32,7 +32,7 @@
         <input type="hidden" name="room_id" value="<?= $_GET['room_id'] ?>">
     </form>
 
-    <button onclick="submitGroups();" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-synemed h-8 rounded-lg mb-16">Submit</button>
+    <button onclick="submitGroups();" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-satoshimed h-8 rounded-lg mb-16">Submit</button>
     <?php view('partials/footer.view.php')?>
     <script>
         let reasons = [];
@@ -187,11 +187,11 @@
             for (let member of group){// + = drag icon
                 groupHTML = `<div class="flex w-full h-[6.1rem] bg-white1 border-t border-black1 cursor-grab active:cursor-grabbing text-left draggable" id="${member[1]} ${groupNum}" draggable="true">
                                 <div class="w-2/3 p-2 pl-6">
-                                    <h1 class="font-synemed text-2xl text-black1 mb-2 mt-2 truncate" id="name">${member[0]}</h1>
-                                    <h1 class="font-synemed text-xl text-grey2 truncate" id="role ${member[1]} ${groupNum}">${member[2]}</h1>
+                                    <h1 class="font-satoshimed text-2xl text-black1 mb-2 mt-2 truncate" id="name">${member[0]}</h1>
+                                    <h1 class="font-satoshimed text-xl text-grey2 truncate" id="role ${member[1]} ${groupNum}">${member[2]}</h1>
                                 </div>
                                 <div class="w-1/3 px-2">
-                                    <select class="relative left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-black1 rounded-lg w-[80%] py-2 text-center font-synemed roleOpt" name="role" id="dd ${member[1]} ${groupNum}">
+                                    <select class="relative left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-black1 rounded-lg w-[80%] py-2 text-center font-satoshimed roleOpt" name="role" id="dd ${member[1]} ${groupNum}">
                                         <option class="ddOpt" value="null" id="null">Role</option>
                                         <option class="ddOpt" value="Principal Investigator" id="Leader">Principal Investigator</option>
                                         <option class="ddOpt" value="Research Writer" id="Analyst">Research Writer</option>
@@ -204,14 +204,14 @@
                                 <div id="customModal ${member[1]} ${groupNum}" class="z-50 hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
                                     <div class="bg-white1 flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
                                         <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                                            <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Custom Role:</span>
+                                            <span class="text-white1 w-4/5 text-lg font-satoshimed pl-2">Custom Role:</span>
                                             <button id="closeModal ${member[1]} ${groupNum}" class="bg-red1 h-full w-10 rounded closeModal">X</button>
                                     </div>
                                     
                                     <div class="h-5/6 flex flex-col justify-evenly items-center p-4">
                                         <div class="w-full">
-                                            <p class="font-synemed text-black">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
-                                            <input id="customInput ${member[1]} ${groupNum}" oninput="capitalizeWords('customInput ${member[1]} ${groupNum}')" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-synereg" required>
+                                            <p class="font-satoshimed text-black">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
+                                            <input id="customInput ${member[1]} ${groupNum}" oninput="capitalizeWords('customInput ${member[1]} ${groupNum}')" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
                                         </div>
 
                                         <button id="confirmCustom ${member[1]} ${groupNum}" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded confirmModal">Confirm</button>
@@ -223,14 +223,14 @@
                                 <div id="reason ${member[1]} ${groupNum}" class="z-50 hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
                                     <div class="bg-white1 flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
                                         <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                                            <span class="text-white1 w-4/5 text-lg font-synemed pl-2">Reason required:</span>
+                                            <span class="text-white1 w-4/5 text-lg font-satoshimed pl-2">Reason required:</span>
                                             <button id="closeReason ${member[1]} ${groupNum}" class="bg-red1 h-full w-10 rounded closeModal">X</button>
                                         </div>
                                     
                                         <div class="h-5/6 flex flex-col justify-evenly items-center p-4">
                                             <div class="w-full">
-                                                <p class="font-synemed text-black">Enter the reason for transferring <span class="text-blue3">${member[0]}</span>:</p>
-                                                <input id="reasonInput ${member[1]} ${groupNum}" placeholder="Enter reason:" class="w-full p-2 mt-2 border border-black rounded font-synereg" required>
+                                                <p class="font-satoshimed text-black">Enter the reason for transferring <span class="text-blue3">${member[0]}</span>:</p>
+                                                <input id="reasonInput ${member[1]} ${groupNum}" placeholder="Enter reason:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
                                             </div>
 
                                             <button id="confirmReason ${member[1]} ${groupNum}" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded confirmModal">Confirm</button>
@@ -246,7 +246,7 @@
             }
                 // nilagayn ko lang bg-red para sa reminder na kulang di ko sure ano gagawin eh
             divHTML = `<div class="relative inline-block bg-red-300 border border-black1 w-[25%] h-fit rounded-2xl text-center overflow-hidden m-12 min-h-[26.9rem] min-w-[20rem] max-w-[25rem] dropZone" id="${groupCount-1}">
-                            <h1 class="w-full h-[10%] font-synebold text-xl bg-black1 text-white1 py-2">GROUP ${groupCount}</h1>
+                            <h1 class="w-full h-[10%] font-clashbold text-xl bg-black1 text-white1 py-2">GROUP ${groupCount}</h1>
                             ${groupContent}
                         </div>`;
             divContent += divHTML;
@@ -258,8 +258,8 @@
 
         // <div class="h-5/6 flex flex-col justify-evenly items-center p-4">
         //     <div class="w-full">
-        //         <p class="font-synemed text-black">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
-        //         <input id="customInput ${member[1]} ${groupNum}" oninput="capitalizeWords('customInput ${member[1]} ${groupNum}')" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-synereg" required>
+        //         <p class="font-satoshimed text-black">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
+        //         <input id="customInput ${member[1]} ${groupNum}" oninput="capitalizeWords('customInput ${member[1]} ${groupNum}')" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
         //     </div>
 
         //     <button id="confirmCustom ${member[1]} ${groupNum}" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded confirmModal">Confirm</button>

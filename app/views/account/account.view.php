@@ -1,7 +1,7 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
 <?php view('partials/head.view.php'); ?>
 
-<body class="static w-screen py-6 mb-0 overflow-x-hidden bg-white1 font-synereg h-fit">
+<body class="static w-screen py-6 mb-0 overflow-x-hidden bg-white1 font-satoshimed h-fit">
 
     <?php view('partials/nav.view.php') ?>
 
@@ -9,7 +9,7 @@
 
     <!-- desktop -->
     <div class="relative block w-screen h-full text-center top-10 lg:top-24">
-        <h1 class="relative font-synebold text-[6vw] lg:text-3xl">Account Settings</h1>
+        <h1 class="relative font-clashbold text-[6vw] lg:text-3xl">Account Settings</h1>
 
         <div class="relative flex flex-wrap w-full h-fit">
             <!-- left box -->
@@ -37,25 +37,25 @@
                 <?php if (isset($typeNscores)):?>
 
                     <div class="relative flex mt-10">
-                        <h1 class="mt-1 ml-auto text-xl font-synemed text-grey2">RESULTS:</h1>
-                        <label class="mr-auto text-4xl text-black font-syneboldextra top-12"><?= $typeNscores['result'] ?></label>
+                        <h1 class="mt-1 ml-auto text-xl font-satoshimed text-grey2">RESULTS:</h1>
+                        <label class="mr-auto text-4xl text-black font-ginto top-12"><?= $typeNscores['result'] ?></label>
                     </div>
                     <div class="flex mt-16">
                         <div class="relative text-left mx-auto w-[20rem] h-5/6 pl-24">
-                            <h1 class="mb-4 text-lg font-synemed text-grey2">REALISTIC</h1>
-                            <h1 class="mb-4 text-lg font-synemed text-grey2">INVESTIGATIVE</h1>
-                            <h1 class="mb-4 text-lg font-synemed text-grey2">ARTISTIC</h1>
-                            <h1 class="mb-4 text-lg font-synemed text-grey2">SOCIAL</h1>
-                            <h1 class="mb-4 text-lg font-synemed text-grey2">ENTERPRISING</h1>
-                            <h1 class="mb-4 text-lg font-synemed text-grey2">CONVENTIONAL</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">REALISTIC</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">INVESTIGATIVE</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">ARTISTIC</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">SOCIAL</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">ENTERPRISING</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">CONVENTIONAL</h1>
                         </div>
                         <div class="relative text-right mx-auto w-[20rem] h-5/6 pr-32 mb-1">
-                            <h1 class="mb-4 text-xl text-black font-synemed" id="r"><?= $typeNscores['R'] ?></h1>
-                            <h1 class="mb-4 text-xl text-black font-synemed" id="i"><?= $typeNscores['I'] ?></h1>
-                            <h1 class="mb-4 text-xl text-black font-synemed" id="a"><?= $typeNscores['A'] ?></h1>
-                            <h1 class="mb-4 text-xl text-black font-synemed" id="s"><?= $typeNscores['S'] ?></h1>
-                            <h1 class="mb-4 text-xl text-black font-synemed" id="e"><?= $typeNscores['E'] ?></h1>
-                            <h1 class="mb-2 text-xl text-black font-synemed" id="c"><?= $typeNscores['C'] ?></h1>
+                            <h1 class="mb-4 text-xl text-black font-satoshimed" id="r"><?= $typeNscores['R'] ?></h1>
+                            <h1 class="mb-4 text-xl text-black font-satoshimed" id="i"><?= $typeNscores['I'] ?></h1>
+                            <h1 class="mb-4 text-xl text-black font-satoshimed" id="a"><?= $typeNscores['A'] ?></h1>
+                            <h1 class="mb-4 text-xl text-black font-satoshimed" id="s"><?= $typeNscores['S'] ?></h1>
+                            <h1 class="mb-4 text-xl text-black font-satoshimed" id="e"><?= $typeNscores['E'] ?></h1>
+                            <h1 class="mb-2 text-xl text-black font-satoshimed" id="c"><?= $typeNscores['C'] ?></h1>
                         </div>
                     </div>
 
@@ -65,8 +65,8 @@
                     </div>
                     <a href="/test"><button class="relative h-10 px-8 mt-4 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orange1 text-black1">Retake Test</button></a>
                 <?php else:?>
-                    <h1 class="relative text-4xl text-center transform -translate-y-1/2 top-1/2 font-synemed">You haven't taken the test!</h1>
-                    <a href="/test"><button class="relative w-40 h-12 text-xl transform -translate-x-1/2 border top-1/2 border-grey2 rounded-2xl bg-orange1 font-synemed left-1/2">Take Test</button></a>
+                    <h1 class="relative text-4xl text-center transform -translate-y-1/2 top-1/2 font-satoshimed">You haven't taken the test!</h1>
+                    <a href="/test"><button class="relative w-40 h-12 text-xl transform -translate-x-1/2 border top-1/2 border-grey2 rounded-2xl bg-orange1 font-satoshimed left-1/2">Take Test</button></a>
                 <?php endif;?>
 
             </div>
@@ -139,7 +139,7 @@
                             doc.setFont("syne");
                             doc.setTextColor(3, 52, 110);
                             doc.setFontSize(24);
-                            doc.text(document.querySelector('.font-syneboldextra').textContent, 120, 145);
+                            doc.text(document.querySelector('.font-ginto').textContent, 120, 145);
 
                             // Add scores
                             doc.setFontSize(14);

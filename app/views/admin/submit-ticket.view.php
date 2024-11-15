@@ -7,14 +7,14 @@
     <div id="ticketSent" class="fixed left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism top-20">
         <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
             <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Ticket Sent</span>
+                <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Ticket Sent</span>
                 <button class="w-10 h-full rounded bg-red1" onClick="hide('ticketSent'); enableScroll();">X</button>
             </div>
         
             <div class="flex flex-col items-center justify-center p-4 h-5/6 ">
-                <p class="text-black font-synemed">Your concern was <span class="text-green1">successfully</span> sent to us,</p>
-                <p class="mb-3 font-synemed">please wait for an email for our response.</p>
-                <p class="text-2xl font-synereg text-grey2">=)</p>
+                <p class="text-black font-satoshimed">Your concern was <span class="text-green1">successfully</span> sent to us,</p>
+                <p class="mb-3 font-satoshimed">please wait for an email for our response.</p>
+                <p class="text-2xl font-satoshimed text-grey2">=)</p>
             </div>
         </div>
     </div>
@@ -22,14 +22,14 @@
     <div id="ticketFailed" class="fixed left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism top-20">
         <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
             <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Ticket Failed</span>
+                <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Ticket Failed</span>
                 <button class="w-10 h-full rounded bg-red1" onClick="hide('ticketFailed'); enableScroll();">X</button>
             </div>
         
             <div class="flex flex-col items-center justify-center p-4 h-5/6 ">
-                <p class="text-black font-synemed">Your concern was <span class="text-red1">not sent</span></p>
-                <p class="mb-3 font-synemed">please check the email format.</p>
-                <p class="text-2xl font-synereg text-grey2">=(</p>
+                <p class="text-black font-satoshimed">Your concern was <span class="text-red1">not sent</span></p>
+                <p class="mb-3 font-satoshimed">please check the email format.</p>
+                <p class="text-2xl font-satoshimed text-grey2">=(</p>
             </div>
         </div>
     </div>
@@ -37,34 +37,34 @@
     <div id="ticketMissing" class="fixed left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism top-20">
         <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
             <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                <span class="w-4/5 pl-2 text-lg text-white1 font-synemed">Ticket Failed</span>
+                <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Ticket Failed</span>
                 <button class="w-10 h-full rounded bg-red1" onClick="hide('ticketMissing'); enableScroll();">X</button>
             </div>
         
             <div class="flex flex-col items-center justify-center p-4 h-5/6 ">
-                <p class="text-black font-synemed">Your concern was <span class="text-red1">not sent</span></p>
-                <p class="mb-3 font-synemed">please check for missing input.</p>
-                <p class="text-2xl font-synereg text-grey2">=(</p>
+                <p class="text-black font-satoshimed">Your concern was <span class="text-red1">not sent</span></p>
+                <p class="mb-3 font-satoshimed">please check for missing input.</p>
+                <p class="text-2xl font-satoshimed text-grey2">=(</p>
             </div>
         </div>
     </div>
     <?php endif; ?>
     <main>
         <!-- desktop -->
-        <div class="font-synereg relative hidden lg:flex h-[86vh] w-full top-0 left-[50%] transform translate-x-[-50%] mt-14 py-[7vh] min-h-[42rem]">
+        <div class="font-satoshimed relative hidden lg:flex h-[86vh] w-full top-0 left-[50%] transform translate-x-[-50%] mt-14 py-[7vh] min-h-[42rem]">
 
 
             <div class="absolute inline-block ml-16 w-fit h-fit left-6">
-                <h1 class="mb-0 text-6xl mt-14 font-synemed">Need a help?</h1></br>
+                <h1 class="mb-0 text-6xl mt-14 font-satoshimed">Need a help?</h1></br>
                 <h3 class="transform translate-y-[-49%] text-2xl">Send us a message by filling out the form</h3></br>
 
                 <h4 class="relative text-2xl top-72">or email us at:</h4>
-                <h2 class="relative text-4xl top-72 font-synemed text-blue3">ambitionxmbti@gmail.com</h2>
+                <h2 class="relative text-4xl top-72 font-satoshimed text-blue3">ambitionxmbti@gmail.com</h2>
             </div>
 
 
             <form method="post" action="/submit-ticket" class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute inline-block w-[34rem] right-0 mr-16 text-center object-center min-w-[32rem] min-h-[39rem]">
-                <h1 class="mx-12 mb-16 text-4xl font-synemed">Submit a Ticket</h1>
+                <h1 class="mx-12 mb-16 text-4xl font-satoshimed">Submit a Ticket</h1>
                 <div class="flex justify-between mx-16 mb-1">
                     <input class="border border-black rounded-xl transform translate-x-[15%] text-left pl-4 mb-1 h-10 w-70 text-sm bg-white1" type="text" name="f_name" id="f_name" placeholder="First Name" required>
                     <input class="border border-black rounded-xl transform translate-x-[-15%] text-left pl-4 mb-1 h-10 w-70 text-sm bg-white1" type="text" name="l_name" id="l_name" placeholder="Last Name" required>
@@ -93,24 +93,24 @@
                     <p class="my-0 text-sm text-center text-red-600"><?= $errors['recaptcha'] ?></p>
                 <?php endif; ?>
                 
-                <button class="w-2/3 h-10 mt-2 mb-0 text-lg text-center text-white border font-synesemi border-blue3 bg-blue3 rounded-xl" type="submit" name="login">Submit</button></br>
+                <button class="w-2/3 h-10 mt-2 mb-0 text-lg text-center text-white border font-satoshiblack border-blue3 bg-blue3 rounded-xl" type="submit" name="login">Submit</button></br>
             </form>
         </div>
 
 
         
         <!-- mobile -->
-        <div class="relative flex flex-wrap w-screen text-left lg:hidden top-10 font-synemed">
+        <div class="relative flex flex-wrap w-screen text-left lg:hidden top-10 font-satoshimed">
             <div class="w-screen p-6 mx-auto h-fit bg-gradient-to-b from-blue2">
-                <h1 class="text-4xl text-black1 sm:text-center font-synebold">Need Help?</h1>
+                <h1 class="text-4xl text-black1 sm:text-center font-clashbold">Need Help?</h1>
                 <h1 class="text-2xl text-grey2 sm:text-center">Send us a message by filling out the form.</h1>
 
-                <h1 class="mt-20 text-2xl text-right sm:text-center text-grey2 font-synebold">or email us at:</h1>
+                <h1 class="mt-20 text-2xl text-right sm:text-center text-grey2 font-clashbold">or email us at:</h1>
                 <h1 class="text-2xl text-right sm:text-center text-black1">ambitionxmbti@gmail.com</h1>
             </div>
 
             <form method="post" action="/submit-ticket" class="relative block w-screen mx-auto mt-4 h-fit bg-gradient-to-t from-blue2">
-                <h1 class="mb-16 text-4xl text-center font-synemed">Submit a Ticket</h1>
+                <h1 class="mb-16 text-4xl text-center font-satoshimed">Submit a Ticket</h1>
 
                 <input class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-white1 mb-2" type="text" name="f_name" id="f_name" placeholder="First Name" required>
 

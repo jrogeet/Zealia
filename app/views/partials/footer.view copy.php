@@ -2,7 +2,7 @@
 <footer class="flex bg-blue3 flex-col items-center h-auto w-[100vw] py-3.5 bottom-0">
     <div class=" h-full w-[1400px] flex flex-col justify-between">
         <div class=" flex justify-between">
-            <ul class="flex flex-col font-synereg text-4xl text-blue2">
+            <ul class="flex flex-col font-satoshimed text-4xl text-blue2">
                 <li class="inline-block">
                     <a href="/" class="">Home</a>
                 </li>
@@ -24,7 +24,7 @@
                 </li>
 
             </ul>
-            <a class="font-synebold text-4xl text-white1" href="/submit-ticket">Submit a Ticket</a>
+            <a class="font-clashbold text-4xl text-white1" href="/submit-ticket">Submit a Ticket</a>
         </div>
 
         <div class="relative block left-1/2 tranform -translate-x-1/2 w-fit">

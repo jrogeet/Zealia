@@ -1,10 +1,10 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg bg-white2">
+<body class="static flex font-satoshimed bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="block w-full h-fit p-12 min-w-[75rem]">
-        <h1 class="font-synebold text-black text-3xl">Ticket ID:</h1>
+        <h1 class="font-clashbold text-black text-3xl">Ticket ID:</h1>
 
         <div class=" relative text-sm h-10 w-1/6 mb-2 mt-12">
             <div onclick="toggle('statusDD');" class="relative z-50 <?php echo ($ticket['status'] == 'pending') ? 'bg-orange1' : (($ticket['status'] == 'solved') ? 'bg-green-500' : 'bg-red1');?> group border border-black rounded-xl  flex justify-evenly items-center h-full w-full">
@@ -34,36 +34,36 @@
 
         <div class="w-[70%] h-fit border border-black1 rounded-2xl p-6 mt-12">
 
-            <h1 class="font-synemed text-grey2 mt-2">Category</h1>
-            <h1 class="font-synebold text-black1 text-2xl"><?= ucfirst($ticket['category']) ?></h1>
+            <h1 class="font-satoshimed text-grey2 mt-2">Category</h1>
+            <h1 class="font-clashbold text-black1 text-2xl"><?= ucfirst($ticket['category']) ?></h1>
 
             <div class="flex mt-12">
                 <div class="w-1/3 block">        
-                    <h1 class="font-synemed text-grey2">ID Number</h1>
-                    <h1 class="font-synebold text-black1 text-2xl"><?= $ticket['school_id'] ?></h1>
+                    <h1 class="font-satoshimed text-grey2">ID Number</h1>
+                    <h1 class="font-clashbold text-black1 text-2xl"><?= $ticket['school_id'] ?></h1>
                 </div>
                 <div class="block">        
-                    <h1 class="font-synemed text-grey2">Email</h1>
-                    <h1 class="font-synebold text-black1 text-2xl"><?= $ticket['email'] ?></h1>
+                    <h1 class="font-satoshimed text-grey2">Email</h1>
+                    <h1 class="font-clashbold text-black1 text-2xl"><?= $ticket['email'] ?></h1>
                 </div>
             </div>
             
             <div class="flex mt-12">
                 <div class="w-1/3 block">        
-                    <h1 class="font-synemed text-grey2">First Name</h1>
-                    <h1 class="font-synebold text-black1 text-2xl"><?= $ticket['f_name'] ?></h1>
+                    <h1 class="font-satoshimed text-grey2">First Name</h1>
+                    <h1 class="font-clashbold text-black1 text-2xl"><?= $ticket['f_name'] ?></h1>
                 </div>
                 <div class="block">        
-                    <h1 class="font-synemed text-grey2">Last Name</h1>
-                    <h1 class="font-synebold text-black1 text-2xl"><?= $ticket['l_name'] ?></h1>
+                    <h1 class="font-satoshimed text-grey2">Last Name</h1>
+                    <h1 class="font-clashbold text-black1 text-2xl"><?= $ticket['l_name'] ?></h1>
                 </div>
             </div>
 
             
-            <h1 class="font-synemed text-grey2 mt-12">Timestamp</h1>
-            <h1 class="font-synebold text-black1 text-2xl"><?= $ticket['ticket_date'] ?></h1>
+            <h1 class="font-satoshimed text-grey2 mt-12">Timestamp</h1>
+            <h1 class="font-clashbold text-black1 text-2xl"><?= $ticket['ticket_date'] ?></h1>
 
-            <h1 class="font-synemed text-grey2 mt-12">Message</h1>
+            <h1 class="font-satoshimed text-grey2 mt-12">Message</h1>
             <div class="w-[70%] h-fit border border-black1 rounded-2xl p-6 mb-6 mt-4">
                 <p><?= $ticket['message'] ?></p>
             </div>

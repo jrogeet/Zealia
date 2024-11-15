@@ -44,14 +44,14 @@
 
 @font-face {
     font-family: 'ginto';
-    src: url('/assets/fonts/Ginto/Ginto-Regular.woff2') format('opentype');
+    src: url('/assets/fonts/Ginto/Ginto-Nord-Ultra.woff') format('opentype');
 }
 
 
 
 @layer components {
     .bg-glassmorphism {
-        @apply rounded-lg border;
+        @apply border rounded-lg;
         background: rgba(255, 255, 255, 0.3);
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         backdrop-filter: blur( 4px );

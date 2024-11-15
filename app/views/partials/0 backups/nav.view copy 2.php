@@ -1,14 +1,14 @@
 <!-- mobile nav -->
-<header class="fixed flex z-50 bg-white1 w-full min-w-[320px] min-h-10 font-synemed" id="nav">
+<header class="fixed flex z-50 bg-white1 w-full min-w-[320px] min-h-10 font-satoshimed" id="nav">
     <a class="ml-2 mx-auto p-2" id="burgButt"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
     <a href="/" class="mx-auto p-2"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
     <a class="mr-2 mx-auto p-2" id="profButt">tao</a>
 
     <!-- burger dropdown -->
-    <ul id="burgDD" class="hidden z-50 bg-gradient-to-b from-white1 to-grey1 fixed z-50 block w-full h-full font-synemed top-10 text-center">
+    <ul id="burgDD" class="hidden z-50 bg-gradient-to-b from-white1 to-grey1 fixed z-50 block w-full h-full font-satoshimed top-10 text-center">
     
         <div class="relative w-full h-fit top-10 mt-10">
-            <a href="/" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">Home</li></a>
+            <a href="/" class="py-2 w-screen"><li class="py-6 text-2xl font-clashbold text-black1 w-auto h-fit">Home</li></a>
             
             <a href="<?php if (isset($_SESSION['user'])) {
                 if ($_SESSION['user']['account_type'] == 'admin') {
@@ -18,9 +18,9 @@
                 }
             } else {
                 echo '/login';
-            } ?>" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">Dashboard</li></a>
-            <a href="/about" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">About</li></a>
-            <a href="/submit-ticket" class="py-2 w-screen"><li class="py-6 text-2xl font-synebold text-black1 w-auto h-fit">Contact</li></a>
+            } ?>" class="py-2 w-screen"><li class="py-6 text-2xl font-clashbold text-black1 w-auto h-fit">Dashboard</li></a>
+            <a href="/about" class="py-2 w-screen"><li class="py-6 text-2xl font-clashbold text-black1 w-auto h-fit">About</li></a>
+            <a href="/submit-ticket" class="py-2 w-screen"><li class="py-6 text-2xl font-clashbold text-black1 w-auto h-fit">Contact</li></a>
         </div>
 
         
@@ -28,21 +28,21 @@
     </ul>
 
     <!-- profile dropdown -->
-    <ul id="profDD" class="hidden bg-gradient-to-b from-white1 to-grey1 fixed z-50 block w-full h-full font-synemed top-10">
+    <ul id="profDD" class="hidden bg-gradient-to-b from-white1 to-grey1 fixed z-50 block w-full h-full font-satoshimed top-10">
 
         <div class="relative block top-1/3 transform -translate-y-1/2 pt-24">
             <?php if ($_SESSION['user'] ?? false) : ?>
                 <div class="w-full h-fit text-left p-4 py-6">
-                    <h1 class="px-2 text-3xl font-synebold text-black1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></h1>
-                    <h1 class="px-2 text-2xl font-synebold text-grey2 tracking-wider mb-6"><?= "{$_SESSION['user']['school_id']}" ?></h1>
+                    <h1 class="px-2 text-3xl font-clashbold text-black1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></h1>
+                    <h1 class="px-2 text-2xl font-clashbold text-grey2 tracking-wider mb-6"><?= "{$_SESSION['user']['school_id']}" ?></h1>
                     
                     <?php if ($_SESSION['user']['result'] ?? true ):?>
                         <div class="flex h-12">
-                            <h1 class="relative top-0 py-4 px-0 font-synemed text-center mx-auto mr-0 text-xl text-grey2">RESULTS:</h1>
-                            <h1 class="relative top-0 py-2 px-0 font-synebold text-center mx-auto ml-0 text-3xl text-black1"><?= "{$_SESSION['user']['result']}" ?></h1>
+                            <h1 class="relative top-0 py-4 px-0 font-satoshimed text-center mx-auto mr-0 text-xl text-grey2">RESULTS:</h1>
+                            <h1 class="relative top-0 py-2 px-0 font-clashbold text-center mx-auto ml-0 text-3xl text-black1"><?= "{$_SESSION['user']['result']}" ?></h1>
                         </div>
                     <?php else:?>
-                        <h1 class="text-center font-synemed text-2xl text-grey2 tracking-wide">take test to see result</h1>
+                        <h1 class="text-center font-satoshimed text-2xl text-grey2 tracking-wide">take test to see result</h1>
                         
                     <?php endif;?>
 
@@ -56,9 +56,9 @@
                 
 
             <?php else: ?>
-                <a href="/login"><h1 class="relative font-synebold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-32 tracking-tight bg-blue3 text-white1 w-3/4 p-2 py-4 rounded-xl border border-blue3 rounded-sm text-sm md:text-lg md:w-1/2">Sign in</h1></a>
+                <a href="/login"><h1 class="relative font-clashbold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-32 tracking-tight bg-blue3 text-white1 w-3/4 p-2 py-4 rounded-xl border border-blue3 rounded-sm text-sm md:text-lg md:w-1/2">Sign in</h1></a>
 
-                <a href="/register"><h1 class="relative font-synebold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-orange1 text-black1 w-3/4 p-2 py-4 rounded-xl border border-orange1 rounded-sm text-sm md:text-lg md:w-1/2">Sign up</h1></a>
+                <a href="/register"><h1 class="relative font-clashbold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-orange1 text-black1 w-3/4 p-2 py-4 rounded-xl border border-orange1 rounded-sm text-sm md:text-lg md:w-1/2">Sign up</h1></a>
             <?php endif; ?>
         </div> 
         
@@ -68,7 +68,7 @@
 <!-- desktop nav -->
 <header class="fixed block bg-white1 z-50 shadow-md h-20 w-full content-center top-0" id="navbar">
     <!-- object container -->
-    <div class="flex h-fit w-full justify-between font-synesemi text-xl text-black1 mx-auto px-[1rem]">
+    <div class="flex h-fit w-full justify-between font-satoshiblack text-xl text-black1 mx-auto px-[1rem]">
         <!-- Main NavBar -->
         <nav class="relative flex w-1/2 h-14 gap-14 ">
             <a href="/">

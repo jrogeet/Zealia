@@ -44,24 +44,17 @@ module.exports = {
       },
 
       fontFamily: {
-        eurostile: "eurostile",
-        synereg: ['Syne-Reg', 'sans-serif'],
-        synemed: ['Syne-Med', 'sans-serif'],
-        synesemi: ['Syne-semibold', 'sans-serif'],
-        synebold: ['Syne-bold', 'sans-serif'],
-        syneboldextra: ['Syne-Extrabold', 'sans-serif'],
-
         ginto: ['ginto', 'sans-serif'],
 
-        clashreg: ['clash-reg', 'sans-serif'],
-        clashmed: ['clash-med', 'sans-serif'],
-        clashbold: ['clash-bold', 'sans-serif'],
-        clashsemibold: ['clash-semibold', 'sans-serif'],
+        clashreg: ['clashreg', 'sans-serif'],
+        clashmed: ['clashmed', 'sans-serif'],
+        clashbold: ['clashbold', 'sans-serif'],
+        clashsemibold: ['clashsemibold', 'sans-serif'],
 
-        satoshireg: ['satoshi-reg', 'sans-serif'],
-        satoshimed: ['satoshi-med', 'sans-serif'],
-        satoshilight: ['satoshi-light', 'sans-serif'],
-        satoshiblack: ['satoshi-black', 'sans-serif'],
+        satoshireg: ['satoshireg', 'sans-serif'],
+        satoshimed: ['satoshimed', 'sans-serif'],
+        satoshilight: ['satoshilight', 'sans-serif'],
+        satoshiblack: ['satoshiblack', 'sans-serif'],
       },
 
       height: {

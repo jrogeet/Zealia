@@ -1,12 +1,12 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-synereg bg-white2">
+<body class="static flex font-satoshimed bg-white2">
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="relative flex w-full h-fit py-12 px-6 min-w-[75rem]">
 
         <div class="relative block w-[70%] h-[40rem] mt-2">
-            <h1 class="mb-12 text-3xl font-synemed">Edit Account Information</h1>
+            <h1 class="mb-12 text-3xl font-satoshimed">Edit Account Information</h1>
 
             <div class="flex w-[80%] h-[90%] border border-black  rounded-2xl ml-12 p-6 pl-8">
                 <div class="block w-[70%] h-full mx-auto">
@@ -46,7 +46,7 @@
 
         <div class="relative block w-[40%] h-[40rem] mt-[5.7rem]">
             <div class="block w-[80%] h-[90%] border border-black rounded-2xl ml-12 overflow-hidden">
-                <h1 class="w-full h-10 pt-2 text-center bg-blue3 text-white1 font-synemed">Admin List</h1>
+                <h1 class="w-full h-10 pt-2 text-center bg-blue3 text-white1 font-satoshimed">Admin List</h1>
 
                 <?php foreach ($admins as $admin): ?>
                 <div class="flex w-full p-2 border-b border-black h-fit">
