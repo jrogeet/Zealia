@@ -8,6 +8,8 @@
     <!-- <link rel="stylesheet" type="text/css"  href="assets/css/output.css"> -->
     <link rel="icon" href="assets/images/faveicon.ico">
     <link rel="stylesheet" href="assets/css/output.css">
+    <link rel="stylesheet" href="/assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="/assets/css/sweetalert2-custom.css">
 
     <script src="assets/js/shared-scripts.js"></script>
 

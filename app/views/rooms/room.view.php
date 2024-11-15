@@ -10,16 +10,16 @@
         <?php //dd($decodedGroup) ?>
 
         <!-- Add task modal -->
-        <div id="taskModal" class="absolute hidden w-screen h-screen -top-20 bg-glassmorphism z-[55]">
+        <!-- <div id="taskModal" class="absolute hidden w-screen h-screen -top-20 bg-glassmorphism z-[55]">
             <div class="relative block text-center left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/3 w-[40%] h-fit bg-white1 border border-grey1 shadow-xl rounded-xl p-2">
                 
                 <div class="flex w-full">                        
                     <h1 class="block mx-auto mt-2 ml-2 text-xl text-left font-clashbold text-grey2">Add Task</h1>
                     <button onclick="hide('taskModal'),clearModal()" class="pt-1 pr-2 mx-auto mr-2 text-3xl">X</button>
-                </div>
+                </div> -->
 
                 <!-- TODO: ADD VALUES INTO JSON -->
-                    <div class="flex w-full">                        
+                    <!-- <div class="flex w-full">                        
                         <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl border-b border-black bg-white1 font-satoshimed" placeholder="Task Name" name="task" id="taskName" required>
                         <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-satoshimed" placeholder="Date" name="date" id="taskDate">
                     </div>
@@ -36,7 +36,7 @@
                     <button type="submit" onclick="addTask()" class="p-0 px-10 mt-10 mb-4 text-lg rounded-lg bg-green1 text-black1 font-clashbold">Add</button>
 
             </div>
-        </div>
+        </div> -->
         
 
         <!-- HEADER -->
@@ -75,7 +75,9 @@
                     </form>
                 </div>
     
-                <button onClick="show('delRoomConfirmation'); disableScroll();" class="flex items-center h-8 p-2 mr-2 text-center border rounded bg-red1 font-satoshimed text-white1 border-black1">Delete Room</button>
+                <button onClick="showDeleteRoomConfirm('<?= $room_info['room_id'] ?>', '<?= $room_info['room_name'] ?>')" class="flex items-center h-8 p-2 mr-2 text-center border rounded bg-red1 font-satoshimed text-white1 border-black1">
+                    Delete Room
+                </button>
             </div>
 
             <!-- delete room confirmation modal -->
@@ -510,7 +512,7 @@
                                         <h1 class=" font-clashreg">Currently viewing ${member[0]}'s board...</h1>
                                     <!-- add task button -->
                                         ${member[1] === currentUserId || studentRole === 'Principal Investigator' 
-                                            ? '<div class="flex self-end pr-4 w-fit"><button onclick="show(\'taskModal\')" class="px-10 border rounded-lg border-grey1 bg-green1">Add +</button></div>' 
+                                            ? '<div class="flex self-end pr-4 w-fit"><button onclick="showTaskModal()" class="flex items-center justify-center h-10 mx-auto text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1">Add Task</button></div>' 
                                             : ''
                                         }
                                     </div>
@@ -623,14 +625,15 @@
                                 }
                             }
                             // console.log('studentRole', studentRole === 'Principal Investigator');
-
+                            let date = new Date(taskData[2]);
+                            let formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
                             console.log('taskData', taskData);
                             return `
                                 <div class="block py-2 border-b card h-fit border-black1 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
                                     draggable="${canDrag}">
                                     <div class="flex p-1 ${canDrag ? 'cursor-grab' : ''} justify-evenly">
                                         <span class="px-4 mx-auto ml-1 text-base text-left border-b font-clashbold border-grey2 text-black1 text-wrap">${taskData[0]}</span>
-                                        <span class="pl-1 mx-auto mr-2 text-sm font-satoshimed text-black1 text-wrap">${taskData[2]}</span>
+                                        <span class="pl-1 mx-auto mr-2 text-sm font-satoshimed text-black1 text-wrap">${formattedDate}</span>
                                     </div>
                                     <span class="relative block ml-10 text-base text-left font-satoshimed text-black1 text-wrap">${taskData[1]}</span>
                                 </div>
@@ -1111,8 +1114,8 @@
                     container.appendChild(newCard);
                     attachDragListeners(newCard);
                     
-                    clearModal();
-                    hide('taskModal');
+                    // clearModal();
+                    // hide('taskModal');
                 })
                 .catch(error => {
                     console.error('Error saving task:', error);
@@ -1196,12 +1199,12 @@
             }
 
             // for add task modal only
-            function clearModal(){
-                document.getElementById('taskName').value = '';
-                document.getElementById('taskDate').value = '';
-                document.getElementById('taskInfo').value = '';
-                document.getElementById('taskDestination').value = 'todo';
-            }
+            // function clearModal(){
+            //     document.getElementById('taskName').value = '';
+            //     document.getElementById('taskDate').value = '';
+            //     document.getElementById('taskInfo').value = '';
+            //     document.getElementById('taskDestination').value = 'todo';
+            // }
 
 
             const InsertAboveTask = (zone, mouseY) => {
@@ -1676,5 +1679,7 @@
         }, 1000);
     }
     </script>
+
+    <script src="/assets/js/sweetalert2.min.js"></script>
 </body>
 </html>

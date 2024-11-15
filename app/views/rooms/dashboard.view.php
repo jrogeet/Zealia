@@ -708,35 +708,78 @@
         function submitForm(formId, url, type) {
             const form = document.getElementById(formId);
             if (!form) {
-                // console.error(`Form with id "${formId}" not found`);
                 return;
             }
 
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                updateCombinedSection();
-                // console.log(combinedSection.value)
-                // console.log('this', this);
                 let formData = new FormData(this);
-                formData.append('form_type', type); // Specify the form type here
+                formData.append('form_type', type);
                 formData.append('prof_name', '<?= htmlspecialchars($_SESSION['user']['f_name'] . " " . $_SESSION['user']['l_name'], ENT_QUOTES, 'UTF-8') ?>');
-                // console.log('FORM DATA: ', formData);
+
                 fetch(url, {
                     method: 'POST',
                     body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
-                    // console.log('Response:', data);
-                    hide('createRoom');
-                    enableScroll();
-                    // Handle the response (e.g., show success message, update UI)
+                    if (!data.success) {
+                        // Handle different types of errors
+                        if (data.error_type === 'no_result') {
+                            // Show error message for no RIASEC result
+                            Swal.fire({
+                                title: 'Cannot Join Room',
+                                text: data.message,
+                                icon: 'error',
+                                confirmButtonText: 'Take Test',
+                                showCancelButton: true,
+                                customClass: {
+                                    popup: 'border-2 border-black1 rounded-xl',
+                                    title: 'font-clashsemibold text-2xl',
+                                    confirmButton: 'bg-blue2 text-blue3 font-satoshiblack px-6 py-2 rounded-lg',
+                                    cancelButton: 'bg-red1 text-white1 font-satoshimed px-6 py-2 rounded-lg'
+                                }
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Redirect to RIASEC test page
+                                    window.location.href = '/test';
+                                }
+                            });
+                        } else {
+                            // Show other error messages
+                            Swal.fire({
+                                title: 'Error',
+                                text: data.message,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    } else {
+                        // Show success message
+                        Swal.fire({
+                            title: 'Success',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                        
+                        // Clear the form
+                        form.reset();
+                    }
                 })
-                .catch(error => console.error('Fetch Error:', error));
+                .catch(error => {
+                    console.error('Fetch Error:', error);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'An unexpected error occurred. Please try again.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                });
             });
-
-            
         }
     </script>
+
+    <script src="/assets/js/sweetalert2.min.js"></script>
 </body>
 </html>

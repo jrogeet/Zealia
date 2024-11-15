@@ -39,8 +39,6 @@ module.exports = {
         whitealt: '#F5F5F5',
         whitebord: '#EEEEEE',
 
-
-
         black1: '#2B2D2F',
         blue3: '#03346E', // (3, 52, 110) IN RGB
         blue2: '#6EACDA',

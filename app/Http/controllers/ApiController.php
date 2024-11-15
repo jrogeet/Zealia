@@ -1169,84 +1169,107 @@ private function getLatestData($params)
     private function processJoinRoomForm($formData)
     {
         $code = filter_input(INPUT_POST, "room_code", FILTER_SANITIZE_NUMBER_INT);
-        $errors = [];
+        
+        // Check if student has taken the test
+        $studentHasType = $this->db->query('select result from accounts where school_id = :id', [
+            'id' => $this->currentUser
+        ])->find();
 
+        if (!$studentHasType['result']) {
+            return [
+                'success' => false,
+                'message' => 'You need to take the RIASEC test first before joining a room.',
+                'error_type' => 'no_result'
+            ];
+        }
+
+        // Continue with existing room joining logic
         $roomExistence = $this->db->query('select * from rooms where room_code = :code', [
             ':code' => $code
         ])->find();
 
-        if (! $roomExistence) {
-            $errors['room_existence'] = "Input a Valid Room Code / Code doesn't match any rooms.";
-            header("Location: /dashboard");
-            die();
-        } else {
-            $alrSentReq = $this->db->query('select * from join_room_requests where school_id = :student and room_id = :room', [
-                ':student'=>$this->currentUser,
-                ':room' => $roomExistence['room_id']
-            ])->find();
-
-            if (empty($alrSentReq)) {
-                $prof_info = $this->db->query('select l_name, f_name from accounts where school_id = :id', [
-                    'id' => $roomExistence['school_id']
-                ])->find();
-        
-                $roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
-    
-                $isAlrJoined = $this->db->query('select * from room_list where room_id  = :room and school_id = :student', [
-                    ':student'=>$this->currentUser,
-                    ':room' => $roomExistence['room_id']
-                ])->find();
-                
-                if ($isAlrJoined) {
-                    $errors['is_joined'] = 'You are already joined in this room!';
-                } else {
-                    $this->db->query('INSERT INTO join_room_requests(school_id, room_id) VALUES (:student, :room)', [
-                        ':student'=>$this->currentUser,
-                        ':room'=>$roomExistence['room_id']
-                    ]);
-
-                    $this->logger->log(
-                        'JOIN ROOM',
-                        'success',
-                        'room',
-                        $this->currentUser,
-                        [
-                            'room_id' => $roomExistence['room_id'],
-                            'room_name' => $roomExistence['room_name'],
-                            'instructor_id' => $roomExistence['school_id']
-                        ]
-                    );
-    
-                    $type = json_encode([
-                        "type" => "room_join",
-                        "room_name" => $roomExistence['room_name'],
-                        "prof_name" => $roomExistence['prof_name'],
-                        "prof_id" => $roomExistence['school_id'],
-                        "room_id" => $roomExistence['room_id'],
-                        "student_id" => $this->currentUser,
-                        "student_name" => "{$_SESSION['user']['l_name']}, {$_SESSION['user']['f_name']}"
-                    ]);
-                    
-                    // NOTIFICATIONS
-                    $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
-                        'school_id' => $roomExistence['school_id'], 
-                        'type' => $type,
-                    ]);
-                }
-    
-                // if(! empty($errors)) {
-                //     header("Location: /dashboard");
-                //     die();
-                // }
-    
-    
-                // header("Location: /dashboard");
-                // die();
-            }
+        if (!$roomExistence) {
+            return [
+                'success' => false,
+                'message' => "Input a Valid Room Code / Code doesn't match any rooms.",
+                'error_type' => 'invalid_code'
+            ];
         }
 
-        header('Content-Type: application/json');
-        return ['success' => true, 'message' => 'Joined room successfully', 'data' => $formData];
+        $alrSentReq = $this->db->query('select * from join_room_requests where school_id = :student and room_id = :room', [
+            ':student' => $this->currentUser,
+            ':room' => $roomExistence['room_id']
+        ])->find();
+
+        if (!empty($alrSentReq)) {
+            return [
+                'success' => false,
+                'message' => 'You have already sent a request to join this room.',
+                'error_type' => 'duplicate_request'
+            ];
+        }
+
+        $isAlrJoined = $this->db->query('select * from room_list where room_id = :room and school_id = :student', [
+            ':student' => $this->currentUser,
+            ':room' => $roomExistence['room_id']
+        ])->find();
+
+        if ($isAlrJoined) {
+            return [
+                'success' => false,
+                'message' => 'You are already joined in this room!',
+                'error_type' => 'already_joined'
+            ];
+        }
+
+        // If we get here, we can proceed with joining the room
+        $prof_info = $this->db->query('select l_name, f_name from accounts where school_id = :id', [
+            'id' => $roomExistence['school_id']
+        ])->find();
+
+        $roomExistence['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
+
+        // Insert join request
+        $this->db->query('INSERT INTO join_room_requests(school_id, room_id) VALUES (:student, :room)', [
+            ':student' => $this->currentUser,
+            ':room' => $roomExistence['room_id']
+        ]);
+
+        // Log the join attempt
+        $this->logger->log(
+            'JOIN ROOM',
+            'success',
+            'room',
+            $this->currentUser,
+            [
+                'room_id' => $roomExistence['room_id'],
+                'room_name' => $roomExistence['room_name'],
+                'instructor_id' => $roomExistence['school_id']
+            ]
+        );
+
+        // Create notification
+        $type = json_encode([
+            "type" => "room_join",
+            "room_name" => $roomExistence['room_name'],
+            "prof_name" => $roomExistence['prof_name'],
+            "prof_id" => $roomExistence['school_id'],
+            "room_id" => $roomExistence['room_id'],
+            "student_id" => $this->currentUser,
+            "student_name" => "{$_SESSION['user']['l_name']}, {$_SESSION['user']['f_name']}"
+        ]);
+
+        // Insert notification
+        $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
+            'school_id' => $roomExistence['school_id'],
+            'type' => $type,
+        ]);
+
+        return [
+            'success' => true,
+            'message' => 'Join request sent successfully',
+            'data' => $formData
+        ];
     }
 
     private function processDefaultForm($formData)
