@@ -3,33 +3,48 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'eurostile';
-    src: url('/assets/fonts/Eurostile-Extended-Regular.ttf');
+    font-family: 'clashreg';
+    src: url('/assets/fonts/Clash/ClashDisplay-Regular.woff2') format('opentype');
 }
 
 @font-face {
-    font-family: 'syne-reg';
-    src: url('/assets/fonts/syne/Syne-Regular.ttf') format('truetype');
+    font-family: 'clashmed';
+    src: url('/assets/fonts/Clash/ClashDisplay-Medium.woff2') format('opentype');
 }
 
 @font-face {
-    font-family: 'syne-med';
-    src: url('/assets/fonts/syne/Syne-Medium.ttf') format('truetype');
+    font-family: 'clashbold';
+    src: url('/assets/fonts/Clash/ClashDisplay-Bold.woff2') format('opentype');
 }
 
 @font-face {
-    font-family: 'syne-semibold';
-    src: url('/assets/fonts/syne/Syne-Bold.ttf') format('truetype');
+    font-family: 'clashsemibold';
+    src: url('/assets/fonts/Clash/ClashDisplay-Semibold.woff2') format('opentype');
 }
 
 @font-face {
-    font-family: 'syne-bold';
-    src: url('/assets/fonts/syne/Syne-Bold.ttf') format('truetype');
+    font-family: 'satoshireg';
+    src: url('/assets/fonts/Satoshi/Satoshi-Regular.woff2') format('opentype');
 }
 
 @font-face {
-    font-family: 'syne-extrabold';
-    src: url('/assets/fonts/syne/Syne-ExtraBold.ttf') format('truetype');
+    font-family: 'satoshimed';
+    src: url('/assets/fonts/Satoshi/Satoshi-Medium.woff2') format('opentype');
+}
+
+@font-face {
+    font-family: 'satoshilight';
+    src: url('/assets/fonts/Satoshi/Satoshi-Light.woff2') format('opentype');
+}
+
+@font-face {
+    font-family: 'satoshiblack';
+    src: url('/assets/fonts/Satoshi/Satoshi-Black.woff2') format('opentype');
+}
+
+@font-face {
+    font-family: 'ginto';
+    src: url('/assets/fonts/Ginto/Ginto-Regular.woff2') format('opentype');
 }
 
 
