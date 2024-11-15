@@ -7,7 +7,7 @@
     <main class="hidden lg:block relative left-1/2 transform -translate-x-1/2 h-[41rem] w-[97%] mb-40 top-32">
 
         <!-- title -->
-        <span class="relative block left-[3vw] font-clashbold text-5xl text-black1">Dashboard</span>
+        <span class="relative block left-[3vw] font-clashsemibold text-5xl text-black1">Dashboard</span>
 
         <!-- box -->
         <div class="block relative left-1/2 transform -translate-x-1/2 min-h-[43.75rem] w-[97%] min-w-[65rem] border-black1 border-2 rounded-t-[1.25rem] mt-4">
@@ -117,7 +117,7 @@
                     <!-- added div as fix for descending being toggled as block -->
                     <!-- <div class="hidden h-[39.76rem] w-full overflow-y-scroll overflow-x-hidden"> -->
                     <div  class="flex flex-col w-full m-4" id="rooms-descending-container">
-                        <hi class="text-xl font-clashbold">Latest</hi>
+                        <hi class="text-xl font-satoshiblack">Latest</hi>
                         <!--  ROOMS  -->
                         <div class="flex flex-wrap content-start gap-9" id="rooms-descending">
                             <!-- FILLED USING JAVASCRIPT -->

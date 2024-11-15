@@ -990,78 +990,108 @@ private function getLatestData($params)
     }
 
     private function processGroupStudents($formData) {
-        $decodedGroups = json_decode($_POST['genGroups'], true);
-
-        $genGroups = json_encode($decodedGroups);
-
-        $groupCheck = $this->db->query('select * from room_groups where room_id = :id', [   
-            'id' => $formData['room'],
-        ])->find();
-    
-        if (! empty($groupCheck)) {
-            $this->logger->log(
-                'RE-GENERATE GROUPS',
-                'success',
-                'room',
-                $this->currentUser,
-                [
-                    'old_groups' => $groupCheck['groups_json'],
-                    'room_id' => $formData['room'],
-                    'group_count' => count($decodedGroups),
-                ]
-            );
-
-            $this->db->query('DELETE FROM room_groups WHERE room_id = :id', [
-                ':id'=> $formData['room'],
-            ]);
-        } else {
-            $this->logger->log(
-                'GENERATE GROUPS',
-                'success',
-                'room',
-                $this->currentUser,
-                [
-                    'room_id' => $formData['room'],
-                    'group_count' => count($decodedGroups),
-                ]
-            );
-        }
-        
-        $this->db->query('INSERT INTO room_groups(room_id, groups_json) VALUES (:id, :groups)', [
-            ':id'=> $formData['room'],
-            ':groups'=> $genGroups
-        ]);
-
-        // to send NOTIFICATIONS:
-        $room = $this->db->query('select * from rooms where room_id = :id', [
-            ':id' => $formData['room']
-        ])->find();
-
-        $prof_info = $this->db->query('select l_name, f_name from accounts where school_id = :id', [
-            'id' => $room['school_id']
-        ])->find();
-
-        $room['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
-
-        $type = json_encode([
-            "type" => "created_groups",
-            "room_name" => $room['room_name'],
-            "prof_name" => $room['prof_name'],
-            "prof_id" => $this->currentUser,
-            "room_id" => $room['room_id'],
-        ]);
-
-        $students = $this->db->query('SELECT * FROM room_list WHERE room_id = :id', [
-            'id' => $formData['room'],
-        ])->findAll();
-        
-        if (!empty($students)) {
-            foreach($students as $student) {
-                $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
-                    'school_id' => $student['school_id'], 
-                    'type' => $type,
-                ]);
+        try {
+            $decodedGroups = json_decode($_POST['genGroups'], true);
+            if (!$decodedGroups) {
+                return ['success' => false, 'message' => 'Invalid group data provided'];
             }
+
+            $genGroups = json_encode($decodedGroups);
+            
+            // Check if groups already exist for this room
+            $groupCheck = $this->db->query('select * from room_groups where room_id = :id', [   
+                'id' => $formData['room'],
+            ])->find();
+        
+            if (!empty($groupCheck)) {
+                $this->logger->log(
+                    'RE-GENERATE GROUPS',
+                    'success',
+                    'room',
+                    $this->currentUser,
+                    [
+                        'old_groups' => $groupCheck['groups_json'],
+                        'room_id' => $formData['room'],
+                        'group_count' => count($decodedGroups),
+                    ]
+                );
+
+                // Delete existing groups
+                $this->db->query('DELETE FROM room_groups WHERE room_id = :id', [
+                    ':id'=> $formData['room'],
+                ]);
+            } else {
+                $this->logger->log(
+                    'GENERATE GROUPS',
+                    'success',
+                    'room',
+                    $this->currentUser,
+                    [
+                        'room_id' => $formData['room'],
+                        'group_count' => count($decodedGroups),
+                    ]
+                );
+            }
+            
+            // Insert new groups
+            $this->db->query('INSERT INTO room_groups(room_id, groups_json) VALUES (:id, :groups)', [
+                ':id'=> $formData['room'],
+                ':groups'=> $genGroups
+            ]);
+
+            // Handle notifications
+            $room = $this->db->query('select * from rooms where room_id = :id', [
+                ':id' => $formData['room']
+            ])->find();
+
+            if (!$room) {
+                return ['success' => false, 'message' => 'Room not found'];
+            }
+
+            $prof_info = $this->db->query('select l_name, f_name from accounts where school_id = :id', [
+                'id' => $room['school_id']
+            ])->find();
+
+            $room['prof_name'] = $prof_info['f_name'] . ' ' . $prof_info['l_name'];
+
+            $type = json_encode([
+                "type" => "created_groups",
+                "room_name" => $room['room_name'],
+                "prof_name" => $room['prof_name'],
+                "prof_id" => $this->currentUser,
+                "room_id" => $room['room_id'],
+            ]);
+
+            // Notify students
+            $students = $this->db->query('SELECT * FROM room_list WHERE room_id = :id', [
+                'id' => $formData['room'],
+            ])->findAll();
+            
+            if (!empty($students)) {
+                foreach($students as $student) {
+                    $this->db->query('INSERT INTO notifications(school_id, type) VALUES (:school_id, :type)', [
+                        'school_id' => $student['school_id'], 
+                        'type' => $type,
+                    ]);
+                }
+            }
+
+            // Return success response with new groups data
+            return [
+                'success' => true, 
+                'message' => 'Groups generated successfully',
+                'data' => [
+                    'groups' => $decodedGroups,
+                    'room_id' => $formData['room']
+                ]
+            ];
+
+        } catch (\Exception $e) {
+            error_log('Error in processGroupStudents: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => 'Error processing groups: ' . $e->getMessage()
+            ];
         }
     }
 

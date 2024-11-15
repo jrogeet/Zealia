@@ -288,6 +288,8 @@
                 const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
                 // console.log('parsedGroupsList', parsedGroupsList);
 
+                members = [];
+
                 // for KANBAN and PDF generation
                 parsedGroupsList.forEach((group, index) => {
                     // console.log('group ', index + 1, ':', group);
@@ -343,13 +345,18 @@
 
                 if (groupChecker === null || JSON.stringify(groupChecker) !== JSON.stringify(parsedGroupsList)){
                     membersCount = membersCounter;
-
+                    console.log('Groups updated - refreshing UI');
                     console.log('not equal');
                     // console.log('parsedGroupsList', parsedGroupsList);
                     groupChecker = parsedGroupsList;
 
                     <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
                         const rightBox = document.getElementById('rightBox');
+                        if (!rightBox) {
+                            console.error('rightBox element not found');
+                            return;
+                        }
+
                         rightBox.innerHTML = '';
 
                         rightBox.innerHTML = `
@@ -820,44 +827,63 @@
             console.log('beginning of submitForm');
             const form = document.getElementById(formId);
             if (!form) {
-                console.log('form not found');
+                console.error('Form not found:', formId);
                 return;
             }
 
-            console.log('params', params);  
+            let formData = new FormData(form);
+            formData.append('form_type', type);
 
-            console.log('form', form);
+            Object.entries(params).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
 
-            // form.addEventListener('submit', function(e) {
-                console.log('submit event');
-                // e.preventDefault();
-                let formData = new FormData(form);
-                // formData.append('', )
-                console.log('formData', formData);
-                formData.append('form_type', type);
-
-                Object.entries(params).forEach(([key, value]) => {
-                    formData.append(key, value);
-                });
-
-
-                fetch(url, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Response:', data);
-                    // if (type === 'group_students' && data.success) {
-                    //     membersWarning = false;
-                    //     const groupsContent = document.getElementById('groupsContent');
-                    //     if (groupsContent) {
-                    //         groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
-                    //     }
-                    // }
-                })
-                .catch(error => console.error('Fetch Error:', error));
-            // });
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!data) {
+                    // throw new Error('No data received from server');
+                }
+                
+                console.log('Response:', data);
+                
+                if (type === 'group_students') {
+                    if (data.success) {
+                        // Reset the group checker to force a UI update
+                        groupChecker = null;
+                        membersWarning = false;
+                        
+                        // Force fetch new data
+                        fetchLatestData({
+                            "table": "room_groups",
+                            "room_id": room_id,
+                        }, displayGroups, 3000);
+                        
+                        // Also fetch latest student data
+                        fetchLatestData({
+                            "table1": "room_list",
+                            "table2": "join_room_requests",
+                            "room_id": room_id,
+                            "currentPage": "room",
+                        }, displayStudents, 1000);
+                    } else {
+                        console.error('Error generating groups:', data.message);
+                        alert('Error generating groups: ' + data.message);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Fetch Error:', error);
+                alert('Error submitting form: ' + error.message);
+            });
         }
 
         function displayStudents(studentsList){
@@ -872,11 +898,10 @@
             //     student_no_result = studentsList.student_no_result;
             // }
 
-                if (studentsList.student_has_result) {
-                    student_has_result = studentsList.student_has_result;
-                }
-
-                // Modify the membersWarningContent to use the current student_has_result
+            if (studentsList.student_has_result) {
+                student_has_result = studentsList.student_has_result;
+                
+                // Update warning content with latest data
                 membersWarningContent = `
                     <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
                         <span class="text-base font-clashbold text-white1">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
@@ -892,6 +917,22 @@
                         </form>
                     </div>
                 `;
+            }
+
+
+            // Force check warning state on every update
+            const groupsContent = document.getElementById('groupsContent');
+            if (groupsContent) {
+                if (studentsCount !== membersCount) {
+                    if (!membersWarning) {
+                        membersWarning = true;
+                        groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
+                    }
+                } else if (membersWarning) {
+                    membersWarning = false;
+                    groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
+                }
+            }
 
             if (studentsList.room_list.length === 0) {
                 studentCount.innerHTML = `<span class="mx-1 text-xl font-satoshimed text-blue3">0</span>`;
@@ -1309,6 +1350,7 @@
                     }
                 });
             }
+
 
 
 
