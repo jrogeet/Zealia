@@ -32,3 +32,4 @@ vendor/symfony/polyfill-mbstring/
 vendor/phpoption/phpoption/
 vendor/composer/platform_check.php
 vendor/composer/LICENSE
+vendor/composer/installed.php
