@@ -27,8 +27,8 @@
             <a class="font-clashbold text-[5vw] xl:text-4xl text-white1" href="/submit-ticket">Submit a Ticket</a>
         </div>
 
-        <div class="relative flex left-1/2 tranform -translate-x-1/2 w-fit">
-            <img class="mx-auto h-auto w-[95%]" src="assets/images/zealia-logos/full/white.png">
+        <div class="relative flex -translate-x-1/2 left-1/2 tranform w-fit">
+            <img class="mx-auto h-auto w-[95%]" src="assets/images/Zealia-Half_footer.png">
         </div>
     </div>
 </footer>

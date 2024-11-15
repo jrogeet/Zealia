@@ -499,11 +499,15 @@
                                 <div id="kanban${index}" 
                                     class="${index === currentKBTab ? 'flex' : 'hidden'}
                                           flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
+                                    <div class="flex items-center justify-between">
+                                        <h1 class=" font-clashreg">Currently viewing ${member[0]}'s board...</h1>
                                     <!-- add task button -->
-                                    ${member[1] === currentUserId || studentRole === 'Principal Investigator' 
-                                        ? '<div class="flex self-end pr-4 w-fit"><button onclick="show(\'taskModal\')" class="px-10 border rounded-lg border-grey1 bg-green1">Add +</button></div>' 
-                                        : ''
-                                    }
+                                        ${member[1] === currentUserId || studentRole === 'Principal Investigator' 
+                                            ? '<div class="flex self-end pr-4 w-fit"><button onclick="show(\'taskModal\')" class="px-10 border rounded-lg border-grey1 bg-green1">Add +</button></div>' 
+                                            : ''
+                                        }
+                                    </div>
+
 
                                     <!-- lanes -->
                                     <div class="relative flex w-full gap-2 p-2 mt-2">
