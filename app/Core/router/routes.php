@@ -11,7 +11,7 @@ $router->api('POST', '/api/submit-form', 'submitForm');
 // $router->api('POST', '/api/toggle-like', 'toggleLike');
 
 $router->get('/', 'Http/controllers/home.php');
-$router->get('/learn', 'Http/controllers/learn.php');
+$router->get('/guide', 'Http/controllers/guide.php');
 $router->get('/about', 'Http/controllers/about.php');
 
 $router->post('/nav', 'model/clear-notifications.php');

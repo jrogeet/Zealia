@@ -96,6 +96,11 @@
                 <li class="mx-auto">
                     <a href="/about" class="p-2">About</a>
                 </li>
+
+                <li class="mx-auto">
+                    <a href="/guide" class="p-2">Guide</a>
+                </li>
+
                 <li class="mx-auto">
                     <a href="/submit-ticket" class="p-2">Contact</a>
                 </li>
