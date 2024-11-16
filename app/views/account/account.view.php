@@ -1,7 +1,7 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
 <?php view('partials/head.view.php'); ?>
 
-<body class="static w-screen py-6 mb-0 overflow-x-hidden bg-white1 font-satoshimed h-fit">
+<body class="static w-screen py-6 mb-0 overflow-x-hidden bg-white font-satoshimed h-fit">
 
     <?php view('partials/nav.view.php') ?>
 
@@ -13,7 +13,7 @@
 
         <div class="relative flex flex-wrap w-full h-fit">
             <!-- left box -->
-            <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white1 lg:bg-white2 text-left pt-2 pl-[3%] overflow-x-hidden">
+            <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white lg:bg-white2 text-left pt-2 pl-[3%] overflow-x-hidden">
                 <h5 class="text-xl text-grey2 mt-[6%]">Name</h5>
                 <h1 class="mb-6 text-3xl text-center lg:ml-4 lg:text-left"><?php echo "{$_SESSION['user']['f_name']} {$_SESSION['user']['l_name']}"; ?></h1>
 
@@ -33,7 +33,7 @@
             </div>
 
             <!-- right box -->
-            <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white1 lg:bg-white2 text-left pt-2 pl-[4%] overflow-x-hidden">
+            <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white lg:bg-white2 text-left pt-2 pl-[4%] overflow-x-hidden">
                 <?php if (isset($typeNscores)):?>
 
                     <div class="relative flex mt-10">

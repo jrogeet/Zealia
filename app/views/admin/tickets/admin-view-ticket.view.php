@@ -8,12 +8,12 @@
 
         <div class=" relative text-sm h-10 w-1/6 mb-2 mt-12">
             <div onclick="toggle('statusDD');" class="relative z-50 <?php echo ($ticket['status'] == 'pending') ? 'bg-orange1' : (($ticket['status'] == 'solved') ? 'bg-green-500' : 'bg-red1');?> group border border-black rounded-xl  flex justify-evenly items-center h-full w-full">
-                <button class="group-hover:block  hidden h-full w-4/5 text-white1 text-lg">Change Status:</button>
-                <button class="group-hover:hidden h-full w-4/5 text-white1 text-lg"><?= ucfirst($ticket['status']) ?></button>
-                <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white1"></div>
+                <button class="group-hover:block  hidden h-full w-4/5 text-white text-lg">Change Status:</button>
+                <button class="group-hover:hidden h-full w-4/5 text-white text-lg"><?= ucfirst($ticket['status']) ?></button>
+                <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white"></div>
             </div>
             
-            <div id="statusDD" class="bg-white1 hidden absolute z-40 top-6 flex flex-col w-full border border-black1 rounded">
+            <div id="statusDD" class="bg-white hidden absolute z-40 top-6 flex flex-col w-full border border-black1 rounded">
                 <form method="POST" action="/admin-view-ticket">
                     <input type="hidden" name="solved" value="solved">
                     <input type="hidden" name="ticket_id" value="<?= $_GET['id'] ?>">

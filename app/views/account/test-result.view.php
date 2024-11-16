@@ -25,8 +25,8 @@
         <input type="hidden" name="finalRes" value="<?php echo $finalRes; ?>">
         <input type="hidden" name="id" value="<?php echo $currentUser; ?>">
         <div class="flex flex-col justify-center items-center">
-            <a href="/test" class="w-32 h-8 border border-grey2 rounded-lg text-black1 flex justify-center items-center hover:text-white1 hover:bg-grey1">Re-take Test</a>
-            <button type="submit" class="my-4 w-64 h-12 border border-grey2 rounded-2xl bg-blue3 text-white1 text-xl font-satoshimed hover:text-black1 hover:bg-orange1">Confirm Result</button>
+            <a href="/test" class="w-32 h-8 border border-grey2 rounded-lg text-black1 flex justify-center items-center hover:text-white hover:bg-grey1">Re-take Test</a>
+            <button type="submit" class="my-4 w-64 h-12 border border-grey2 rounded-2xl bg-blue3 text-white text-xl font-satoshimed hover:text-black1 hover:bg-orange1">Confirm Result</button>
         </div>
     </form>
 

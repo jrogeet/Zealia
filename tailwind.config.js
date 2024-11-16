@@ -34,7 +34,6 @@ module.exports = {
         blackhead: '#2D2D2D',
         blacksec: '#404040',
         blackless: '#666666',
-        white: '#FFFFFF',
         whitecon: '#F8F8F8',
         whitealt: '#F5F5F5',
         whitebord: '#EEEEEE',

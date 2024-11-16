@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white1 block overflow-x-hidden">
+<body class="bg-white block overflow-x-hidden">
     <?php view('partials/nav.view.php')?>
 
     <!-- groups -->
@@ -9,9 +9,9 @@
     </div>
 
     <!-- <div id="customModal ${member[1]} ${groupNum}" class="z-50 flex bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-        <div class="bg-white1 flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
+        <div class="bg-white flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
             <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                <span class="text-white1 w-4/5 text-lg font-satoshimed pl-2">Custom Role:</span>
+                <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Custom Role:</span>
                 <button class="bg-red1 h-full w-10 rounded" onClick="hide('customModal ${member[1]} ${groupNum}'); enableScroll();">X</button>
             </div>
         
@@ -32,7 +32,7 @@
         <input type="hidden" name="room_id" value="<?= $_GET['room_id'] ?>">
     </form>
 
-    <button onclick="submitGroups();" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white1 font-satoshimed h-8 rounded-lg mb-16">Submit</button>
+    <button onclick="submitGroups();" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white font-satoshimed h-8 rounded-lg mb-16">Submit</button>
     <?php view('partials/footer.view.php')?>
     <script>
         let reasons = [];
@@ -185,7 +185,7 @@
             groupNum+=1;
             groupContent = '';
             for (let member of group){// + = drag icon
-                groupHTML = `<div class="flex w-full h-[6.1rem] bg-white1 border-t border-black1 cursor-grab active:cursor-grabbing text-left draggable" id="${member[1]} ${groupNum}" draggable="true">
+                groupHTML = `<div class="flex w-full h-[6.1rem] bg-white border-t border-black1 cursor-grab active:cursor-grabbing text-left draggable" id="${member[1]} ${groupNum}" draggable="true">
                                 <div class="w-2/3 p-2 pl-6">
                                     <h1 class="font-satoshimed text-2xl text-black1 mb-2 mt-2 truncate" id="name">${member[0]}</h1>
                                     <h1 class="font-satoshimed text-xl text-grey2 truncate" id="role ${member[1]} ${groupNum}">${member[2]}</h1>
@@ -202,9 +202,9 @@
                                 </div>
 
                                 <div id="customModal ${member[1]} ${groupNum}" class="z-50 hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-                                    <div class="bg-white1 flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
+                                    <div class="bg-white flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
                                         <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                                            <span class="text-white1 w-4/5 text-lg font-satoshimed pl-2">Custom Role:</span>
+                                            <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Custom Role:</span>
                                             <button id="closeModal ${member[1]} ${groupNum}" class="bg-red1 h-full w-10 rounded closeModal">X</button>
                                     </div>
                                     
@@ -221,9 +221,9 @@
                                 </div>
 
                                 <div id="reason ${member[1]} ${groupNum}" class="z-50 hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-                                    <div class="bg-white1 flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
+                                    <div class="bg-white flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
                                         <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                                            <span class="text-white1 w-4/5 text-lg font-satoshimed pl-2">Reason required:</span>
+                                            <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Reason required:</span>
                                             <button id="closeReason ${member[1]} ${groupNum}" class="bg-red1 h-full w-10 rounded closeModal">X</button>
                                         </div>
                                     
@@ -246,7 +246,7 @@
             }
                 // nilagayn ko lang bg-red para sa reminder na kulang di ko sure ano gagawin eh
             divHTML = `<div class="relative inline-block bg-red-300 border border-black1 w-[25%] h-fit rounded-2xl text-center overflow-hidden m-12 min-h-[26.9rem] min-w-[20rem] max-w-[25rem] dropZone" id="${groupCount-1}">
-                            <h1 class="w-full h-[10%] font-clashbold text-xl bg-black1 text-white1 py-2">GROUP ${groupCount}</h1>
+                            <h1 class="w-full h-[10%] font-clashbold text-xl bg-black1 text-white py-2">GROUP ${groupCount}</h1>
                             ${groupContent}
                         </div>`;
             divContent += divHTML;

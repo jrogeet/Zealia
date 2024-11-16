@@ -9,7 +9,7 @@
             <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Logs</h1>
             <div class="flex gap-4 mr-6 w-fit">
                 <div class="flex items-center">
-                    <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white1" onchange="handleSort()">
+                    <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white" onchange="handleSort()">
                         <option value="">Sort by...</option>
                         <option value="date_asc">Date (Oldest First)</option>
                         <option value="date_desc">Date (Newest First)</option>
@@ -19,7 +19,7 @@
                     <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
                 </div>
                 <div class="flex items-center">
-                    <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1">
+                    <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white">
                     <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSearch()">X</button>
                 </div>
             </div>
@@ -36,16 +36,16 @@
                     <table class="w-full table-fixed">
                         <thead>
                             <tr>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Log ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">ID Number</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">User Type</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Action</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Status</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Target Type</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Target ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">IP Address</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Device Info</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Log ID</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">ID Number</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">User Type</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Action</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Status</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Target Type</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Target ID</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Timestamp</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">IP Address</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Device Info</th>
                             </tr>
                         </thead>
                     </table>
@@ -172,35 +172,35 @@
                     const row = document.createElement('tr');
                     row.className = 'border-b border-black';
                     row.innerHTML = `
-                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white1` : `bg-white2`} border-l border-r border-black">
+                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white` : `bg-white2`} border-l border-r border-black">
                             ${log.school_id !== null ? `<a href="/admin-view-log?id=${log.school_id}">${log.id}</a>` : log.id}
                         </td>
                         
-                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white1` : `bg-white2`} border-l border-r border-black">
+                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white` : `bg-white2`} border-l border-r border-black">
                             ${log.school_id !== null ? `<a href="/admin-view-log?id=${log.school_id}">${log.school_id}</a>` : log.school_id}
                         </td>
-                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white1` : `bg-white2`} border-l border-r border-black">
+                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white` : `bg-white2`} border-l border-r border-black">
                             ${log.school_id !== null ? `<a href="/admin-view-log?id=${log.school_id}">${log.user_role}</a>` : log.user_role}
                         </td>
-                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white1` : `bg-white2`} border-l border-r border-black">
+                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white` : `bg-white2`} border-l border-r border-black">
                             ${log.school_id !== null ? `<a href="/admin-view-log?id=${log.school_id}">${log.action}</a>` : log.action}
                         </td>
-                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white1` : `bg-white2`} border-l border-r border-black">
+                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white` : `bg-white2`} border-l border-r border-black">
                             ${log.school_id !== null ? `<a href="/admin-view-log?id=${log.school_id}">${log.status}</a>` : log.status}
                         </td>
-                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white1` : `bg-white2`} border-l border-r border-black">
+                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white` : `bg-white2`} border-l border-r border-black">
                             ${log.school_id !== null ? `<a href="/admin-view-log?id=${log.school_id}">${log.target_type}</a>` : log.target_type}
                         </td>
-                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white1` : `bg-white2`} border-l border-r border-black">
+                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white` : `bg-white2`} border-l border-r border-black">
                             ${log.school_id !== null ? `<a href="/admin-view-log?id=${log.school_id}">${log.target_id}</a>` : log.target_id}
                         </td>
-                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white1` : `bg-white2`} border-l border-r border-black">
+                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white` : `bg-white2`} border-l border-r border-black">
                             ${log.school_id !== null ? `<a href="/admin-view-log?id=${log.school_id}">${log.created_at}</a>` : log.created_at}
                         </td>
-                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white1` : `bg-white2`} border-l border-r border-black">
+                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white` : `bg-white2`} border-l border-r border-black">
                             ${log.school_id !== null ? `<a href="/admin-view-log?id=${log.school_id}">${log.ip_address}</a>` : log.ip_address}
                         </td>
-                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white1` : `bg-white2`} border-l border-r border-black">
+                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center ${log.school_id !== null ? `bg-white` : `bg-white2`} border-l border-r border-black">
                             ${log.school_id !== null ? `<a href="/admin-view-log?id=${log.school_id}">${log.user_agent}</a>` : log.user_agent}
                         </td>
                     `;

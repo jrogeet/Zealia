@@ -1,9 +1,9 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="font-satoshimed bg-white1">
+<body class="font-satoshimed bg-white">
     <?php view('partials/nav.view.php')?>
 
-    <div class="pt-16 pb-10 bg-white1 sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-[26.25rem] h-fit"> 
+    <div class="pt-16 pb-10 bg-white sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-[26.25rem] h-fit"> 
 
         <!-- <div>
             <?php //if(isset($loginmessage)): ?>
@@ -15,8 +15,8 @@
 
         <form method="POST" action="/login">
         
-            <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-4 bg-white1" placeholder="School Number" type="number" name="school_id" value="<?= old('school_id') ?>" required></input></br>
-            <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-0 bg-white1" placeholder="Password" type="password"  name="password" required></input></br>
+            <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-4 bg-white" placeholder="School Number" type="number" name="school_id" value="<?= old('school_id') ?>" required></input></br>
+            <input class="text-sm h-10 w-2/3 pl-4 border border-black rounded-xl relative left-[50%] transform translate-x-[-50%] mb-0 bg-white" placeholder="Password" type="password"  name="password" required></input></br>
 
             <a class="text-xs relative right-[-60%] top-1 my-0 text-red-600" href="/forgot">Forgot password?</a></br>
             

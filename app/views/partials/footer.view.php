@@ -24,7 +24,7 @@
                 </li>
 
             </ul>
-            <a class="font-clashbold text-[5vw] xl:text-4xl text-white1" href="/submit-ticket">Submit a Ticket</a>
+            <a class="font-clashbold text-[5vw] xl:text-4xl text-white" href="/submit-ticket">Submit a Ticket</a>
         </div>
 
         <div class="relative flex -translate-x-1/2 left-1/2 tranform w-fit">

@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="flex flex-col items-center justify-between overflow-x-hidden bg-white1">
+<body class="flex flex-col items-center justify-between overflow-x-hidden bg-white">
     <?php view('partials/nav.view.php'); ?>
     <main class="flex flex-col items-center h-fit lg:h-[90rem] w-screen max-w-[96rem]">
         <!-- RIASEC INTRO -->

@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white1 flex flex-col justify-between overflow-x-hidden">
+<body class="bg-white flex flex-col justify-between overflow-x-hidden">
     <?php view('partials/nav.view.php'); ?>
 
     <main class="h-[30rem] mt-20 text-center flex flex-col justify-center items-center p-4">
@@ -12,7 +12,7 @@
         </p>
         <!-- search for the email -->
         <a href="/login">
-            <p class="bg-blue3 p-2 rounded-lg text-white1 font-satoshimed text-xl">Login</p>
+            <p class="bg-blue3 p-2 rounded-lg text-white font-satoshimed text-xl">Login</p>
         </a>
     </main>
 

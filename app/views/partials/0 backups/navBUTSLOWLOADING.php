@@ -1,11 +1,11 @@
 <!-- mobile nav -->
-<header class="fixed flex z-50 bg-white1 w-full min-w-[320px] top-0 min-h-10 font-satoshimed" id="nav">
+<header class="fixed flex z-50 bg-white w-full min-w-[320px] top-0 min-h-10 font-satoshimed" id="nav">
     <a class="ml-2 mx-auto p-2" id="burgButt"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
     <a href="/" class="mx-auto p-2"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
     <a class="mr-2 mx-auto p-2" id="profButt">tao</a>
 
     <!-- burger dropdown -->
-    <ul id="burgDD" class="hidden z-50 bg-gradient-to-b from-white1 to-grey1 fixed z-50 block w-full h-full font-satoshimed top-10 text-center">
+    <ul id="burgDD" class="hidden z-50 bg-gradient-to-b from-white to-grey1 fixed z-50 block w-full h-full font-satoshimed top-10 text-center">
     
         <div class="relative w-full h-fit top-10 mt-10">
             <a href="/" class="py-2 w-screen"><li class="py-6 text-2xl font-clashbold text-black1 w-auto h-fit">Home</li></a>
@@ -28,7 +28,7 @@
     </ul>
 
     <!-- profile dropdown -->
-    <ul id="profDD" class="hidden bg-gradient-to-b from-white1 to-grey1 fixed z-50 block w-full h-full font-satoshimed top-10">
+    <ul id="profDD" class="hidden bg-gradient-to-b from-white to-grey1 fixed z-50 block w-full h-full font-satoshimed top-10">
 
         <div class="relative block top-1/3 transform -translate-y-1/2 pt-24">
             <?php if ($_SESSION['user'] ?? false) : ?>
@@ -46,17 +46,17 @@
                         
                     <?php endif;?>
 
-                    <a href="/account"><h1 class="relative text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-blue3 text-white1 w-3/4 p-2 border rounded-sm text-xs md:text-lg md:w-1/2">Account Settings</h1></a>
+                    <a href="/account"><h1 class="relative text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-blue3 text-white w-3/4 p-2 border rounded-sm text-xs md:text-lg md:w-1/2">Account Settings</h1></a>
 
                     <form method="POST" action="/login">
                         <input type="hidden" name="_method" value="DELETE" />
-                        <button class="relative text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-red1 text-white1 w-3/4 p-2 border rounded-sm text-xs md:text-lg md:w-1/2">Log Out</button>
+                        <button class="relative text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-red1 text-white w-3/4 p-2 border rounded-sm text-xs md:text-lg md:w-1/2">Log Out</button>
                     </form>
                 </div>
                 
 
             <?php else: ?>
-                <a href="/login"><h1 class="relative font-clashbold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-32 tracking-tight bg-blue3 text-white1 w-3/4 p-2 py-4 rounded-xl border border-blue3 rounded-sm text-sm md:text-lg md:w-1/2">Sign in</h1></a>
+                <a href="/login"><h1 class="relative font-clashbold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-32 tracking-tight bg-blue3 text-white w-3/4 p-2 py-4 rounded-xl border border-blue3 rounded-sm text-sm md:text-lg md:w-1/2">Sign in</h1></a>
 
                 <a href="/register"><h1 class="relative font-clashbold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-orange1 text-black1 w-3/4 p-2 py-4 rounded-xl border border-orange1 rounded-sm text-sm md:text-lg md:w-1/2">Sign up</h1></a>
             <?php endif; ?>
@@ -66,7 +66,7 @@
 </header>
 
 <!-- desktop nav -->
-<header class="fixed block bg-white1 z-50 shadow-md h-20 w-full content-center top-0" id="navbar">
+<header class="fixed block bg-white z-50 shadow-md h-20 w-full content-center top-0" id="navbar">
     <!-- object container -->
     <div class="flex h-fit w-full justify-between font-satoshiblack text-xl text-black1 mx-auto px-[1rem]">
         <!-- Main NavBar -->
@@ -111,7 +111,7 @@
                         <span class="notification-icon">🔔</span>
                         <span id="notificationCount" class="absolute -top-[8px] -right-[8px] bg-red1 text-white text-sm rounded py-1 px-2"></span>
                     </button>
-                    <div id="notificationDropdown" class="absolute right-0 top-full max-h-[400px] w-[300px] bg-white1 border border-black1 rounded-lg shadow overflow-y-auto">
+                    <div id="notificationDropdown" class="absolute right-0 top-full max-h-[400px] w-[300px] bg-white border border-black1 rounded-lg shadow overflow-y-auto">
                         <div class="bg-black1 h-14 px-4 flex items-center">
                             <span class="font-satoshimed text-2xl text-orange1 ">Notifications</span>
                         </div>
@@ -124,12 +124,12 @@
 
                 <div class="relative text-xl">
                     <button class="z-50 flex justify-between items-center px-4 h-12 w-56  bg-blue3 border rounded-lg" id="navDDbutton">
-                        <span class="text-white1 w-4/5 text-left truncate"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
-                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white1"></div>
+                        <span class="text-white w-4/5 text-left truncate"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
+                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white"></div>
                     </button>
                     <!-- TEMPO -->
 
-                    <div class="z-40 hidden absolute flex-col justify-evenly bg-white1 h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 rounded-b-2xl" id="navDropDown">
+                    <div class="z-40 hidden absolute flex-col justify-evenly bg-white h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 rounded-b-2xl" id="navDropDown">
                         <a href="<?php if($_SESSION['user']['account_type'] === 'admin'):?>/admin-settings<?php else: ?>/account<?php endif; ?>">
                             <span class="">Account Settings</span>
                         </a>

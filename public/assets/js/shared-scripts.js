@@ -201,12 +201,12 @@ function showTaskModal() {
         title: 'Add Task',
         html: `
             <div class="flex w-full">                        
-                <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl border-b border-black bg-white1 font-satoshimed" placeholder="Task Name" id="taskName" required>
-                <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-satoshimed" placeholder="Date" id="taskDate">
+                <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl border-b border-black bg-white font-satoshimed" placeholder="Task Name" id="taskName" required>
+                <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white font-satoshimed" placeholder="Date" id="taskDate">
             </div>
             <div class="flex w-full">                        
-                <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base border-b border-black bg-white1 font-satoshimed text-grey2" placeholder="Description" id="taskInfo">
-                <select class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-satoshimed text-grey2" id="taskDestination">
+                <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base border-b border-black bg-white font-satoshimed text-grey2" placeholder="Description" id="taskInfo">
+                <select class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white font-satoshimed text-grey2" id="taskDestination">
                     <option class="text-grey2" value="todo">To do</option>
                     <option class="text-grey2" value="wip">Work in Progress</option>
                     <option class="text-grey2" value="done">Done</option>
@@ -256,7 +256,7 @@ function showDeleteRoomConfirm(roomId, roomName) {
         customClass: {
             popup: 'swal-popup font-satoshireg',
             title: 'swal-title font-clashbold text-red1',
-            confirmButton: 'swal-confirm font-satoshimed bg-red1 text-white1',
+            confirmButton: 'swal-confirm font-satoshimed bg-red1 text-white',
             cancelButton: 'swal-cancel font-satoshimed'
         },
         background: '#FFFFFF',

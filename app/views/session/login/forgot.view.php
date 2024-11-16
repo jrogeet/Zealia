@@ -1,15 +1,15 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white1 flex flex-col justify-between items-center">
+<body class="bg-white flex flex-col justify-between items-center">
     <?php view('partials/nav.view.php')?>
 
     <main class="h-[41rem] w-[87.5rem] flex space-between">
         <?php if(isset($sent)): ?>
             <?php echo '<script type="text/javascript">disableScroll();</script>'; ?>
             <div id="resetSent" class=" flex bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-                <div class="bg-white1 flex flex-col justify-between h-48 w-90 border border-black1 rounded-t-lg">
+                <div class="bg-white flex flex-col justify-between h-48 w-90 border border-black1 rounded-t-lg">
                     <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                        <span class="text-white1 w-4/5 text-lg font-satoshimed pl-2">Reset Sent</span>
+                        <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Reset Sent</span>
                         <button class="bg-red1 h-full w-10 rounded" onClick="hide('resetSent'); enableScroll();">X</button>
                     </div>
                 
@@ -29,7 +29,7 @@
                     <label class="font-satoshimed text-lg text-grey2" for="email">Enter Account's email</label>
                     <input class="w-full border border-black1 rounded-lg mt-2 p-2" type="email" name="email" placeholder="Email" required>
                 </div>
-                <button class="bg-blue3 hover:bg-orange1 hover:text-black1 w-3/6 py-2 border border-blue3 rounded-xl font-satoshimed text-xl text-white1" type="submit">Send Reset Link</button>
+                <button class="bg-blue3 hover:bg-orange1 hover:text-black1 w-3/6 py-2 border border-blue3 rounded-xl font-satoshimed text-xl text-white" type="submit">Send Reset Link</button>
             </form>
         </div>
     </main>

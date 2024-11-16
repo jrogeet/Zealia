@@ -7,13 +7,13 @@
         <div class="flex justify-between mb-12">
             <h1 class="mx-auto ml-6 text-3xl font-clashbold">Account List</h1>
             <div class="flex w-64 gap-2 mx-auto text-lg font-satoshimed">
-                <button onclick="show('allList','table-row-group'); hide('studentsList'); hide('profsList');" class="px-2 mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">All</button>
-                <button onclick="show('studentsList','table-row-group'); hide('allList'); hide('profsList');" class="px-2 mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Students</button>
-                <button onclick="show('instructorsList','table-row-group'); hide('allList'); hide('studentsList');" class="px-2 mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white1">Instructors</button>
+                <button onclick="show('allList','table-row-group'); hide('studentsList'); hide('profsList');" class="px-2 mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white">All</button>
+                <button onclick="show('studentsList','table-row-group'); hide('allList'); hide('profsList');" class="px-2 mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white">Students</button>
+                <button onclick="show('instructorsList','table-row-group'); hide('allList'); hide('studentsList');" class="px-2 mx-auto text-center border border-black rounded-lg p-auto w-28 bg-blue2 hover:bg-blue3 hover:text-white">Instructors</button>
             </div>
             <div class="flex gap-4 mx-auto w-fit">
                 <div class="flex items-center">
-                    <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white1" onchange="handleSort()">
+                    <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white" onchange="handleSort()">
                         <option value="">Sort by...</option>
                         <option value="date_asc">Date (Oldest First)</option>
                         <option value="date_desc">Date (Newest First)</option>
@@ -23,7 +23,7 @@
                     <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
                 </div>
                 <div class="flex items-center">
-                    <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1">
+                    <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white">
                     <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSearch()">X</button>
                 </div>
             </div>
@@ -40,14 +40,14 @@
                     <table class="w-full table-fixed">
                         <thead>
                             <tr>
-                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Edit</th>
-                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">School ID</th>
-                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Surname</th>
-                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">First name</th>
-                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Email</th>
-                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Results</th>
-                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Registration Time</th>
-                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white1">Activation</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white">Edit</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white">School ID</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white">Surname</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white">First name</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white">Email</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white">Results</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white">Registration Time</th>
+                                <th class="sticky top-0 px-0 py-3 text-xs font-semibold tracking-wider text-center uppercase border-black border-x bg-blue3 text-white">Activation</th>
                             </tr>
                         </thead>
                     </table>
@@ -75,9 +75,9 @@
         <!-- MODALS -->
         <?php if(isset($success)): ?>
         <div id="success" class="fixed top-0 left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism">
-            <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
+            <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white w-90 border-black1">
                 <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                    <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Account created</span>
+                    <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Account created</span>
                     <button class="w-10 h-full rounded bg-red1" onClick="hide('success'); enableScroll();">X</button>
                 </div>
             
@@ -90,9 +90,9 @@
         </div>
         <?php elseif(isset($idExists)): ?>
             <div id="idExists" class="fixed top-0 left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism">
-                <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
+                <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white w-90 border-black1">
                     <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                        <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Ticket Sent</span>
+                        <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Ticket Sent</span>
                         <button class="w-10 h-full rounded bg-red1" onClick="hide('idExists'); enableScroll();">X</button>
                     </div>
                 
@@ -105,9 +105,9 @@
             </div>
         <?php elseif(isset($emailExists)): ?>
             <div id="emailExists" class="fixed top-0 left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism">
-                <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
+                <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white w-90 border-black1">
                     <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                        <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Warning</span>
+                        <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Warning</span>
                         <button class="w-10 h-full rounded bg-red1" onClick="hide('emailExists'); enableScroll();">X</button>
                     </div>
                 
@@ -142,20 +142,20 @@
                     
                     <h1 class="text-grey2 mt-[5%] mt-4">Name</h1>
                     <div class="flex">
-                        <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="First Name" required>
-                        <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white1" placeholder="Last Name" required>
+                        <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="First Name" required>
+                        <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white" placeholder="Last Name" required>
                     </div>
 
                     <h1 class="text-grey2 mt-[5%] mt-4">School number</h1>
-                    <input name="school_id" type="number" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="ID number" required>
+                    <input name="school_id" type="number" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="ID number" required>
 
                     <h1 class="text-grey2 mt-[5%] mt-4">Email</h1>
-                    <input name="email" type="email" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="Email" required>
+                    <input name="email" type="email" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="Email" required>
                     
                     <h1 class="text-grey2 mt-[5%] mt-4">Set Password</h1>
                     <div class="flex">
-                        <input name="password" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="Password" required>
-                        <input name="c_password" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white1" placeholder="Confirm Password" required>
+                        <input name="password" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="Password" required>
+                        <input name="c_password" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white" placeholder="Confirm Password" required>
                     </div>
                 </div>
 
@@ -297,7 +297,7 @@ function displayAccounts(data) {
         data.all.forEach(user => {
             allList.innerHTML += `
                 <tr>
-                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${user.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${user.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white">EDIT</a></td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.school_id}</td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.l_name}</td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${user.f_name}</td>
@@ -312,7 +312,7 @@ function displayAccounts(data) {
         data.students.forEach(student => {
             studentsList.innerHTML += `
                 <tr>
-                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${student.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${student.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white">EDIT</a></td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.school_id}</td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.l_name}</td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${student.f_name}</td>
@@ -327,7 +327,7 @@ function displayAccounts(data) {
         data.instructors.forEach(instructor => {
             instructorsList.innerHTML += `
                 <tr>
-                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${instructor.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-account-edit?id=${instructor.school_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white">EDIT</a></td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.school_id}</td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.l_name}</td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${instructor.f_name}</td>
