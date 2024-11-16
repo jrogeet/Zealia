@@ -1,13 +1,21 @@
 <?php view('partials/head.view.php'); ?>
-<body class="block w-screen overflow-x-hidden bg-white1 h-fit">
+<body class="block w-screen overflow-x-hidden bg-white h-fit">
     <?php view('partials/nav.view.php')?>
+
+                                <!-- Delete Area -->
+    <div id="deleteArea" class="fixed bottom-0 left-0 z-50 flex items-center justify-center hidden w-full h-24 transition-all duration-300 bg-red-500 opacity-0">
+        <div class="flex items-center space-x-3 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            <span class="text-xl font-bold">Drop to Delete</span>
+        </div>
+    </div>
     
-    <main class="relative block left-1/2 transform -translate-x-1/2 h-[23.2rem] w-full top-32">
+    <main class="relative block left-1/2 transform -translate-x-1/2 min-h-[23.2rem] h-auto w-full top-32">
         <?php if (isset($errors['room_name'])) : ?>
             <p class="flex items-center justify-center h-12 text-2xl font-satoshimed text-red1"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
-
-        <?php //dd($decodedGroup) ?>
 
         <!-- Add task modal -->
         <!-- <div id="taskModal" class="absolute hidden w-screen h-screen -top-20 bg-glassmorphism z-[55]">
@@ -138,9 +146,9 @@
                 
                 <?php //dd($members) ?>
                 <!-- BODY -->
-                <div class="flex w-10/12 mx-auto mb-32">
+                <div class="flex w-10/12 mx-auto mb-32 rounded-xl shadow-inside1">
                     <!-- left -->
-                    <div id="leftBoxStudent" class="bg-white2 relative block mx-auto w-[26%] text-center justify-between items-center h-[40rem] border border-black1 px-6 py-4 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)]">
+                    <div id="leftBoxStudent" class="flex flex-col w-3/12 text-center justify-between items-center h-[40rem] py-4 ">
                         <!-- head -->
                         <div id="leftBoxStudentHead" class="flex w-full py-2">
                             <!-- <h1 class="mx-auto ml-0 text-4xl text-left font-clashbold">Group: <?//php echo $groupNum ?></h1>
@@ -149,7 +157,7 @@
                         <!-- members -->
                          <!-- <div id="leftBoxStudentMembers" class="w-full py-2">
                         </div>-->
-                        <div id="kanbanTabs" class="flex flex-col w-full border-b border-black1">
+                        <div id="kanbanTabs" class="flex flex-col w-full">
                             
                         </div>
 
@@ -157,7 +165,7 @@
                     </div>
                     
                     <!-- right -->
-                    <div id="rightBoxStudent" class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-satoshimed">
+                    <div id="rightBoxStudent" class="w-9/12 text-center justify-between items-center min-h-[40rem] shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-satoshimed">
                         <!-- group tabs -->
                     </div>
                 </div>
@@ -450,7 +458,7 @@
                         kanbanTabs.innerHTML = '';
 
                         leftBoxStudentHead.innerHTML = `
-                            <h1 class="mx-auto ml-0 text-4xl text-left font-clashbold">Group: ${groupNum}</h1>
+                            <h1 class="mx-auto text-4xl text-center font-clashbold">Group: ${groupNum}</h1>
                         `;
 
                         // members.forEach(member => {
@@ -472,26 +480,48 @@
                         // `;
 
                         members.forEach((member, index) => {
-                            kanbanTabs.innerHTML += `
-                                <div onclick="changeKB(${index});" id="${member[1]}" class="flex flex-col member ${index === currentKBTab ? 'bg-blue3 text-white1' : 'bg-white1 text-black1'} w-full mx-auto py-4 border-r border-l border-black1">
-                                    ${member[0]}
-                                    ${member[2]}
+                            let separatedName = member[0].split(' ');
+                            let lastName = separatedName.pop();
+
+                            if (member[2] === 'Principal Investigator') {
+                                kanbanTabs.innerHTML += `
+                                <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l flex-col member ${index === currentKBTab ? 'bg-whitecon': ''} text-black w-full py-4">
+                                    <div class="flex items-center">
+                                        <img src="assets/images/vectors/shapes/Zealia-Star-Yellow.svg" alt="star" class="h-4 ml-1 mr-1">
+                                        <h6 class="text-xs font-satoshireg">${member[2]}</h6>
+                                    </div>
+
+                                    <div class="flex flex-col w-full">
+                                        <span class="text-xl text-left font-clashbold">${lastName}</span>
+                                        <span class="text-base text-left font-satoshireg">${separatedName.join(' ')}</span>
+                                    </div>
                                 </div>
                             `;
+                            } else {
+                                kanbanTabs.innerHTML += `
+                                <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l  flex-col member ${index === currentKBTab ? 'bg-whitecon': ''} text-black w-full py-4 ">
+                                    <h6 class="flex flex-col w-full text-left">${member[2]}</h6>
+                                    <span class="text-xl text-left font-clashbold">${lastName}</span>
+                                    <span class="text-base text-left font-satoshireg">${separatedName.join(' ')}</span>
+                                </div>
+                            `;
+                            }
                         });
 
+                        
                         // Generate all kanbans
-                        let allKanbans = `
-                            <!-- Delete Area -->
-                            <div id="deleteArea" class="absolute bottom-0 left-0 z-50 flex items-center justify-center hidden w-full h-24 transition-all duration-300 bg-red-500 opacity-0">
-                                <div class="flex items-center space-x-3 text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                    <span class="text-xl font-bold">Drop to Delete</span>
-                                </div>
-                            </div>
-                        `;
+                        // let allKanbans = `
+                        //     <!-- Delete Area -->
+                        //     <div id="deleteArea" class="absolute bottom-0 left-0 z-50 flex items-center justify-center hidden w-full h-24 transition-all duration-300 bg-red-500 opacity-0">
+                        //         <div class="flex items-center space-x-3 text-white">
+                        //             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        //                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        //             </svg>
+                        //             <span class="text-xl font-bold">Drop to Delete</span>
+                        //         </div>
+                        //     </div>
+                        // `;
+                        let allKanbans = '';
 
                         members.forEach((member, index) => {
                             console.log('Generating kanban for member:', member);
@@ -507,9 +537,9 @@
                             allKanbans += `
                                 <div id="kanban${index}" 
                                     class="${index === currentKBTab ? 'flex' : 'hidden'}
-                                          flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
-                                    <div class="flex items-center justify-between">
-                                        <h1 class=" font-clashreg">Currently viewing ${member[0]}'s board...</h1>
+                                          flex-col items-right w-full h-fit min-h-[36.3rem]">
+                                    <div class="flex items-center justify-between min-h-[2.5rem]">
+                                        <h1 class=" font-clashreg">Currently viewing <span class="font-clashmed">${member[0]}</span>'s board...</h1>
                                     <!-- add task button -->
                                         ${member[1] === currentUserId || studentRole === 'Principal Investigator' 
                                             ? '<div class="flex self-end pr-4 w-fit"><button onclick="showTaskModal()" class="flex items-center justify-center h-10 mx-auto text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1">Add Task</button></div>' 
@@ -519,22 +549,22 @@
 
 
                                     <!-- lanes -->
-                                    <div class="relative flex w-full gap-2 p-2 mt-2">
+                                    <div class="relative flex w-full min-h-full gap-2 mt-2">
                                         <!-- to do -->
-                                        <div id="${index}todoCont" class="w-1/3 overflow-hidden bg-red-300 border shadow-xl group dropzone border-black1 rounded-xl h-fit min-h-32">
-                                            <h1 class="border-b font-clashbold border-black1">To Do List:</h1>
+                                        <div id="${index}todoCont" class="w-1/3 min-h-[33.8rem] overflow-hidden bg-whitecon group dropzone rounded-xl">
+                                            <h1 class="px-3 py-3 text-left text-white border-b bg-blackless font-clashsemibold border-black1">To Do List:</h1>
                                             ${generateTaskList(member[1], member[3], 'todo', room_id)}
                                         </div>
 
                                         <!-- work in progress -->
-                                        <div id="${index}wipCont" class="w-1/3 overflow-hidden bg-blue-200 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
-                                            <h1 class="border-b font-clashbold border-black1">Work in progress:</h1>
+                                        <div id="${index}wipCont" class="w-1/3 min-h-[33.8rem] overflow-hidden bg-whitecon group dropzone rounded-xl">
+                                            <h1 class="px-3 py-3 text-left text-white border-b bg-blackless font-clashsemibold border-black1">Work in progress:</h1>
                                             ${generateTaskList(member[1], member[3], 'wip', room_id)}
                                         </div>
 
                                         <!-- done -->
-                                        <div id="${index}doneCont" class="w-1/3 overflow-hidden bg-green-300 border shadow-xl dropzone border-black1 rounded-xl h-fit min-h-32">
-                                            <h1 class="border-b font-clashbold border-black1">Done:</h1>
+                                        <div id="${index}doneCont" class="w-1/3 min-h-[33.8rem] overflow-hidden bg-whitecon group dropzone rounded-xl">
+                                            <h1 class="px-3 py-3 text-left text-white border-b bg-blackless font-clashsemibold border-black1">Done:</h1>
                                             ${generateTaskList(member[1], member[3], 'done', room_id)}
                                         </div>
                                     </div>
@@ -613,29 +643,45 @@
                             const isOwnKanban = memberId === currentUserId;
                             const canDrag = studentRole === 'Principal Investigator' || isOwnKanban;
 
-                            // Handle the case where the task is a string (needs parsing)
+                            // Add background colors based on list type
+                            const bgColor = {
+                                'todo': 'bg-red-300',
+                                'wip': 'bg-blue-200',
+                                'done': 'bg-green-300'
+                            }[listType];
+
                             let taskData = task;
                             if (typeof task === 'string') {
                                 try {
-                                    console.log(task === 'string');
                                     taskData = JSON.parse(task);
                                 } catch (e) {
                                     console.error('Error parsing task:', e);
                                     return '';
                                 }
                             }
-                            // console.log('studentRole', studentRole === 'Principal Investigator');
+
                             let date = new Date(taskData[2]);
                             let formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-                            console.log('taskData', taskData);
+
                             return `
-                                <div class="block py-2 border-b card h-fit border-black1 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
-                                    draggable="${canDrag}">
-                                    <div class="flex p-1 ${canDrag ? 'cursor-grab' : ''} justify-evenly">
-                                        <span class="px-4 mx-auto ml-1 text-base text-left border-b font-clashbold border-grey2 text-black1 text-wrap">${taskData[0]}</span>
-                                        <span class="pl-1 mx-auto mr-2 text-sm font-satoshimed text-black1 text-wrap">${formattedDate}</span>
+                                <div class="flex border mt-2 border-black flex-col w-full min-h-32 h-auto max-w-full mb-4 card rounded-xl ${bgColor} ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" draggable="${canDrag}">
+                                    <!-- Task Title -->
+                                    <div class="${canDrag ? 'cursor-grab' : ''} min-h-[2.28rem] flex items-center p-2 border-b border-black">
+                                        <span class="text-base text-left font-satoshireg">${taskData[0]}</span>
                                     </div>
-                                    <span class="relative block ml-10 text-base text-left font-satoshimed text-black1 text-wrap">${taskData[1]}</span>
+
+                                    <!-- Task Description & Date -->
+                                    <div class="${canDrag ? 'cursor-grab' : ''} flex min-h-[6.78rem]">
+                                        <div class="w-9/12 p-2 border-r border-black">
+                                            <p class="text-base text-left whitespace-normal text-wrap font-satoshilight text-blackpri">
+                                                ${taskData[1]}
+                                            </p>
+                                        </div>
+
+                                        <div class="flex flex-col justify-end w-3/12 p-2">
+                                            <span class="text-sm text-left font-satoshimed text-wrap text-blackpri">${formattedDate}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             `;
                         }).join('');
@@ -665,9 +711,9 @@
                             if (!curTask) return;
 
                             // Get task data
-                            const taskName = curTask.querySelector('.font-clashbold').textContent;
+                            const taskName = curTask.querySelector('.font-satoshireg').textContent;
                             const taskDate = curTask.querySelector('.font-satoshimed').textContent;
-                            const taskInfo = curTask.querySelector('.font-satoshimed').textContent;
+                            const taskInfo = curTask.querySelector('.font-satoshilight').textContent;
 
                             // Process deletion
                             processUpdateKanban('delete', [taskName, taskInfo, taskDate], 'delete')
@@ -729,29 +775,29 @@
                             });
 
                             zone.addEventListener('drop', function(e) {
-                                const isCurrentUserKanban = members[currentKB][1] === currentUserId;
-                                if (!(studentRole === 'Principal Investigator' || isCurrentUserKanban)) {
-                                    return;
-                                }
-
                                 e.preventDefault();
                                 const curTask = document.querySelector(".dragging");
                                 if (!curTask) return;
 
-                                console.log('curTask', curTask);
-
-                                curTask.classList.remove("dragging");
-
                                 // Get the new destination column
                                 const newDestination = zone.id.replace(`${currentKB}`, '').replace('Cont', ''); // 'todo', 'wip', or 'done'
-                                console.log(newDestination);
                                 
-                                // Get task data from the DOM element
-                                const taskName = curTask.querySelector('.font-clashbold').textContent;
-                                const taskDate = curTask.querySelector('.font-satoshimed').textContent;
-                                const taskInfo = curTask.querySelector('.font-satoshimed').textContent;
+                                // Update the background color based on new destination
+                                curTask.classList.remove('bg-red-300', 'bg-blue-200', 'bg-green-300');
+                                const newBgColor = {
+                                    'todo': 'bg-red-300',
+                                    'wip': 'bg-blue-200',
+                                    'done': 'bg-green-300'
+                                }[newDestination];
+                                curTask.classList.add(newBgColor);
+                                
+                                // Update the data-list-type attribute
+                                curTask.setAttribute('data-list-type', newDestination);
 
-                                console.log(taskName, taskDate, taskInfo);
+                                // Get task data from the DOM element
+                                const taskName = curTask.querySelector('.font-satoshireg').textContent;
+                                const taskDate = curTask.querySelector('.font-satoshimed').textContent;
+                                const taskInfo = curTask.querySelector('.font-satoshilight').textContent;
 
                                 processUpdateKanban('move', [taskName, taskInfo, taskDate], newDestination)
                                     .then(() => {
@@ -761,7 +807,6 @@
                                     })
                                     .catch(error => {
                                         console.error('Error moving task:', error);
-                                        // Optionally revert the UI change
                                     });
                             });
                         });
@@ -1079,6 +1124,8 @@
                     return;
                 }
 
+                // console.log('DESTINASYON: ', taskDestination);
+
                 // Create the task array
                 const newTask = [taskName, taskInfo, taskDate];
 
@@ -1090,12 +1137,18 @@
                     const canDrag = studentRole === 'Principal Investigator' || members[currentKB][1] === currentUserId;
 
                     newCard.setAttribute('draggable', canDrag);
-                    newCard.classList.add('block', 'py-2', 'border-b', 'card', 'border-black1');
+                    newCard.classList.add('block', 'py-2', 'card');
                     if (canDrag) {
                         newCard.classList.add('cursor-grab');
                     } else {
                         newCard.classList.add('select-none', 'pointer-events-none');
                     }
+
+                    const bgColor = {
+                        'todo': 'bg-red-300',
+                        'wip': 'bg-blue-200',
+                        'done': 'bg-green-300'
+                    }[taskDestination];
 
                     // Split noSelectClass into an array and add each class individually
                     if (noSelectClass) {
@@ -1103,12 +1156,29 @@
                         newCard.classList.add(...classes);
                     }
 
+                    let date = new Date(taskDate);
+                    let formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
                     newCard.innerHTML = `
-                        <div class="flex p-1 cursor-grab justify-evenly">
-                            <span class="px-4 mx-auto ml-1 text-base text-left border-b font-clashbold border-grey2 text-black1 text-wrap">${taskName}</span>
-                            <span class="pl-1 mx-auto mr-2 text-sm font-satoshimed text-black1 text-wrap">${taskDate}</span>
-                        </div>
-                        <span class="relative block ml-10 text-base text-left font-satoshimed text-black1 text-wrap">${taskInfo}</span>
+                                <div class="flex border border-black flex-col w-full min-h-32 h-auto max-w-full mb-4 card rounded-xl ${bgColor} ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" draggable="${canDrag}">
+                                    <!-- Task Title -->
+                                    <div class="${canDrag ? 'cursor-grab' : ''} min-h-[2.28rem] flex items-center p-2 border-b border-black">
+                                        <span class="text-base font-satoshireg">${taskName}</span>
+                                    </div>
+
+                                    <!-- Task Description & Date -->
+                                    <div class="${canDrag ? 'cursor-grab' : ''} flex min-h-[6.78rem]">
+                                        <div class="w-9/12 p-2 border-r border-black">
+                                            <p class="text-base text-left whitespace-normal text-wrap font-satoshilight text-blackpri">
+                                                ${taskInfo}
+                                            </p>
+                                        </div>
+
+                                        <div class="flex flex-col justify-end w-3/12 p-2 ${canDrag ? 'cursor-grab' : ''}">
+                                            <span class="text-sm text-left font-satoshimed text-wrap text-blackpri">${formattedDate}</span>
+                                        </div>
+                                    </div>
+                                </div>
                     `;
 
                     container.appendChild(newCard);
@@ -1331,11 +1401,13 @@
                 const tabs = document.querySelectorAll('.member');
                 tabs.forEach((tab, tabIndex) => {
                     if (tabIndex === index) {
-                        tab.classList.remove('bg-white1', 'text-black1');
-                        tab.classList.add('bg-blue3', 'text-white1');
+                        // tab.classList.remove('bg-white', 'text-black');
+                        // tab.classList.add('bg-whitecon', 'text-black');
+                        tab.classList.add('bg-whitecon');
                     } else {
-                        tab.classList.remove('bg-blue3', 'text-white1');
-                        tab.classList.add('bg-white1', 'text-black1');
+                        // tab.classList.remove('bg-whitecon', 'text-black');
+                        // tab.classList.add('bg-white', 'text-black');
+                        tab.classList.remove('bg-whitecon');
                     }
                 });
 
