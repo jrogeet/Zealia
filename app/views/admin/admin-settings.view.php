@@ -20,20 +20,20 @@
                         <?php endif; ?>
                         <h1 class="text-grey2 mt-[5%] mt-4">Name</h1>
                         <div class="flex">
-                            <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="First Name">
-                            <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white1" placeholder="Last Name">
+                            <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="First Name">
+                            <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white" placeholder="Last Name">
                         </div>
 
                         <h1 class="text-grey2 mt-[5%] mt-4">School number</h1>
-                        <input name="school_id" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="ID number">
+                        <input name="school_id" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="ID number">
 
                         <h1 class="text-grey2 mt-[5%] mt-4">Email</h1>
-                        <input name="email" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="Email">
+                        <input name="email" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="Email">
                         
                         <h1 class="text-grey2 mt-[5%] mt-4">Change Password</h1>
                         <div class="flex">
-                            <input name="password" type="password" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white1" placeholder="New Password">
-                            <input name="c_password" type="password" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white1" placeholder="Confirm Password">
+                            <input name="password" type="password" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="New Password">
+                            <input name="c_password" type="password" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white" placeholder="Confirm Password">
                         </div>
 
                         <div class="block w-[30%] h-full mx-auto">
@@ -46,7 +46,7 @@
 
         <div class="relative block w-[40%] h-[40rem] mt-[5.7rem]">
             <div class="block w-[80%] h-[90%] border border-black rounded-2xl ml-12 overflow-hidden">
-                <h1 class="w-full h-10 pt-2 text-center bg-blue3 text-white1 font-satoshimed">Admin List</h1>
+                <h1 class="w-full h-10 pt-2 text-center bg-blue3 text-white font-satoshimed">Admin List</h1>
 
                 <?php foreach ($admins as $admin): ?>
                 <div class="flex w-full p-2 border-b border-black h-fit">

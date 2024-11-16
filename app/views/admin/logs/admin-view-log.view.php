@@ -9,7 +9,7 @@
 
         <div class="flex gap-4 mt-8">
             <div class="flex items-center">
-                <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white1" onchange="handleSort()">
+                <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white" onchange="handleSort()">
                     <option value="">Sort by...</option>
                     <option value="date_asc">Date (Oldest First)</option>
                     <option value="date_desc">Date (Newest First)</option>
@@ -26,15 +26,15 @@
                     <table class="w-full table-fixed">
                         <thead>
                             <tr>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Log ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">User Type</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Action</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Status</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Target Type</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Target ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">IP Address</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Device Info</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Log ID</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">User Type</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Action</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Status</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Target Type</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Target ID</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Timestamp</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">IP Address</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Device Info</th>
                             </tr>
                         </thead>
                     </table>
@@ -47,15 +47,15 @@
                             <?php if (!empty($logs)) : ?>
                                 <?php foreach ($logs as $log) : ?>
                                     <tr class="border-b border-black">
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1"><?= $log['id'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1"><?= $log['user_role'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1"><?= $log['action'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1"><?= $log['status'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1"><?= $log['target_type'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1"><?= $log['target_id'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1"><?= $log['created_at'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1"><?= $log['ip_address'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white1"><?= $log['user_agent'] ?></td>
+                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white"><?= $log['id'] ?></td>
+                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white"><?= $log['user_role'] ?></td>
+                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white"><?= $log['action'] ?></td>
+                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white"><?= $log['status'] ?></td>
+                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white"><?= $log['target_type'] ?></td>
+                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white"><?= $log['target_id'] ?></td>
+                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white"><?= $log['created_at'] ?></td>
+                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white"><?= $log['ip_address'] ?></td>
+                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center border-l border-r border-black bg-white"><?= $log['user_agent'] ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>

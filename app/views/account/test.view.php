@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="absolute inline-block w-screen h-fit font-satoshimed bg-white1 overflow-x-hidden">
+<body class="absolute inline-block w-screen h-fit font-satoshimed bg-white overflow-x-hidden">
 
     <?php if(isset($notifications)){
         view('partials/nav.view.php', ['notifications' => $notifications]);
@@ -16,7 +16,7 @@
 
     
 
-    <div class="font-satoshimed bg-white1 relative top-[14.50rem] mt-16 left-1/2 transform translate-x-[-50%] border border-black rounded-2xl shadow-2xl w-6/12 h-fit p-0 overflow-hidden">
+    <div class="font-satoshimed bg-white relative top-[14.50rem] mt-16 left-1/2 transform translate-x-[-50%] border border-black rounded-2xl shadow-2xl w-6/12 h-fit p-0 overflow-hidden">
 
         <div class="group p-8 hover:bg-blue3">
             <label class="flex items-center">

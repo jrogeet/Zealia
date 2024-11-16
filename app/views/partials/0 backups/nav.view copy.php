@@ -1,5 +1,5 @@
 <!-- white container -->
-<header class="relative block bg-white1 z-50 shadow-md h-20 w-full content-center" id="navbar">
+<header class="relative block bg-white z-50 shadow-md h-20 w-full content-center" id="navbar">
     <!-- object container -->
     <div class="flex h-fit w-full justify-between font-satoshiblack text-xl text-black1 border border-black mx-auto px-[1rem]">
         <!-- Main NavBar -->
@@ -40,12 +40,12 @@
             <?php if ($_SESSION['user'] ?? false) : ?>
                 <div class="relative text-xl">
                     <button class="z-50 flex justify-between items-center px-4 h-12 w-56  bg-blue3 border rounded-lg" id="navDDbutton">
-                        <span class="text-white1 w-4/5 text-left truncate"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
-                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white1"></div>
+                        <span class="text-white w-4/5 text-left truncate"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
+                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white"></div>
                     </button>
                     <!-- TEMPO -->
 
-                    <div class="z-40 hidden absolute flex-col justify-evenly bg-white1 h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 border-black1 rounded-b-2xl" id="navDropDown">
+                    <div class="z-40 hidden absolute flex-col justify-evenly bg-white h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 border-black1 rounded-b-2xl" id="navDropDown">
                         <a href="<?php if($_SESSION['user']['account_type'] === 'admin'):?>/admin-settings<?php else: ?>/account<?php endif; ?>">
                             <span class="">Account Settings</span>
                         </a>

@@ -166,11 +166,11 @@ function checker(checkbox) {
         selCounter = selCounter - 1
         selected = selected.replace(`${checkboxId}`,"");
         subBut.classList.add('bg-grey2', 'text-grey1');
-        subBut.classList.remove('bg-blue3', 'text-white1');
+        subBut.classList.remove('bg-blue3', 'text-white');
     }
 
     if (selCounter == opCount){
-        subBut.classList.add('bg-blue3', 'text-white1');
+        subBut.classList.add('bg-blue3', 'text-white');
         subBut.classList.remove('bg-grey2', 'text-grey1');
     }else if (selCounter > opCount) {
         selCounter-=1;

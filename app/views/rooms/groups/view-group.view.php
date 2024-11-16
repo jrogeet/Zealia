@@ -1,14 +1,14 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white1 flex flex-col items-center overflow-x-hidden">
+<body class="bg-white flex flex-col items-center overflow-x-hidden">
     <?php view('partials/nav.view.php')?>
 
     <main class="h-[40rem] w-[80rem] flex justify-between items-center mt-20">
         <!-- GROUP -->
-        <div class="bg-white1 h-auto max-w-[22rem] border rounded-lg flex flex-col overflow-hidden">
+        <div class="bg-white h-auto max-w-[22rem] border rounded-lg flex flex-col overflow-hidden">
             <!-- Group Head -->
             <div class="bg-blue3 h-10 w-full flex justify-center items-center ">
-                <span class="font-satoshimed text-white1 text-4xl">Group</span>
+                <span class="font-satoshimed text-white text-4xl">Group</span>
                 <span class="font-clashbold text-orange1 text-4xl ml-2"><?= $_GET['group'] + 1 ?>:</span>
             </div>
 

@@ -1,5 +1,5 @@
 <!-- mobile/desktop footer -->
-<footer class="relative left-0 transform translate-y-full bg-blue3 items-center h-auto w-[100vw] py-4 bottom-0">
+<footer class="relative left-0 transform translate-y-full bg-blue3 items-center h-auto w-[100vw] pt-4 bottom-0">
     <div class="h-fit w-[100%] flex flex-col justify-between px-10">
         <div class="flex justify-between mb-12">
             <ul class="flex flex-col font-satoshimed text-[5vw]  xl:text-4xl text-blue2">
@@ -24,7 +24,7 @@
                 </li>
 
             </ul>
-            <a class="font-clashbold text-[5vw] xl:text-4xl text-white1" href="/submit-ticket">Submit a Ticket</a>
+            <a class="font-clashbold text-[5vw] xl:text-4xl text-white" href="/submit-ticket">Submit a Ticket</a>
         </div>
 
         <div class="relative flex -translate-x-1/2 left-1/2 tranform w-fit">

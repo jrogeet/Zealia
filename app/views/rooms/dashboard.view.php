@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="flex flex-col w-screen overflow-x-hidden bg-white1 justify">
+<body class="flex flex-col w-screen overflow-x-hidden bg-white justify">
     <?php view('partials/nav.view.php')?>
 
     <!-- desktop -->
@@ -35,7 +35,7 @@
 
                     <!-- <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button> -->
                     <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onclick="toggle('rooms-ascending-container'); toggle('rooms-descending-container'); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
-                    <button id="clearFilters" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-satoshimed">Clear Search/Filter</button>
+                    <button id="clearFilters" class="mx-auto bg-red1 text-white h-[2.25rem] w-[10rem] rounded-lg font-satoshimed">Clear Search/Filter</button>
                 </div>
 
                 <?php if ($_SESSION['user']['account_type'] === 'student'):?>
@@ -71,9 +71,9 @@
             </div>
 
             <!-- Filter -->
-            <div class="hidden bg-white1 w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
+            <div class="hidden bg-white w-full h-[3.75rem] border-black1 border-b-2 justify-between items-center px-5 overflow-hidden shadow-xl" id="filters">
                 <div class="flex w-4/6">
-                <div class="flex items-center h-[2.25rem] w-4/5  bg-white1 border border-white font-satoshimed rounded-lg pr-4 overflow-hidden">
+                <div class="flex items-center h-[2.25rem] w-4/5  bg-white border border-white font-satoshimed rounded-lg pr-4 overflow-hidden">
                     <p class="flex text-lg text-grey1 font-satoshimed">Search by Filter:</p>
 
                     <!-- Year -->
@@ -100,7 +100,7 @@
                         <option class="bg-white2" value="it">IT</option>
                     </select>
 
-                    <!-- <button id="clearFilters" class="mx-auto bg-red1 text-white1 h-[2.25rem] w-[10rem] rounded-lg font-satoshimed">Clear Filters</button> -->
+                    <!-- <button id="clearFilters" class="mx-auto bg-red1 text-white h-[2.25rem] w-[10rem] rounded-lg font-satoshimed">Clear Filters</button> -->
                 </div>
                 </div>
             </div>
@@ -131,9 +131,9 @@
                 <table class="max-h-[39.8rem] w-full table-fixed">
                     <thead class="h-10 text-xl bg-blue3 max-h-10 font-satoshimed">
                         <tr class="">
-                            <th class="border-2 border-black1 text-white1 w-[29rem]">Room Name</th>
-                            <th class="border-2 border-black1 text-white1 w-[29rem]">Instructor Name</th>
-                            <th class="border-2 border-black1 text-white1 w-[29rem]">Room Code</th>
+                            <th class="border-2 border-black1 text-white w-[29rem]">Room Name</th>
+                            <th class="border-2 border-black1 text-white w-[29rem]">Instructor Name</th>
+                            <th class="border-2 border-black1 text-white w-[29rem]">Room Code</th>
                         </tr>
                     </thead>
 
@@ -153,7 +153,7 @@
     <div id="createRoom" class="fixed z-50 justify-center hidden w-full h-full bg-glassmorphism">
         <div class="relative flex flex-col h-64 border rounded-t-lg bg-white2 w-96 border-black1 top-1/3">
             <div class="flex items-center justify-between h-12 border rounded-t-lg bg-blue3 border-black1">
-                <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Create:</span>
+                <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Create:</span>
                 <button class="w-1/5 h-full rounded bg-red1" onClick="hide('createRoom'); enableScroll();">X</button>
             </div>
             <form id="createRoomForm" method="POST" class="flex flex-col gap-2 p-2 h-72">
@@ -205,9 +205,9 @@
     <div class="relative block w-full mt-10 text-center lg:hidden h-fit">
 
         <!-- label -->
-        <div class="flex p-4 bg-gradient-to-t from-white1 to-white2">
+        <div class="flex p-4 bg-gradient-to-t from-white to-white2">
             <h1 class="font-clashbold text-[5vw] mx-auto ml-2 mt-1">Dashboard</h1>
-            <button class="relative top-1/2 w-1/6 py-1 mt-1 mr-2 bg-blue3 text-white1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="searchButt">Search</button>
+            <button class="relative top-1/2 w-1/6 py-1 mt-1 mr-2 bg-blue3 text-white mx-auto text-[3vw] rounded-sm text-sm h-full" id="searchButt">Search</button>
 
             <?php if ($_SESSION['user']['account_type'] === 'student'):?>
                 <?php if (isset($errors['room_existence'])) : ?>
@@ -230,7 +230,7 @@
             <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
 
             <input class="w-5/6 pl-2 mx-auto border border-black1" name="search_input" placeholder="Room Name">
-            <button type="submit" class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-blue3 text-white1 mx-auto text-[3vw] rounded-sm text-sm h-full">Search</button>
+            <button type="submit" class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-blue3 text-white mx-auto text-[3vw] rounded-sm text-sm h-full">Search</button>
         </form>
 
         <!-- create/join dropdown -->
@@ -246,7 +246,7 @@
 
                 <input type="hidden" name="join" value="join">
                 <input class="w-5/6 pl-2 mx-auto border border-black1" type="number" id="room_code" name="room_code" placeholder="Enter room code" required>
-                <button type="submit" class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-blue3 text-white1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Join</button>
+                <button type="submit" class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-blue3 text-white mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Join</button>
 
             <?php elseif ($_SESSION['user']['account_type'] === 'instructor'): ?>
 
@@ -737,7 +737,7 @@
                                     popup: 'border-2 border-black1 rounded-xl',
                                     title: 'font-clashsemibold text-2xl',
                                     confirmButton: 'bg-blue2 text-blue3 font-satoshiblack px-6 py-2 rounded-lg',
-                                    cancelButton: 'bg-red1 text-white1 font-satoshimed px-6 py-2 rounded-lg'
+                                    cancelButton: 'bg-red1 text-white font-satoshimed px-6 py-2 rounded-lg'
                                 }
                             }).then((result) => {
                                 if (result.isConfirmed) {

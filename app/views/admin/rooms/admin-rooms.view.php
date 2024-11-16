@@ -8,7 +8,7 @@
         <h1 class="mx-auto ml-6 text-3xl font-clashbold">Room List</h1>
         <div class="flex gap-4 mx-auto w-fit">
             <div class="flex items-center">
-                <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white1" onchange="handleSort()">
+                <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white" onchange="handleSort()">
                     <option value="">Sort by...</option>
                     <option value="date_asc">Date (Oldest First)</option>
                     <option value="date_desc">Date (Newest First)</option>
@@ -18,7 +18,7 @@
                 <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
             </div>
             <div class="flex items-center">
-                <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white1">
+                <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white">
                 <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSearch()">X</button>
             </div>
         </div>
@@ -35,13 +35,13 @@
                     <table class="w-full table-fixed">
                         <thead>
                             <tr>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Edit</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room ID</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room Name</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase truncate border-l border-r border-black bg-blue3 text-white1">Instructor Name</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Instructor ID</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room Code</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Time Created</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Edit</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room ID</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room Name</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase truncate border-l border-r border-black bg-blue3 text-white">Instructor Name</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Instructor ID</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room Code</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Time Created</th>
                             </tr>
                         </thead>
                     </table>
@@ -168,7 +168,7 @@
                 data.forEach(room => {
                     roomsTBody.innerHTML += `
                         <tr>
-                            <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-room-edit?room_id=${room.room_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white1">EDIT</a></td>
+                            <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-room-edit?room_id=${room.room_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white">EDIT</a></td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${room.room_id}</td>
                             <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${room.room_name}</td>
                             <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${room.prof_name}</td>

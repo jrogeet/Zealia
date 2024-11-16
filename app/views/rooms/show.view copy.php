@@ -1,7 +1,7 @@
 <?php view('partials/head.view.php'); ?>
 <!-- TO DO: -->
  <!-- CHANGE NAME ERROR FIX -->
-<body class="bg-white1 flex flex-col justify-between items-center">
+<body class="bg-white flex flex-col justify-between items-center">
     <?php view('partials/nav.view.php')?>
     <main class="flex flex-col h-[50rem] w-[87.5rem] mt-20">
         <?php if (isset($errors['room_name'])) : ?>
@@ -33,14 +33,14 @@
                 </form>
             </div>
 
-            <button onClick="show('delRoomConfirmation');" class="bg-red1 h-8 p-2 flex items-center font-satoshimed text-white1 text-center border border-black1 rounded">Delete Room</button>
+            <button onClick="show('delRoomConfirmation');" class="bg-red1 h-8 p-2 flex items-center font-satoshimed text-white text-center border border-black1 rounded">Delete Room</button>
         </div>
 
         <!-- delete room confirmation modal -->
         <div id="delRoomConfirmation" class="hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
             <div class="bg-white2 flex flex-col h-48 w-80 border border-black1 rounded-t-lg">
                 <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
-                    <span class="text-white1 w-4/5 text-lg font-satoshimed pl-2">Confirmation</span>
+                    <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Confirmation</span>
                     <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('delRoomConfirmation'); enableScroll();">X</button>
                 </div>
                 <form method="POST" action="/room" class="flex flex-col items-center h-64 p-2">
@@ -50,7 +50,7 @@
                     <span class="font-clashbold text-red1 text-2xl">Delete:</span>
                     <span class="font-satoshimed text-xl">Room name</span>
                     <span class="font-satoshimed text-lg">FOREVER?</span>
-                    <button type="submit" class="bg-red1 p-1 mt-2 text-white1 border border-black1 rounded">Delete Room Forever</button>
+                    <button type="submit" class="bg-red1 p-1 mt-2 text-white border border-black1 rounded">Delete Room Forever</button>
                 </form>
             </div>
         </div>
@@ -60,9 +60,9 @@
            <div class="h-[37.5rem] w-[18.75rem] border border-black1 rounded-xl overflow-hidden">
                 <!-- Tabs -->
                 <div class="flex">
-                    <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-[9.37rem] font-satoshimed text-white1">Students</button>
+                    <button id="stuListTab" onClick="show('roomStudentList'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white']]);" class="bg-blue3 h-[2.81rem] w-[9.37rem] font-satoshimed text-white">Students</button>
                     <?php if($_SESSION['user']['account_type'] === 'professor'):?>
-                    <button id="reqListTab" onClick="show('roomJoinRequest'); hide('roomStudentList'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-[9.37rem] font-satoshimed text-black1">Join Requests</button>
+                    <button id="reqListTab" onClick="show('roomJoinRequest'); hide('roomStudentList'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white']]);" class="bg-blue2 h-[2.81rem] w-[9.37rem] font-satoshimed text-black1">Join Requests</button>
                     <?php endif; ?>
                 </div>
 
@@ -87,7 +87,7 @@
                         <div id="kickConfirmation<?= $student['school_id'] ?>" class="hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
                             <div class="bg-white2 flex flex-col h-40 w-80 border border-black1 rounded-t-lg">
                                 <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
-                                    <span class="text-white1 w-4/5 text-lg font-satoshimed pl-2">Confirmation</span>
+                                    <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Confirmation</span>
                                     <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('kickConfirmation<?= $student['school_id'] ?>'); enableScroll();">X</button>
                                 </div>
                                 <form action="/room" method="POST" class="flex flex-col items-center h-60 p-2">
@@ -95,7 +95,7 @@
                                     <span class="font-clashbold text-red1 text-2xl">Remove:</span>
                                     <span class="font-satoshimed text-xl"><?= $student['l_name'], ", ", $student['f_name']?></span>
                                     <span class="font-satoshimed text-lg">from this room?</span>
-                                    <button type="submit" name="delete" value="<?php echo implode(',', [$student['school_id'], $_GET['room_id']]); ?>"  class="bg-red1 w-16 text-white1 border border-black1 rounded">Confirm</button>
+                                    <button type="submit" name="delete" value="<?php echo implode(',', [$student['school_id'], $_GET['room_id']]); ?>"  class="bg-red1 w-16 text-white border border-black1 rounded">Confirm</button>
                                 </form>
                             </div>
                         </div>
@@ -150,10 +150,10 @@
                     <div class="h-auto w-full flex flex-wrap gap-y-5 justify-evenly p-6">
                         <!-- Each Boxes -->
                         <?php foreach ($decodedGroup as $index => $group) {?>
-                        <div class="bg-white1 h-auto max-h-[30rem] min-w-[20rem] max-w-[20rem] border border-black1 rounded-lg flex flex-col overflow-hidden">
+                        <div class="bg-white h-auto max-h-[30rem] min-w-[20rem] max-w-[20rem] border border-black1 rounded-lg flex flex-col overflow-hidden">
                             <!-- Group Head -->
                             <div class="bg-black1 h-10 w-full flex justify-center items-center ">
-                                <span class="font-satoshimed text-white1 text-4xl">Group</span>
+                                <span class="font-satoshimed text-white text-4xl">Group</span>
                                 <span class="font-clashbold text-orange1 text-4xl ml-2"><?= $index + 1 ?>:</span>
                             </div>
   

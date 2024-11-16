@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="flex flex-col justify-between mx-auto items-center overflow-x-hidden h-auto w-[96rem] bg-white1">
+<body class="flex flex-col justify-between mx-auto items-center overflow-x-hidden h-auto w-[96rem] bg-white">
     <?php view('partials/nav.view.php')?>
     
     <main class="min-h-[40rem] flex flex-col justify-between w-[87.5rem]  mt-20">
@@ -37,7 +37,7 @@
                 </form>
             </div>
 
-            <button onClick="show('delRoomConfirmation'); disableScroll();" class="flex items-center h-8 p-2 mr-2 text-center border rounded bg-rederr font-satoshireg text-white1 border-blackpri">Delete Room</button>
+            <button onClick="show('delRoomConfirmation'); disableScroll();" class="flex items-center h-8 p-2 mr-2 text-center border rounded bg-rederr font-satoshireg text-white border-blackpri">Delete Room</button>
             </div>
         <?php endif; ?>
 
@@ -47,7 +47,7 @@
 
         <!-- Add task modal -->
         <div id="taskModal" class="absolute hidden w-screen h-screen -top-20 bg-glassmorphism z-[55]">
-            <div class="relative block text-center left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/3 w-[40%] h-fit bg-white1 border border-grey1 shadow-xl rounded-xl p-2">
+            <div class="relative block text-center left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/3 w-[40%] h-fit bg-white border border-grey1 shadow-xl rounded-xl p-2">
                 
                 <div class="flex w-full">                        
                     <h1 class="block mx-auto mt-2 ml-2 text-xl text-left font-satoshiblack text-grey2">Add Task</h1>
@@ -56,13 +56,13 @@
 
                 <!-- TODO: ADD VALUES INTO JSON -->
                     <div class="flex w-full">                        
-                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl border-b border-black bg-white1 font-satoshimed" placeholder="Task Name" name="task" id="taskName" required>
-                        <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-satoshimed" placeholder="Date" name="date" id="taskDate">
+                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl border-b border-black bg-white font-satoshimed" placeholder="Task Name" name="task" id="taskName" required>
+                        <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white font-satoshimed" placeholder="Date" name="date" id="taskDate">
                     </div>
                     
                     <div class="flex w-full">                        
-                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base border-b border-black bg-white1 font-satoshimed text-grey2" placeholder="Description" name="info" id="taskInfo">
-                        <select class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-satoshimed text-grey2" name="destination" id="taskDestination">
+                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base border-b border-black bg-white font-satoshimed text-grey2" placeholder="Description" name="info" id="taskInfo">
+                        <select class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white font-satoshimed text-grey2" name="destination" id="taskDestination">
                             <option class="text-grey2" value="todo">To do</option>
                             <option class="text-grey2" value="wip">Work in Progress</option>
                             <option class="text-grey2" value="done">Done</option>
@@ -210,7 +210,7 @@
 
         // let membersWarningContent = `
         //     <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
-        //         <span class="text-base font-satoshiblack text-white1">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
+        //         <span class="text-base font-satoshiblack text-white">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
         //     </div>
         //     <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
         //         <form id="submitGroups" method="POST">
@@ -382,7 +382,7 @@
 
                         parsedGroupsList.forEach((group, index) => {
                             groupsContainer.innerHTML += `
-                                        <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
+                                        <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white h-auto max-w-[20rem] border flex flex-col overflow-hidden">
                                             <!-- Group Head -->
                                             <div class="flex items-center justify-center w-full h-10 bg-blackpri ">
                                                 <span class="text-4xl text-white font-satoshimed">Group</span>
@@ -496,7 +496,7 @@
                         //     kanbanTabs.innerHTML += `
                         //         <button onclick="changeKB(${index});" 
                         //                 id="${member[1]}" 
-                        //                 class="member ${index === currentKBTab ? 'bg-greenmain text-white1' : 'bg-white1 text-blackpri'} 
+                        //                 class="member ${index === currentKBTab ? 'bg-greenmain text-white' : 'bg-white text-blackpri'} 
                         //                     w-full mx-auto py-4 border-r border-l border-blackpri">
                         //             ${member[0]}
                         //         </button>
@@ -1045,7 +1045,7 @@
                 // Modify the membersWarningContent to use the current student_has_result
                 membersWarningContent = `
                     <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
-                        <span class="text-base font-satoshiblack text-white1">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
+                        <span class="text-base font-satoshiblack text-white">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
                     </div>
                     <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
                         <form id="submitGroups" method="POST">
@@ -1104,14 +1104,14 @@
                         <div id="kickConfirmation${student.school_id}"  class="fixed left-0 z-50 justify-center hidden w-screen h-screen bg-glassmorphism -top-24">
                             <div class="relative flex flex-col h-48 border rounded-t-lg bg-whitecon w-80 border-blackpri top-1/3">
                                 <div class="flex items-center justify-between h-20 border rounded-t-lg bg-greenmain border-blackpri">
-                                    <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Confirmation</span>
+                                    <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Confirmation</span>
                                     <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll(); fetchLatestData({'table1': 'room_list','table2': 'join_room_requests','room_id': <?= $_GET['room_id']  ?>,'currentPage': 'room',}, displayStudents, 3000);">X</button>
                                 </div>
                                 <form id="kickForm${student.school_id}" method="POST" class="flex flex-col items-center p-2 h-60">
                                     <span class="text-2xl font-satoshiblack text-red1">Remove:</span>
                                     <span class="text-xl font-satoshimed">${student.l_name} ${student.f_name}</span>
                                     <span class="text-lg font-satoshireg">from this room?</span>
-                                    <button onclick="enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 border rounded bg-red1 text-white1 border-blackpri">Confirm</button>
+                                    <button onclick="enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 border rounded bg-red1 text-white border-blackpri">Confirm</button>
                                 </form>
                             </div>
                         </div>
@@ -1428,11 +1428,11 @@
                 const tabs = document.querySelectorAll('.member');
                 tabs.forEach((tab, tabIndex) => {
                     if (tabIndex === index) {
-                        tab.classList.remove('bg-white1', 'text-blackpri');
-                        tab.classList.add('bg-greenmain', 'text-white1');
+                        tab.classList.remove('bg-white', 'text-blackpri');
+                        tab.classList.add('bg-greenmain', 'text-white');
                     } else {
-                        tab.classList.remove('bg-greenmain', 'text-white1');
-                        tab.classList.add('bg-white1', 'text-blackpri');
+                        tab.classList.remove('bg-greenmain', 'text-white');
+                        tab.classList.add('bg-white', 'text-blackpri');
                     }
                 });
 
@@ -1467,11 +1467,11 @@
             //         const memberId = members[index][1];
                     
             //         if (tabId === memberId) {
-            //             tab.classList.remove('bg-white1', 'text-blackpri');
-            //             tab.classList.add('bg-greenmain', 'text-white1');
+            //             tab.classList.remove('bg-white', 'text-blackpri');
+            //             tab.classList.add('bg-greenmain', 'text-white');
             //         } else {
-            //             tab.classList.remove('bg-greenmain', 'text-white1');
-            //             tab.classList.add('bg-white1', 'text-blackpri');
+            //             tab.classList.remove('bg-greenmain', 'text-white');
+            //             tab.classList.add('bg-white', 'text-blackpri');
             //         }
             //     });
 
@@ -1495,12 +1495,12 @@
             //     button.addEventListener('click', function() {
             //         kbButts.forEach(btn => {
             //             // button visual
-            //             btn.classList.remove('bg-greenmain', 'text-white1');
-            //             btn.classList.add('bg-white1', 'text-blackpri');
+            //             btn.classList.remove('bg-greenmain', 'text-white');
+            //             btn.classList.add('bg-white', 'text-blackpri');
             //         });
             //         // button visual
-            //         this.classList.add('bg-greenmain', 'text-white1');
-            //         this.classList.remove('bg-white1', 'text-blackpri');
+            //         this.classList.add('bg-greenmain', 'text-white');
+            //         this.classList.remove('bg-white', 'text-blackpri');
             //     });
             // });
 
@@ -1509,10 +1509,10 @@
                         
             //     }else{
             //         StudButt.classList.replace("bg-orangemain","bg-greenmain");
-            //         StudButt.classList.replace("text-blackpri","text-white1");
+            //         StudButt.classList.replace("text-blackpri","text-white");
             //         StudButt.classList.replace("w-2/5","w-3/5");
             //         GrButt.classList.replace("bg-greenmain","bg-orangemain");
-            //         GrButt.classList.replace("text-white1","text-blackpri");
+            //         GrButt.classList.replace("text-white","text-blackpri");
             //         GrButt.classList.replace("w-3/5","w-2/5");
             //         students.classList.remove("hidden");
             //         groupContent.classList.add("hidden");
@@ -1525,10 +1525,10 @@
                     
             //     }else{
             //         GrButt.classList.replace("bg-orangemain","bg-greenmain");
-            //         GrButt.classList.replace("text-blackpri","text-white1");
+            //         GrButt.classList.replace("text-blackpri","text-white");
             //         GrButt.classList.replace("w-2/5","w-3/5");
             //         StudButt.classList.replace("bg-greenmain","bg-orangemain");
-            //         StudButt.classList.replace("text-white1","text-blackpri");
+            //         StudButt.classList.replace("text-white","text-blackpri");
             //         StudButt.classList.replace("w-3/5","w-2/5");
             //         students.classList.add("hidden");
             //         groupContent.classList.remove("hidden");

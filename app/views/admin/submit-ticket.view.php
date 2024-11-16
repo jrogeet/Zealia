@@ -1,13 +1,13 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white1 w-screen lg:min-w-[75rem] h-fit overflow-x-hidden">
+<body class="bg-white w-screen lg:min-w-[75rem] h-fit overflow-x-hidden">
     <?php view('partials/nav.view.php'); ?>
     <!-- MODALS -->
     <?php if(isset($sent)): ?>
     <div id="ticketSent" class="fixed left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism top-20">
-        <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
+        <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white w-90 border-black1">
             <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Ticket Sent</span>
+                <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Ticket Sent</span>
                 <button class="w-10 h-full rounded bg-red1" onClick="hide('ticketSent'); enableScroll();">X</button>
             </div>
         
@@ -20,9 +20,9 @@
     </div>
     <?php elseif (isset($xmail)): ?>
     <div id="ticketFailed" class="fixed left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism top-20">
-        <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
+        <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white w-90 border-black1">
             <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Ticket Failed</span>
+                <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Ticket Failed</span>
                 <button class="w-10 h-full rounded bg-red1" onClick="hide('ticketFailed'); enableScroll();">X</button>
             </div>
         
@@ -35,9 +35,9 @@
     </div>
     <?php elseif (isset($missing)): ?>
     <div id="ticketMissing" class="fixed left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism top-20">
-        <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white1 w-90 border-black1">
+        <div class="flex flex-col justify-between h-48 border rounded-t-lg bg-white w-90 border-black1">
             <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Ticket Failed</span>
+                <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Ticket Failed</span>
                 <button class="w-10 h-full rounded bg-red1" onClick="hide('ticketMissing'); enableScroll();">X</button>
             </div>
         
@@ -66,12 +66,12 @@
             <form method="post" action="/submit-ticket" class="pt-16 pb-10 bg-white2 border border-black rounded-xl shadow-2xl absolute inline-block w-[34rem] right-0 mr-16 text-center object-center min-w-[32rem] min-h-[39rem]">
                 <h1 class="mx-12 mb-16 text-4xl font-satoshimed">Submit a Ticket</h1>
                 <div class="flex justify-between mx-16 mb-1">
-                    <input class="border border-black rounded-xl transform translate-x-[15%] text-left pl-4 mb-1 h-10 w-70 text-sm bg-white1" type="text" name="f_name" id="f_name" placeholder="First Name" required>
-                    <input class="border border-black rounded-xl transform translate-x-[-15%] text-left pl-4 mb-1 h-10 w-70 text-sm bg-white1" type="text" name="l_name" id="l_name" placeholder="Last Name" required>
+                    <input class="border border-black rounded-xl transform translate-x-[15%] text-left pl-4 mb-1 h-10 w-70 text-sm bg-white" type="text" name="f_name" id="f_name" placeholder="First Name" required>
+                    <input class="border border-black rounded-xl transform translate-x-[-15%] text-left pl-4 mb-1 h-10 w-70 text-sm bg-white" type="text" name="l_name" id="l_name" placeholder="Last Name" required>
                 </div>
 
-                <input class="relative w-2/3 h-10 pl-4 mb-2 text-sm border border-black rounded-xl bg-white1" placeholder="School number" type="number" name="school_id" id="school_id" required></input></br>
-                <input class="relative w-2/3 h-10 pl-4 mb-2 text-sm border border-black rounded-xl bg-white1" placeholder="Email" type="email" name="email" required></input></br>
+                <input class="relative w-2/3 h-10 pl-4 mb-2 text-sm border border-black rounded-xl bg-white" placeholder="School number" type="number" name="school_id" id="school_id" required></input></br>
+                <input class="relative w-2/3 h-10 pl-4 mb-2 text-sm border border-black rounded-xl bg-white" placeholder="Email" type="email" name="email" required></input></br>
                 <select class="relative w-2/3 h-10 pl-4 mb-2 text-sm border border-black rounded-xl bg-blue2" name="category" id="reason" placeholder="Select Category" required>
                     <option class="bg-white2" value="">Select Category:</option>
                     <option class="bg-white2" value="account">Account</option>
@@ -79,7 +79,7 @@
                     <option class="bg-white2" value="groups">Groups</option>
                     <option class="bg-white2" value="other">Other (specify in text box below)</option>
                 </select>
-                <textarea class="relative w-2/3 p-4 mb-2 text-sm border border-black h-2/6 max-h-2/6 rounded-xl bg-white1" placeholder="Message for concern..." name="message" id="message" required></textarea></br>
+                <textarea class="relative w-2/3 p-4 mb-2 text-sm border border-black h-2/6 max-h-2/6 rounded-xl bg-white" placeholder="Message for concern..." name="message" id="message" required></textarea></br>
 
                 <?php if (hasInternetConnection()): ?>
                 <!-- Show reCAPTCHA when there's internet -->
@@ -112,13 +112,13 @@
             <form method="post" action="/submit-ticket" class="relative block w-screen mx-auto mt-4 h-fit bg-gradient-to-t from-blue2">
                 <h1 class="mb-16 text-4xl text-center font-satoshimed">Submit a Ticket</h1>
 
-                <input class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-white1 mb-2" type="text" name="f_name" id="f_name" placeholder="First Name" required>
+                <input class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-white mb-2" type="text" name="f_name" id="f_name" placeholder="First Name" required>
 
-                <input class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-white1 mb-2" type="text" name="l_name" id="l_name" placeholder="Last Name" required>
+                <input class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-white mb-2" type="text" name="l_name" id="l_name" placeholder="Last Name" required>
 
-                <input class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-white1 mb-2" placeholder="School number" type="number" name="school_id" id="school_id" required></input>
+                <input class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-white mb-2" placeholder="School number" type="number" name="school_id" id="school_id" required></input>
 
-                <input class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-white1 mb-2" placeholder="School Email" type="email" name="email" required></input>
+                <input class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-white mb-2" placeholder="School Email" type="email" name="email" required></input>
 
                 <select class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-blue2 mb-2" name="category" id="reason" placeholder="Select Category" required>
                     <option class="bg-white2" value="">Select Category:</option>
@@ -128,7 +128,7 @@
                     <option class="bg-white2" value="other">Other (specify in text box below)</option>
                 </select>
 
-                <textarea class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-20 pl-4 bg-white1 mb-2" placeholder="Message for concern..." name="message" id="message" required></textarea>
+                <textarea class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-20 pl-4 bg-white mb-2" placeholder="Message for concern..." name="message" id="message" required></textarea>
 
                 <?php if (hasInternetConnection()): ?>
                 <!-- Show reCAPTCHA when there's internet -->
@@ -142,7 +142,7 @@
                     <p class="my-0 text-sm text-center text-red-600"><?= $errors['recaptcha'] ?></p>
                 <?php endif; ?>
 
-                <button class="max-w-[270px] relative block mx-auto w-[70%] border border-black rounded-xl h-10 text-white1 bg-blue3 mb-2" type="submit" name="login">Submit</button></br>
+                <button class="max-w-[270px] relative block mx-auto w-[70%] border border-black rounded-xl h-10 text-white bg-blue3 mb-2" type="submit" name="login">Submit</button></br>
             </form>
         </div>
 

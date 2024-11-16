@@ -23,7 +23,7 @@
             <h1 class="relative text-4xl font-ginto top-[-2.2rem] ml-14" id="opCountDisplay"></h1>
         </div>
 
-        <div class="font-satoshimed bg-white1 relative block mb-20 left-1/2 transform translate-x-[-50%] border border-black rounded-2xl shadow-2xl w-6/12 h-fit p-0 overflow-hidden mt-20" id="opCont">
+        <div class="font-satoshimed bg-white relative block mb-20 left-1/2 transform translate-x-[-50%] border border-black rounded-2xl shadow-2xl w-6/12 h-fit p-0 overflow-hidden mt-20" id="opCont">
         </div>
 
         <button class="font-satoshimed relative block w-56 h-12 left-[50%] bottom-0 transform mb-20  -translate-x-1/2 border border-grey2 rounded-2xl bg-grey2 text-grey1" onclick="submit()" id="sub">Update Results</button>

@@ -1,11 +1,11 @@
 <!-- mobile nav -->
-<header class="fixed flex z-50 bg-white1 w-full min-w-[320px] top-0 min-h-10 font-satoshimed" id="nav">
+<header class="fixed flex z-50 bg-white w-full min-w-[320px] top-0 min-h-10 font-satoshimed" id="nav">
     <a class="p-2 mx-auto ml-2" id="burgButt"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
     <a href="/" class="p-2 mx-auto"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
     <a class="p-2 mx-auto mr-2" id="profButt">tao</a>
 
     <!-- burger dropdown -->
-    <ul id="burgDD" class="fixed z-50 hidden block w-full h-full text-center bg-gradient-to-b from-white1 to-grey1 font-satoshimed top-10">
+    <ul id="burgDD" class="fixed z-50 hidden block w-full h-full text-center bg-gradient-to-b from-white to-grey1 font-satoshimed top-10">
     
         <div class="relative w-full mt-10 h-fit top-10">
             <a href="/" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashbold text-black1 h-fit">Home</li></a>
@@ -18,9 +18,9 @@
                 }
             } else {
                 echo '/login';
-            } ?>" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashbold text-black1 h-fit">Dashboard</li></a>
-            <a href="/about" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashbold text-black1 h-fit">About</li></a>
-            <a href="/submit-ticket" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashbold text-black1 h-fit">Contact</li></a>
+            } ?>" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashmed text-black1 h-fit">Dashboard</li></a>
+            <a href="/about" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashme text-black1 h-fit">About</li></a>
+            <a href="/submit-ticket" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashmed text-black1 h-fit">Contact</li></a>
         </div>
 
         
@@ -28,7 +28,7 @@
     </ul>
 
     <!-- profile dropdown -->
-    <ul id="profDD" class="fixed z-50 hidden block w-full h-full bg-gradient-to-b from-white1 to-grey1 font-satoshimed top-10">
+    <ul id="profDD" class="fixed z-50 hidden block w-full h-full bg-gradient-to-b from-white to-grey1 font-satoshimed top-10">
 
         <div class="relative block pt-24 transform -translate-y-1/2 top-1/3">
             <?php if ($_SESSION['user'] ?? false) : ?>
@@ -46,17 +46,17 @@
                         
                     <?php endif;?>
 
-                    <a href="/account"><h1 class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-blue3 text-white1 md:text-lg md:w-1/2">Account Settings</h1></a>
+                    <a href="/account"><h1 class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center text-white transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-blue3 md:text-lg md:w-1/2">Account Settings</h1></a>
 
                     <form method="POST" action="/login">
                         <input type="hidden" name="_method" value="DELETE" />
-                        <button class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-red1 text-white1 md:text-lg md:w-1/2">Log Out</button>
+                        <button class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center text-white transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-red1 md:text-lg md:w-1/2">Log Out</button>
                     </form>
                 </div>
                 
 
             <?php else: ?>
-                <a href="/login"><h1 class="relative w-3/4 p-2 py-4 mt-32 text-sm tracking-tight text-center transform -translate-x-1/2 border rounded-sm font-clashbold left-1/2 text-black1 bg-blue3 text-white1 rounded-xl border-blue3 md:text-lg md:w-1/2">Sign in</h1></a>
+                <a href="/login"><h1 class="relative w-3/4 p-2 py-4 mt-32 text-sm tracking-tight text-center text-white transform -translate-x-1/2 border rounded-sm font-clashbold left-1/2 text-black1 bg-blue3 rounded-xl border-blue3 md:text-lg md:w-1/2">Sign in</h1></a>
 
                 <a href="/register"><h1 class="relative w-3/4 p-2 py-4 mt-6 text-sm tracking-tight text-center transform -translate-x-1/2 border rounded-sm font-clashbold left-1/2 text-black1 bg-orange1 rounded-xl border-orange1 md:text-lg md:w-1/2">Sign up</h1></a>
             <?php endif; ?>
@@ -66,9 +66,9 @@
 </header>
 
 <!-- desktop nav -->
-<header class="fixed top-0 z-50 content-center block w-full h-20 shadow-md bg-white1" id="navbar">
+<header class="fixed top-0 z-50 content-center block w-full h-20 bg-white shadow-md" id="navbar">
     <!-- object container -->
-    <div class="flex h-fit w-full justify-between font-satoshiblack text-xl text-black1 mx-auto px-[1rem]">
+    <div class="flex h-fit w-full justify-between font-clashmed text-xl text-black1 mx-auto px-[1rem]">
         <!-- Main NavBar -->
         <nav class="relative flex w-1/2 h-14 gap-14 ">
             <a href="/">
@@ -116,11 +116,11 @@
                         <span class="text-3xl notification-icon">🔔</span>
                         <span id="notificationCount" class="absolute -top-[2px] -right-[2px] bg-red1 text-white text-sm rounded-2xl py-[0.05rem] px-2"></span>
                     </button>
-                    <div id="notificationDropdown" class="hidden flex-col absolute right-0 top-full max-h-[25rem] w-[20rem] bg-white1 border border-black1 rounded-lg shadow overflow-hidden">
+                    <div id="notificationDropdown" class="hidden flex-col absolute right-0 top-full max-h-[25rem] w-[20rem] bg-white border border-black1 rounded-lg shadow overflow-hidden">
                         <div class="flex items-center justify-between px-4 py-6 pr-6 bg-black1 h-14">
                             <span class="text-2xl font-satoshimed text-orange1 ">Notifications</span>
                             <form action="/notifications" method="POST">
-                                <button class="text-base font-satoshimed text-white1 hover:text-red1 " name="clear" type="submit">Clear</button>
+                                <button class="text-base text-white font-satoshimed hover:text-red1 " name="clear" type="submit">Clear</button>
                             </form>
                         </div>
                         <!-- <div class="bg-black1 h-[1px] my-2 w-64"></div> -->
@@ -132,12 +132,12 @@
 
                 <div class="relative text-xl">
                     <button onclick="toggle('navDropDown')" class="z-50 flex items-center justify-between w-56 h-12 px-4 border rounded-lg bg-blue3" id="navDDbutton">
-                        <span class="w-4/5 text-left truncate text-white1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
-                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white1"></div>
+                        <span class="w-4/5 text-left text-white truncate"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
+                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white"></div>
                     </button>
                     <!-- TEMPO -->
 
-                    <div class="z-40 hidden absolute flex-col justify-evenly bg-white1 h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 rounded-b-2xl" id="navDropDown">
+                    <div class="z-40 hidden absolute flex-col justify-evenly bg-white h-[6.5rem] w-56 top-[2.375rem] px-2 border-2 rounded-b-2xl" id="navDropDown">
                         <a href="<?php if($_SESSION['user']['account_type'] === 'admin'):?>/admin-settings<?php else: ?>/account<?php endif; ?>">
                             <span class="">Account Settings</span>
                         </a>
@@ -427,7 +427,7 @@ const NotificationManager = {
         try {
             const li = document.createElement('li');
             li.className = isRead 
-                ? 'w-full flex flex-col p-2 bg-white1 unread border-black1 border-t-[2px] text-base ' 
+                ? 'w-full flex flex-col p-2 bg-white unread border-black1 border-t-[2px] text-base ' 
                 : 'w-full flex flex-col p-2 bg-white2 unread border-black1 border-t-[2px] text-base';
             li.dataset.notificationId = notification.id;
 

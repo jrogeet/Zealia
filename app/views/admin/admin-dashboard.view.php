@@ -51,12 +51,12 @@
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">School No.</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">Name</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">Email</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">Type</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white1">Activation</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">School No.</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">Name</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">Email</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">Type</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">Timestamp</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">Activation</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,12 +77,12 @@
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room ID</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room Name</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Instructor</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Instructor ID</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Room Code</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white1">Timestamp</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room ID</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room Name</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Instructor</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Instructor ID</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room Code</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Timestamp</th>
                             </tr>
                         </thead>
                         <tbody>

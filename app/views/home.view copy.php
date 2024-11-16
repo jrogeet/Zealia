@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="flex flex-col justify-between overflow-x-hidden bg-white1">
+<body class="flex flex-col justify-between overflow-x-hidden bg-white">
     <?php view('partials/nav.view.php'); ?>
 
     <!-- first part mobile-->
@@ -14,7 +14,7 @@
         </div>
 
         <div class="w-full h-[30.1875rem] flex justify-center items-center bg-threshold-cropped-solid bg-cover bg-no-repeat">
-            <div class="bg-blue3 text-white1 text-2xl text-center w-[84.375rem] px-8 py-4 selection:bg-white1 selection:text-blue3">
+            <div class="bg-blue3 text-white text-2xl text-center w-[84.375rem] px-8 py-4 selection:bg-white selection:text-blue3">
             Discover your perfect team match by <h1 class="text-orange1 selection:bg-black1 selection:text-orange1">creating groups that harmonize</h1> your unique RIASEC type with the complementary strengths of others.
             </div>
         </div>
@@ -33,7 +33,7 @@
         </div>
 
         <div class="w-full h-[35.1875rem] flex justify-center items-center bg-threshold-cropped-solid bg-cover bg-no-repeat">
-            <div class="bg-blue3 text-white1 text-4xl text-center w-[84.375rem] px-8 py-4 selection:bg-white1 selection:text-blue3">
+            <div class="bg-blue3 text-white text-4xl text-center w-[84.375rem] px-8 py-4 selection:bg-white selection:text-blue3">
             Discover your perfect team match by <span class="text-orange1 selection:bg-black1 selection:text-orange1">creating groups that harmonize</span> your unique RIASEC type with the complementary strengths of others.
             </div>
         </div>
@@ -53,7 +53,7 @@
 
     <!-- second part mobile -->
     <div class="flex items-center justify-center lg:hidden ">
-        <div class="relative block w-full min-h-[106.25rem] py-10 justify-evenly bg-howtouse bg-no-repeat bg-cover bg-center selection:bg-blue3 selection:text-white1">
+        <div class="relative block w-full min-h-[106.25rem] py-10 justify-evenly bg-howtouse bg-no-repeat bg-cover bg-center selection:bg-blue3 selection:text-white">
 
             <div class="relative block pl-2 w-5/6 h-fit font-satoshimed mx-auto ml-[8%] top-[8rem] max-w-[18rem]" >
                 <h1 class="relative mb-4 text-2xl font-satoshiblack" >Step: 1</h1>
@@ -80,7 +80,7 @@
 
     <!-- second part desktop -->
     <div class="hidden lg:flex justify-center items-center my-8 min-h-[112.5rem]">
-        <div class="flex flex-col justify-evenly bg-howtouse bg-no-repeat bg-cover min-h-[106.25rem] w-[72rem] border-2 border-black1 rounded-2xl selection:bg-blue3 selection:text-white1">
+        <div class="flex flex-col justify-evenly bg-howtouse bg-no-repeat bg-cover min-h-[106.25rem] w-[72rem] border-2 border-black1 rounded-2xl selection:bg-blue3 selection:text-white">
             <div class="flex flex-col justify-between -mt-20 ml-24 h-[17.3125rem] w-[27.0625rem]">
                 <span class="text-4xl font-clashbold">Step 1:</span>
 

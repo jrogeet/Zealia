@@ -1,5 +1,5 @@
 <?php view('partials/head.view.php'); ?>
-<body class="block w-screen overflow-x-hidden bg-white1 h-fit">
+<body class="block w-screen overflow-x-hidden bg-white h-fit">
     <?php view('partials/nav.view.php')?>
 
     <?php 
@@ -39,7 +39,7 @@
 
         <!-- Add task modal -->
         <div id="taskModal" class="absolute hidden w-screen h-screen -top-20 bg-glassmorphism z-[55]">
-            <div class="relative block text-center left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/3 w-[40%] h-fit bg-white1 border border-grey1 shadow-xl rounded-xl p-2">
+            <div class="relative block text-center left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/3 w-[40%] h-fit bg-white border border-grey1 shadow-xl rounded-xl p-2">
                 
                 <div class="flex w-full">                        
                     <h1 class="block mx-auto mt-2 ml-2 text-xl text-left font-clashbold text-grey2">Add Task</h1>
@@ -48,13 +48,13 @@
 
                 <!-- TODO: ADD VALUES INTO JSON -->
                     <div class="flex w-full">                        
-                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl border-b border-black bg-white1 font-satoshimed" placeholder="Task Name" name="task" id="taskName" required>
-                        <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-satoshimed" placeholder="Date" name="date" id="taskDate">
+                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl border-b border-black bg-white font-satoshimed" placeholder="Task Name" name="task" id="taskName" required>
+                        <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white font-satoshimed" placeholder="Date" name="date" id="taskDate">
                     </div>
                     
                     <div class="flex w-full">                        
-                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base border-b border-black bg-white1 font-satoshimed text-grey2" placeholder="Description" name="info" id="taskInfo">
-                        <select class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white1 font-satoshimed text-grey2" name="destination" id="taskDestination">
+                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base border-b border-black bg-white font-satoshimed text-grey2" placeholder="Description" name="info" id="taskInfo">
+                        <select class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white font-satoshimed text-grey2" name="destination" id="taskDestination">
                             <option class="text-grey2" value="todo">To do</option>
                             <option class="text-grey2" value="wip">Work in Progress</option>
                             <option class="text-grey2" value="done">Done</option>
@@ -103,14 +103,14 @@
                     </form>
                 </div>
     
-                <button onClick="show('delRoomConfirmation'); disableScroll();" class="flex items-center h-8 p-2 mr-2 text-center border rounded bg-red1 font-satoshimed text-white1 border-black1">Delete Room</button>
+                <button onClick="show('delRoomConfirmation'); disableScroll();" class="flex items-center h-8 p-2 mr-2 text-center border rounded bg-red1 font-satoshimed text-white border-black1">Delete Room</button>
             </div>
 
             <!-- delete room confirmation modal -->
             <div id="delRoomConfirmation" class="fixed left-0 z-50 justify-center hidden w-screen h-screen justify-self-center bg-glassmorphism -top-24">
                 <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
                     <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
-                        <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Confirmation</span>
+                        <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Confirmation</span>
                         <button class="w-1/5 h-full rounded bg-red1" onClick="hide('delRoomConfirmation'); enableScroll();">X</button>
                     </div>
                     <form method="POST" action="/room" class="flex flex-col items-center h-64 p-2">
@@ -120,7 +120,7 @@
                         <span class="text-2xl font-clashbold text-red1">Delete:</span>
                         <span class="text-xl font-satoshimed">Room name</span>
                         <span class="text-lg font-satoshimed">FOREVER?</span>
-                        <button type="submit" class="p-1 mt-2 border rounded bg-red1 text-white1 border-black1">Delete Room Forever</button>
+                        <button type="submit" class="p-1 mt-2 border rounded bg-red1 text-white border-black1">Delete Room Forever</button>
                     </form>
                 </div>
             </div>
@@ -131,8 +131,8 @@
                 <div class="h-[37.5rem] w-[24%] border border-black1 rounded-xl overflow-hidden">
                     <!-- Tabs -->
                     <div class="flex border-b border-black1">
-                        <button id="stuListTab" onClick="show('studentListContainer'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue3 h-[2.81rem] w-1/2 font-satoshimed text-white1">Students</button>
-                        <button id="reqListTab" onClick="show('roomJoinRequest'); hide('studentListContainer'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white1'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white1']]);" class="bg-blue2 h-[2.81rem] w-1/2 font-satoshimed text-black1">Join Requests</button>
+                        <button id="stuListTab" onClick="show('studentListContainer'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white']]);" class="bg-blue3 h-[2.81rem] w-1/2 font-satoshimed text-white">Students</button>
+                        <button id="reqListTab" onClick="show('roomJoinRequest'); hide('studentListContainer'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white']]);" class="bg-blue2 h-[2.81rem] w-1/2 font-satoshimed text-black1">Join Requests</button>
                     </div>
 
                     <!-- Students List -->
@@ -237,7 +237,7 @@
 
         // let membersWarningContent = `
         //     <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
-        //         <span class="text-base font-clashbold text-white1">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
+        //         <span class="text-base font-clashbold text-white">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
         //     </div>
         //     <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
         //         <form id="submitGroups" method="POST">
@@ -409,10 +409,10 @@
 
                         parsedGroupsList.forEach((group, index) => {
                             groupsContainer.innerHTML += `
-                                        <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white1 h-auto max-w-[20rem] border flex flex-col overflow-hidden">
+                                        <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white h-auto max-w-[20rem] border flex flex-col overflow-hidden">
                                             <!-- Group Head -->
                                             <div class="flex items-center justify-center w-full h-10 bg-black1 ">
-                                                <span class="text-4xl font-satoshimed text-white1">Group</span>
+                                                <span class="text-4xl font-satoshimed text-white">Group</span>
                                                 <span class="ml-2 text-4xl font-clashbold text-orange1">${index + 1}:</span>
                                             </div>
 
@@ -499,7 +499,7 @@
                             kanbanTabs.innerHTML += `
                                 <button onclick="changeKB(${index});" 
                                         id="${member[1]}" 
-                                        class="member ${index === currentKBTab ? 'bg-blue3 text-white1' : 'bg-white1 text-black1'} 
+                                        class="member ${index === currentKBTab ? 'bg-blue3 text-white' : 'bg-white text-black1'} 
                                             w-full mx-auto py-4 border-r border-l border-black1">
                                     ${member[0]}
                                 </button>
@@ -910,7 +910,7 @@
                 // Modify the membersWarningContent to use the current student_has_result
                 membersWarningContent = `
                     <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
-                        <span class="text-base font-clashbold text-white1">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
+                        <span class="text-base font-clashbold text-white">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
                     </div>
                     <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
                         <form id="submitGroups" method="POST">
@@ -969,14 +969,14 @@
                         <div id="kickConfirmation${student.school_id}"  class="fixed left-0 z-50 justify-center hidden w-screen h-screen bg-glassmorphism -top-24">
                             <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
                                 <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
-                                    <span class="w-4/5 pl-2 text-lg text-white1 font-satoshimed">Confirmation</span>
+                                    <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Confirmation</span>
                                     <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll(); fetchLatestData({'table1': 'room_list','table2': 'join_room_requests','room_id': <?= $_GET['room_id']  ?>,'currentPage': 'room',}, displayStudents, 3000);">X</button>
                                 </div>
                                 <form id="kickForm${student.school_id}" method="POST" class="flex flex-col items-center p-2 h-60">
                                     <span class="text-2xl font-clashbold text-red1">Remove:</span>
                                     <span class="text-xl font-satoshimed">${student.l_name} ${student.f_name}</span>
                                     <span class="text-lg font-satoshimed">from this room?</span>
-                                    <button onclick="enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 border rounded bg-red1 text-white1 border-black1">Confirm</button>
+                                    <button onclick="enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 border rounded bg-red1 text-white border-black1">Confirm</button>
                                 </form>
                             </div>
                         </div>
@@ -1318,11 +1318,11 @@
                 const tabs = document.querySelectorAll('.member');
                 tabs.forEach((tab, tabIndex) => {
                     if (tabIndex === index) {
-                        tab.classList.remove('bg-white1', 'text-black1');
-                        tab.classList.add('bg-blue3', 'text-white1');
+                        tab.classList.remove('bg-white', 'text-black1');
+                        tab.classList.add('bg-blue3', 'text-white');
                     } else {
-                        tab.classList.remove('bg-blue3', 'text-white1');
-                        tab.classList.add('bg-white1', 'text-black1');
+                        tab.classList.remove('bg-blue3', 'text-white');
+                        tab.classList.add('bg-white', 'text-black1');
                     }
                 });
 
@@ -1357,11 +1357,11 @@
             //         const memberId = members[index][1];
                     
             //         if (tabId === memberId) {
-            //             tab.classList.remove('bg-white1', 'text-black1');
-            //             tab.classList.add('bg-blue3', 'text-white1');
+            //             tab.classList.remove('bg-white', 'text-black1');
+            //             tab.classList.add('bg-blue3', 'text-white');
             //         } else {
-            //             tab.classList.remove('bg-blue3', 'text-white1');
-            //             tab.classList.add('bg-white1', 'text-black1');
+            //             tab.classList.remove('bg-blue3', 'text-white');
+            //             tab.classList.add('bg-white', 'text-black1');
             //         }
             //     });
 
@@ -1385,12 +1385,12 @@
             //     button.addEventListener('click', function() {
             //         kbButts.forEach(btn => {
             //             // button visual
-            //             btn.classList.remove('bg-blue3', 'text-white1');
-            //             btn.classList.add('bg-white1', 'text-black1');
+            //             btn.classList.remove('bg-blue3', 'text-white');
+            //             btn.classList.add('bg-white', 'text-black1');
             //         });
             //         // button visual
-            //         this.classList.add('bg-blue3', 'text-white1');
-            //         this.classList.remove('bg-white1', 'text-black1');
+            //         this.classList.add('bg-blue3', 'text-white');
+            //         this.classList.remove('bg-white', 'text-black1');
             //     });
             // });
 
@@ -1399,10 +1399,10 @@
                         
             //     }else{
             //         StudButt.classList.replace("bg-orange1","bg-blue3");
-            //         StudButt.classList.replace("text-black1","text-white1");
+            //         StudButt.classList.replace("text-black1","text-white");
             //         StudButt.classList.replace("w-2/5","w-3/5");
             //         GrButt.classList.replace("bg-blue3","bg-orange1");
-            //         GrButt.classList.replace("text-white1","text-black1");
+            //         GrButt.classList.replace("text-white","text-black1");
             //         GrButt.classList.replace("w-3/5","w-2/5");
             //         students.classList.remove("hidden");
             //         groupContent.classList.add("hidden");
@@ -1415,10 +1415,10 @@
                     
             //     }else{
             //         GrButt.classList.replace("bg-orange1","bg-blue3");
-            //         GrButt.classList.replace("text-black1","text-white1");
+            //         GrButt.classList.replace("text-black1","text-white");
             //         GrButt.classList.replace("w-2/5","w-3/5");
             //         StudButt.classList.replace("bg-blue3","bg-orange1");
-            //         StudButt.classList.replace("text-white1","text-black1");
+            //         StudButt.classList.replace("text-white","text-black1");
             //         StudButt.classList.replace("w-3/5","w-2/5");
             //         students.classList.add("hidden");
             //         groupContent.classList.remove("hidden");
