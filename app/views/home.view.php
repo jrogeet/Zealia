@@ -5,8 +5,11 @@
 
     <main class="h-[96rem] w-[96rem] bg-mesh-yellow bg-no-repeat bg-cover">
        <div class="mt-20">
-            <div class="flex flex-col items-center h-[40rem] justify-center">
-                <h1 class="text-5xl text-center font-clashbold">BUILD BALANCED TEAMS THAT</h1>
+            <div class=" flex flex-col items-center h-[40rem] justify-center">
+                <div class="relative flex items-center justify-center">
+                    <h1 class="text-5xl text-center font-clashbold">BUILD BALANCED TEAMS THAT</h1>
+                </div>
+
                 <h1 class="text-5xl text-center font-clashbold">AMPLIFY STRENGTHS</h1>
                 <h5 class="text-xl text-center font-satoshireg">Generate teams by passion</h5>
             </div>

@@ -1,9 +1,9 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="font-satoshimed bg-white">
+<body class="font-satoshimed bg-blue1">
     <?php view('partials/nav.view.php')?>
 
-    <div class="pt-16 pb-10 bg-white sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-[26.25rem] h-fit"> 
+    <div class="pt-16 pb-10 bg-white sm:bg-white sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-[26.25rem] h-fit"> 
 
         <!-- <div>
             <?php //if(isset($loginmessage)): ?>
