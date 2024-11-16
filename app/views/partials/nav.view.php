@@ -18,9 +18,9 @@
                 }
             } else {
                 echo '/login';
-            } ?>" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashbold text-black1 h-fit">Dashboard</li></a>
-            <a href="/about" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashbold text-black1 h-fit">About</li></a>
-            <a href="/submit-ticket" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashbold text-black1 h-fit">Contact</li></a>
+            } ?>" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashmed text-black1 h-fit">Dashboard</li></a>
+            <a href="/about" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashme text-black1 h-fit">About</li></a>
+            <a href="/submit-ticket" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashmed text-black1 h-fit">Contact</li></a>
         </div>
 
         
@@ -46,17 +46,17 @@
                         
                     <?php endif;?>
 
-                    <a href="/account"><h1 class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-blue3 text-white md:text-lg md:w-1/2">Account Settings</h1></a>
+                    <a href="/account"><h1 class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center text-white transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-blue3 md:text-lg md:w-1/2">Account Settings</h1></a>
 
                     <form method="POST" action="/login">
                         <input type="hidden" name="_method" value="DELETE" />
-                        <button class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-red1 text-white md:text-lg md:w-1/2">Log Out</button>
+                        <button class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center text-white transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-red1 md:text-lg md:w-1/2">Log Out</button>
                     </form>
                 </div>
                 
 
             <?php else: ?>
-                <a href="/login"><h1 class="relative w-3/4 p-2 py-4 mt-32 text-sm tracking-tight text-center transform -translate-x-1/2 border rounded-sm font-clashbold left-1/2 text-black1 bg-blue3 text-white rounded-xl border-blue3 md:text-lg md:w-1/2">Sign in</h1></a>
+                <a href="/login"><h1 class="relative w-3/4 p-2 py-4 mt-32 text-sm tracking-tight text-center text-white transform -translate-x-1/2 border rounded-sm font-clashbold left-1/2 text-black1 bg-blue3 rounded-xl border-blue3 md:text-lg md:w-1/2">Sign in</h1></a>
 
                 <a href="/register"><h1 class="relative w-3/4 p-2 py-4 mt-6 text-sm tracking-tight text-center transform -translate-x-1/2 border rounded-sm font-clashbold left-1/2 text-black1 bg-orange1 rounded-xl border-orange1 md:text-lg md:w-1/2">Sign up</h1></a>
             <?php endif; ?>
@@ -66,9 +66,9 @@
 </header>
 
 <!-- desktop nav -->
-<header class="fixed top-0 z-50 content-center block w-full h-20 shadow-md bg-white" id="navbar">
+<header class="fixed top-0 z-50 content-center block w-full h-20 bg-white shadow-md" id="navbar">
     <!-- object container -->
-    <div class="flex h-fit w-full justify-between font-satoshiblack text-xl text-black1 mx-auto px-[1rem]">
+    <div class="flex h-fit w-full justify-between font-clashmed text-xl text-black1 mx-auto px-[1rem]">
         <!-- Main NavBar -->
         <nav class="relative flex w-1/2 h-14 gap-14 ">
             <a href="/">
@@ -120,7 +120,7 @@
                         <div class="flex items-center justify-between px-4 py-6 pr-6 bg-black1 h-14">
                             <span class="text-2xl font-satoshimed text-orange1 ">Notifications</span>
                             <form action="/notifications" method="POST">
-                                <button class="text-base font-satoshimed text-white hover:text-red1 " name="clear" type="submit">Clear</button>
+                                <button class="text-base text-white font-satoshimed hover:text-red1 " name="clear" type="submit">Clear</button>
                             </form>
                         </div>
                         <!-- <div class="bg-black1 h-[1px] my-2 w-64"></div> -->
@@ -132,7 +132,7 @@
 
                 <div class="relative text-xl">
                     <button onclick="toggle('navDropDown')" class="z-50 flex items-center justify-between w-56 h-12 px-4 border rounded-lg bg-blue3" id="navDDbutton">
-                        <span class="w-4/5 text-left truncate text-white"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
+                        <span class="w-4/5 text-left text-white truncate"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></span>
                         <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white"></div>
                     </button>
                     <!-- TEMPO -->

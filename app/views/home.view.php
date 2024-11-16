@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="flex flex-col justify-between mx-auto items-center overflow-x-hidden min-h-auto h-screen w-[96rem] bg-whitecon">
+<body class="flex flex-col items-center justify-between h-screen mx-auto overflow-x-hidden min-h-auto bg-whitecon">
     <?php view('partials/nav.view.php'); ?>
 
     <main class="h-[96rem] w-[96rem] bg-mesh-yellow bg-no-repeat bg-cover">
