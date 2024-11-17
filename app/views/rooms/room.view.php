@@ -26,7 +26,7 @@
         </div>
     
         <?php if (isset($errors['room_name'])) : ?>
-            <p class="flex items-center justify-center h-12 text-2xl font-satoshimed text-red1"><?= $errors['room_name'] ?></p>
+            <p class="flex items-center justify-center h-12 text-2xl font-satoshimed text-rederr"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
         
         <!-- HEADER -->
@@ -77,16 +77,16 @@
                 <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
                     <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
                         <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Confirmation</span>
-                        <button class="w-1/5 h-full rounded bg-red1" onClick="hide('delRoomConfirmation'); enableScroll();">X</button>
+                        <button class="w-1/5 h-full rounded bg-rederr" onClick="hide('delRoomConfirmation'); enableScroll();">X</button>
                     </div>
                     <form method="POST" action="/room" class="flex flex-col items-center h-64 p-2">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
 
-                        <span class="text-2xl font-clashbold text-red1">Delete:</span>
+                        <span class="text-2xl font-clashbold text-rederr">Delete:</span>
                         <span class="text-xl font-satoshimed">Room name</span>
                         <span class="text-lg font-satoshimed">FOREVER?</span>
-                        <button type="submit" class="p-1 mt-2 text-white border rounded bg-red1 border-black1">Delete Room Forever</button>
+                        <button type="submit" class="p-1 mt-2 text-white border rounded bg-rederr border-black1">Delete Room Forever</button>
                     </form>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                 </div>
             <?php else: ?>
                 <div class="flex flex-col items-center mt-40">
-                    <span class="text-4xl font-clashbold text-red1">The instructor hasn't grouped the class yet.</span>
+                    <span class="text-4xl font-clashmed text-rederr">The instructor hasn't grouped the class yet.</span>
                 </div>
             <?php endif; ?>
         <?php endif; ?>
@@ -198,7 +198,7 @@
         let noSelectClass = '';
 
         // let membersWarningContent = `
-        //     <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
+        //     <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-rederr rounded-t-xl">
         //         <span class="text-base text-white font-clashbold">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
         //     </div>
         //     <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
@@ -314,6 +314,12 @@
             // console.log('studentsCount', studentsCount);
             // console.log('membersCount', membersCount);
             try {
+                if (!groupsList || typeof groupsList !== 'object') {
+                    console.log('No groups data available');
+                    return;
+                }
+
+                members = [];
                 let membersCounter = 0;
 
                 if (groupsList.length > 0 && groupsList[0]['groups_json'] !== 'null') {
@@ -851,28 +857,32 @@
                         // console.log('equal');
                     }
                 } else if (groupsList.length === 0 || groupsList[0]['groups_json'] === 'null') {
-                    const rightBox = document.getElementById('rightBox');
-                    rightBox.innerHTML = '';
+                    console.log('No groups created yet');
+                    groupChecker = null;
+                    membersCount = 0;
+                    
+                    if (<?= $_SESSION['user']['account_type'] === 'instructor' ? 'true' : 'false' ?>) {
+                        const rightBox = document.getElementById('rightBox');
+                        if (rightBox) {
+                            rightBox.innerHTML = '';
+                            // console.log('student_has_result', student_has_result);
+                        
+                            rightBox.innerHTML = `
+                                <div id="profNoGroups" class="flex flex-col items-center">
+                                    <span class="text-4xl font-satoshimed">You haven't grouped the class yet.</span>
+                                    
+                                    <form id="submitGroups" method="POST">
+                                        <input type="hidden" name="grouped" value="grouped">
+                                        <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
+                                        <input type="hidden" name="stunotype" id="stunotype" value="">
 
-                    if (<?= $_SESSION['user']['account_type'] === 'student' ? 'true' : 'false' ?>) {
-                        // console.log('student');
-                    } else if (<?= $_SESSION['user']['account_type'] === 'instructor' ? 'true' : 'false' ?>) {
-                        // console.log('student_has_result', student_has_result);
-                        rightBox.innerHTML = `
-                            <div id="profNoGroups" class="flex flex-col items-center">
-                                <span class="text-4xl font-satoshimed">You haven't grouped the class yet.</span>
-                                
-                                <form id="submitGroups" method="POST">
-                                    <input type="hidden" name="grouped" value="grouped">
-                                    <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
-                                    <input type="hidden" name="stunotype" id="stunotype" value="">
-
-                                    <input id="genGroups" type="hidden" name="genGroups" value="">
-                                    <input type="hidden" name="room" value="<?= $_GET['room_id'] ?>">
-                                    <button onclick="generateGroups();" class="bg-orangeaccent h-[3.13rem] w-[12.5rem] font-clashmed text-xl border border-blackpri rounded-lg mt-4">Generate groups</button>
-                                </form>
-                            </div>
-                        `;
+                                        <input id="genGroups" type="hidden" name="genGroups" value="">
+                                        <input type="hidden" name="room" value="<?= $_GET['room_id'] ?>">
+                                        <button onclick="generateGroups();" class="bg-orangeaccent h-[3.13rem] w-[12.5rem] font-clashmed text-xl border border-blackpri rounded-lg mt-4">Generate groups</button>
+                                    </form>
+                                </div>
+                            `; 
+                        }
                     }
                 }
             } catch (error) {
@@ -997,7 +1007,7 @@
                     
                     // Update warning content with latest data
                     membersWarningContent = `
-                        <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
+                        <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-rederr rounded-t-xl">
                             <span class="text-base text-white font-clashbold">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
                         </div>
                         <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
