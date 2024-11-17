@@ -34,21 +34,21 @@
             <div id="accTab" class="hidden pl-8 py-4 w-3/4 h-auto">
                     
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How can I create my account?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I change my password?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Where do I take the test?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
@@ -56,21 +56,21 @@
 
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Where do I see my test results</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I retake the test?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change my password?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
@@ -82,21 +82,21 @@
             <div id="roomTab" class="hidden pl-8 py-4 w-3/4 h-auto">
                     
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I join rooms?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">I entered my code but I still can't join the room</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Why am I not able to join a group?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
@@ -104,35 +104,35 @@
 
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change groups?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change roles?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I add tasks to the Kanban board?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I change a tasks status to done?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I add tasks to my groupmates' Kanban board?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
@@ -181,7 +181,7 @@
                 isScrolling = false;
                 console.log(isScrolling);
                 window.addEventListener('mousemove', function(event) {
-                    if(lastHovered){
+                    if(lastHovered && !isClicked){
                         console.log("lastHovered:",lastHovered);
                         closePanel(lastHovered); 
                         lastHovered = null;
