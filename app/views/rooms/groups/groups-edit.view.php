@@ -1,27 +1,27 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white block overflow-x-hidden">
+<body class="block overflow-x-hidden bg-beige">
     <?php view('partials/nav.view.php')?>
 
     <!-- groups -->
-    <div class="relative flex flex-wrap w-full h-fit p-6  mt-20 justify-center" id="container">
+    <div class="relative flex flex-wrap justify-center w-full p-6 mt-20 h-fit" id="container">
 
     </div>
 
-    <!-- <div id="customModal ${member[1]} ${groupNum}" class="z-50 flex bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-        <div class="bg-white flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
-            <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Custom Role:</span>
-                <button class="bg-red1 h-full w-10 rounded" onClick="hide('customModal ${member[1]} ${groupNum}'); enableScroll();">X</button>
+    <!-- <div id="customModal ${member[1]} ${groupNum}" class="fixed left-0 z-50 flex justify-center w-screen h-screen pt-56 bg-glassmorphism top-20">
+        <div class="flex flex-col justify-between bg-white border rounded-t-lg h-52 w-96 border-blackpri">
+            <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-blackpri">
+                <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Custom Role:</span>
+                <button class="w-10 h-full rounded bg-red1" onClick="hide('customModal ${member[1]} ${groupNum}'); enableScroll();">X</button>
             </div>
         
-            <div class="h-5/6 flex flex-col justify-evenly items-center p-4">
+            <div class="flex flex-col items-center p-4 h-5/6 justify-evenly">
                 <div class="w-full">
-                    <p class="font-satoshimed text-black">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
+                    <p class="text-black font-satoshimed">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
                     <input id="customInput ${member[1]} ${groupNum}" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed">
                 </div>
 
-                <button onclick="customRole(`${member[1]} ${groupNum}`)" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded">Confirm</button>
+                <button onclick="customRole(`${member[1]} ${groupNum}`)" class="w-6/12 p-1 mt-2 border rounded bg-orange1 text-blackpri border-blackpri">Confirm</button>
             </div>
         </div>
     </div> -->
@@ -32,7 +32,7 @@
         <input type="hidden" name="room_id" value="<?= $_GET['room_id'] ?>">
     </form>
 
-    <button onclick="submitGroups();" class="relative left-1/2 transform -translate-x-1/2 border border-black w-36 bg-blue3 text-white font-satoshimed h-8 rounded-lg mb-16">Submit</button>
+    <button onclick="submitGroups();" class="relative h-8 mb-16 text-white transform -translate-x-1/2 border border-black rounded-lg left-1/2 w-36 bg-blue3 font-satoshimed">Submit</button>
     <?php view('partials/footer.view.php')?>
     <script>
         let reasons = [];
@@ -87,6 +87,7 @@
             let newID = `${schoolID} ${newG}`;
 
             let reasonID = `reason ${oldID}`;
+            let customID = `customModal ${oldID}`;
             
             // Show the reason modal and wait for user input
 
@@ -107,6 +108,7 @@
 
                 closeButton.onclick = () => {
                     hide(reasonID);
+                    hide(customID);
                     resolve("");
                 };
             });
@@ -185,13 +187,13 @@
             groupNum+=1;
             groupContent = '';
             for (let member of group){// + = drag icon
-                groupHTML = `<div class="flex w-full h-[6.1rem] bg-white border-t border-black1 cursor-grab active:cursor-grabbing text-left draggable" id="${member[1]} ${groupNum}" draggable="true">
+                groupHTML = `<div class="flex w-full h-[6.1rem] bg-white border-t border-blackpri cursor-grab active:cursor-grabbing text-left draggable" id="${member[1]} ${groupNum}" draggable="true">
                                 <div class="w-2/3 p-2 pl-6">
-                                    <h1 class="font-satoshimed text-2xl text-black1 mb-2 mt-2 truncate" id="name">${member[0]}</h1>
-                                    <h1 class="font-satoshimed text-xl text-grey2 truncate" id="role ${member[1]} ${groupNum}">${member[2]}</h1>
+                                    <h1 class="mt-2 mb-2 text-2xl truncate font-satoshimed text-blackpri" id="name">${member[0]}</h1>
+                                    <h1 class="text-lg truncate font-satoshimed text-blackless" id="role ${member[1]} ${groupNum}">${member[2]}</h1>
                                 </div>
                                 <div class="w-1/3 px-2">
-                                    <select class="relative left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-black1 rounded-lg w-[80%] py-2 text-center font-satoshimed roleOpt" name="role" id="dd ${member[1]} ${groupNum}">
+                                    <select class="relative left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-blackpri rounded-lg w-[80%] py-2 text-center font-satoshimed roleOpt" name="role" id="dd ${member[1]} ${groupNum}">
                                         <option class="ddOpt" value="null" id="null">Role</option>
                                         <option class="ddOpt" value="Principal Investigator" id="Leader">Principal Investigator</option>
                                         <option class="ddOpt" value="Research Writer" id="Analyst">Research Writer</option>
@@ -201,39 +203,39 @@
                                     </select>
                                 </div>
 
-                                <div id="customModal ${member[1]} ${groupNum}" class="z-50 hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-                                    <div class="bg-white flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
-                                        <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                                            <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Custom Role:</span>
-                                            <button id="closeModal ${member[1]} ${groupNum}" class="bg-red1 h-full w-10 rounded closeModal">X</button>
+                                <div id="customModal ${member[1]} ${groupNum}" class="fixed left-0 z-50 justify-center hidden w-screen h-screen pt-56 bg-glassmorphism top-20">
+                                    <div class="flex flex-col justify-between bg-white border rounded-t-lg h-52 w-96 border-blackpri">
+                                        <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-blackpri">
+                                            <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Custom Role:</span>
+                                            <button id="closeModal ${member[1]} ${groupNum}" class="w-10 h-full rounded bg-red1 closeModal">X</button>
                                     </div>
                                     
-                                    <div class="h-5/6 flex flex-col justify-evenly items-center p-4">
+                                    <div class="flex flex-col items-center p-4 h-5/6 justify-evenly">
                                         <div class="w-full">
-                                            <p class="font-satoshimed text-black">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
+                                            <p class="text-black font-satoshimed">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
                                             <input id="customInput ${member[1]} ${groupNum}" oninput="capitalizeWords('customInput ${member[1]} ${groupNum}')" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
                                         </div>
 
-                                        <button id="confirmCustom ${member[1]} ${groupNum}" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded confirmModal">Confirm</button>
+                                        <button id="confirmCustom ${member[1]} ${groupNum}" class="w-6/12 p-1 mt-2 border rounded bg-orangeaccent text-blackpri border-blackpri confirmModal">Confirm</button>
                                     </div>
 
                                     </div>
                                 </div>
 
-                                <div id="reason ${member[1]} ${groupNum}" class="z-50 hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-                                    <div class="bg-white flex flex-col justify-between h-52 w-96 border border-black1 rounded-t-lg">
-                                        <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                                            <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Reason required:</span>
-                                            <button id="closeReason ${member[1]} ${groupNum}" class="bg-red1 h-full w-10 rounded closeModal">X</button>
+                                <div id="reason ${member[1]} ${groupNum}" class="fixed left-0 z-50 justify-center hidden w-screen h-screen pt-56 bg-glassmorphism top-20">
+                                    <div class="flex flex-col justify-between bg-white border rounded-t-lg h-52 w-96 border-blackpri">
+                                        <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-blackpri">
+                                            <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Reason required:</span>
+                                            <button id="closeReason ${member[1]} ${groupNum}" class="w-10 h-full rounded bg-red1 closeModal">X</button>
                                         </div>
                                     
-                                        <div class="h-5/6 flex flex-col justify-evenly items-center p-4">
+                                        <div class="flex flex-col items-center p-4 h-5/6 justify-evenly">
                                             <div class="w-full">
-                                                <p class="font-satoshimed text-black">Enter the reason for transferring <span class="text-blue3">${member[0]}</span>:</p>
+                                                <p class="text-black font-satoshimed">Enter the reason for transferring <span class="text-blue3">${member[0]}</span>:</p>
                                                 <input id="reasonInput ${member[1]} ${groupNum}" placeholder="Enter reason:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
                                             </div>
 
-                                            <button id="confirmReason ${member[1]} ${groupNum}" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded confirmModal">Confirm</button>
+                                            <button id="confirmReason ${member[1]} ${groupNum}" class="w-6/12 p-1 mt-2 border rounded bg-orangeaccent text-blackpri border-blackpri confirmModal">Confirm</button>
                                         </div>
 
                                     </div>
@@ -245,8 +247,8 @@
                 groupContent+=groupHTML;
             }
                 // nilagayn ko lang bg-red para sa reminder na kulang di ko sure ano gagawin eh
-            divHTML = `<div class="relative inline-block bg-red-300 border border-black1 w-[25%] h-fit rounded-2xl text-center overflow-hidden m-12 min-h-[26.9rem] min-w-[20rem] max-w-[25rem] dropZone" id="${groupCount-1}">
-                            <h1 class="w-full h-[10%] font-clashbold text-xl bg-black1 text-white py-2">GROUP ${groupCount}</h1>
+            divHTML = `<div class="relative inline-block bg-whitealt border border-blackpri w-[25%] h-fit rounded-2xl text-center overflow-hidden m-12 min-h-[26.9rem] min-w-[20rem] max-w-[25rem] dropZone" id="${groupCount-1}">
+                            <h1 class="w-full h-[10%] font-clashbold text-xl bg-blackpri text-white py-2">GROUP <span class="text-greenaccent">${groupCount}</span></h1>
                             ${groupContent}
                         </div>`;
             divContent += divHTML;
@@ -256,13 +258,13 @@
         cont += divContent;
         div.innerHTML = cont;
 
-        // <div class="h-5/6 flex flex-col justify-evenly items-center p-4">
+        // <div class="flex flex-col items-center p-4 h-5/6 justify-evenly">
         //     <div class="w-full">
-        //         <p class="font-satoshimed text-black">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
+        //         <p class="text-black font-satoshimed">Enter custom role for <span class="text-blue3">${member[0]}</span>:</p>
         //         <input id="customInput ${member[1]} ${groupNum}" oninput="capitalizeWords('customInput ${member[1]} ${groupNum}')" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
         //     </div>
 
-        //     <button id="confirmCustom ${member[1]} ${groupNum}" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded confirmModal">Confirm</button>
+        //     <button id="confirmCustom ${member[1]} ${groupNum}" class="w-6/12 p-1 mt-2 border rounded bg-orange1 text-blackpri border-blackpri confirmModal">Confirm</button>
         // </div>
 
         const cards = document.querySelectorAll(".draggable");
@@ -307,54 +309,49 @@
 
         // console.log(groups);
 
-        function changeRole(event,string,id){ // string for missing role, id for substitute for this.id since 'this' comes from event
-
-            let arr
-            let ind
-            let item
+        function changeRole(event,string,id) {
+            let arr, ind, item;
 
             // when function is called by dragging card when changing groups
-            if(event === true){
+            if(event === true) {
                 arr = id.split(" ");
                 item = document.getElementById(id);
                 group = arr.pop(); // group number
                 ind = parseInt(group)-1; // group index
                 schoolID = arr[1]; // user's student ID
                 item.value = string;
-
-                console.log("Change group and Role!")
-            }else{ //when function is called by event ('change') by dropdown
+            } else { //when function is called by event ('change') by dropdown
                 arr = this.id.split(" ");
                 item = this;
                 group = arr.pop(); // group number
                 ind = parseInt(group)-1; // group index
                 schoolID = arr[1]; // user's student ID
-
-                console.log("Change Role only!")
             }
-            
 
             // check if chosen role(item.value) is present in the group
-            let conflict = false // turns true if conflict is present
-            let conInd // container for conflict index == to use for alert to present name and role
-            for (let index in groups[ind]){
-                if (groups[ind][index].includes(item.value)){
-                    conflict = true
-                    conInd = index
+            let conflict = false;
+            let conInd;
+            
+            for (let index in groups[ind]) {
+                // Skip checking the current user's role when looking for conflicts
+                if (groups[ind][index][1] === schoolID) continue;
+                
+                if (groups[ind][index].includes(item.value)) {
+                    conflict = true;
+                    conInd = index;
+                    break;
                 }
             }
-            console.log(conflict)
-            console.log(conInd)
 
             // change role
-            if (conflict){
+            if (conflict) {
                 console.log('conflict is present');
                 alert(`The role "${item.value}" is already taken \n Please create custom role instead. `);
-                item.value = "null"
+                item.value = "null";
             }
 
             for (let member of groups[ind]) {
-                if (member.includes(schoolID)){
+                if (member.includes(schoolID)) {
                     if ((item.value !== "custom") && (item.value !== "null")) { // selects role
                         // Clearing custom input's value, so next time it's selected; the input field is empty
                         let customInputID =  `customInput ${schoolID} ${group}`;
@@ -378,10 +375,8 @@
 
                         // });
                     }
-
                 }
             }
-            
         }
 
         // for change role (dropdown)
@@ -411,7 +406,7 @@
 
                     for (let member of groups[ind]) {
                         // console.log('2', member);
-                        if (member.includes(schoolID)){
+                        if (member.includes(schoolID)) {
                             // console.log('3');
                             if(input !== '') {
                                 // console.log('4');

@@ -469,6 +469,12 @@
                             groupsContainer.innerHTML = '';
 
                             parsedGroupsList.forEach((group, index) => {
+                                group.sort((a, b) => {
+                                    if (a[2] === 'Principal Investigator') return -1;
+                                    if (b[2] === 'Principal Investigator') return 1;
+                                    return 0;
+                                });
+
                                 groupsContainer.innerHTML += `
                                             <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white h-auto max-w-[20rem] border flex flex-col overflow-hidden">
                                                 <!-- Group Head -->
@@ -491,7 +497,7 @@
                                     document.getElementById(`groupBody${index}`).innerHTML += `
                                             <div class="h-[6.22875rem] w-full flex">
                                                 <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-satoshimed">${member[0]}</span>
-                                                <span class="w-6/12  border border-black1 ${member[2] === 'Leader' ? 'text-orange1' : 'text-blue3'} flex justify-center items-center p-1 font-satoshimed text-xl">${member[2]}</span>
+                                                <span class="w-6/12  border border-black1 ${member[2] == 'Principal Investigator' ? 'text-blue3' : 'text-blackpri'} flex justify-center items-center p-1 font-satoshimed text-xl">${member[2]}</span>
                                             </div>
                                 `;
                                 });
@@ -555,6 +561,12 @@
                             //         </div>
                             //     </div>
                             // `;
+
+                            members.sort((a, b) => {
+                                if (a[2] === 'Principal Investigator') return -1;
+                                if (b[2] === 'Principal Investigator') return 1;
+                                return 0;
+                            });
 
                             members.forEach((member, index) => {
                                 let separatedName = member[0].split(' ');
@@ -623,7 +635,6 @@
                                                 : ''
                                             }
                                         </div>
-
 
                                         <!-- lanes -->
                                         <div class="relative flex w-full min-h-full gap-2 mt-2">
