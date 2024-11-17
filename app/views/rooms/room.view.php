@@ -1,8 +1,8 @@
 <?php view('partials/head.view.php'); ?>
-<body class="block w-screen overflow-x-hidden bg-white">
+<body class="flex flex-col justify-between w-screen overflow-x-hidden bg-white">
     <?php view('partials/nav.view.php')?>
 
-                                <!-- Delete Area -->
+    <!-- Delete Area -->
     <div id="deleteArea" class="fixed bottom-0 left-0 z-50 flex items-center justify-center hidden w-full h-24 transition-all duration-300 bg-red-500 opacity-0">
         <div class="flex items-center space-x-3 text-white">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -132,9 +132,9 @@
                 <!-- BODY -->
                 <div class="flex w-10/12 mx-auto mb-32 rounded-xl shadow-inside1">
                     <!-- left -->
-                    <div id="leftBoxStudent" class="flex flex-col w-3/12 text-center justify-between items-center h-[40rem] py-4 ">
+                    <div id="leftBoxStudent" class="flex flex-col w-3/12 text-center items-center h-[40rem] py-4 ">
                         <!-- head -->
-                        <div id="leftBoxStudentHead" class="flex w-full py-2">
+                        <div id="leftBoxStudentHead" class="flex flex-col items-center w-full py-2 gap-y-4">
                             <!-- <h1 class="mx-auto ml-0 text-4xl text-left font-clashbold">Group: <?//php echo $groupNum ?></h1>
                             <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1" onclick="downloadPDF()">Print Group</button> -->
                         </div>
@@ -145,7 +145,7 @@
                             
                         </div>
 
-                        <button class="flex items-center justify-center h-10 mx-auto text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1" onclick="downloadPDF()">Print Group</button>
+
                     </div>
                     
                     <!-- right -->
@@ -482,6 +482,7 @@
 
                             leftBoxStudentHead.innerHTML = `
                                 <h1 class="mx-auto text-4xl text-center font-clashbold">Group: ${groupNum}</h1>
+                                <button class="flex items-center justify-center h-6 text-base border rounded-lg text-blackless bg-whitealt w-36 font-satoshimed border-blackless" onclick="downloadPDF()">Print Group</button>
                             `;
 
                             // members.forEach(member => {
@@ -508,10 +509,10 @@
 
                                 if (member[2] === 'Principal Investigator') {
                                     kanbanTabs.innerHTML += `
-                                    <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l flex-col member ${index === currentKBTab ? 'bg-gradient-to-r from-greige to-whitecon': ''} text-black w-full py-4">
+                                    <div onclick="changeKB(${index});" id="${member[1]}" class="cursor-pointer flex pl-6 rounded-l-2xl border-l flex-col member ${index === currentKBTab ? 'bg-gradient-to-r from-greige to-whitecon': ''} text-black w-full py-4">
                                         <div class="flex items-center">
                                             <img src="assets/images/vectors/shapes/Zealia-Star-Yellow.svg" alt="star" class="h-4 ml-1 mr-1">
-                                            <h6 class="text-xs font-satoshireg">${member[2]}</h6>
+                                            <h6 class="text-sm font-satoshireg">${member[2]}</h6>
                                         </div>
 
                                         <div class="flex flex-col w-full">
@@ -522,8 +523,8 @@
                                 `;
                                 } else {
                                     kanbanTabs.innerHTML += `
-                                    <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l  flex-col member ${index === currentKBTab ? 'bg-gradient-to-r from-greige to-whitecon': ''} text-black w-full py-4 ">
-                                        <h6 class="flex flex-col w-full text-left">${member[2]}</h6>
+                                    <div onclick="changeKB(${index});" id="${member[1]}" class="cursor-pointer flex pl-6 rounded-l-2xl border-l  flex-col member ${index === currentKBTab ? 'bg-gradient-to-r from-greige to-whitecon': ''} text-black w-full py-4 ">
+                                        <h6 class="flex flex-col w-full text-sm text-left font-satoshireg">${member[2]}</h6>
                                         <span class="text-xl text-left font-clashbold">${lastName}</span>
                                         <span class="text-base text-left font-satoshireg">${separatedName.join(' ')}</span>
                                     </div>

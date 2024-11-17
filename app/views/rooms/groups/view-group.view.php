@@ -1,61 +1,68 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white flex flex-col items-center overflow-x-hidden">
+<body class="flex flex-col items-center overflow-x-hidden bg-beige">
     <?php view('partials/nav.view.php')?>
 
     <main class="h-[40rem] w-[80rem] flex justify-between items-center mt-20">
         <!-- GROUP -->
         <div class="bg-white h-auto max-w-[22rem] border rounded-lg flex flex-col overflow-hidden">
             <!-- Group Head -->
-            <div class="bg-blue3 h-10 w-full flex justify-center items-center ">
-                <span class="font-satoshimed text-white text-4xl">Group</span>
-                <span class="font-clashbold text-orange1 text-4xl ml-2"><?= $_GET['group'] + 1 ?>:</span>
+            <div class="flex items-center justify-center w-full h-10 bg-blackpri ">
+                <span class="text-4xl text-white font-satoshimed">Group</span>
+                <span class="ml-2 text-4xl font-clashbold text-greenaccent"><?= $_GET['group'] + 1 ?>:</span>
             </div>
 
             <!-- Group Body -->
             <div class="w-full">
                 <!-- Each Member -->
                 <?php foreach ($group[$_GET['group']] as $member) {?>
-                <div class="bg-blue1 h-[6.22875rem] w-full flex">
-                    <span class="w-6/12  border border-black1 flex items-center break-all p-1 font-satoshimed text-xl"><?= $member[0] ?></span>
-                    <span class="w-6/12  border border-black1 <?php if($member[2] === 'Leader') { echo 'text-orange1'; } else { echo 'text-blue3'; }?> flex justify-center items-center p-1 font-satoshimed text-xl "><?= $member[2] ?></span>
+                <div class="bg-whitecon h-[6.22875rem] w-full flex">
+                    <span class="flex items-center w-6/12 p-1 text-xl break-all border border-blackpri font-satoshimed"><?= $member[0] ?></span>
+                    <span class="w-6/12  border border-blackpri <?php if($member[2] === 'Principal Investigator') { echo 'text-blue3'; } else { echo 'text-blackpri'; }?> flex justify-center items-center p-1 font-satoshimed text-xl "><?= $member[2] ?></span>
                 </div>
                 <?php } ?>
             </div>
         </div>
 
         <!-- TABLE HISTORY -->
-         <div class="h-5/6 w-8/12 flex flex-col justify-between overflow-x-hidden overflow-y-auto">
-            <span class="font-clashbold text-3xl text-black1 text-center">Group Transfers History:</span>
-            <table class="table-auto h-full w-full leading-normal border border-black rounded-xl overflow-hidden">
-                <thead>
-                    <tr>
-                        <th class="px-0 text-center py-3 bg-black1 text-left text-xs font-satoshiblack text-blue1 uppercase tracking-wider border-l border-r border-black">Timestamp</th>
-                        <th class="px-0 text-center py-3 bg-black1 text-left text-xs font-satoshiblack text-orange1 uppercase tracking-wider border-l border-r border-black">Name</th>
-                        <th class="px-0 text-center py-3 bg-black1 text-left text-xs font-satoshiblack text-blue1  uppercase tracking-wider border-l border-r border-black">From Group</th>
-                        <th class="px-0 text-center py-3 bg-black1 text-left text-xs font-satoshiblack text-orange1 uppercase tracking-wider border-l border-r border-black">To Group</th>
-                        <th class="px-0 text-center py-3 bg-black1 text-left text-xs font-satoshiblack text-orange1 uppercase tracking-wider border-l border-r border-black">Reason</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white2">
-                    <?php if(! empty($groupHistory)): ?>
-                        <?php foreach($groupHistory as $history): ?>
+         <div class="flex flex-col justify-between w-8/12 h-5/6">
+            <span class="text-3xl text-center font-clashmed text-blackpri">Group Transfers History:</span>
+            <!-- Added wrapper div for table scrolling -->
+            <div class="flex-1 overflow-y-auto">
+                <table class="w-full border border-black table-auto rounded-xl">
+                    <thead class="sticky top-0">
                         <tr>
-                            <td class="p-5 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><?= $history['timestamp'] ?></td>
-                            <td class="p-5 font-clashbold border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><?= $history['name'] ?></td>
-                            <td class="p-5 font-satoshimed text-grey2 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><?= $history['from_group'] ?></td>
-                            <td class="p-5 font-satoshimed text-blue3 border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><?= $history['to_group'] ?></td>
-                            <td class="p-5 font-satoshimed border-b border-gray-200 bg-white text-sm border-l border-r border-black text-center"><?= $history['reason'] ?></td>
+                            <th class="px-0 py-3 text-xs tracking-wider text-center uppercase border-l border-r border-white bg-blackpri font-satoshiblack text-blue1">Timestamp</th>
+                            <th class="px-0 py-3 text-xs tracking-wider text-center uppercase border-l border-r border-white bg-blackpri font-satoshiblack text-greenaccent">Name</th>
+                            <th class="px-0 py-3 text-xs tracking-wider text-center uppercase border-l border-r border-white bg-blackpri font-satoshiblack text-blue1">From Group</th>
+                            <th class="px-0 py-3 text-xs tracking-wider text-center uppercase border-l border-r border-white bg-blackpri font-satoshiblack text-greenaccent">To Group</th>
+                            <th class="px-0 py-3 text-xs tracking-wider text-center uppercase border-l border-r border-white bg-blackpri font-satoshiblack text-greenaccent">Reason</th>
                         </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="5"  class="p-5 border-b border-gray-200 bg-white text-2xl font-satoshimed border-l border-r border-black text-center">Nothing occured to this group yet.</td>
-                        </tr>
-                    <?php endif; ?>
-                    <!-- Add more rows as needed -->
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="bg-white2">
+                        <?php if(! empty($groupHistory)): ?>
+                            <?php foreach($groupHistory as $history): ?>
+                            <tr>
+                                <td class="p-5 text-sm text-center bg-white border-b border-l border-r border-gray-200 border-blackless">
+                                    <?= date('M j, Y g:i A', strtotime($history['timestamp'])) ?>
+                                </td>
+                                <td class="p-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200 font-satoshiblack">
+                                    <?= $history['name'] ?? 'Data not available' ?>
+                                </td>
+                                <td class="p-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200 font-satoshimed text-grey2"><?= $history['from_group'] ?></td>
+                                <td class="p-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200 font-satoshimed text-blue3"><?= $history['to_group'] ?></td>
+                                <td class="p-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200 font-satoshimed"><?= $history['reason'] ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="5"  class="p-5 text-2xl text-center bg-white border-b border-l border-r border-black border-gray-200 font-satoshimed">Nothing occured to this group yet.</td>
+                            </tr>
+                        <?php endif; ?>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
          </div>
          
     </main>
