@@ -30,7 +30,7 @@
                         <button type="submit" class="w-1/6 bg-center bg-no-repeat bg-contain border bg-search h-5/6 border-l-grey2"></button>
                     </form>
 
-                    <button class="h-[2.25rem] px-4 bg-orange1 text-black1 font-satoshimed border border-grey2 rounded-lg" onClick="toggle('filters');">Filter</button>
+                    <button class="h-[2.25rem] px-4 bg-orangeaccent text-black1 font-satoshimed border border-grey2 rounded-lg" onClick="toggle('filters');">Filter</button>
 
                     <!-- <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button> -->
                     <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggle('rooms-ascending'); toggle('rooms-descending'); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
@@ -48,7 +48,7 @@
                         
                         <input class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-4" type="number" id="room_code" name="room_code" placeholder="Enter room code">
 
-                        <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg"  type="submit">Join</button>
+                        <button class="bg-orangeaccent h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg"  type="submit">Join</button>
                     </form>
                 <?php elseif ($_SESSION['user']['account_type'] === 'professor'): ?>
                     <!-- <form class="flex justify-between gap-4" method="POST" action="/dashboard">
@@ -61,8 +61,8 @@
                             <p class=""><?= $errors['room_name'] ?></p>
                         <?php endif; ?>
                         <!-- <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter room name" required> -->
-                        <!-- <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg"  type="submit">Create</button> -->
-                        <button onclick="show('createRoom'); disableScroll();" class="bg-orange1 h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg">Create</button>
+                        <!-- <button class="bg-orangeaccent h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg"  type="submit">Create</button> -->
+                        <button onclick="show('createRoom'); disableScroll();" class="bg-orangeaccent h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg">Create</button>
                     <!-- </form> -->
                 <?php endif;?>
             </div>
@@ -174,9 +174,9 @@
                         <span class="text-4xl font-clashbold text-grey2">No room found</span>
                         
                         <?php if($_SESSION['user']['account_type'] === 'professor'):?>
-                            <span class="text-xl font-satoshimed">Create a room by clicking the "<span class="text-orange2">Create Room</span>" button</span>
+                            <span class="text-xl font-satoshimed">Create a room by clicking the "<span class="text-orangeaccent">Create Room</span>" button</span>
                         <?php elseif($_SESSION['user']['account_type'] === 'student'): ?>
-                            <span class="text-xl font-satoshimed">Join a room by <span class="text-orange2">entering the code</span> above</span>
+                            <span class="text-xl font-satoshimed">Join a room by <span class="text-orangeaccent">entering the code</span> above</span>
                         <?php endif; ?>
                     </div>
 
@@ -219,7 +219,7 @@
                 </div>
                 <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter section:" required>
 
-                <button type="submit" class="p-1 mt-2 border rounded bg-orange1 text-black1 border-black1">Create Room</button>
+                <button type="submit" class="p-1 mt-2 border rounded bg-orangeaccent text-black1 border-black1">Create Room</button>
             </form>
         </div>
     </div>
@@ -238,12 +238,12 @@
                 <?php elseif (isset($errors['is_joined'])) : ?>
                     <p class=""><?= $errors['is_joined'] ?></p>
                 <?php endif; ?>
-                <button class="relative top-1/2 w-1/6 py-1 mt-1 ml-2 mr-2 bg-orange1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Join</button>
+                <button class="relative top-1/2 w-1/6 py-1 mt-1 ml-2 mr-2 bg-orangeaccent mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Join</button>
             <?php elseif ($_SESSION['user']['account_type'] === 'professor'): ?>
                 <?php if (isset($errors['room_name'])) : ?>
                     <p class=""><?= $errors['room_name'] ?></p>
                 <?php endif; ?>
-                <button class="relative top-1/2 w-1/6 py-1 mt-1 ml-2 mr-2 bg-orange1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Create</button>
+                <button class="relative top-1/2 w-1/6 py-1 mt-1 ml-2 mr-2 bg-orangeaccent mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Create</button>
             <?php endif;?>
         </div>
 
@@ -283,7 +283,7 @@
                 <?php endif; ?>
 
                 <input class="w-5/6 pl-2 mx-auto border border-black1" name="room_name" placeholder="Enter room name" required>
-                <button class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-orange1 text-black1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Create</button>
+                <button class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-orangeaccent text-black1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Create</button>
 
             <?php endif;?>
         

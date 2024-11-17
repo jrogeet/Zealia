@@ -27,7 +27,7 @@
                     <input id="customInput ${member[1]} ${groupNum}" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed">
                 </div>
 
-                <button onclick="customRole(`${member[1]} ${groupNum}`)" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded">Confirm</button>
+                <button onclick="customRole(`${member[1]} ${groupNum}`)" class="bg-orangeaccent w-6/12 p-1 mt-2 text-black1 border border-black1 rounded">Confirm</button>
             </div>
         </div>
     </div> -->
@@ -250,7 +250,7 @@
                                                 <input id="customInput ${member[1]} ${groupNum}" oninput="capitalizeWords('customInput ${member[1]} ${groupNum}')" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
                                             </div>
 
-                                            <button id="confirmCustom ${member[1]} ${groupNum}" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded confirmModal">Confirm</button>
+                                            <button id="confirmCustom ${member[1]} ${groupNum}" class="bg-orangeaccent w-6/12 p-1 mt-2 text-black1 border border-black1 rounded confirmModal">Confirm</button>
                                         </div>
                                     </div>
                                 </div>
@@ -268,7 +268,7 @@
                                                 <input id="reasonInput ${member[1]} ${groupNum}" placeholder="Enter reason:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
                                             </div>
 
-                                            <button id="confirmReason ${member[1]} ${groupNum}" class="bg-orange1 w-6/12 p-1 mt-2 text-black1 border border-black1 rounded confirmModal">Confirm</button>
+                                            <button id="confirmReason ${member[1]} ${groupNum}" class="bg-orangeaccent w-6/12 p-1 mt-2 text-black1 border border-black1 rounded confirmModal">Confirm</button>
                                         </div>
                                     </div>
                                 </div>

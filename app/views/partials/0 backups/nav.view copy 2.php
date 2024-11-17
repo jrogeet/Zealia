@@ -58,7 +58,7 @@
             <?php else: ?>
                 <a href="/login"><h1 class="relative font-clashbold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-32 tracking-tight bg-blue3 text-white w-3/4 p-2 py-4 rounded-xl border border-blue3 rounded-sm text-sm md:text-lg md:w-1/2">Sign in</h1></a>
 
-                <a href="/register"><h1 class="relative font-clashbold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-orange1 text-black1 w-3/4 p-2 py-4 rounded-xl border border-orange1 rounded-sm text-sm md:text-lg md:w-1/2">Sign up</h1></a>
+                <a href="/register"><h1 class="relative font-clashbold text-center left-1/2 transform -translate-x-1/2 text-black1 mt-6 tracking-tight bg-orangeaccent text-black1 w-3/4 p-2 py-4 rounded-xl border border-orangeaccent rounded-sm text-sm md:text-lg md:w-1/2">Sign up</h1></a>
             <?php endif; ?>
         </div> 
         
@@ -159,7 +159,7 @@
                     <span class="text-white">Sign In</span>
                 </a>
 
-                <a href="/register" class="bg-orange1 rounded-lg h-10 w-[6.25rem] flex justify-center items-center">
+                <a href="/register" class="bg-orangeaccent rounded-lg h-10 w-[6.25rem] flex justify-center items-center">
                     <span class="text-offBlack">Sign Up</span>
                 </a>
             <?php endif; ?>

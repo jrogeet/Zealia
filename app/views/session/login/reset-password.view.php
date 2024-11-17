@@ -22,7 +22,7 @@
                 <?php elseif (isset($errors['password-confirm'])): ?>
                                 <p class=""><?= $errors['password-confirm'] ?></p>
                 <?php endif; ?>
-                <button  class="w-3/6 py-2 text-xl border bg-blue3 hover:bg-orange1 hover:text-black1 border-blue3 rounded-xl font-satoshimed text-white" type="submit">Change Password</button>
+                <button  class="w-3/6 py-2 text-xl border bg-blue3 hover:bg-orangeaccent hover:text-black1 border-blue3 rounded-xl font-satoshimed text-white" type="submit">Change Password</button>
         </form>
     </main>
     

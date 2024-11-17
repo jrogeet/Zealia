@@ -16,7 +16,7 @@
         <!-- counter -->
         <div class="flex w-full mt-8">
 
-            <a href="/admin-accounts" class="mx-auto ml-0 border border-black rounded-2xl h-52 w-[24%] bg-orange1 p-4">
+            <a href="/admin-accounts" class="mx-auto ml-0 border border-black rounded-2xl h-52 w-[24%] bg-orangeaccent p-4">
                 <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
                 <h1 class="text-lg font-satoshimed text-grey-200">Users:</h1>
                 <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="userCount"></h1>

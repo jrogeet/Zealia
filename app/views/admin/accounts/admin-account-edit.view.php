@@ -33,7 +33,7 @@
                         <input type="text" name="c_password" class="w-1/3 h-10 pl-2 ml-4 bg-white border rounded-lg border-grey2" placeholder="Confirm Password">
                     </div>
 
-                    <button type="submit" class="w-1/3 h-10 mx-auto mt-20 text-black border border-black rounded-lg bg-orange1">Save Changes</button>
+                    <button type="submit" class="w-1/3 h-10 mx-auto mt-20 text-black border border-black rounded-lg bg-orangeaccent">Save Changes</button>
                 </form>
 
                 <div class="block w-[30%] h-full mx-auto">

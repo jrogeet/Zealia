@@ -8,14 +8,14 @@
         <div class="flex items-center justify-center h-fit">
             <div class="flex items-center justify-center w-full h-full py-6 bg-no-repeat bg-cover bg-cropped-breakdance">
                 <div class="relative flex items-center justify-center">
-                    <h1 class="relative font-satoshimed bg-orange1 text-xs px-2.5 selection:bg-black1 selection:text-orange1">generate teams by passion</h1>
+                    <h1 class="relative font-satoshimed bg-orangeaccent text-xs px-2.5 selection:bg-black1 selection:text-orangeaccent">generate teams by passion</h1>
                 </div>
             </div>
         </div>
 
         <div class="w-full h-[30.1875rem] flex justify-center items-center bg-threshold-cropped-solid bg-cover bg-no-repeat">
             <div class="bg-blue3 text-white text-2xl text-center w-[84.375rem] px-8 py-4 selection:bg-white selection:text-blue3">
-            Discover your perfect team match by <h1 class="text-orange1 selection:bg-black1 selection:text-orange1">creating groups that harmonize</h1> your unique RIASEC type with the complementary strengths of others.
+            Discover your perfect team match by <h1 class="text-orangeaccent selection:bg-black1 selection:text-orangeaccent">creating groups that harmonize</h1> your unique RIASEC type with the complementary strengths of others.
             </div>
         </div>
     </div>
@@ -27,14 +27,14 @@
                 <div class="relative flex items-center justify-center">
                     <img class="h-[7.8125rem]" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png" alt="ZealiaLogoStarTrail-2.png"/>
                     <span class="font-ginto text-black1 text-[5.6rem]">ealia</span>
-                    <span class="absolute font-satoshimed bg-orange1 bottom-4 -right-9 text-base px-2.5 selection:bg-black1 selection:text-orange1">generate teams by passion</span>
+                    <span class="absolute font-satoshimed bg-orangeaccent bottom-4 -right-9 text-base px-2.5 selection:bg-black1 selection:text-orangeaccent">generate teams by passion</span>
                 </div>
             </div>
         </div>
 
         <div class="w-full h-[35.1875rem] flex justify-center items-center bg-threshold-cropped-solid bg-cover bg-no-repeat">
             <div class="bg-blue3 text-white text-4xl text-center w-[84.375rem] px-8 py-4 selection:bg-white selection:text-blue3">
-            Discover your perfect team match by <span class="text-orange1 selection:bg-black1 selection:text-orange1">creating groups that harmonize</span> your unique RIASEC type with the complementary strengths of others.
+            Discover your perfect team match by <span class="text-orangeaccent selection:bg-black1 selection:text-orangeaccent">creating groups that harmonize</span> your unique RIASEC type with the complementary strengths of others.
             </div>
         </div>
     </div>

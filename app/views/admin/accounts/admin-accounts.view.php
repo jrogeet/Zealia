@@ -160,7 +160,7 @@
                 </div>
 
                 <div class="block w-[30%] h-full mx-auto">
-                    <button type="submit" class="w-full h-10 mx-auto border border-black rounded-lg mt-96 bg-orange1 text-black1">Create Account</button>
+                    <button type="submit" class="w-full h-10 mx-auto border border-black rounded-lg mt-96 bg-orangeaccent text-black1">Create Account</button>
                 </div>
                 
             </form>

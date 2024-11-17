@@ -99,7 +99,7 @@
                         <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
                         <input type="hidden" name="edit" value="edit">
                         <input type="text" name="room_name"  class="h-10 px-4 border rounded-lg w-96 border-black1" placeholder="Change room name: <?= $room_info['room_name'] ?>" required>
-                        <button class="h-8 p-1 border rounded bg-orange1 font-satoshimed border-black1" type="submit">Confirm Change</button>
+                        <button class="h-8 p-1 border rounded bg-orangeaccent font-satoshimed border-black1" type="submit">Confirm Change</button>
                     </form>
                 </div>
     
@@ -246,7 +246,7 @@
         //             <input type="hidden" name="stunotype" id="stunotype" value="${JSON.stringify(student_no_result)}">
         //             <input type="hidden" name="genGroups" id="genGroups" value="">
         //             <input type="hidden" name="room" value="${room_id}">
-        //             <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[13rem] font-clashbold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
+        //             <button onclick="generateGroups();" class="bg-orangeaccent h-[3.13rem] w-[13rem] font-clashbold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
         //         </form>
         //     </div>
         // `;
@@ -413,7 +413,7 @@
                                             <!-- Group Head -->
                                             <div class="flex items-center justify-center w-full h-10 bg-black1 ">
                                                 <span class="text-4xl font-satoshimed text-white">Group</span>
-                                                <span class="ml-2 text-4xl font-clashbold text-orange1">${index + 1}:</span>
+                                                <span class="ml-2 text-4xl font-clashbold text-orangeaccent">${index + 1}:</span>
                                             </div>
 
                                             <!-- Group Body -->
@@ -430,7 +430,7 @@
                                 document.getElementById(`groupBody${index}`).innerHTML += `
                                         <div class="h-[6.22875rem] w-full flex">
                                             <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-satoshimed">${member[0]}</span>
-                                            <span class="w-6/12  border border-black1 ${member[2] === 'Leader' ? 'text-orange1' : 'text-blue3'} flex justify-center items-center p-1 font-satoshimed text-xl">${member[2]}</span>
+                                            <span class="w-6/12  border border-black1 ${member[2] === 'Leader' ? 'text-orangeaccent' : 'text-blue3'} flex justify-center items-center p-1 font-satoshimed text-xl">${member[2]}</span>
                                         </div>
                             `;
                             });
@@ -810,7 +810,7 @@
 
                                 <input id="genGroups" type="hidden" name="genGroups" value="">
                                 <input type="hidden" name="room" value="<?= $_GET['room_id'] ?>">
-                                <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-clashbold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+                                <button onclick="generateGroups();" class="bg-orangeaccent h-[3.13rem] w-[12.5rem] font-clashbold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
                             </form>
                         </div>
                     `;
@@ -919,7 +919,7 @@
                             <input type="hidden" name="stunotype" id="stunotype" value="">
                             <input type="hidden" name="genGroups" id="genGroups" value="">
                             <input type="hidden" name="room" value="${room_id}">
-                            <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[13rem] font-clashbold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
+                            <button onclick="generateGroups();" class="bg-orangeaccent h-[3.13rem] w-[13rem] font-clashbold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
                         </form>
                     </div>
                 `;
@@ -1398,10 +1398,10 @@
             //     if(StudButt.classList.contains("bg-blue3")){
                         
             //     }else{
-            //         StudButt.classList.replace("bg-orange1","bg-blue3");
+            //         StudButt.classList.replace("bg-orangeaccent","bg-blue3");
             //         StudButt.classList.replace("text-black1","text-white");
             //         StudButt.classList.replace("w-2/5","w-3/5");
-            //         GrButt.classList.replace("bg-blue3","bg-orange1");
+            //         GrButt.classList.replace("bg-blue3","bg-orangeaccent");
             //         GrButt.classList.replace("text-white","text-black1");
             //         GrButt.classList.replace("w-3/5","w-2/5");
             //         students.classList.remove("hidden");
@@ -1414,10 +1414,10 @@
             //     if(GrButt.classList.contains("bg-blue3")){
                     
             //     }else{
-            //         GrButt.classList.replace("bg-orange1","bg-blue3");
+            //         GrButt.classList.replace("bg-orangeaccent","bg-blue3");
             //         GrButt.classList.replace("text-black1","text-white");
             //         GrButt.classList.replace("w-2/5","w-3/5");
-            //         StudButt.classList.replace("bg-blue3","bg-orange1");
+            //         StudButt.classList.replace("bg-blue3","bg-orangeaccent");
             //         StudButt.classList.replace("text-white","text-black1");
             //         StudButt.classList.replace("w-3/5","w-2/5");
             //         students.classList.add("hidden");

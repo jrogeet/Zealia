@@ -29,7 +29,7 @@
                     <label class="font-satoshimed text-lg text-grey2" for="email">Enter Account's email</label>
                     <input class="w-full border border-black1 rounded-lg mt-2 p-2" type="email" name="email" placeholder="Email" required>
                 </div>
-                <button class="bg-blue3 hover:bg-orange1 hover:text-black1 w-3/6 py-2 border border-blue3 rounded-xl font-satoshimed text-xl text-white" type="submit">Send Reset Link</button>
+                <button class="bg-blue3 hover:bg-orangeaccent hover:text-black1 w-3/6 py-2 border border-blue3 rounded-xl font-satoshimed text-xl text-white" type="submit">Send Reset Link</button>
             </form>
         </div>
     </main>

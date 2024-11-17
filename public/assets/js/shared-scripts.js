@@ -147,7 +147,7 @@ function showAlert(type, title, message) {
             color: '#FFFFFF'       // white
         },
         warning: {
-            background: '#DF9F5E', // orange1
+            background: '#DF9F5E', // orangeaccent
             color: '#1A1A1A'      // blackpri
         },
         info: {

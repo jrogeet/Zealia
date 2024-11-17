@@ -29,7 +29,7 @@
                     <input type="hidden" name="_method" value="PATCH">
                     <input type="hidden" name="room_id" value="<?= $room_info['room_id'] ?>">
                     <input type="text" name="room_name"  class="h-10 w-96 border border-black1 rounded-lg px-4" placeholder="Change room name: <?= $room_info['room_name'] ?>" required>
-                    <button class="bg-orange1 h-8 font-satoshimed border border-black1 rounded p-1" type="submit">Confirm Change</button>
+                    <button class="bg-orangeaccent h-8 font-satoshimed border border-black1 rounded p-1" type="submit">Confirm Change</button>
                 </form>
             </div>
 
@@ -154,7 +154,7 @@
                             <!-- Group Head -->
                             <div class="bg-black1 h-10 w-full flex justify-center items-center ">
                                 <span class="font-satoshimed text-white text-4xl">Group</span>
-                                <span class="font-clashbold text-orange1 text-4xl ml-2"><?= $index + 1 ?>:</span>
+                                <span class="font-clashbold text-orangeaccent text-4xl ml-2"><?= $index + 1 ?>:</span>
                             </div>
   
                             <!-- Group Body -->
@@ -163,7 +163,7 @@
                                 <?php foreach ($group as $member) {?>
                                 <div class="h-[6.22875rem] w-full flex">
                                     <span class="w-6/12  border border-black1 flex items-center break-all p-1 font-satoshimed text-xl"><?= $member[0] ?></span>
-                                    <span class="w-6/12  border border-black1 <?php if($member[2] === 'Leader') { echo 'text-orange1'; } else { echo 'text-blue3'; }?> flex justify-center items-center p-1 font-satoshimed text-xl "><?= $member[2] ?></span>
+                                    <span class="w-6/12  border border-black1 <?php if($member[2] === 'Leader') { echo 'text-orangeaccent'; } else { echo 'text-blue3'; }?> flex justify-center items-center p-1 font-satoshimed text-xl "><?= $member[2] ?></span>
                                 </div>
                                 <?php } ?>
                             </div>
@@ -176,7 +176,7 @@
                     <?php if ($_SESSION['user']['account_type'] === 'professor'):?>
                     <div class="flex flex-col items-center">
                         <span class="font-clashbold text-4xl">You haven't grouped the class yet.</span>
-                        <button class="bg-orange1 h-[3.13rem] w-[12.5rem] font-clashbold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+                        <button class="bg-orangeaccent h-[3.13rem] w-[12.5rem] font-clashbold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
                     </div>
                     <?php else: ?>
                     <div class="flex flex-col items-center">

@@ -81,7 +81,7 @@
                     <span class="text-white">Sign In</span>
                 </a>
 
-                <a href="/register" class="bg-orange1 rounded-lg h-10 w-[6.25rem] flex justify-center items-center">
+                <a href="/register" class="bg-orangeaccent rounded-lg h-10 w-[6.25rem] flex justify-center items-center">
                     <span class="text-offBlack">Sign Up</span>
                 </a>
             <?php endif; ?>

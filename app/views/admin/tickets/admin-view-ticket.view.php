@@ -7,7 +7,7 @@
         <h1 class="font-clashbold text-black text-3xl">Ticket ID:</h1>
 
         <div class=" relative text-sm h-10 w-1/6 mb-2 mt-12">
-            <div onclick="toggle('statusDD');" class="relative z-50 <?php echo ($ticket['status'] == 'pending') ? 'bg-orange1' : (($ticket['status'] == 'solved') ? 'bg-green-500' : 'bg-red1');?> group border border-black rounded-xl  flex justify-evenly items-center h-full w-full">
+            <div onclick="toggle('statusDD');" class="relative z-50 <?php echo ($ticket['status'] == 'pending') ? 'bg-orangeaccent' : (($ticket['status'] == 'solved') ? 'bg-green-500' : 'bg-red1');?> group border border-black rounded-xl  flex justify-evenly items-center h-full w-full">
                 <button class="group-hover:block  hidden h-full w-4/5 text-white text-lg">Change Status:</button>
                 <button class="group-hover:hidden h-full w-4/5 text-white text-lg"><?= ucfirst($ticket['status']) ?></button>
                 <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[12px] border-white"></div>
@@ -27,7 +27,7 @@
                 <form method="POST" action="/admin-view-ticket">
                     <input type="hidden" name="pending" value="pending">
                     <input type="hidden" name="ticket_id" value="<?= $_GET['id'] ?>">
-                    <button type="submit" class="h-full w-full text-lg p-2 text-orange2">Pending</button>
+                    <button type="submit" class="h-full w-full text-lg p-2 text-orangeaccent">Pending</button>
                 </form>
             </div>
         </div>

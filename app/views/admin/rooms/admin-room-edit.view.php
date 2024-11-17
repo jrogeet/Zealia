@@ -28,7 +28,7 @@
                 <h1 class="w-full h-10 bg-blue3 text-center text-white font-satoshimed pt-2">Students</h1>
                 <div class="flex w-full h-12 border-b border-black p-1">
                     <input type="text" class="w-[74%] h-[98%] mx-auto border border-grey2 rounded-lg pl-2" placeholder="Enter ID number to add">
-                    <button class="w-[24%] h-[98%] mx-auto bg-orange1 font-satoshimed text-black1 border border-grey2 rounded-lg">Add</button>
+                    <button class="w-[24%] h-[98%] mx-auto bg-orangeaccent font-satoshimed text-black1 border border-grey2 rounded-lg">Add</button>
                 </div>
                 <?php foreach($roomStudents as $student): ?>    
                 <div class="flex w-full h-fit border-b border-black p-2">
@@ -69,7 +69,7 @@
 
         <div class="flex ml-12 mt-12">
             <button class="mx-auto w-20 h-12 border border-black1 bg-red1 px-12 text-white ml-0 rounded-xl">Delete Room</button>
-            <button class="mx-auto w-20 h-12 border border-black1 bg-orange1 px-12 text-black1 mr-0 rounded-xl">Save Changes</button>
+            <button class="mx-auto w-20 h-12 border border-black1 bg-orangeaccent px-12 text-black1 mr-0 rounded-xl">Save Changes</button>
         </div>
 
     </div>

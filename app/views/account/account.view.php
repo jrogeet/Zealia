@@ -1,14 +1,12 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
 <?php view('partials/head.view.php'); ?>
 
-<body class="static w-screen py-6 mb-0 overflow-x-hidden bg-white font-satoshimed h-fit">
+<body class="static w-screen h-auto py-6 mb-0 overflow-x-hidden bg-beige font-satoshimed">
 
     <?php view('partials/nav.view.php') ?>
 
-    <?php //dd($_SESSION['user']['result'])?>
-
     <!-- desktop -->
-    <div class="relative block w-screen h-full text-center top-10 lg:top-24">
+    <main class="relative block w-screen h-full text-center top-10 lg:top-24">
         <h1 class="relative font-clashbold text-[6vw] lg:text-3xl">Account Settings</h1>
 
         <div class="relative flex flex-wrap w-full h-fit">
@@ -27,7 +25,7 @@
                         <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg mt-4" type="password" placeholder="New Password" name="new_pass" required></input>
                         <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg ml-2 lg:ml-4 mt-4" type="password" placeholder="Confirm New Password" name="conew_pass" required></input>
                     </div>
-                    <button class="relative h-10 px-8 mt-12 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orange1 text-black1">Save Changes</button>
+                    <button class="relative h-10 px-8 mt-12 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orangeaccent text-black1">Save Changes</button>
                 </form>
 
             </div>
@@ -38,7 +36,7 @@
 
                     <div class="relative flex mt-10">
                         <h1 class="mt-1 ml-auto text-xl font-satoshimed text-grey2">RESULTS:</h1>
-                        <label class="mr-auto text-4xl text-black font-ginto top-12"><?= $typeNscores['result'] ?></label>
+                        <label class="mr-auto text-4xl text-black font-clashsemibold top-12"><?= $typeNscores['result'] ?></label>
                     </div>
                     <div class="flex mt-16">
                         <div class="relative text-left mx-auto w-[20rem] h-5/6 pl-24">
@@ -63,16 +61,16 @@
                         <!-- Add this button where you want it to appear -->
                         <button id="downloadPDF" class="relative h-10 p-2 mt-8 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 text-black1">Download PDF</button>
                     </div>
-                    <a href="/test"><button class="relative h-10 px-8 mt-4 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orange1 text-black1">Retake Test</button></a>
+                    <a href="/test"><button class="relative h-10 px-8 mt-4 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orangeaccent text-black1">Retake Test</button></a>
                 <?php else:?>
                     <h1 class="relative text-4xl text-center transform -translate-y-1/2 top-1/2 font-satoshimed">You haven't taken the test!</h1>
-                    <a href="/test"><button class="relative w-40 h-12 text-xl transform -translate-x-1/2 border top-1/2 border-grey2 rounded-2xl bg-orange1 font-satoshimed left-1/2">Take Test</button></a>
+                    <a href="/test"><button class="relative w-40 h-12 text-xl transform -translate-x-1/2 border top-1/2 border-grey2 rounded-2xl bg-orangeaccent font-satoshimed left-1/2">Take Test</button></a>
                 <?php endif;?>
 
             </div>
         </div>
 
-    </div>
+    </>
 
     <?php view('partials/footer.view.php'); ?>
 
@@ -139,7 +137,7 @@
                             doc.setFont("syne");
                             doc.setTextColor(3, 52, 110);
                             doc.setFontSize(24);
-                            doc.text(document.querySelector('.font-ginto').textContent, 120, 145);
+                            doc.text(document.querySelector('.font-clashsemibold').textContent, 120, 145);
 
                             // Add scores
                             doc.setFontSize(14);

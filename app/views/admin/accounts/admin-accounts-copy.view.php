@@ -17,7 +17,7 @@
                 <input type="hidden" name="encoded_students" value="<?= htmlspecialchars($encoded_students, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="encoded_instructors" value="<?= htmlspecialchars($encoded_instructors, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="encoded_accounts" value="<?= htmlspecialchars($encoded_accounts, ENT_QUOTES, 'UTF-8')?>">
-                <button type="submit" class="mx-auto ml-4 border rounded-lg border-grey2 bg-orange1 w-28 text-black1">Search</button>
+                <button type="submit" class="mx-auto ml-4 border rounded-lg border-grey2 bg-orangeaccent w-28 text-black1">Search</button>
             </form>
         </div>
 
@@ -175,7 +175,7 @@
                 </div>
 
                 <div class="block w-[30%] h-full mx-auto">
-                    <button type="submit" class="w-full h-10 mx-auto border border-black rounded-lg mt-96 bg-orange1 text-black1">Create Account</button>
+                    <button type="submit" class="w-full h-10 mx-auto border border-black rounded-lg mt-96 bg-orangeaccent text-black1">Create Account</button>
                 </div>
                 
             </form>

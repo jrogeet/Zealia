@@ -57,9 +57,9 @@ function partialInjection(string) {
         var code =          `
                                 
                                 <div class="relative z-10 w-7/12 transform translate-x-[-50%] left-1/2 flex object-center my-12">
-                                    <h1 class="relative text-right mr-[-0.3rem] text-8xl font-clashbold text-orange2">${initial}</h1>
+                                    <h1 class="relative text-right mr-[-0.3rem] text-8xl font-clashsemibold text-orangeaccent">${initial}</h1>
                                     <div class="relative inline-block w-full">
-                                        <h1 class="relative flex h-2/5 mt-[0.9rem] font-clashbold text-xl pl-[0.2rem<p class="relative pl-[.3rem] mt-[-1rem] font-satoshimed">${desc}</p>
+                                        <h1 class="relative flex h-2/5 mt-[0.9rem] font-satoshimed text-xl pl-[0.2rem<p class="relative pl-[.3rem] mt-[-1rem] font-satoshimed">${desc}</p>
                                     </div>
                                 </div>
                             `;
@@ -134,7 +134,7 @@ function optionInjection(string) {
         var code =          `
                                 <div class="group relative py-8 hover:bg-blue3 flex text-left">
                                     <div class="relative block mx-auto w-[10%]">
-                                        <input class="peer relative appearance-none w-[20px] h-5 min-w-[20px] left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2 border rounded border-grey2 cursor-pointer bg-white2 checked:bg-orange1" type="checkbox" onclick="checker(this)" id="${letter}">
+                                        <input class="peer relative appearance-none w-[20px] h-5 min-w-[20px] left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2 border rounded border-grey2 cursor-pointer bg-white2 checked:bg-orangeaccent" type="checkbox" onclick="checker(this)" id="${letter}">
                                     </div>
                                     
                                     <span class="relative block mx-auto w-[90%] pr-8 text-gray-700 group-hover:text-white">${ques}</span>

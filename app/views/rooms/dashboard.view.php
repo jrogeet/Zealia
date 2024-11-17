@@ -63,7 +63,7 @@
                             <p class=""><?= $errors['room_name'] ?></p>
                         <?php endif; ?>
                         <!-- <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter room name" required> -->
-                        <!-- <button class="bg-orange1 h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg"  type="submit">Create</button> -->
+                        <!-- <button class="bg-orangeaccent h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg"  type="submit">Create</button> -->
                         <button onclick="show('createRoom'); disableScroll();" class="bg-orangeaccent h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg">Create</button>
                     <!-- </form> -->
                 <?php endif;?>
@@ -214,12 +214,12 @@
                 <?php elseif (isset($errors['is_joined'])) : ?>
                     <p class=""><?= $errors['is_joined'] ?></p>
                 <?php endif; ?>
-                <button class="relative top-1/2 w-1/6 py-1 mt-1 ml-2 mr-2 bg-orange1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Join</button>
+                <button class="relative top-1/2 w-1/6 py-1 mt-1 ml-2 mr-2 bg-orangeaccent mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Join</button>
             <?php elseif ($_SESSION['user']['account_type'] === 'instructor'): ?>
                 <?php if (isset($errors['room_name'])) : ?>
                     <p class=""><?= $errors['room_name'] ?></p>
                 <?php endif; ?>
-                <button class="relative top-1/2 w-1/6 py-1 mt-1 ml-2 mr-2 bg-orange1 mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Create</button>
+                <button class="relative top-1/2 w-1/6 py-1 mt-1 ml-2 mr-2 bg-orangeaccent mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Create</button>
             <?php endif;?>
         </div>
 
@@ -259,7 +259,7 @@
                 <?php endif; ?>
 
                 <input class="w-5/6 pl-2 mx-auto border border-blackpri" name="room_name" placeholder="Enter room name" required>
-                <button class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-orange1 text-blackpri mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Create</button>
+                <button class="relative top-1/2 w-2/6 py-1 ml-2 mr-2 bg-orangeaccent text-blackpri mx-auto text-[3vw] rounded-sm text-sm h-full" id="jcButt">Create</button>
 
             <?php endif;?>
         
@@ -366,9 +366,9 @@
                         <span class="text-4xl font-clashbold text-grey2">No room found</span>
                         
                         <?php if($_SESSION['user']['account_type'] === 'instructor'):?>
-                            <span class="text-xl font-satoshimed">Create a room by clicking the "<span class="text-orange2">Create Room</span>" button</span>
+                            <span class="text-xl font-satoshimed">Create a room by clicking the "<span class="text-orangeaccent">Create Room</span>" button</span>
                         <?php elseif($_SESSION['user']['account_type'] === 'student'): ?>
-                            <span class="text-xl font-satoshimed">Join a room by <span class="text-orange2">entering the code</span> above</span>
+                            <span class="text-xl font-satoshimed">Join a room by <span class="text-orangeaccent">entering the code</span> above</span>
                         <?php endif; ?>
                     `;bg-whitecon
                 } else if (rooms.length == 0 && filtering == false) {

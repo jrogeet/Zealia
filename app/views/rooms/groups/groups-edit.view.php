@@ -21,7 +21,7 @@
                     <input id="customInput ${member[1]} ${groupNum}" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed">
                 </div>
 
-                <button onclick="customRole(`${member[1]} ${groupNum}`)" class="w-6/12 p-1 mt-2 border rounded bg-orange1 text-blackpri border-blackpri">Confirm</button>
+                <button onclick="customRole(`${member[1]} ${groupNum}`)" class="w-6/12 p-1 mt-2 border rounded bg-orangeaccent text-blackpri border-blackpri">Confirm</button>
             </div>
         </div>
     </div> -->
@@ -264,7 +264,7 @@
         //         <input id="customInput ${member[1]} ${groupNum}" oninput="capitalizeWords('customInput ${member[1]} ${groupNum}')" placeholder="Enter custom role:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
         //     </div>
 
-        //     <button id="confirmCustom ${member[1]} ${groupNum}" class="w-6/12 p-1 mt-2 border rounded bg-orange1 text-blackpri border-blackpri confirmModal">Confirm</button>
+        //     <button id="confirmCustom ${member[1]} ${groupNum}" class="w-6/12 p-1 mt-2 border rounded bg-orangeaccent text-blackpri border-blackpri confirmModal">Confirm</button>
         // </div>
 
         const cards = document.querySelectorAll(".draggable");

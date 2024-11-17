@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="block w-[30%] h-full mx-auto">
-                            <button type="submit" class="w-full h-10 mx-auto border border-black rounded-lg mt-[8rem] bg-orange1 text-black1">Save Changes</button>
+                            <button type="submit" class="w-full h-10 mx-auto border border-black rounded-lg mt-[8rem] bg-orangeaccent text-black1">Save Changes</button>
                         </div>
                     </form>
                 </div>
