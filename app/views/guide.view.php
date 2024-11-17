@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="relative overflow-hidden">
+<body class="relative block overflow-x-hidden overflow-y-scroll">
     <?php if(isset($notifications)){
         view('partials/nav.view.php', ['notifications' => $notifications]);
     } elseif (! isset($notifications)) {
@@ -34,34 +34,46 @@
             <div id="accTab" class="hidden pl-8 py-4 w-3/4 h-auto">
                     
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How can I create my account?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I change my password?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Where do I take the test?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Where do I see my test results</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I retake the test?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change my password?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
             </div>
@@ -70,34 +82,60 @@
             <div id="roomTab" class="hidden pl-8 py-4 w-3/4 h-auto">
                     
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I join rooms?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Why can't I join a group within my room?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">I entered my code but I still can't join the room</button>
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Where do I take the test?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Why am I not able to join a group?</button>
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Where do I see my test results</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change groups?</button>
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I retake the test?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change roles?</button>
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change my password?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-500 pr-8 ease-out bg-white py-0 pl-8"> 
+                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I add tasks to the Kanban board?</button>
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
                     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
+                </div>
+                
+                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I change a tasks status to done?</button>
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
+                </div>
+                
+                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I add tasks to my groupmates' Kanban board?</button>
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-1000 pr-8 ease-out bg-white py-0 pl-8"> 
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    
+                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
             </div>
@@ -130,6 +168,28 @@
                 
 
         // accordion script
+        let isScrolling = false;
+        let lastHovered;
+        let scrollTimeout;
+
+        window.addEventListener('scroll', function(){    
+            isScrolling = true;
+            clearTimeout(scrollTimeout);
+            console.log(isScrolling);
+        
+            scrollTimeout = setTimeout(function(){
+                isScrolling = false;
+                console.log(isScrolling);
+                window.addEventListener('mousemove', function(event) {
+                    if(lastHovered){
+                        console.log("lastHovered:",lastHovered);
+                        closePanel(lastHovered); 
+                        lastHovered = null;
+                    }
+                },{ once: true});
+            }, 500);
+        })
+        
         const accordions = document.querySelectorAll('.ques');
         
         accordions.forEach(accordion => { 
@@ -138,48 +198,55 @@
             // Toggle panel on click 
             accordion.addEventListener('click', function() { 
                 isClicked = !isClicked; // Toggle the click state 
+                console.log("clicked:", this);
                 if (isClicked == false){
                     togglePanel(this); 
                 }
             }); 
 
             // Open panel on hover 
-            accordion.addEventListener('mouseover', function() { 
+            accordion.addEventListener('mouseover', function() {
+                console.log("mouseover:", this);
+                lastHovered = this;
                 openPanel(this); 
+            }); 
+        
+            // Close panel when hover ends, only if not clicked 
+            
+            accordion.addEventListener('mouseout', function() {
+                console.log("mouseout:", this); 
+                if (isClicked == false) { // Only close on hover end if not clicked 
+                    closePanel(this); 
+                } 
+            }); 
         }); 
-        
-        // Close panel when hover ends, only if not clicked 
-        
-        accordion.addEventListener('mouseout', function() { 
-            if (isClicked == false) { // Only close on hover end if not clicked 
-                closePanel(this); 
+    
+        function togglePanel(element) { 
+            element.classList.toggle('active'); 
+
+            const panel = element.nextElementSibling; 
+
+            if (panel.style.maxHeight) { 
+                panel.style.maxHeight = null; 
+            } else { 
+                panel.style.maxHeight = panel.scrollHeight + "px"; 
             } 
-        }); 
-    }); 
-    
-    function togglePanel(element) { 
-        element.classList.toggle('active'); 
-
-        const panel = element.nextElementSibling; 
-
-        if (panel.style.maxHeight) { 
-            panel.style.maxHeight = null; 
-        } else { 
-            panel.style.maxHeight = panel.scrollHeight + "px"; 
         } 
-    } 
     
-    function openPanel(element) { 
-        const panel = element.nextElementSibling; 
-        element.classList.add('active'); 
-        panel.style.maxHeight = panel.scrollHeight + "px"; 
-    } 
+        function openPanel(element) { 
+            const panel = element.nextElementSibling;
+            element.classList.add('active'); 
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
     
-    function closePanel(element) { 
-        const panel = element.nextElementSibling; element.classList.remove('active'); 
-        panel.style.maxHeight = null;
-    }
-    // end of accordion script
+        function closePanel(element) { 
+            if (!isScrolling){
+                const panel = element.nextElementSibling; 
+                element.classList.remove('active'); 
+                panel.style.maxHeight = null;
+            }
+        }
+        // end of accordion script
         
     </script>
 </body>
