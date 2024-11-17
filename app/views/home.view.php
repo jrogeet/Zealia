@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="flex flex-col items-center min-h-screen mx-auto overflow-x-hidden bg-beige">
+<body class="flex flex-col items-center min-h-screen mx-auto overflow-x-hidden bg-whitecon">
     <?php view('partials/nav.view.php'); ?>
 
     <main class="mt-20 min-h-[96rem] h-auto w-[87.75rem]">

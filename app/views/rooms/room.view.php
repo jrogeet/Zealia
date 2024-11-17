@@ -13,58 +13,37 @@
     </div>
     
     <main class="relative block left-1/2 transform -translate-x-1/2 min-h-[23.2rem] h-auto w-full top-32">
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-75">
+            <div class="flex flex-col items-center">
+                <div class="w-12 h-12 mb-4 border-4 border-t-4 border-blue-500 rounded-full animate-spin"></div>
+                <p class="text-xl font-satoshimed text-blue3">Loading...</p>
+            </div>
+        </div>
+    
         <?php if (isset($errors['room_name'])) : ?>
             <p class="flex items-center justify-center h-12 text-2xl font-satoshimed text-red1"><?= $errors['room_name'] ?></p>
         <?php endif; ?>
-
-        <!-- Add task modal -->
-        <!-- <div id="taskModal" class="absolute hidden w-screen h-screen -top-20 bg-glassmorphism z-[55]">
-            <div class="relative block text-center left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/3 w-[40%] h-fit bg-white border border-grey1 shadow-xl rounded-xl p-2">
-                
-                <div class="flex w-full">                        
-                    <h1 class="block mx-auto mt-2 ml-2 text-xl text-left font-clashbold text-grey2">Add Task</h1>
-                    <button onclick="hide('taskModal'),clearModal()" class="pt-1 pr-2 mx-auto mr-2 text-3xl">X</button>
-                </div> -->
-
-                <!-- TODO: ADD VALUES INTO JSON -->
-                    <!-- <div class="flex w-full">                        
-                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl bg-white border-b border-black font-satoshimed" placeholder="Task Name" name="task" id="taskName" required>
-                        <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 bg-white border-b border-black font-satoshimed" placeholder="Date" name="date" id="taskDate">
-                    </div>
-                    
-                    <div class="flex w-full">                        
-                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base bg-white border-b border-black font-satoshimed text-grey2" placeholder="Description" name="info" id="taskInfo">
-                        <select class="block w-1/4 p-2 mx-auto my-2 mr-2 bg-white border-b border-black font-satoshimed text-grey2" name="destination" id="taskDestination">
-                            <option class="text-grey2" value="todo">To do</option>
-                            <option class="text-grey2" value="wip">Work in Progress</option>
-                            <option class="text-grey2" value="done">Done</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" onclick="addTask()" class="p-0 px-10 mt-10 mb-4 text-lg rounded-lg bg-green1 text-black1 font-clashbold">Add</button>
-
-            </div>
-        </div> -->
         
-
         <!-- HEADER -->
-        <div id="roomName" class="relative flex items-center justify-between w-10/12 mb-6 transform -translate-x-1/2 left-1/2 h-fit">
+        <div id="roomName" class="relative flex flex-col justify-between w-10/12 mb-6 transform -translate-x-1/2 left-1/2 h-fit">
             <div class="max-w-[64rem] flex flex-col truncate ">
-                <span class="mr-1 text-3xl font-clashbold text-black1"><?= $room_info['room_name'] ?></span>
-                <span class="mr-1 text-2xl font-satoshimed text-grey2">Room Code: <?= $room_info['room_code'] ?></span>
-
+                <span class="mr-1 text-3xl font-clashmed text-blackpri"><?= $room_info['room_name'] ?></span>
             </div>
-            
-            <!-- gear button for prof -->
-            <?php if ($_SESSION['user']['account_type'] === 'instructor'):?>
-                <button class="flex items-center justify-center w-10 h-10 mr-2 border rounded border-black1" onClick="show('changeRoomNameInput'); hide('roomName');">
-                    <img class="w-8 h-8" src="assets/images/icons/settings.png">
-                </button>
-            
-            <!-- prof name for student -->
-            <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
-                <h1 class="text-2xl font-clashbold text-black1">Instructor: <?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></h1>
-            <?php endif; ?>
+
+            <div class="flex justify-between">
+                <span class="mr-1 text-xl font-satoshimed text-blackless">Room Code: <?= $room_info['room_code'] ?></span>
+                <!-- gear button for prof -->
+                <?php if ($_SESSION['user']['account_type'] === 'instructor'):?>
+                    <button class="flex items-center justify-center w-10 h-10 mr-2 border rounded border-black1" onClick="show('changeRoomNameInput'); hide('roomName');">
+                        <img class="w-8 h-8" src="assets/images/icons/settings.png">
+                    </button>
+                
+                <!-- prof name for student -->
+                <?php elseif ($_SESSION['user']['account_type'] === 'student'):?>
+                    <h1 class="text-xl font-satoshimed text-blackless">Instructor: <?= $prof_name['f_name'], ' ', $prof_name['l_name'] ?></h1>
+                <?php endif; ?>
+            </div>
         </div>
 
         <!-- FOR PROF -->
@@ -229,6 +208,21 @@
         //     </div>
         // `;
 
+        let loadingCount = 0;
+
+        function showLoading() {
+            loadingCount++;
+            document.getElementById('loadingIndicator').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            loadingCount--;
+            if (loadingCount <= 0) {
+                loadingCount = 0;
+                document.getElementById('loadingIndicator').classList.add('hidden');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const roomStudentList = document.getElementById('roomStudentList');
             const roomJoinRequest = document.getElementById('roomJoinRequest');
@@ -236,18 +230,41 @@
 
 
             <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
-                fetchLatestData({
-                    "table1": "room_list",
-                    "table2": "join_room_requests",
-                    "room_id": <?= $_GET['room_id']  ?>,
-                    "currentPage": "room",
-                }, displayStudents, 1000);
+                showLoading();
+                try {
+                    fetchLatestData({
+                        "table1": "room_list",
+                        "table2": "join_room_requests",
+                        "room_id": <?= $_GET['room_id']  ?>,
+                        "currentPage": "room",
+                    }, displayStudents, 1000); 
+                } catch(error) {
+                    console.error('Error fetching student data:', error);
+                    // Show error message to user
+                    const errorMessage = document.createElement('div');
+                    errorMessage.className = 'text-red-500 text-center p-4';
+                    errorMessage.textContent = 'Failed to load student data. Please refresh the page.';
+                    roomStudentList.appendChild(errorMessage);
+                } finally {
+                    hideLoading();
+                }
             <?php endif; ?>
 
-            fetchLatestData ({
-                "table": "room_groups",
-                "room_id": <?= $_GET['room_id']  ?>,
-            }, displayGroups, 3000);
+            try {
+                fetchLatestData ({
+                    "table": "room_groups",
+                    "room_id": <?= $_GET['room_id']  ?>,
+                }, displayGroups, 3000);
+            } catch(error) {
+                console.error('Error fetching student data:', error);
+                // Show error message to user
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'text-red-500 text-center p-4';
+                errorMessage.textContent = 'Failed to load student data. Please refresh the page.';
+                roomStudentList.appendChild(errorMessage);
+            } finally {
+                hideLoading();
+            }
 
             setupFormSubmissions();
         });
@@ -288,569 +305,578 @@
             if (isUpdatingKanban) {
                 return;
             }
-
+            showLoading();
             // console.log('studentsCount', studentsCount);
             // console.log('membersCount', membersCount);
-            let membersCounter = 0;
+            try {
+                let membersCounter = 0;
 
-            if (groupsList.length > 0 && groupsList[0]['groups_json'] !== 'null') {
-                // console.log('groupsList', groupsList);
-                const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
-                // console.log('parsedGroupsList', parsedGroupsList);
-
-                members = [];
-
-                // for KANBAN and PDF generation
-                parsedGroupsList.forEach((group, index) => {
-                    // console.log('group ', index + 1, ':', group);
-                    let container = [];
-                    let bool = false;
-                    group.forEach(member => {
-                        // console.log('member', member);
-                        // console.log('my school id', '<?= $_SESSION['user']['school_id'] ?>');
-                        container.push(member);
-                        if (<?= $_SESSION['user']['account_type'] === 'instructor' ? 'true' : 'false' ?>) {
-                            members[index + 1] = group;
-                        } else if (member[1] === '<?= $_SESSION['user']['school_id'] ?>') {
-                            // console.log('you r a member', member);
-                            bool = true;
-                            groupNum = index + 1;
-                            studentRole = member[2];
-                        }
-                    });
-
-                    if (bool === true) {
-                        members = container;
-                    }
-                });
-
-                // console.log('members', members);
-
-                // console.log('groupNum', groupNum);
-                // console.log('studentRole', studentRole);
-
-                // console.log('members', members);
-
-                // Checking whether members warning should be shown
-                <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
-
-                    parsedGroupsList.forEach(group => {
-                        membersCounter += group.length;
-                    });
-                    
-                    if (groupChecker !== null && studentsCount !== membersCount && membersWarning === false) {
-                        membersWarning = true;
-                        const groupsContent = document.getElementById('groupsContent');
-
-                        groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
-                    } else if (membersWarning === true && studentsCount === membersCount)  {
-                        membersWarning = false;
-                        const groupsContent = document.getElementById('groupsContent');
-                        groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
-                    }
-                <?php endif; ?>
-
-                // console.log('groups', typeof(parsedGroupsList));
-                // console.log('groups', parsedGroupsList);
-
-                if (groupChecker === null || JSON.stringify(groupChecker) !== JSON.stringify(parsedGroupsList)){
-                    membersCount = membersCounter;
-                    console.log('Groups updated - refreshing UI');
-                    console.log('not equal');
+                if (groupsList.length > 0 && groupsList[0]['groups_json'] !== 'null') {
+                    // console.log('groupsList', groupsList);
+                    const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
                     // console.log('parsedGroupsList', parsedGroupsList);
-                    groupChecker = parsedGroupsList;
 
-                    <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
-                        const rightBox = document.getElementById('rightBox');
-                        if (!rightBox) {
-                            console.error('rightBox element not found');
-                            return;
-                        }
+                    members = [];
 
-                        rightBox.innerHTML = '';
-
-                        rightBox.innerHTML = `
-                            <div id="groupsContent" class="relative flex flex-col items-center w-full h-full overflow-y-hidden">
-                                <!-- HEADER -->
-                                <div class="flex items-center w-full h-20 p-6">
-                                    <span class="w-4/5 text-4xl font-clashbold">GROUPS</span>
-                            
-                                    <!-- downloadPDF groups btn -->
-                                    <button onclick="downloadPDF()" class="flex items-center justify-center h-10 text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1">Print Groups</button>
-                                    <!-- edit groups btn -->
-                                    <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-10 ml-4 text-lg border rounded-lg bg-blue2 w-36 font-satoshimed border-black1">Edit Groups</a>
-                                </div>
-
-                                <!-- Groups Container -->
-                                <div id="groupsContainer" class="flex flex-wrap w-full h-auto p-6 overflow-y-auto min-h-3/5 gap-y-5 justify-evenly">
-                                    <!-- Each Boxes -->
-                                </div>
-                            </div>
-                        `;
-
-
-                        const groupsContainer = document.getElementById('groupsContainer');
-                        groupsContainer.innerHTML = '';
-
-                        parsedGroupsList.forEach((group, index) => {
-                            groupsContainer.innerHTML += `
-                                        <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white h-auto max-w-[20rem] border flex flex-col overflow-hidden">
-                                            <!-- Group Head -->
-                                            <div class="flex items-center justify-center w-full h-10 bg-black1 ">
-                                                <span class="text-4xl text-white font-satoshimed">Group</span>
-                                                <span class="ml-2 text-4xl font-clashbold text-orange1">${index + 1}:</span>
-                                            </div>
-
-                                            <!-- Group Body -->
-                                            <div id="groupBody${index}" class="w-full ">
-                                                <!-- Each Member -->
-
-                                            </div>
-                                        </a>
-                            `;
-
-                            // add members to group body
-                            group.forEach(member => {
-                                member[0] = member[0].replace("+", " ");
-                                document.getElementById(`groupBody${index}`).innerHTML += `
-                                        <div class="h-[6.22875rem] w-full flex">
-                                            <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-satoshimed">${member[0]}</span>
-                                            <span class="w-6/12  border border-black1 ${member[2] === 'Leader' ? 'text-orange1' : 'text-blue3'} flex justify-center items-center p-1 font-satoshimed text-xl">${member[2]}</span>
-                                        </div>
-                            `;
-                            });
-                        });
-                    <?php elseif ($_SESSION['user']['account_type'] === 'student'): ?>
-                        noSelectClass = (studentRole === 'Principal Investigator' || members[currentKB][1] === currentUserId) ? '' : 'cursor-grab select-none pointer-events-none';
-                        
-                        if (isUpdatingKanban) {
-                            isUpdatingKanban = false;
-                            return;
-                        }
-
-                        // First, try to get the last selected tab from localStorage
-                        let currentKBTab = parseInt(localStorage.getItem('lastSelectedTab'));
-
-                        // If no stored tab or invalid tab number, find the appropriate default
-                        if (currentKBTab === null || isNaN(currentKBTab) || currentKBTab >= members.length) {
-                            // Try to find the user's own tab first
-                            currentKBTab = members.findIndex(member => member[1] === currentUserId);
-                            
-                            // If user's tab not found, default to first tab (0)
-                            if (currentKBTab === -1) {
-                                currentKBTab = 0;
+                    // for KANBAN and PDF generation
+                    parsedGroupsList.forEach((group, index) => {
+                        // console.log('group ', index + 1, ':', group);
+                        let container = [];
+                        let bool = false;
+                        group.forEach(member => {
+                            // console.log('member', member);
+                            // console.log('my school id', '<?= $_SESSION['user']['school_id'] ?>');
+                            container.push(member);
+                            if (<?= $_SESSION['user']['account_type'] === 'instructor' ? 'true' : 'false' ?>) {
+                                members[index + 1] = group;
+                            } else if (member[1] === '<?= $_SESSION['user']['school_id'] ?>') {
+                                // console.log('you r a member', member);
+                                bool = true;
+                                groupNum = index + 1;
+                                studentRole = member[2];
                             }
+                        });
+
+                        if (bool === true) {
+                            members = container;
                         }
+                    });
 
-                        // Update currentKB to match and save the current tab
-                        currentKB = currentKBTab;
-                        localStorage.setItem('lastSelectedTab', currentKBTab.toString());
+                    // console.log('members', members);
 
-                        const leftBoxStudentHead = document.getElementById('leftBoxStudentHead');
-                        // const leftBoxStudentMembers = document.getElementById('leftBoxStudentMembers');
-                        const rightBoxStudent = document.getElementById('rightBoxStudent');
-                        const kanbanTabs = document.getElementById('kanbanTabs');
+                    // console.log('groupNum', groupNum);
+                    // console.log('studentRole', studentRole);
 
-                        leftBoxStudentHead.innerHTML = '';
-                        // leftBoxStudentMembers.innerHTML = '';
+                    // console.log('members', members);
 
-                        rightBoxStudent.innerHTML = '';
-                        kanbanTabs.innerHTML = '';
+                    // Checking whether members warning should be shown
+                    <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
 
-                        leftBoxStudentHead.innerHTML = `
-                            <h1 class="mx-auto text-4xl text-center font-clashbold">Group: ${groupNum}</h1>
-                        `;
+                        parsedGroupsList.forEach(group => {
+                            membersCounter += group.length;
+                        });
+                        
+                        if (groupChecker !== null && studentsCount !== membersCount && membersWarning === false) {
+                            membersWarning = true;
+                            const groupsContent = document.getElementById('groupsContent');
 
-                        // members.forEach(member => {
-                        //     leftBoxStudentMembers.innerHTML += `
-                        //         <h1 class="flex py-4 my-2 text-xl"> <span class="w-2/6 mx-auto text-left">${member[0]}</span><span class="w-2/6 mx-auto text-right">${member[2]}</span></h1>
-                        //     `;
-                        // });
+                            groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
+                        } else if (membersWarning === true && studentsCount === membersCount)  {
+                            membersWarning = false;
+                            const groupsContent = document.getElementById('groupsContent');
+                            groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
+                        }
+                    <?php endif; ?>
 
-                        // rightBoxStudent.innerHTML = `
-                        //     <!-- Delete Area -->
-                        //     <div id="deleteArea" class="fixed bottom-0 left-0 z-50 flex items-center justify-center hidden w-full h-24 transition-all duration-300 bg-red-500 opacity-0">
-                        //         <div class="flex items-center space-x-3 text-white">
-                        //             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        //                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        //             </svg>
-                        //             <span class="text-xl font-bold">Drop to Delete</span>
-                        //         </div>
-                        //     </div>
-                        // `;
+                    // console.log('groups', typeof(parsedGroupsList));
+                    // console.log('groups', parsedGroupsList);
 
-                        members.forEach((member, index) => {
-                            let separatedName = member[0].split(' ');
-                            let lastName = separatedName.pop();
+                    if (groupChecker === null || JSON.stringify(groupChecker) !== JSON.stringify(parsedGroupsList)){
+                        membersCount = membersCounter;
+                        console.log('Groups updated - refreshing UI');
+                        console.log('not equal');
+                        // console.log('parsedGroupsList', parsedGroupsList);
+                        groupChecker = parsedGroupsList;
 
-                            if (member[2] === 'Principal Investigator') {
-                                kanbanTabs.innerHTML += `
-                                <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l flex-col member ${index === currentKBTab ? 'bg-gradient-to-r from-greige to-whitecon': ''} text-black w-full py-4">
-                                    <div class="flex items-center">
-                                        <img src="assets/images/vectors/shapes/Zealia-Star-Yellow.svg" alt="star" class="h-4 ml-1 mr-1">
-                                        <h6 class="text-xs font-satoshireg">${member[2]}</h6>
+                        <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
+                            const rightBox = document.getElementById('rightBox');
+                            if (!rightBox) {
+                                console.error('rightBox element not found');
+                                return;
+                            }
+
+                            rightBox.innerHTML = '';
+
+                            rightBox.innerHTML = `
+                                <div id="groupsContent" class="relative flex flex-col items-center w-full h-full overflow-y-hidden">
+                                    <!-- HEADER -->
+                                    <div class="flex items-center w-full h-20 p-6">
+                                        <span class="w-4/5 text-4xl font-clashbold">GROUPS</span>
+                                
+                                        <!-- downloadPDF groups btn -->
+                                        <button onclick="downloadPDF()" class="flex items-center justify-center h-10 text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1">Print Groups</button>
+                                        <!-- edit groups btn -->
+                                        <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-10 ml-4 text-lg border rounded-lg bg-blue2 w-36 font-satoshimed border-black1">Edit Groups</a>
                                     </div>
 
-                                    <div class="flex flex-col w-full">
+                                    <!-- Groups Container -->
+                                    <div id="groupsContainer" class="flex flex-wrap w-full h-auto p-6 overflow-y-auto min-h-3/5 gap-y-5 justify-evenly">
+                                        <!-- Each Boxes -->
+                                    </div>
+                                </div>
+                            `;
+
+
+                            const groupsContainer = document.getElementById('groupsContainer');
+                            groupsContainer.innerHTML = '';
+
+                            parsedGroupsList.forEach((group, index) => {
+                                groupsContainer.innerHTML += `
+                                            <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white h-auto max-w-[20rem] border flex flex-col overflow-hidden">
+                                                <!-- Group Head -->
+                                                <div class="flex items-center justify-center w-full h-10 bg-black1 ">
+                                                    <span class="text-4xl text-white font-satoshimed">Group</span>
+                                                    <span class="ml-2 text-4xl font-clashbold text-orange1">${index + 1}:</span>
+                                                </div>
+
+                                                <!-- Group Body -->
+                                                <div id="groupBody${index}" class="w-full ">
+                                                    <!-- Each Member -->
+
+                                                </div>
+                                            </a>
+                                `;
+
+                                // add members to group body
+                                group.forEach(member => {
+                                    member[0] = member[0].replace("+", " ");
+                                    document.getElementById(`groupBody${index}`).innerHTML += `
+                                            <div class="h-[6.22875rem] w-full flex">
+                                                <span class="flex items-center w-6/12 p-1 text-xl break-all border border-black1 font-satoshimed">${member[0]}</span>
+                                                <span class="w-6/12  border border-black1 ${member[2] === 'Leader' ? 'text-orange1' : 'text-blue3'} flex justify-center items-center p-1 font-satoshimed text-xl">${member[2]}</span>
+                                            </div>
+                                `;
+                                });
+                            });
+                        <?php elseif ($_SESSION['user']['account_type'] === 'student'): ?>
+                            noSelectClass = (studentRole === 'Principal Investigator' || members[currentKB][1] === currentUserId) ? '' : 'cursor-grab select-none pointer-events-none';
+                            
+                            if (isUpdatingKanban) {
+                                isUpdatingKanban = false;
+                                return;
+                            }
+
+                            // First, try to get the last selected tab from localStorage
+                            let currentKBTab = parseInt(localStorage.getItem('lastSelectedTab'));
+
+                            // If no stored tab or invalid tab number, find the appropriate default
+                            if (currentKBTab === null || isNaN(currentKBTab) || currentKBTab >= members.length) {
+                                // Try to find the user's own tab first
+                                currentKBTab = members.findIndex(member => member[1] === currentUserId);
+                                
+                                // If user's tab not found, default to first tab (0)
+                                if (currentKBTab === -1) {
+                                    currentKBTab = 0;
+                                }
+                            }
+
+                            // Update currentKB to match and save the current tab
+                            currentKB = currentKBTab;
+                            localStorage.setItem('lastSelectedTab', currentKBTab.toString());
+
+                            const leftBoxStudentHead = document.getElementById('leftBoxStudentHead');
+                            // const leftBoxStudentMembers = document.getElementById('leftBoxStudentMembers');
+                            const rightBoxStudent = document.getElementById('rightBoxStudent');
+                            const kanbanTabs = document.getElementById('kanbanTabs');
+
+                            leftBoxStudentHead.innerHTML = '';
+                            // leftBoxStudentMembers.innerHTML = '';
+
+                            rightBoxStudent.innerHTML = '';
+                            kanbanTabs.innerHTML = '';
+
+                            leftBoxStudentHead.innerHTML = `
+                                <h1 class="mx-auto text-4xl text-center font-clashbold">Group: ${groupNum}</h1>
+                            `;
+
+                            // members.forEach(member => {
+                            //     leftBoxStudentMembers.innerHTML += `
+                            //         <h1 class="flex py-4 my-2 text-xl"> <span class="w-2/6 mx-auto text-left">${member[0]}</span><span class="w-2/6 mx-auto text-right">${member[2]}</span></h1>
+                            //     `;
+                            // });
+
+                            // rightBoxStudent.innerHTML = `
+                            //     <!-- Delete Area -->
+                            //     <div id="deleteArea" class="fixed bottom-0 left-0 z-50 flex items-center justify-center hidden w-full h-24 transition-all duration-300 bg-red-500 opacity-0">
+                            //         <div class="flex items-center space-x-3 text-white">
+                            //             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            //                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            //             </svg>
+                            //             <span class="text-xl font-bold">Drop to Delete</span>
+                            //         </div>
+                            //     </div>
+                            // `;
+
+                            members.forEach((member, index) => {
+                                let separatedName = member[0].split(' ');
+                                let lastName = separatedName.pop();
+
+                                if (member[2] === 'Principal Investigator') {
+                                    kanbanTabs.innerHTML += `
+                                    <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l flex-col member ${index === currentKBTab ? 'bg-gradient-to-r from-greige to-whitecon': ''} text-black w-full py-4">
+                                        <div class="flex items-center">
+                                            <img src="assets/images/vectors/shapes/Zealia-Star-Yellow.svg" alt="star" class="h-4 ml-1 mr-1">
+                                            <h6 class="text-xs font-satoshireg">${member[2]}</h6>
+                                        </div>
+
+                                        <div class="flex flex-col w-full">
+                                            <span class="text-xl text-left font-clashbold">${lastName}</span>
+                                            <span class="text-base text-left font-satoshireg">${separatedName.join(' ')}</span>
+                                        </div>
+                                    </div>
+                                `;
+                                } else {
+                                    kanbanTabs.innerHTML += `
+                                    <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l  flex-col member ${index === currentKBTab ? 'bg-gradient-to-r from-greige to-whitecon': ''} text-black w-full py-4 ">
+                                        <h6 class="flex flex-col w-full text-left">${member[2]}</h6>
                                         <span class="text-xl text-left font-clashbold">${lastName}</span>
                                         <span class="text-base text-left font-satoshireg">${separatedName.join(' ')}</span>
                                     </div>
-                                </div>
-                            `;
-                            } else {
-                                kanbanTabs.innerHTML += `
-                                <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l  flex-col member ${index === currentKBTab ? 'bg-gradient-to-r from-greige to-whitecon': ''} text-black w-full py-4 ">
-                                    <h6 class="flex flex-col w-full text-left">${member[2]}</h6>
-                                    <span class="text-xl text-left font-clashbold">${lastName}</span>
-                                    <span class="text-base text-left font-satoshireg">${separatedName.join(' ')}</span>
-                                </div>
-                            `;
-                            }
-                        });
-
-                        
-                        // Generate all kanbans
-                        // let allKanbans = `
-                        //     <!-- Delete Area -->
-                        //     <div id="deleteArea" class="absolute bottom-0 left-0 z-50 flex items-center justify-center hidden w-full h-24 transition-all duration-300 bg-red-500 opacity-0">
-                        //         <div class="flex items-center space-x-3 text-white">
-                        //             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        //                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        //             </svg>
-                        //             <span class="text-xl font-bold">Drop to Delete</span>
-                        //         </div>
-                        //     </div>
-                        // `;
-                        let allKanbans = '';
-
-                        members.forEach((member, index) => {
-                            console.log('Generating kanban for member:', member);
-                            console.log('Member kanban data:', member[3]); // Add this debug line
-
-                            //<div id="kanban${index}" class="${member[1] === currentUserId ? (() => { currentKB = index; return 'flex'; })() : 'hidden'} flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
-                            
-                            if (currentKBTab === null && member[1] === currentUserId) {
-                                currentKBTab = index;
-                                currentKB = index;
-                            }
-
-                            allKanbans += `
-                                <div id="kanban${index}" 
-                                    class="${index === currentKBTab ? 'flex' : 'hidden'}
-                                          flex-col items-right w-full h-fit min-h-[36.3rem]">
-                                    <div class="flex items-center justify-between min-h-[2.5rem]">
-                                        <h1 class=" font-clashreg">Currently viewing <span class="font-clashmed">${member[0]}</span>'s board...</h1>
-                                    <!-- add task button -->
-                                        ${member[1] === currentUserId || studentRole === 'Principal Investigator' 
-                                            ? '<div class="flex self-end pr-4 w-fit"><button onclick="showTaskModal()" class="flex items-center justify-center h-10 mx-auto text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1">Add Task</button></div>' 
-                                            : ''
-                                        }
-                                    </div>
-
-
-                                    <!-- lanes -->
-                                    <div class="relative flex w-full min-h-full gap-2 mt-2">
-                                        <!-- to do -->
-                                        <div id="${index}todoCont" class="w-1/3 min-h-[33.8rem] overflow-hidden bg-whitecon group dropzone rounded-xl">
-                                            <h1 class="px-3 py-3 text-left text-white border-b bg-blackless font-clashsemibold border-black1">To Do List:</h1>
-                                            ${generateTaskList(member[1], member[3], 'todo', room_id)}
-                                        </div>
-
-                                        <!-- work in progress -->
-                                        <div id="${index}wipCont" class="w-1/3 min-h-[33.8rem] overflow-hidden bg-whitecon group dropzone rounded-xl">
-                                            <h1 class="px-3 py-3 text-left text-white border-b bg-blackless font-clashsemibold border-black1">Work in progress:</h1>
-                                            ${generateTaskList(member[1], member[3], 'wip', room_id)}
-                                        </div>
-
-                                        <!-- done -->
-                                        <div id="${index}doneCont" class="w-1/3 min-h-[33.8rem] overflow-hidden bg-whitecon group dropzone rounded-xl">
-                                            <h1 class="px-3 py-3 text-left text-white border-b bg-blackless font-clashsemibold border-black1">Done:</h1>
-                                            ${generateTaskList(member[1], member[3], 'done', room_id)}
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                        });
-                        // Insert all kanbans after the tabs
-                        rightBoxStudent.innerHTML += allKanbans;
-                        attachDragAndDropListeners();
-                    <?php endif; ?>
-
-                    // Helper function to generate task list HTML
-                    // function generateTaskList(memberData, listType, roomId) {
-                    //     if (!memberData || !Array.isArray(memberData)) return '';
-
-                    //     return memberData.reduce((html, roomKanban) => {
-                    //         if (roomKanban.room_id != roomId) return html;
-
-                    //         const tasks = roomKanban[listType] || [];
-                    //         return html + tasks.map(task => `
-                    //             <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">
-                    //                 <div class="flex p-1 cursor-grab justify-evenly">
-                    //                     <span class="px-4 mx-auto ml-1 text-base text-left border-b font-clashbold border-grey2 text-black1 text-wrap">${task[0]}</span>
-                    //                     <span class="pl-1 mx-auto mr-2 text-sm font-satoshimed text-black1 text-wrap">${task[2]}</span>
-                    //                 </div>
-                    //                 <span class="relative block ml-10 text-base text-left font-satoshimed text-black1 text-wrap">${task[1]}</span>
-                    //             </div>
-                    //         `).join('');
-                    //     }, '');
-                    // }
-
-                    function generateTaskList(memberId, memberData, listType, roomId) {
-                        console.log('MEMBERDATA', memberData);
-
-                        console.log('Generating task list:', {
-                            memberId,
-                            memberData,
-                            listType,
-                            roomId
-                        });
-                        
-                        // Check if memberData exists and has the expected structure
-                        if (!memberData || typeof memberData !== 'object') {
-                            console.log('No task data available for', listType);
-                            return '';
-                        }
-
-                        // Check if room data exists
-                        if (!memberData[roomId]) {
-                            console.log('No data for room:', roomId);
-                            return '';
-                        }
-
-                        // Get the tasks for this list type
-                        const tasks = memberData[roomId][listType];
-                        if (!tasks || !Array.isArray(tasks)) {
-                            console.log('No tasks found for', listType);
-                            return '';
-                        }
-
-                        let myKanban = memberId === currentUserId;
-
-                        // let myKanban = false;
-                        // if (memberId === currentUserId) {
-                        //     myKanban = true;
-                        // } else {
-                        //     myKanban = false;
-                        // }
-
-                        console.log('memberData', typeof(memberData[roomId][listType][0]));
-                        console.log('memberData.listType', typeof(memberData[roomId][listType]));
-
-                        console.log('tasks', tasks);
-
-                        return tasks.map(task => {
-                            const isOwnKanban = memberId === currentUserId;
-                            const canDrag = studentRole === 'Principal Investigator' || isOwnKanban;
-
-                            // Add background colors based on list type
-                            const bgColor = {
-                                'todo': 'bg-rederr',
-                                'wip': 'bg-blue2',
-                                'done': 'bg-greensuccess'
-                            }[listType];
-
-                            const borderColor = {
-                                'todo': 'border-rederr',
-                                'wip': 'border-blue2',
-                                'done': 'border-greensuccess'
-                            }[listType];
-
-                            let taskData = task;
-                            if (typeof task === 'string') {
-                                try {
-                                    taskData = JSON.parse(task);
-                                } catch (e) {
-                                    console.error('Error parsing task:', e);
-                                    return '';
-                                }
-                            }
-
-                            let date = new Date(taskData[2]);
-                            let formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-
-                            return `
-                                <div class="flex border mt-2 ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" draggable="${canDrag}">
-                                    <div class="flex px-2 bg-white border rounded-xl w-fit">
-                                        <span class="text-xs text-left font-satoshimed text-wrap text-blackpri">${formattedDate}</span>
-                                    </div>
-                                    
-                                    <!-- Task Title & Task Description -->
-                                    <div class="${canDrag ? 'cursor-grab' : ''} min-h-[2.28rem] flex items-center w-full">
-                                        <span class="w-full text-lg text-left text-black break-words font-satoshireg">${taskData[0]}</span>
-                                    </div>
-                                    
-                                    <div class="w-full border-t border-black">
-                                        <p class="text-base text-left break-words whitespace-normal font-satoshilight text-blackpri">
-                                            ${taskData[1]}
-                                        </p>
-                                    </div>
-                                </div>
-                            `;
-                        }).join('');
-                    }
-
-                    // Function to reattach drag and drop listeners
-                    function attachDragAndDropListeners() {
-                        const cards = document.querySelectorAll('.card');
-                        const dropzones = document.querySelectorAll('.dropzone');
-                        const deleteArea = document.getElementById('deleteArea');
-
-                        // Add delete area event listeners
-                        deleteArea.addEventListener('dragover', function(e) {
-                            e.preventDefault();
-                            this.classList.add('bg-red-600'); // Visual feedback
-                        });
-
-                        deleteArea.addEventListener('dragleave', function() {
-                            this.classList.remove('bg-red-600');
-                        });
-
-                        deleteArea.addEventListener('drop', function(e) {
-                            e.preventDefault();
-                            this.classList.remove('bg-red-600');
-                            
-                            const curTask = document.querySelector(".dragging");
-                            if (!curTask) return;
-
-                            // Get task data
-                            const taskName = curTask.querySelector('.font-satoshireg').textContent;
-                            const taskDate = curTask.querySelector('.font-satoshimed').textContent;
-                            const taskInfo = curTask.querySelector('.font-satoshilight').textContent;
-
-                            // Process deletion
-                            processUpdateKanban('delete', [taskName, taskInfo, taskDate], 'delete')
-                                .then(() => {
-                                    curTask.remove();
-                                })
-                                .catch(error => {
-                                    console.error('Error deleting task:', error);
-                                });
-                        });
-
-                        cards.forEach(card => {
-                            const isCurrentUserKanban = members[currentKB][1] === currentUserId;
-
-                            if (studentRole === 'Principal Investigator' || isCurrentUserKanban) {
-                                console.log('isCurrentUserKanban', isCurrentUserKanban);
-                                card.addEventListener('dragstart', function() {
-                                    card.classList.add("dragging");
-                                    card.classList.remove("cursor-grab");
-                                    card.classList.add("cursor-grabbing");
-                                    
-                                    // Show delete area
-                                    deleteArea.classList.remove('hidden');
-                                    setTimeout(() => {
-                                        deleteArea.classList.remove('opacity-0');
-                                    }, 0);
-                                });
-
-                                card.addEventListener('dragend', function() {
-                                    card.classList.remove("dragging");
-                                    card.classList.remove("cursor-grabbing");
-                                    card.classList.add("cursor-grab");
-                                    
-                                    // Hide delete area
-                                    deleteArea.classList.add('opacity-0');
-                                    setTimeout(() => {
-                                        deleteArea.classList.add('hidden');
-                                    }, 300);
-                                });
-                            }
-                        });
-
-                        dropzones.forEach(zone => {
-                            zone.addEventListener('dragover', function(e) {
-                                const isCurrentUserKanban = members[currentKB][1] === currentUserId;
-                                if (!(studentRole === 'Principal Investigator' || isCurrentUserKanban)) {
-                                    return;
-                                }
-                                
-                                e.preventDefault();
-                                const bottomTask = InsertAboveTask(zone, e.clientY);
-                                const curTask = document.querySelector(".dragging");
-                                
-                                if (!bottomTask) {
-                                    zone.appendChild(curTask);
-                                } else {
-                                    zone.insertBefore(curTask, bottomTask);
+                                `;
                                 }
                             });
 
-                            zone.addEventListener('drop', function(e) {
-                                e.preventDefault();
-                                const curTask = document.querySelector(".dragging");
-                                if (!curTask) return;
+                            
+                            // Generate all kanbans
+                            // let allKanbans = `
+                            //     <!-- Delete Area -->
+                            //     <div id="deleteArea" class="absolute bottom-0 left-0 z-50 flex items-center justify-center hidden w-full h-24 transition-all duration-300 bg-red-500 opacity-0">
+                            //         <div class="flex items-center space-x-3 text-white">
+                            //             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            //                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            //             </svg>
+                            //             <span class="text-xl font-bold">Drop to Delete</span>
+                            //         </div>
+                            //     </div>
+                            // `;
+                            let allKanbans = '';
 
-                                // Get the new destination column
-                                const newDestination = zone.id.replace(`${currentKB}`, '').replace('Cont', ''); // 'todo', 'wip', or 'done'
+                            members.forEach((member, index) => {
+                                console.log('Generating kanban for member:', member);
+                                console.log('Member kanban data:', member[3]); // Add this debug line
+
+                                //<div id="kanban${index}" class="${member[1] === currentUserId ? (() => { currentKB = index; return 'flex'; })() : 'hidden'} flex-col items-right w-full h-fit min-h-[36.3rem] py-2 pt-4">
                                 
-                                // Update the background color based on new destination
-                                curTask.classList.remove('bg-rederr', 'bg-blue2', 'bg-greensuccess');
-                                curTask.classList.remove('border-rederr', 'border-blue2', 'border-greensuccess');
-                                const newBgColor = {
+                                if (currentKBTab === null && member[1] === currentUserId) {
+                                    currentKBTab = index;
+                                    currentKB = index;
+                                }
+
+                                allKanbans += `
+                                    <div id="kanban${index}" 
+                                        class="${index === currentKBTab ? 'flex' : 'hidden'}
+                                            flex-col items-right w-full h-fit min-h-[36.3rem]">
+                                        <div class="flex items-center justify-between min-h-[3.5rem]">
+                                            <h1 class=" font-clashreg">Currently viewing <span class="font-clashmed">${member[0]}</span>'s board...</h1>
+                                        <!-- add task button -->
+                                            ${member[1] === currentUserId || studentRole === 'Principal Investigator' 
+                                                ? '<div class="flex pr-4 w-fit"><button onclick="showTaskModal()" class="flex items-center justify-center h-10 mx-auto text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1">Add Task</button></div>' 
+                                                : ''
+                                            }
+                                        </div>
+
+
+                                        <!-- lanes -->
+                                        <div class="relative flex w-full min-h-full gap-2 mt-2">
+                                            <!-- to do -->
+                                            <div id="${index}todoCont" class="w-1/3 min-h-[33.8rem] overflow-hidden bg-whitecon group dropzone rounded-xl">
+                                                <h1 class="px-3 py-3 text-left text-white border-b bg-blackless font-clashsemibold border-black1">To Do List:</h1>
+                                                ${generateTaskList(member[1], member[3], 'todo', room_id)}
+                                            </div>
+
+                                            <!-- work in progress -->
+                                            <div id="${index}wipCont" class="w-1/3 min-h-[33.8rem] overflow-hidden bg-whitecon group dropzone rounded-xl">
+                                                <h1 class="px-3 py-3 text-left text-white border-b bg-blackless font-clashsemibold border-black1">Work in progress:</h1>
+                                                ${generateTaskList(member[1], member[3], 'wip', room_id)}
+                                            </div>
+
+                                            <!-- done -->
+                                            <div id="${index}doneCont" class="w-1/3 min-h-[33.8rem] overflow-hidden bg-whitecon group dropzone rounded-xl">
+                                                <h1 class="px-3 py-3 text-left text-white border-b bg-blackless font-clashsemibold border-black1">Done:</h1>
+                                                ${generateTaskList(member[1], member[3], 'done', room_id)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                            // Insert all kanbans after the tabs
+                            rightBoxStudent.innerHTML += allKanbans;
+                            attachDragAndDropListeners();
+                        <?php endif; ?>
+
+                        // Helper function to generate task list HTML
+                        // function generateTaskList(memberData, listType, roomId) {
+                        //     if (!memberData || !Array.isArray(memberData)) return '';
+
+                        //     return memberData.reduce((html, roomKanban) => {
+                        //         if (roomKanban.room_id != roomId) return html;
+
+                        //         const tasks = roomKanban[listType] || [];
+                        //         return html + tasks.map(task => `
+                        //             <div class="block py-2 border-b card cursor-grab h-fit border-black1" draggable="true">
+                        //                 <div class="flex p-1 cursor-grab justify-evenly">
+                        //                     <span class="px-4 mx-auto ml-1 text-base text-left border-b font-clashbold border-grey2 text-black1 text-wrap">${task[0]}</span>
+                        //                     <span class="pl-1 mx-auto mr-2 text-sm font-satoshimed text-black1 text-wrap">${task[2]}</span>
+                        //                 </div>
+                        //                 <span class="relative block ml-10 text-base text-left font-satoshimed text-black1 text-wrap">${task[1]}</span>
+                        //             </div>
+                        //         `).join('');
+                        //     }, '');
+                        // }
+
+                        function generateTaskList(memberId, memberData, listType, roomId) {
+                            console.log('MEMBERDATA', memberData);
+
+                            console.log('Generating task list:', {
+                                memberId,
+                                memberData,
+                                listType,
+                                roomId
+                            });
+                            
+                            // Check if memberData exists and has the expected structure
+                            if (!memberData || typeof memberData !== 'object') {
+                                console.log('No task data available for', listType);
+                                return '';
+                            }
+
+                            // Check if room data exists
+                            if (!memberData[roomId]) {
+                                console.log('No data for room:', roomId);
+                                return '';
+                            }
+
+                            // Get the tasks for this list type
+                            const tasks = memberData[roomId][listType];
+                            if (!tasks || !Array.isArray(tasks)) {
+                                console.log('No tasks found for', listType);
+                                return '';
+                            }
+
+                            let myKanban = memberId === currentUserId;
+
+                            // let myKanban = false;
+                            // if (memberId === currentUserId) {
+                            //     myKanban = true;
+                            // } else {
+                            //     myKanban = false;
+                            // }
+
+                            console.log('memberData', typeof(memberData[roomId][listType][0]));
+                            console.log('memberData.listType', typeof(memberData[roomId][listType]));
+
+                            console.log('tasks', tasks);
+
+                            return tasks.map(task => {
+                                const isOwnKanban = memberId === currentUserId;
+                                const canDrag = studentRole === 'Principal Investigator' || isOwnKanban;
+
+                                // Add background colors based on list type
+                                const bgColor = {
                                     'todo': 'bg-rederr',
                                     'wip': 'bg-blue2',
                                     'done': 'bg-greensuccess'
-                                }[newDestination];
-                                const newBorderColor = {
+                                }[listType];
+
+                                const borderColor = {
                                     'todo': 'border-rederr',
                                     'wip': 'border-blue2',
                                     'done': 'border-greensuccess'
-                                }[newDestination];
-                                
-                                curTask.classList.add(newBgColor);
-                                curTask.classList.add(newBorderColor);
-                                
-                                // Update the data-list-type attribute
-                                curTask.setAttribute('data-list-type', newDestination);
+                                }[listType];
 
-                                // Get task data from the DOM element
+                                let taskData = task;
+                                if (typeof task === 'string') {
+                                    try {
+                                        taskData = JSON.parse(task);
+                                    } catch (e) {
+                                        console.error('Error parsing task:', e);
+                                        return '';
+                                    }
+                                }
+
+                                let date = new Date(taskData[2]);
+                                let formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+                                return `
+                                    <div class="flex border mt-2 ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" draggable="${canDrag}">
+                                        <div class="flex px-2 bg-white border rounded-xl w-fit">
+                                            <span class="text-xs text-left font-satoshimed text-wrap text-blackpri">${formattedDate}</span>
+                                        </div>
+                                        
+                                        <!-- Task Title & Task Description -->
+                                        <div class="${canDrag ? 'cursor-grab' : ''} min-h-[2.28rem] flex items-center w-full">
+                                            <span class="w-full text-lg text-left text-black break-words font-satoshireg">${taskData[0]}</span>
+                                        </div>
+                                        
+                                        <div class="w-full border-t border-black">
+                                            <p class="text-base text-left break-words whitespace-normal font-satoshilight text-blackpri">
+                                                ${taskData[1]}
+                                            </p>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('');
+                        }
+
+                        // Function to reattach drag and drop listeners
+                        function attachDragAndDropListeners() {
+                            const cards = document.querySelectorAll('.card');
+                            const dropzones = document.querySelectorAll('.dropzone');
+                            const deleteArea = document.getElementById('deleteArea');
+
+                            // Add delete area event listeners
+                            deleteArea.addEventListener('dragover', function(e) {
+                                e.preventDefault();
+                                this.classList.add('bg-red-600'); // Visual feedback
+                            });
+
+                            deleteArea.addEventListener('dragleave', function() {
+                                this.classList.remove('bg-red-600');
+                            });
+
+                            deleteArea.addEventListener('drop', function(e) {
+                                e.preventDefault();
+                                this.classList.remove('bg-red-600');
+                                
+                                const curTask = document.querySelector(".dragging");
+                                if (!curTask) return;
+
+                                // Get task data
                                 const taskName = curTask.querySelector('.font-satoshireg').textContent;
                                 const taskDate = curTask.querySelector('.font-satoshimed').textContent;
                                 const taskInfo = curTask.querySelector('.font-satoshilight').textContent;
 
-                                processUpdateKanban('move', [taskName, taskInfo, taskDate], newDestination)
+                                // Process deletion
+                                processUpdateKanban('delete', [taskName, taskInfo, taskDate], 'delete')
                                     .then(() => {
-                                        zone.appendChild(curTask);
-                                        curTask.classList.remove("cursor-grabbing");
-                                        curTask.classList.add("cursor-grab");
+                                        curTask.remove();
                                     })
                                     .catch(error => {
-                                        console.error('Error moving task:', error);
+                                        console.error('Error deleting task:', error);
                                     });
                             });
-                        });
+
+                            cards.forEach(card => {
+                                const isCurrentUserKanban = members[currentKB][1] === currentUserId;
+
+                                if (studentRole === 'Principal Investigator' || isCurrentUserKanban) {
+                                    console.log('isCurrentUserKanban', isCurrentUserKanban);
+                                    card.addEventListener('dragstart', function() {
+                                        card.classList.add("dragging");
+                                        card.classList.remove("cursor-grab");
+                                        card.classList.add("cursor-grabbing");
+                                        
+                                        // Show delete area
+                                        deleteArea.classList.remove('hidden');
+                                        setTimeout(() => {
+                                            deleteArea.classList.remove('opacity-0');
+                                        }, 0);
+                                    });
+
+                                    card.addEventListener('dragend', function() {
+                                        card.classList.remove("dragging");
+                                        card.classList.remove("cursor-grabbing");
+                                        card.classList.add("cursor-grab");
+                                        
+                                        // Hide delete area
+                                        deleteArea.classList.add('opacity-0');
+                                        setTimeout(() => {
+                                            deleteArea.classList.add('hidden');
+                                        }, 300);
+                                    });
+                                }
+                            });
+
+                            dropzones.forEach(zone => {
+                                zone.addEventListener('dragover', function(e) {
+                                    const isCurrentUserKanban = members[currentKB][1] === currentUserId;
+                                    if (!(studentRole === 'Principal Investigator' || isCurrentUserKanban)) {
+                                        return;
+                                    }
+                                    
+                                    e.preventDefault();
+                                    const bottomTask = InsertAboveTask(zone, e.clientY);
+                                    const curTask = document.querySelector(".dragging");
+                                    
+                                    if (!bottomTask) {
+                                        zone.appendChild(curTask);
+                                    } else {
+                                        zone.insertBefore(curTask, bottomTask);
+                                    }
+                                });
+
+                                zone.addEventListener('drop', function(e) {
+                                    e.preventDefault();
+                                    const curTask = document.querySelector(".dragging");
+                                    if (!curTask) return;
+
+                                    // Get the new destination column
+                                    const newDestination = zone.id.replace(`${currentKB}`, '').replace('Cont', ''); // 'todo', 'wip', or 'done'
+                                    
+                                    // Update the background color based on new destination
+                                    curTask.classList.remove('bg-rederr', 'bg-blue2', 'bg-greensuccess');
+                                    curTask.classList.remove('border-rederr', 'border-blue2', 'border-greensuccess');
+                                    const newBgColor = {
+                                        'todo': 'bg-rederr',
+                                        'wip': 'bg-blue2',
+                                        'done': 'bg-greensuccess'
+                                    }[newDestination];
+                                    const newBorderColor = {
+                                        'todo': 'border-rederr',
+                                        'wip': 'border-blue2',
+                                        'done': 'border-greensuccess'
+                                    }[newDestination];
+                                    
+                                    curTask.classList.add(newBgColor);
+                                    curTask.classList.add(newBorderColor);
+                                    
+                                    // Update the data-list-type attribute
+                                    curTask.setAttribute('data-list-type', newDestination);
+
+                                    // Get task data from the DOM element
+                                    const taskName = curTask.querySelector('.font-satoshireg').textContent;
+                                    const taskDate = curTask.querySelector('.font-satoshimed').textContent;
+                                    const taskInfo = curTask.querySelector('.font-satoshilight').textContent;
+
+                                    processUpdateKanban('move', [taskName, taskInfo, taskDate], newDestination)
+                                        .then(() => {
+                                            zone.appendChild(curTask);
+                                            curTask.classList.remove("cursor-grabbing");
+                                            curTask.classList.add("cursor-grab");
+                                        })
+                                        .catch(error => {
+                                            console.error('Error moving task:', error);
+                                        });
+                                });
+                            });
+                        }
+
+                    } else {
+                        // console.log('equal');
                     }
+                } else if (groupsList.length === 0 || groupsList[0]['groups_json'] === 'null') {
+                    const rightBox = document.getElementById('rightBox');
+                    rightBox.innerHTML = '';
 
-                } else {
-                    // console.log('equal');
+                    if (<?= $_SESSION['user']['account_type'] === 'student' ? 'true' : 'false' ?>) {
+                        // console.log('student');
+                    } else if (<?= $_SESSION['user']['account_type'] === 'instructor' ? 'true' : 'false' ?>) {
+                        // console.log('student_has_result', student_has_result);
+                        rightBox.innerHTML = `
+                            <div id="profNoGroups" class="flex flex-col items-center">
+                                <span class="text-4xl font-clashbold">You haven't grouped the class yet.</span>
+                                
+                                <form id="submitGroups" method="POST">
+                                    <input type="hidden" name="grouped" value="grouped">
+                                    <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
+                                    <input type="hidden" name="stunotype" id="stunotype" value="">
+
+                                    <input id="genGroups" type="hidden" name="genGroups" value="">
+                                    <input type="hidden" name="room" value="<?= $_GET['room_id'] ?>">
+                                    <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-clashbold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+                                </form>
+                            </div>
+                        `;
+                    }
                 }
-            } else if (groupsList.length === 0 || groupsList[0]['groups_json'] === 'null') {
-                const rightBox = document.getElementById('rightBox');
-                rightBox.innerHTML = '';
-
-                if (<?= $_SESSION['user']['account_type'] === 'student' ? 'true' : 'false' ?>) {
-                    // console.log('student');
-                } else if (<?= $_SESSION['user']['account_type'] === 'instructor' ? 'true' : 'false' ?>) {
-                    // console.log('student_has_result', student_has_result);
-                    rightBox.innerHTML = `
-                        <div id="profNoGroups" class="flex flex-col items-center">
-                            <span class="text-4xl font-clashbold">You haven't grouped the class yet.</span>
-                            
-                            <form id="submitGroups" method="POST">
-                                <input type="hidden" name="grouped" value="grouped">
-                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
-                                <input type="hidden" name="stunotype" id="stunotype" value="">
-
-                                <input id="genGroups" type="hidden" name="genGroups" value="">
-                                <input type="hidden" name="room" value="<?= $_GET['room_id'] ?>">
-                                <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-clashbold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
-                            </form>
-                        </div>
-                    `;
-                }
+            } catch (error) {
+                console.error('Error displaying groups:', error);
+                // Optionally show error to user
+                alert('Error loading groups. Please try again later.');
+            } finally {
+                hideLoading();
             }
+            
         }
 
         function processUpdateKanban(action, taskData, destination) {
@@ -946,150 +972,162 @@
         }
 
         function displayStudents(studentsList){
-            studentsCount = studentsList.room_list.length;
-            // console.log('studentsList', studentsList.room_list.length);
+            showLoading();
 
-            // if (student_has_result === null || JSON.stringify(student_has_result) !== JSON.stringify(studentsList.student_has_result)){
-            //     student_has_result = studentsList.student_has_result;
-            // }
+            try {
+                studentsCount = studentsList.room_list.length;
+                // console.log('studentsList', studentsList.room_list.length);
 
-            // if (student_no_result === null || JSON.stringify(student_no_result) !== JSON.stringify(studentsList.student_no_result)){
-            //     student_no_result = studentsList.student_no_result;
-            // }
-
-            if (studentsList.student_has_result) {
-                student_has_result = studentsList.student_has_result;
-                
-                // Update warning content with latest data
-                membersWarningContent = `
-                    <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
-                        <span class="text-base text-white font-clashbold">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
-                    </div>
-                    <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
-                        <form id="submitGroups" method="POST">
-                            <input type="hidden" name="grouped" value="grouped">
-                            <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
-                            <input type="hidden" name="stunotype" id="stunotype" value="">
-                            <input type="hidden" name="genGroups" id="genGroups" value="">
-                            <input type="hidden" name="room" value="${room_id}">
-                            <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[13rem] font-clashbold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
-                        </form>
-                    </div>
-                `;
-            }
-
-
-            // Force check warning state on every update
-            const groupsContent = document.getElementById('groupsContent');
-            if (groupsContent) {
-                if (studentsCount !== membersCount) {
-                    if (!membersWarning) {
-                        membersWarning = true;
-                        groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
-                    }
-                } else if (membersWarning) {
-                    membersWarning = false;
-                    groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
-                }
-            }
-
-            if (studentsList.room_list.length === 0) {
-                studentCount.innerHTML = `<span class="mx-1 text-xl font-satoshimed text-blue3">0</span>`;
-                roomStudentList.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-[34.5rem]">
-                        <span class="text-lg text-center font-clashbold text-grey2">There are no students in this room yet.</span>
-                    </div>
-                `;
-            } else if (studentsChecker === null || JSON.stringify(studentsChecker) !== JSON.stringify(studentsList.room_list)){
-                console.log('not equal students');
-                studentsChecker = studentsList.room_list;
-
-                // const idNRiasecInput = document.getElementById('filteredidNRiasec');
-                // // console.log(JSON.stringify(studentsList.student_has_result));
-                // if (idNRiasecInput) {  // pag naka show yung Generate Groups Button
-                //     idNRiasecInput.value = JSON.stringify(student_has_result);
+                // if (student_has_result === null || JSON.stringify(student_has_result) !== JSON.stringify(studentsList.student_has_result)){
+                //     student_has_result = studentsList.student_has_result;
                 // }
 
-                if (groupChecker !== null && studentsCount !== membersCount && membersWarning === false) {
-                    membersWarning = true;
-                    const groupsContent = document.getElementById('groupsContent');
+                // if (student_no_result === null || JSON.stringify(student_no_result) !== JSON.stringify(studentsList.student_no_result)){
+                //     student_no_result = studentsList.student_no_result;
+                // }
 
-                    groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
-                } else if (membersWarning === true && studentsCount === membersCount)  {
-                    membersWarning = false;
-                    const groupsContent = document.getElementById('groupsContent');
-                    groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
-                }
-
-                // UPDATING THE DOM:
-                roomStudentList.innerHTML = '';
-                roomJoinRequest.innerHTML = '';
-                studentCount.innerHTML = '';
-                
-                studentCount.innerHTML = `<span class="mx-1 text-xl font-satoshimed text-blue3">${studentsList.room_list.length}</span>`;
-
-                studentsList.room_list.forEach(student => {
-                    roomStudentList.innerHTML += `
-                        <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-t border-black1 p-4">
-                            <a href="#" class="text-base font-satoshimed">${student.l_name}, ${student.f_name}</a>
-                            <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll(); clearInterval(intervalID);">
+                if (studentsList.student_has_result) {
+                    student_has_result = studentsList.student_has_result;
+                    
+                    // Update warning content with latest data
+                    membersWarningContent = `
+                        <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-red1 rounded-t-xl">
+                            <span class="text-base text-white font-clashbold">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
                         </div>
-
-                        <div id="kickConfirmation${student.school_id}"  class="fixed left-0 z-50 justify-center hidden w-screen h-screen bg-glassmorphism -top-24">
-                            <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
-                                <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
-                                    <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Confirmation</span>
-                                    <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll(); fetchLatestData({'table1': 'room_list','table2': 'join_room_requests','room_id': <?= $_GET['room_id']  ?>,'currentPage': 'room',}, displayStudents, 3000);">X</button>
-                                </div>
-                                <form id="kickForm${student.school_id}" method="POST" class="flex flex-col items-center p-2 h-60">
-                                    <span class="text-2xl font-clashbold text-red1">Remove:</span>
-                                    <span class="text-xl font-satoshimed">${student.l_name} ${student.f_name}</span>
-                                    <span class="text-lg font-satoshimed">from this room?</span>
-                                    <button onclick="enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 text-white border rounded bg-red1 border-black1">Confirm</button>
-                                </form>
-                            </div>
-                        </div>
-                    `;
-                });
-            } else {
-                // console.log('equal students');
-            }
-
-            if (studentsList.join_room_requests.length === 0) {
-                roomJoinRequest.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-[34.5rem]">
-                        <span class="text-xl text-center font-clashbold text-red1">Empty :(</span>
-                        <span class="text-lg text-center font-clashbold text-grey2">No requests for now.</span>
-                    </div>
-                `;
-            } else if (requestsChecker === null || JSON.stringify(requestsChecker) !== JSON.stringify(studentsList.join_room_requests)){
-                console.log('not equal requests');
-                requestsChecker = studentsList.join_room_requests;
-                roomJoinRequest.innerHTML = '';
-
-                studentsList.join_room_requests.forEach(request => {
-                    roomJoinRequest.innerHTML += `
-                        <div class="flex items-center justify-between w-full h-20 px-2 border bg-blue1 border-black1">
-                            <div class="flex flex-col w-52">
-                                <a href="#" class="text-base font-satoshimed">${request.l_name} ${request.f_name}</a>
-                                <a href="#" class="text-sm font-satoshimed text-grey2">${request.school_id}</a>
-                                <a href="#" class="truncate">
-                                    <span class="text-sm font-satoshimed text-grey2">${request.email}</span>
-                                </a>
-                            </div>
-
-                            <form id="requestForm${request.school_id}" method="POST" class="flex w-16 h-6 justify-evenly">
-                                <button id="acceptButton${request.school_id}" class="w-6 h-6 bg-cover cursor-pointer bg-check" type="submit"  name="accept" value="${request.room_id},${request.school_id}"> </button>
-                                <button id="declineButton${request.school_id}" class="w-6 h-6 bg-cover cursor-pointer bg-cross" type="submit" name="decline" value="${request.room_id},${request.school_id}"> </button>
+                        <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
+                            <form id="submitGroups" method="POST">
+                                <input type="hidden" name="grouped" value="grouped">
+                                <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
+                                <input type="hidden" name="stunotype" id="stunotype" value="">
+                                <input type="hidden" name="genGroups" id="genGroups" value="">
+                                <input type="hidden" name="room" value="${room_id}">
+                                <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[13rem] font-clashbold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
                             </form>
                         </div>
                     `;
-                });
-            } else {
-                // console.log('equal requests');
-            }
+                }
 
-            // console.log(studentsList);
+
+                // Force check warning state on every update
+                const groupsContent = document.getElementById('groupsContent');
+                if (groupsContent) {
+                    if (studentsCount !== membersCount) {
+                        if (!membersWarning) {
+                            membersWarning = true;
+                            groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
+                        }
+                    } else if (membersWarning) {
+                        membersWarning = false;
+                        groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
+                    }
+                }
+
+                if (studentsList.room_list.length === 0) {
+                    studentCount.innerHTML = `<span class="mx-1 text-xl font-satoshimed text-blue3">0</span>`;
+                    roomStudentList.innerHTML = `
+                        <div class="flex flex-col items-center justify-center h-[34.5rem]">
+                            <span class="text-lg text-center font-clashbold text-grey2">There are no students in this room yet.</span>
+                        </div>
+                    `;
+                } else if (studentsChecker === null || JSON.stringify(studentsChecker) !== JSON.stringify(studentsList.room_list)){
+                    console.log('not equal students');
+                    studentsChecker = studentsList.room_list;
+
+                    // const idNRiasecInput = document.getElementById('filteredidNRiasec');
+                    // // console.log(JSON.stringify(studentsList.student_has_result));
+                    // if (idNRiasecInput) {  // pag naka show yung Generate Groups Button
+                    //     idNRiasecInput.value = JSON.stringify(student_has_result);
+                    // }
+
+                    if (groupChecker !== null && studentsCount !== membersCount && membersWarning === false) {
+                        membersWarning = true;
+                        const groupsContent = document.getElementById('groupsContent');
+
+                        groupsContent.innerHTML = membersWarningContent + groupsContent.innerHTML;
+                    } else if (membersWarning === true && studentsCount === membersCount)  {
+                        membersWarning = false;
+                        const groupsContent = document.getElementById('groupsContent');
+                        groupsContent.innerHTML = groupsContent.innerHTML.replace(membersWarningContent, '');
+                    }
+
+                    // UPDATING THE DOM:
+                    roomStudentList.innerHTML = '';
+                    roomJoinRequest.innerHTML = '';
+                    studentCount.innerHTML = '';
+                    
+                    studentCount.innerHTML = `<span class="mx-1 text-xl font-satoshimed text-blue3">${studentsList.room_list.length}</span>`;
+
+                    studentsList.room_list.forEach(student => {
+                        roomStudentList.innerHTML += `
+                            <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-t border-black1 p-4">
+                                <a href="#" class="text-base font-satoshimed">${student.l_name}, ${student.f_name}</a>
+                                <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll(); clearInterval(intervalID);">
+                            </div>
+
+                            <div id="kickConfirmation${student.school_id}"  class="fixed left-0 z-50 justify-center hidden w-screen h-screen bg-glassmorphism -top-24">
+                                <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
+                                    <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
+                                        <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Confirmation</span>
+                                        <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll(); fetchLatestData({'table1': 'room_list','table2': 'join_room_requests','room_id': <?= $_GET['room_id']  ?>,'currentPage': 'room',}, displayStudents, 3000);">X</button>
+                                    </div>
+                                    <form id="kickForm${student.school_id}" method="POST" class="flex flex-col items-center p-2 h-60">
+                                        <span class="text-2xl font-clashbold text-red1">Remove:</span>
+                                        <span class="text-xl font-satoshimed">${student.l_name} ${student.f_name}</span>
+                                        <span class="text-lg font-satoshimed">from this room?</span>
+                                        <button onclick="enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 text-white border rounded bg-red1 border-black1">Confirm</button>
+                                    </form>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    // console.log('equal students');
+                }
+
+                if (studentsList.join_room_requests.length === 0) {
+                    roomJoinRequest.innerHTML = `
+                        <div class="flex flex-col items-center justify-center h-[34.5rem]">
+                            <span class="text-xl text-center font-clashbold text-red1">Empty :(</span>
+                            <span class="text-lg text-center font-clashbold text-grey2">No requests for now.</span>
+                        </div>
+                    `;
+                } else if (requestsChecker === null || JSON.stringify(requestsChecker) !== JSON.stringify(studentsList.join_room_requests)){
+                    console.log('not equal requests');
+                    requestsChecker = studentsList.join_room_requests;
+                    roomJoinRequest.innerHTML = '';
+
+                    studentsList.join_room_requests.forEach(request => {
+                        roomJoinRequest.innerHTML += `
+                            <div class="flex items-center justify-between w-full h-20 px-2 border bg-blue1 border-black1">
+                                <div class="flex flex-col w-52">
+                                    <a href="#" class="text-base font-satoshimed">${request.l_name} ${request.f_name}</a>
+                                    <a href="#" class="text-sm font-satoshimed text-grey2">${request.school_id}</a>
+                                    <a href="#" class="truncate">
+                                        <span class="text-sm font-satoshimed text-grey2">${request.email}</span>
+                                    </a>
+                                </div>
+
+                                <form id="requestForm${request.school_id}" method="POST" class="flex w-16 h-6 justify-evenly">
+                                    <button id="acceptButton${request.school_id}" class="w-6 h-6 bg-cover cursor-pointer bg-check" type="submit"  name="accept" value="${request.room_id},${request.school_id}"> </button>
+                                    <button id="declineButton${request.school_id}" class="w-6 h-6 bg-cover cursor-pointer bg-cross" type="submit" name="decline" value="${request.room_id},${request.school_id}"> </button>
+                                </form>
+                            </div>
+                        `;
+                    });
+                } else {
+                    // console.log('equal requests');
+                }
+
+                // console.log(studentsList);
+            }catch (error) {
+                console.error('Error displaying students:', error);
+                // Optionally show error to user
+                alert('Error loading student list. Please try again later.');
+            } finally {
+                hideLoading();
+            }
+            
+            
         }
         
     </script>

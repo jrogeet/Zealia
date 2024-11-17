@@ -29,6 +29,10 @@ module.exports = {
         'riasec-s': "url('/assets/images/custom/riasec-cards/S.png')",
         'riasec-e': "url('/assets/images/custom/riasec-cards/E.png')",
         'riasec-c': "url('/assets/images/custom/riasec-cards/C.png')",
+        'cs-beige': "url('/assets/images/custom/dashboard-rooms/cs-beige.png')",
+        'it-beige': "url('/assets/images/custom/dashboard-rooms/it-beige.png')",
+        'cs-blue': "url('/assets/images/custom/dashboard-rooms/cs-blue.png')",
+        'it-blue': "url('/assets/images/custom/dashboard-rooms/it-blue.png')",
       },
 
       colors: {
