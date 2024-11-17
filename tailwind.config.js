@@ -26,10 +26,6 @@ module.exports = {
       },
 
       colors: {
-        white1: '#FFF6E9',
-        white2: '#E6DDD2',
-        grey1: '#99948C',
-        grey2: '#807B75',
         blackpri: '#1A1A1A',
         blackhead: '#2D2D2D',
         blacksec: '#404040',
@@ -38,19 +34,20 @@ module.exports = {
         whitealt: '#F5F5F5',
         whitebord: '#EEEEEE',
 
-        black1: '#2B2D2F',
-        blue3: '#03346E', // (3, 52, 110) IN RGB
+        blue3: '#03346E',
         blue2: '#6EACDA',
         blue1: '#E2EEF8',
-        orange1: '#DF9F5E', // (223, 159, 94) IN RGB
-        orange2: '#F68614', // (246, 134, 20) in rgb
-        red1: '#B31312',
-        green1: '#0DE830',
+        orangeaccent: '#DF9F5E', 
+        greenaccent: '#A4D867',
+        purpleaccent: '#D8B0CF',
+        pinkaccent: '#FFB6C1',
+        peachaccent: '#FF9980',
+        yellowaccent: '#FFE575',
 
         rederr: '#FF6B6B',
         greensuccess: '#69DB7C',
-        blueinfo: '#4DABF7',
         greydisabled: '#E9ECEF',
+        greige: '#E3E0DB', 
       },
       content: {
         'gen-team': '"generate teams by passion"',

@@ -485,7 +485,7 @@
 
                             if (member[2] === 'Principal Investigator') {
                                 kanbanTabs.innerHTML += `
-                                <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l flex-col member ${index === currentKBTab ? 'bg-whitecon': ''} text-black w-full py-4">
+                                <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l flex-col member ${index === currentKBTab ? 'bg-gradient-to-r from-greige to-whitecon': ''} text-black w-full py-4">
                                     <div class="flex items-center">
                                         <img src="assets/images/vectors/shapes/Zealia-Star-Yellow.svg" alt="star" class="h-4 ml-1 mr-1">
                                         <h6 class="text-xs font-satoshireg">${member[2]}</h6>
@@ -499,7 +499,7 @@
                             `;
                             } else {
                                 kanbanTabs.innerHTML += `
-                                <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l  flex-col member ${index === currentKBTab ? 'bg-whitecon': ''} text-black w-full py-4 ">
+                                <div onclick="changeKB(${index});" id="${member[1]}" class="flex pl-6 rounded-l-2xl border-l  flex-col member ${index === currentKBTab ? 'bg-gradient-to-r from-greige to-whitecon': ''} text-black w-full py-4 ">
                                     <h6 class="flex flex-col w-full text-left">${member[2]}</h6>
                                     <span class="text-xl text-left font-clashbold">${lastName}</span>
                                     <span class="text-base text-left font-satoshireg">${separatedName.join(' ')}</span>
@@ -646,13 +646,13 @@
                             // Add background colors based on list type
                             const bgColor = {
                                 'todo': 'bg-rederr',
-                                'wip': 'bg-blueinfo',
+                                'wip': 'bg-blue2',
                                 'done': 'bg-greensuccess'
                             }[listType];
 
                             const borderColor = {
                                 'todo': 'border-rederr',
-                                'wip': 'border-blueinfo',
+                                'wip': 'border-blue2',
                                 'done': 'border-greensuccess'
                             }[listType];
 
@@ -786,16 +786,16 @@
                                 const newDestination = zone.id.replace(`${currentKB}`, '').replace('Cont', ''); // 'todo', 'wip', or 'done'
                                 
                                 // Update the background color based on new destination
-                                curTask.classList.remove('bg-rederr', 'bg-blueinfo', 'bg-greensuccess');
-                                curTask.classList.remove('border-rederr', 'border-blueinfo', 'border-greensuccess');
+                                curTask.classList.remove('bg-rederr', 'bg-blue2', 'bg-greensuccess');
+                                curTask.classList.remove('border-rederr', 'border-blue2', 'border-greensuccess');
                                 const newBgColor = {
                                     'todo': 'bg-rederr',
-                                    'wip': 'bg-blueinfo',
+                                    'wip': 'bg-blue2',
                                     'done': 'bg-greensuccess'
                                 }[newDestination];
                                 const newBorderColor = {
                                     'todo': 'border-rederr',
-                                    'wip': 'border-blueinfo',
+                                    'wip': 'border-blue2',
                                     'done': 'border-greensuccess'
                                 }[newDestination];
                                 
@@ -1157,13 +1157,13 @@
 
                     const bgColor = {
                         'todo': 'bg-rederr',
-                        'wip': 'bg-blueinfo',
+                        'wip': 'bg-blue2',
                         'done': 'bg-greensuccess'
                     }[taskDestination];
 
                     const borderColor = {
                         'todo': 'border-rederr',
-                        'wip': 'border-blueinfo',
+                        'wip': 'border-blue2',
                         'done': 'border-greensuccess'
                     }[taskDestination];
 
@@ -1418,11 +1418,11 @@
                     if (tabIndex === index) {
                         // tab.classList.remove('bg-white', 'text-black');
                         // tab.classList.add('bg-whitecon', 'text-black');
-                        tab.classList.add('bg-whitecon');
+                        tab.classList.add('bg-gradient-to-r', 'from-greige', 'to-whitecon');
                     } else {
                         // tab.classList.remove('bg-whitecon', 'text-black');
                         // tab.classList.add('bg-white', 'text-black');
-                        tab.classList.remove('bg-whitecon');
+                        tab.classList.remove('bg-gradient-to-r', 'from-greige', 'to-whitecon');
                     }
                 });
 

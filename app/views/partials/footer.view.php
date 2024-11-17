@@ -1,6 +1,6 @@
 <!-- mobile/desktop footer -->
-<footer class="relative left-0 transform translate-y-full bg-blue3 items-center h-auto w-[100vw] pt-4 bottom-0">
-    <div class="h-fit w-[100%] flex flex-col justify-between px-10">
+<footer class="w-full mt-auto bg-blue3">
+    <div class="flex flex-col justify-between w-full px-10 pt-4 h-fit">
         <div class="flex justify-between mb-12">
             <ul class="flex flex-col font-satoshimed text-[5vw]  xl:text-4xl text-blue2">
                 <li class="inline-block">
