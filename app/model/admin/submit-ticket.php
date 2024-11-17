@@ -3,57 +3,61 @@
 use Model\App;
 use Model\Database;
 use Model\Logger;
-use Core\Validator;
 
 $db = App::resolve(Database::class);
 $logger = new Logger($db);
 
-$category = $_POST['category'];
-$f_name = $_POST['f_name'];
-$l_name = $_POST['l_name'];
-$school_id = $_POST['school_id'];
-$email = $_POST['email'];
-$message = $_POST['message'];
+header('Content-Type: application/json');
 
-if (isset($_POST['category'], $_POST['f_name'], $_POST['l_name'], $_POST['school_id'], $_POST['email'], $_POST['message'])) {
-    // Basic validation example
-    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        try {
-            $result = $db->query('INSERT INTO ticket (category, f_name, l_name, school_id, email, message) 
-            VALUES(:category, :f_name, :l_name, :school_id, :email, :message)', [
-                'category' => $_POST['category'],
-                'f_name' => $_POST['f_name'],
-                'l_name' => $_POST['l_name'],
-                'school_id' => $_POST['school_id'],
-                'email' => $_POST['email'],
-                'message' => $_POST['message']
-            ]);
+if (!isset($_POST['category'], $_POST['f_name'], $_POST['l_name'], $_POST['school_id'], $_POST['email'], $_POST['message'])) {
+    echo json_encode([
+        'success' => false,
+        'error' => 'missing'
+    ]);
+    exit;
+}
 
-            if (!$result) {
-                throw new Exception("Failed to insert data.");
-            }
+if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    echo json_encode([
+        'success' => false,
+        'error' => 'xmail'
+    ]);
+    exit;
+}
 
-            $logger->log(
-                'SUBMIT TICKET',
-                'success',
-                'ticket',
-                $school_id,
-            );
+try {
+    $result = $db->query('INSERT INTO ticket (category, f_name, l_name, school_id, email, message) 
+    VALUES(:category, :f_name, :l_name, :school_id, :email, :message)', [
+        'category' => $_POST['category'],
+        'f_name' => $_POST['f_name'],
+        'l_name' => $_POST['l_name'],
+        'school_id' => $_POST['school_id'],
+        'email' => $_POST['email'],
+        'message' => $_POST['message']
+    ]);
 
-            return view('admin/submit-ticket.view.php', [
-                'sent' => true
-            ]);
-        } catch (Exception $e) {
-            // Handle error appropriately
-            echo "Error: " . $e->getMessage();
-        }
-    } else {
-        return view('admin/submit-ticket.view.php', [
-            'xmail' => true
-        ]);
+    if (!$result) {
+        throw new Exception("Failed to insert data.");
     }
-} else {
-    echo "Required fields are missing.";
+
+    $logger->log(
+        'SUBMIT TICKET',
+        'success',
+        'ticket',
+        $_POST['school_id']
+    );
+
+    echo json_encode([
+        'success' => true
+    ]);
+    
+} catch (Exception $e) {
+    error_log($e->getMessage());
+    echo json_encode([
+        'success' => false,
+        'error' => 'server',
+        'message' => 'An error occurred while processing your request.'
+    ]);
 }
 
 
