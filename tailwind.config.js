@@ -23,6 +23,12 @@ module.exports = {
         'edit': "url('/assets/images/icons/edit.png')",
         'loading': "url('/assets/images/pacman-loading.gif')",
         'mesh-yellow': "url('/assets/images/mesh-yellow.png')",
+        'riasec-r': "url('/assets/images/custom/riasec-cards/R.png')",
+        'riasec-i': "url('/assets/images/custom/riasec-cards/I.png')",
+        'riasec-a': "url('/assets/images/custom/riasec-cards/A.png')",
+        'riasec-s': "url('/assets/images/custom/riasec-cards/S.png')",
+        'riasec-e': "url('/assets/images/custom/riasec-cards/E.png')",
+        'riasec-c': "url('/assets/images/custom/riasec-cards/C.png')",
       },
 
       colors: {
@@ -33,6 +39,7 @@ module.exports = {
         whitecon: '#F8F8F8',
         whitealt: '#F5F5F5',
         whitebord: '#EEEEEE',
+        beige: '#FFF6E9',
 
         blue3: '#03346E',
         blue2: '#6EACDA',

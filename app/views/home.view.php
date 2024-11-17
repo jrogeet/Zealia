@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="flex flex-col min-h-screen mx-auto overflow-x-hidden bg-whitecon">
+<body class="flex flex-col items-center min-h-screen mx-auto overflow-x-hidden bg-beige">
     <?php view('partials/nav.view.php'); ?>
 
     <main class="mt-20 min-h-[96rem] h-auto w-[87.75rem]">
@@ -14,11 +14,11 @@
         </section>
         
         <section class="flex flex-col min-w-[87.75rem]">
-            <div class="absolute left-0 flex items-center w-screen h-24 border-black border-y">
+            <div class="absolute left-0 z-10 flex items-center w-screen h-24 border-black border-y">
                 <!-- Header Border to stretch across the screen -->
             </div>
 
-            <div class="flex items-center h-24">
+            <div class="z-40 flex items-center h-24">
                 <h2 class="ml-[4.125rem] text-5xl font-clashmed">HOW IT WORKS</h2>
             </div>
 
@@ -50,7 +50,7 @@
                     <div class="flex flex-col justify-center h-full gap-y-4 ">
                         <h4 class="text-3xl font-clashmed">Join Your Room</h4>
                         <div class="w-[13.5rem]">
-                            <p class="text-base font-satoshireg">After finishing the test, enter the room set up by your professor for your group activity.</p>
+                            <p class="text-base font-satoshireg">After finishing the test, enter the room set up by your instructor for your group activity.</p>
                         </div>
                     </div>
                 </div>
@@ -58,11 +58,11 @@
         </section>
 
         <section class="flex flex-col min-w-[87.75rem] mt-[8.4375rem]">
-            <div class="absolute left-0 flex items-center w-screen h-24 border-black border-y">
+            <div class="absolute left-0 z-10 flex items-center w-screen h-24 border-black border-y">
                 <!-- Header Border to stretch across the screen -->
             </div>
 
-            <div class="flex items-center justify-end w-full h-24">
+            <div class="z-40 flex items-center justify-end w-full h-24">
                 <h2 class="ml-[4.125rem] text-5xl font-clashmed">WHAT MAKES ZEALIA UNIQUE?</h2>
             </div>
 
