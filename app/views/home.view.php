@@ -67,19 +67,25 @@
             </div>
 
             <div class="h-[22.5rem] flex justify-center items-center gap-x-5 w-full">
-                <div class="p-3 h-[13.125rem] flex flex-col justify-between w-[21rem] bg-blue2 text-blue3 border border-black rounded-lg">
+                <div class="p-3 h-[13.125rem] flex flex-col w-[21rem] bg-blue2 text-blue3 border border-black rounded-lg">
                     <h5 class="text-4xl font-clashmed">Fostering Collaboration</h5>
-                    <p class="text-base font-satoshireg">Teams are designed to maximize the potential of diverse skills and strengths.</p>
+                    <div class="flex flex-col pt-4">
+                        <p class="text-base font-satoshireg">Teams are designed to maximize the potential of diverse skills and strengths.</p>
+                    </div>
                 </div>
 
-                <div class="p-3 h-[13.125rem] flex flex-col justify-between w-[21rem] bg-orangeaccent border border-black rounded-lg">
+                <div class="p-3 h-[13.125rem] flex flex-col w-[21rem] bg-orangeaccent border border-black rounded-lg">
                     <h5 class="text-4xl font-clashmed">Grounded in Research</h5>
-                    <p class="text-base font-satoshireg">The RIASEC framework ensures compatibility and thoughtful team composition.</p>
+                    <div class="flex flex-col pt-4">
+                        <p class="text-base font-satoshireg">The RIASEC framework ensures compatibility and thoughtful team composition.</p>
+                    </div>
                 </div>
 
-                <div class="p-3 h-[13.125rem] flex flex-col justify-between w-[21rem] bg-blue3 text-blue2 border border-black rounded-lg">
+                <div class="p-3 h-[13.125rem] flex flex-col w-[21rem] bg-blue3 text-blue2 border border-black rounded-lg">
                     <h5 class="text-4xl font-clashmed">Streamlined Process</h5>
-                    <p class="text-base font-satoshireg">The steps from taking the test to forming teams are straightforward and user-friendly.</p>
+                    <div class="flex flex-col pt-4">
+                        <p class="text-base font-satoshireg">The steps from taking the test to forming teams are straightforward and user-friendly.</p>
+                    </div>
                 </div>
             </div>
         </section>
