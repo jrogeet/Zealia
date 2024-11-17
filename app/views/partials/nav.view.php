@@ -8,7 +8,7 @@
     <ul id="burgDD" class="fixed z-50 hidden block w-full h-full text-center bg-gradient-to-b from-white to-grey1 font-satoshimed top-10">
     
         <div class="relative w-full mt-10 h-fit top-10">
-            <a href="/" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashbold text-black1 h-fit">Home</li></a>
+            <a href="/" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-satoshimed text-black1 h-fit">Home</li></a>
             
             <a href="<?php if (isset($_SESSION['user'])) {
                 if ($_SESSION['user']['account_type'] == 'admin') {
@@ -18,9 +18,9 @@
                 }
             } else {
                 echo '/login';
-            } ?>" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashmed text-black1 h-fit">Dashboard</li></a>
-            <a href="/about" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashme text-black1 h-fit">About</li></a>
-            <a href="/submit-ticket" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-clashmed text-black1 h-fit">Contact</li></a>
+            } ?>" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-satoshimed text-black1 h-fit">Dashboard</li></a>
+            <a href="/about" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-satoshimed text-black1 h-fit">About</li></a>
+            <a href="/submit-ticket" class="w-screen py-2"><li class="w-auto py-6 text-2xl font-satoshimed text-black1 h-fit">Contact</li></a>
         </div>
 
         
@@ -33,13 +33,13 @@
         <div class="relative block pt-24 transform -translate-y-1/2 top-1/3">
             <?php if ($_SESSION['user'] ?? false) : ?>
                 <div class="w-full p-4 py-6 text-left h-fit">
-                    <h1 class="px-2 text-3xl font-clashbold text-black1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></h1>
-                    <h1 class="px-2 mb-6 text-2xl tracking-wider font-clashbold text-grey2"><?= "{$_SESSION['user']['school_id']}" ?></h1>
+                    <h1 class="px-2 text-3xl font-satoshimed text-black1"><?= "{$_SESSION['user']['f_name']}  {$_SESSION['user']['l_name']}" ?></h1>
+                    <h1 class="px-2 mb-6 text-2xl tracking-wider font-satoshimed text-grey2"><?= "{$_SESSION['user']['school_id']}" ?></h1>
                     
                     <?php if ($_SESSION['user']['result'] ?? true ):?>
                         <div class="flex h-12">
                             <h1 class="relative top-0 px-0 py-4 mx-auto mr-0 text-xl text-center font-satoshimed text-grey2">RESULTS:</h1>
-                            <h1 class="relative top-0 px-0 py-2 mx-auto ml-0 text-3xl text-center font-clashbold text-black1"><?= "{$_SESSION['user']['result']}" ?></h1>
+                            <h1 class="relative top-0 px-0 py-2 mx-auto ml-0 text-3xl text-center font-satoshimed text-black1"><?= "{$_SESSION['user']['result']}" ?></h1>
                         </div>
                     <?php else:?>
                         <h1 class="text-2xl tracking-wide text-center font-satoshimed text-grey2">take test to see result</h1>
@@ -56,9 +56,9 @@
                 
 
             <?php else: ?>
-                <a href="/login"><h1 class="relative w-3/4 p-2 py-4 mt-32 text-sm tracking-tight text-center text-white transform -translate-x-1/2 border rounded-sm font-clashbold left-1/2 text-black1 bg-blue3 rounded-xl border-blue3 md:text-lg md:w-1/2">Sign in</h1></a>
+                <a href="/login"><h1 class="relative w-3/4 p-2 py-4 mt-32 text-sm tracking-tight text-center text-white transform -translate-x-1/2 border rounded-sm font-satoshimed left-1/2 text-black1 bg-blue3 rounded-xl border-blue3 md:text-lg md:w-1/2">Sign in</h1></a>
 
-                <a href="/register"><h1 class="relative w-3/4 p-2 py-4 mt-6 text-sm tracking-tight text-center transform -translate-x-1/2 border rounded-sm font-clashbold left-1/2 text-black1 bg-orange1 rounded-xl border-orange1 md:text-lg md:w-1/2">Sign up</h1></a>
+                <a href="/register"><h1 class="relative w-3/4 p-2 py-4 mt-6 text-sm tracking-tight text-center transform -translate-x-1/2 border rounded-sm font-satoshimed left-1/2 text-black1 bg-orange1 rounded-xl border-orange1 md:text-lg md:w-1/2">Sign up</h1></a>
             <?php endif; ?>
         </div> 
         
@@ -68,7 +68,7 @@
 <!-- desktop nav -->
 <header class="fixed top-0 z-50 content-center block w-full h-20 border-b border-black bg-whitecon" id="navbar">
     <!-- object container -->
-    <div class="flex h-fit w-full justify-between font-clashmed text-xl text-black1 mx-auto px-[1rem]">
+    <div class="flex h-fit w-full justify-between font-satoshimed text-xl text-black1 mx-auto px-[1rem]">
         <!-- Main NavBar -->
         <nav class="relative flex w-1/2 h-14 gap-14 ">
             <a href="/">
@@ -114,13 +114,13 @@
                 <div id="notifContainer" class="relative inline-block">
                     <button id="notificationBtn" onclick="toggle('notificationDropdown')" class="relative cursor-pointer">
                         <span class="text-3xl notification-icon">🔔</span>
-                        <span id="notificationCount" class="absolute -top-[2px] -right-[2px] bg-red1 text-white text-sm rounded-2xl py-[0.05rem] px-2"></span>
+                        <span id="notificationCount" class="absolute -top-[2px] -right-[2px] bg-rederr text-white text-sm rounded-2xl py-[0.05rem] px-2"></span>
                     </button>
                     <div id="notificationDropdown" class="hidden flex-col absolute right-0 top-full max-h-[25rem] w-[20rem] bg-white border border-black1 rounded-lg shadow overflow-hidden">
-                        <div class="flex items-center justify-between px-4 py-6 pr-6 bg-black1 h-14">
-                            <span class="text-2xl font-satoshimed text-orange1 ">Notifications</span>
+                        <div class="flex items-center justify-between px-4 py-6 pr-6 bg-blackpri h-14">
+                            <span class="text-2xl font-satoshimed text-blue2">Notifications</span>
                             <form action="/notifications" method="POST">
-                                <button class="text-base text-white font-satoshimed hover:text-red1 " name="clear" type="submit">Clear</button>
+                                <button class="text-base text-white font-satoshimed hover:text-rederr" name="clear" type="submit">Clear</button>
                             </form>
                         </div>
                         <!-- <div class="bg-black1 h-[1px] my-2 w-64"></div> -->
@@ -447,41 +447,41 @@ const NotificationManager = {
 
             switch (jsonType.type) {
                 case "room_accept":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="w-full h-full font-satoshimed">Your request to join <span class="font-clashbold">${jsonType.room_name}</span> has been accepted.</a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="w-full h-full font-satoshimed text-blackless">Your request to join <span class="font-satoshimed text-blackpri">${jsonType.room_name}</span> has been accepted.</a>`;
                     break;
                 case "room_decline":
-                    notifMessage = `<div class="font-satoshimed">Your request to join <span class="font-clashbold">${jsonType.room_name}</span> was declined.</div>`;
+                    notifMessage = `<div class="font-satoshimed text-blackless">Your request to join <span class="font-satoshimed text-blackpri">${jsonType.room_name}</span> was declined.</div>`;
                     break;
                 case "room_join":
-                    notifMessage = `<div class="font-satoshimed"><span class="italic font-satoshiblack">${jsonType.student_name} </span>requested to join<span class="font-clashbold"> ${jsonType.room_name}</span></div>`;
+                    notifMessage = `<div class="font-satoshimed text-blackless"><span class="italic text-blackpri font-satoshimed">${jsonType.student_name} </span>requested to join<span class="font-clashmed text-blackpri"> ${jsonType.room_name}</span></div>`;
                     break;
                 case "created_groups":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed">Instructor <span class="italic font-satoshiblack">${jsonType.prof_name} </span>created groups in room:<span class="font-clashbold"> ${jsonType.room_name}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed text-blackless">Instructor <span class="italic font-satoshiblack">${jsonType.prof_name} </span>created groups in room:<span class="font-satoshimed text-blackpri"> ${jsonType.room_name}</span></a>`;
                     break;
                 case "change_student_group":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed"><span class="italic font-satoshiblack">${jsonType.prof_name}</span> transferred you from group:<span class="italic"> (${jsonType.old_group})</span> into <span class="font-clashbold">${jsonType.new_group}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed text-blackless"><span class="italic font-satoshiblack text-blackpri">${jsonType.prof_name}</span> transferred you from group:<span class="italic"> (${jsonType.old_group})</span> into <span class="font-satoshimed text-blackpri">${jsonType.new_group}</span></a>`;
                     break;
                 case "change_student_role":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed"><span class="italic font-satoshiblack">${jsonType.prof_name}</span> changed your role from:<span class="italic"> (${jsonType.old_role})</span> to <span class="font-clashbold">${jsonType.new_role}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed text-blackless"><span class="italic font-satoshiblack text-blackpri">${jsonType.prof_name}</span> changed your role from:<span class="italic"> (${jsonType.old_role})</span> to <span class="font-satoshimed text-blackpri">${jsonType.new_role}</span></a>`;
                     break;
                 case "room_delete":
-                    notifMessage = `<div class="font-satoshimed">The instructor deleted the room: <span class="font-clashbold">${jsonType.room_name}</span></div>`;
+                    notifMessage = `<div class="font-satoshimed text-blackless">The instructor deleted the room: <span class="font-satoshimed text-blackpri">${jsonType.room_name}</span></div>`;
                     break;
                 case "room_change":
-                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed"><span class="italic font-satoshiblack">${jsonType.prof_name}</span> changed room: <span class="italic"> (${jsonType.old_room_name})</span> 's name into <span class="font-clashbold">${jsonType.new_room_name}</span></a>`;
+                    notifMessage = `<a href="/room?room_id=${jsonType.room_id}" class="font-satoshimed text-blackless"><span class="italic font-satoshiblack">${jsonType.prof_name}</span> changed room: <span class="italic"> (${jsonType.old_room_name})</span> 's name into <span class="font-satoshimed text-blackpri">${jsonType.new_room_name}</span></a>`;
                     break;
                 case "student_remove":
-                    notifMessage = `<div class="font-satoshimed">You were removed from room: <span class="font-clashbold">${jsonType.room_name}</span></div>`;
+                    notifMessage = `<div class="font-satoshimed text-blackless">You were removed from room: <span class="font-satoshimed text-blackpri">${jsonType.room_name}</span></div>`;
                     break;
                 case "room_invite":
                     notifMessage = `
-                    <form action="/notifications" method="POST" class="flex items-center justify-between">
+                    <form action="/notifications" method="POST" class="flex items-center justify-between text-blackless">
                         <input type="hidden" name="invite" value="${jsonType.room_id}">
                         <input type="hidden" name="notif_id" value="${notification.id}">
                         <div class="w-4/5 font-satoshimed">
                             <span class="italic font-satoshiblack">${jsonType.prof_name} </span>
                         invited you to join 
-                            <span class="truncate font-clashbold"> ${jsonType.room_name}</span>
+                            <span class="truncate font-satoshimed"> ${jsonType.room_name}</span>
                         </div>
 
                         <div class="flex justify-between w-1/5">

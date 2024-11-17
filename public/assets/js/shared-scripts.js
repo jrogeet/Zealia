@@ -218,12 +218,12 @@ function showTaskModal() {
         cancelButtonText: 'Cancel',
         customClass: {
             popup: 'swal-popup font-satoshireg',
-            title: 'swal-title font-clashbold',
+            title: 'swal-title font-clashmed',
             confirmButton: 'swal-confirm font-satoshimed',
             cancelButton: 'swal-cancel font-satoshimed'
         },
         background: '#FFFFFF',
-        backdrop: `rgba(0,0,0,0.4)
+        backdrop: `rgba(240, 240, 240, 0.75)
                   url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==)`,
         preConfirm: () => {
             return {

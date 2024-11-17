@@ -150,12 +150,12 @@
     </main>
 
     <div id="createRoom" class="fixed z-50 justify-center hidden w-full h-full bg-glassmorphism">
-        <div class="relative flex flex-col h-64 border rounded-t-lg bg-white2 w-96 border-blackpri top-1/3">
+        <div class="relative flex flex-col h-64 border rounded-t-lg bg-whitecon w-96 border-blackpri top-1/3">
             <div class="flex items-center justify-between h-12 border rounded-t-lg bg-blue3 border-blackpri">
                 <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Create:</span>
-                <button class="w-1/5 h-full rounded bg-red1" onClick="hide('createRoom'); enableScroll();">X</button>
+                <button class="flex items-center justify-center w-5 h-5 text-center rounded-full bg-rederr" onClick="hide('createRoom'); enableScroll();">X</button>
             </div>
-            <form id="createRoomForm" method="POST" class="flex flex-col gap-2 p-2 h-72">
+            <form id="createRoomForm" method="POST" class="flex flex-col w-full gap-2 p-2 h-72">
                 <input type="hidden" name="create" value="create">
                 <input type="hidden" name="asc" value="<?= htmlspecialchars($encoded_ascending_rooms, ENT_QUOTES, 'UTF-8')?>">
                 <input type="hidden" name="desc" value="<?= htmlspecialchars($encoded_descending_rooms, ENT_QUOTES, 'UTF-8')?>">
@@ -195,7 +195,7 @@
                 
                 <input type="hidden" id="combinedSection" name="section">
 
-                <button type="submit" class="p-1 mt-2 border rounded bg-orange1 text-blackpri border-blackpri hover:bg-blackpri hover:text-orange1">Create Room</button>
+                <button type="submit" class="w-1/2 p-1 mx-auto mt-2 border rounded-xl bg-whitealt text-blackpri border-blackless hover:bg-orangeaccent">Create Room</button>
             </form>
         </div>
     </div>

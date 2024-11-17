@@ -1,5 +1,5 @@
 <?php view('partials/head.view.php'); ?>
-<body class="block w-screen overflow-x-hidden bg-white h-fit">
+<body class="block w-screen overflow-x-hidden bg-white">
     <?php view('partials/nav.view.php')?>
 
                                 <!-- Delete Area -->
@@ -11,8 +11,12 @@
             <span class="text-xl font-bold">Drop to Delete</span>
         </div>
     </div>
+
+    <div id="kickConfirmationContainer" class="absolute top-0">
+
+    </div>
     
-    <main class="relative block left-1/2 transform -translate-x-1/2 min-h-[23.2rem] h-auto w-full top-32">
+    <main class="mt-20 relative min-h-[23.2rem] h-auto w-full flex flex-col items-center">
         <!-- Loading Indicator -->
         <div id="loadingIndicator" class="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-75">
             <div class="flex flex-col items-center">
@@ -26,7 +30,7 @@
         <?php endif; ?>
         
         <!-- HEADER -->
-        <div id="roomName" class="relative flex flex-col justify-between w-10/12 mb-6 transform -translate-x-1/2 left-1/2 h-fit">
+        <div id="roomName" class="relative flex flex-col justify-between w-10/12 my-6 h-fit">
             <div class="max-w-[64rem] flex flex-col truncate ">
                 <span class="mr-1 text-3xl font-clashmed text-blackpri"><?= $room_info['room_name'] ?></span>
             </div>
@@ -48,8 +52,9 @@
 
         <!-- FOR PROF -->
         <?php if ($_SESSION['user']['account_type'] === 'instructor'):?>
+            
             <!-- HEADER.Change room name menu -->
-            <div id="changeRoomNameInput" class="relative items-center justify-between hidden w-10/12 mt-10 transform -translate-x-1/2 left-1/2 h-fit">
+            <div id="changeRoomNameInput" class="relative items-center justify-between hidden w-10/12 mt-10 mb-6 h-fit">
                 <div class="flex items-center w-fit justify-evenly ">
                     <button class="w-8 h-8 mx-2 bg-no-repeat bg-contain rounded bg-back" onClick="show('roomName'); hide('changeRoomNameInput');"></button>
     
@@ -58,11 +63,11 @@
                         <input type="hidden" name="room" value="<?= htmlspecialchars($encodedRoomInfo, ENT_QUOTES, 'UTF-8') ?>">
                         <input type="hidden" name="edit" value="edit">
                         <input type="text" name="room_name"  class="h-10 px-4 border rounded-lg w-96 border-black1" placeholder="Change room name: <?= $room_info['room_name'] ?>" required>
-                        <button class="h-8 p-1 border rounded bg-orange1 font-satoshimed border-black1" type="submit">Confirm Change</button>
+                        <button class="h-8 p-1 border rounded bg-greensuccess font-satoshimed border-blackpri text-blackpri" type="submit">Confirm Change</button>
                     </form>
                 </div>
     
-                <button onClick="showDeleteRoomConfirm('<?= $room_info['room_id'] ?>', '<?= $room_info['room_name'] ?>')" class="flex items-center h-8 p-2 mr-2 text-center text-white border rounded bg-red1 font-satoshimed border-black1">
+                <button onClick="showDeleteRoomConfirm('<?= $room_info['room_id'] ?>', '<?= $room_info['room_name'] ?>')" class="flex items-center h-8 p-2 mr-2 text-center text-black border rounded bg-rederr font-satoshimed border-blackpri">
                     Delete Room
                 </button>
             </div>
@@ -87,11 +92,11 @@
             </div>
 
             <!-- BODY -->
-            <div class="relative flex items-center justify-between w-10/12 my-6 transform -translate-x-1/2 left-1/2 h-fit">
+            <div class="relative flex items-center justify-between w-10/12 mb-6 h-fit">
                 <!-- LEFT BOX -->
-                <div class="h-[37.5rem] w-[24%] border border-black1 rounded-xl overflow-hidden">
+                <div class="h-[37.5rem] w-[24%] border border-blackpri rounded-xl overflow-hidden">
                     <!-- Tabs -->
-                    <div class="flex border-b border-black1">
+                    <div class="flex border-b border-blackpri">
                         <button id="stuListTab" onClick="show('studentListContainer'); hide('roomJoinRequest'); active('stuListTab', 'reqListTab', [['bg-blue3', 'text-white'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white']]);" class="bg-blue3 h-[2.81rem] w-1/2 font-satoshimed text-white">Students</button>
                         <button id="reqListTab" onClick="show('roomJoinRequest'); hide('studentListContainer'); active('reqListTab', 'stuListTab', [['bg-blue3', 'text-white'], ['bg-blue2', 'text-black1']], [['bg-blue2', 'text-black1'], ['bg-blue3', 'text-white']]);" class="bg-blue2 h-[2.81rem] w-1/2 font-satoshimed text-black1">Join Requests</button>
                     </div>
@@ -99,7 +104,7 @@
                     <!-- Students List -->
                     <div id="studentListContainer" class="h-[34.5rem] flex flex-col overflow-y-hidden overflow-x-hidden rounded-b-xl">
                         <!-- Student Count -->
-                        <div class="flex items-center justify-center w-full h-12 p-4 border border-black1">
+                        <div class="flex items-center justify-center w-full h-12 p-4 border border-blackpri">
                             <span class="text-lg font-satoshimed">Total: </span>
                             <span id="studentCount" class="mx-1 text-xl font-satoshimed text-blue3"></span>
                             <span class="text-lg font-satoshimed">students.</span>
@@ -394,9 +399,9 @@
                                         <span class="w-4/5 text-4xl font-clashbold">GROUPS</span>
                                 
                                         <!-- downloadPDF groups btn -->
-                                        <button onclick="downloadPDF()" class="flex items-center justify-center h-10 text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1">Print Groups</button>
+                                        <button onclick="downloadPDF()" class="flex items-center justify-center h-8 text-lg border border-black rounded-lg bg-whitecon w-36 font-satoshireg">Print Groups</button>
                                         <!-- edit groups btn -->
-                                        <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-10 ml-4 text-lg border rounded-lg bg-blue2 w-36 font-satoshimed border-black1">Edit Groups</a>
+                                        <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-8 ml-4 text-lg border rounded-lg bg-greenaccent w-36 font-satoshimed border-blackpri">Edit Groups</a>
                                     </div>
 
                                     <!-- Groups Container -->
@@ -414,9 +419,9 @@
                                 groupsContainer.innerHTML += `
                                             <a href="/view-group?room_id=${room_id}&group=${index}" class="bg-white h-auto max-w-[20rem] border flex flex-col overflow-hidden">
                                                 <!-- Group Head -->
-                                                <div class="flex items-center justify-center w-full h-10 bg-black1 ">
+                                                <div class="flex items-center justify-center w-full h-10 bg-blackpri ">
                                                     <span class="text-4xl text-white font-satoshimed">Group</span>
-                                                    <span class="ml-2 text-4xl font-clashbold text-orange1">${index + 1}:</span>
+                                                    <span class="ml-2 text-4xl font-clashbold text-greenaccent">${index + 1}:</span>
                                                 </div>
 
                                                 <!-- Group Body -->
@@ -560,7 +565,7 @@
                                             <h1 class=" font-clashreg">Currently viewing <span class="font-clashmed">${member[0]}</span>'s board...</h1>
                                         <!-- add task button -->
                                             ${member[1] === currentUserId || studentRole === 'Principal Investigator' 
-                                                ? '<div class="flex pr-4 w-fit"><button onclick="showTaskModal()" class="flex items-center justify-center h-10 mx-auto text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1">Add Task</button></div>' 
+                                                ? '<div class="flex pr-4 w-fit"><button onclick="showTaskModal()" class="flex items-center justify-center h-10 mx-auto text-lg border rounded-lg bg-blue2 w-36 font-satoshimed border-black1">Add Task</button></div>' 
                                                 : ''
                                             }
                                         </div>
@@ -854,7 +859,7 @@
                         // console.log('student_has_result', student_has_result);
                         rightBox.innerHTML = `
                             <div id="profNoGroups" class="flex flex-col items-center">
-                                <span class="text-4xl font-clashbold">You haven't grouped the class yet.</span>
+                                <span class="text-4xl font-satoshimed">You haven't grouped the class yet.</span>
                                 
                                 <form id="submitGroups" method="POST">
                                     <input type="hidden" name="grouped" value="grouped">
@@ -863,7 +868,7 @@
 
                                     <input id="genGroups" type="hidden" name="genGroups" value="">
                                     <input type="hidden" name="room" value="<?= $_GET['room_id'] ?>">
-                                    <button onclick="generateGroups();" class="bg-orange1 h-[3.13rem] w-[12.5rem] font-clashbold text-xl border border-black1 rounded-lg mt-4">Generate groups</button>
+                                    <button onclick="generateGroups();" class="bg-orangeaccent h-[3.13rem] w-[12.5rem] font-clashmed text-xl border border-blackpri rounded-lg mt-4">Generate groups</button>
                                 </form>
                             </div>
                         `;
@@ -1026,7 +1031,7 @@
                     studentCount.innerHTML = `<span class="mx-1 text-xl font-satoshimed text-blue3">0</span>`;
                     roomStudentList.innerHTML = `
                         <div class="flex flex-col items-center justify-center h-[34.5rem]">
-                            <span class="text-lg text-center font-clashbold text-grey2">There are no students in this room yet.</span>
+                            <span class="text-lg text-center font-satoshimed text-blackless">There are no students in this room yet.</span>
                         </div>
                     `;
                 } else if (studentsChecker === null || JSON.stringify(studentsChecker) !== JSON.stringify(studentsList.room_list)){
@@ -1056,25 +1061,28 @@
                     studentCount.innerHTML = '';
                     
                     studentCount.innerHTML = `<span class="mx-1 text-xl font-satoshimed text-blue3">${studentsList.room_list.length}</span>`;
+                    const kickConfirmationContainer = document.getElementById('kickConfirmationContainer');
 
                     studentsList.room_list.forEach(student => {
                         roomStudentList.innerHTML += `
-                            <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-t border-black1 p-4">
+                            <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-t border-blackpri p-4">
                                 <a href="#" class="text-base font-satoshimed">${student.l_name}, ${student.f_name}</a>
                                 <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll(); clearInterval(intervalID);">
                             </div>
+                        `;
 
-                            <div id="kickConfirmation${student.school_id}"  class="fixed left-0 z-50 justify-center hidden w-screen h-screen bg-glassmorphism -top-24">
-                                <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
-                                    <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
-                                        <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Confirmation</span>
-                                        <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll(); fetchLatestData({'table1': 'room_list','table2': 'join_room_requests','room_id': <?= $_GET['room_id']  ?>,'currentPage': 'room',}, displayStudents, 3000);">X</button>
+                        kickConfirmationContainer.innerHTML += `
+                            <div id="kickConfirmation${student.school_id}"  class="fixed left-0 z-50 justify-center hidden w-screen h-full bg-glassmorphism">
+                                <div class="relative flex flex-col justify-between border rounded-t-lg h-52 bg-whitecon w-80 border-blackpri top-1/3">
+                                    <div class="flex items-center justify-between px-2 border rounded-t-lg h-3/12 bg-blue3 border-black1">
+                                        <span class="w-4/5 text-lg text-white font-satoshimed">Confirmation</span>
+                                        <button class="w-6 h-6 rounded-full bg-rederr" onClick="hide('kickConfirmation${student.school_id}'); enableScroll(); fetchLatestData({'table1': 'room_list','table2': 'join_room_requests','room_id': <?= $_GET['room_id']  ?>,'currentPage': 'room',}, displayStudents, 3000);">X</button>
                                     </div>
-                                    <form id="kickForm${student.school_id}" method="POST" class="flex flex-col items-center p-2 h-60">
-                                        <span class="text-2xl font-clashbold text-red1">Remove:</span>
+                                    <form id="kickForm${student.school_id}" method="POST" class="flex flex-col items-center h-full p-2 justify-evenly">
+                                        <span class="text-2xl font-satoshiblack text-rederr">Remove:</span>
                                         <span class="text-xl font-satoshimed">${student.l_name} ${student.f_name}</span>
                                         <span class="text-lg font-satoshimed">from this room?</span>
-                                        <button onclick="enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 text-white border rounded bg-red1 border-black1">Confirm</button>
+                                        <button onclick="enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 border rounded-lg text-blackpri bg-rederr border-blackpri">Confirm</button>
                                     </form>
                                 </div>
                             </div>
@@ -1087,8 +1095,8 @@
                 if (studentsList.join_room_requests.length === 0) {
                     roomJoinRequest.innerHTML = `
                         <div class="flex flex-col items-center justify-center h-[34.5rem]">
-                            <span class="text-xl text-center font-clashbold text-red1">Empty :(</span>
-                            <span class="text-lg text-center font-clashbold text-grey2">No requests for now.</span>
+                            <span class="text-xl text-center font-clashbold text-greenaccent">Empty :(</span>
+                            <span class="text-lg text-center font-clashmed text-blackless">No requests for now.</span>
                         </div>
                     `;
                 } else if (requestsChecker === null || JSON.stringify(requestsChecker) !== JSON.stringify(studentsList.join_room_requests)){
@@ -1777,25 +1785,29 @@
             `all_groups_info-${roomName}.pdf`;
 
         // Create a download link
-        const downloadLink = document.createElement('a');
-        downloadLink.href = URL.createObjectURL(pdfBlob);
-        downloadLink.download = filename;
+        // const downloadLink = document.createElement('a');
+        // downloadLink.href = URL.createObjectURL(pdfBlob);
+        // downloadLink.download = filename;
 
         // Create a preview link
         const previewLink = document.createElement('a');
+        const blobUrl = URL.createObjectURL(new Blob([pdfBlob], { type: 'application/pdf' }));
+
         previewLink.href = URL.createObjectURL(pdfBlob);
         previewLink.target = '_blank';
 
         // Create a dialog to ask user preference
-        const userChoice = confirm('Would you like to:\nOK - Download the PDF\nCancel - Preview it first in a new tab');
+        // const userChoice = confirm('Would you like to:\nOK - Download the PDF\nCancel - Preview it first in a new tab');
 
-        if (userChoice) {
-            // User chose to download
-            downloadLink.click();
-        } else {
-            // User chose to preview
-            previewLink.click();
-        }
+        // if (userChoice) {
+        //     // User chose to download
+        //     downloadLink.click();
+        // } else {
+        //     // User chose to preview
+        //     previewLink.click();
+        // }
+
+        previewLink.click();
 
         // Clean up the Blob URLs after a delay
         setTimeout(() => {
