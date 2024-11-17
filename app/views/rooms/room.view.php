@@ -305,6 +305,53 @@
                 }
             });
         }
+        function showTaskDetails(title, description, date, status) {
+                        // Decode the URI-encoded strings
+                        const decodedTitle = decodeURIComponent(title);
+                        const decodedDescription = decodeURIComponent(description);
+                        
+                        // Map status to a more readable format and color
+                        const statusMap = {
+                            'todo': { text: 'To Do', color: '#FF6B6B' },
+                            'wip': { text: 'In Progress', color: '#4DABF7' },
+                            'done': { text: 'Completed', color: '#40C057' }
+                        };
+
+                        const statusInfo = statusMap[status] || { text: status, color: '#000000' };
+
+                        Swal.fire({
+                            title: decodedTitle,
+                            html: `
+                                <div class="flex flex-col items-start text-left">
+                                    <div class="mb-4">
+                                        <span class="font-bold">Status: </span>
+                                        <span style="color: ${statusInfo.color}">${statusInfo.text}</span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <span class="font-bold">Due Date: </span>
+                                        <span>${date}</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-bold">Description:</span>
+                                        <p class="mt-2 text-gray-600 whitespace-pre-wrap">${decodedDescription}</p>
+                                    </div>
+                                </div>
+                            `,
+                            showCloseButton: true,
+                            showConfirmButton: false,
+                            customClass: {
+                                popup: 'rounded-xl',
+                                content: 'text-left'
+                            },
+                            background: 'rgba(255, 255, 255, 0.9)',
+                            backdrop: `
+                                rgba(0, 0, 0, 0.4)
+                                left top
+                                no-repeat
+                            `
+                        });
+                    }
+
 
         function displayGroups(groupsList){
             if (isUpdatingKanban) {
@@ -700,7 +747,10 @@
                                 let formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
                                 return `
-                                    <div class="flex border mt-2 ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" draggable="${canDrag}">
+                                    <div class="flex border mt-2 ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
+                                        draggable="${canDrag}"
+                                        onclick="showTaskDetails('${encodeURIComponent(taskData[0])}', '${encodeURIComponent(taskData[1])}', '${formattedDate}', '${listType}')"
+                                    >
                                         <div class="flex px-2 bg-white border rounded-xl w-fit">
                                             <span class="text-xs text-left font-satoshimed text-wrap text-blackpri">${formattedDate}</span>
                                         </div>
@@ -1234,7 +1284,10 @@
                     let formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
                     newCard.innerHTML = `
-                        <div class="flex border ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" draggable="${canDrag}">
+                        <div class="flex border ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
+                            draggable="${canDrag}"
+                            onclick="showTaskDetails('${encodeURIComponent(taskName)}', '${encodeURIComponent(taskInfo)}', '${formattedDate}', '${taskDestination}')"
+                        >
                             <div class="flex px-2 bg-white border rounded-xl w-fit">
                                 <span class="text-xs text-left font-satoshimed text-wrap text-blackpri">${formattedDate}</span>
                             </div>

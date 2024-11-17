@@ -222,9 +222,11 @@ function showTaskModal() {
             confirmButton: 'swal-confirm font-satoshimed',
             cancelButton: 'swal-cancel font-satoshimed'
         },
-        background: '#FFFFFF',
-        backdrop: `rgba(240, 240, 240, 0.75)
-                  url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==)`,
+        background: 'rgba(255, 255, 255, 0.9)',
+        backdrop: `
+            rgba(0, 0, 0, 0.4)
+            left top
+            no-repeat`,
         preConfirm: () => {
             return {
                 taskName: document.getElementById('taskName').value,
