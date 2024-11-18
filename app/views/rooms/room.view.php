@@ -1069,7 +1069,7 @@
                     // Update warning content with latest data
                     membersWarningContent = `
                         <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-rederr rounded-t-xl">
-                            <span class="text-base text-white font-clashbold">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
+                            <span class="text-base text-white font-satoshimed">WARNING!: The number of members in the groups does not match the number of students in the room.</span>
                         </div>
                         <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
                             <form id="submitGroups" method="POST">
@@ -1078,7 +1078,7 @@
                                 <input type="hidden" name="stunotype" id="stunotype" value="">
                                 <input type="hidden" name="genGroups" id="genGroups" value="">
                                 <input type="hidden" name="room" value="${room_id}">
-                                <button onclick="generateGroups();" class="bg-orangeaccent h-[3.13rem] w-[13rem] font-clashbold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
+                                <button onclick="generateGroups();" class="bg-orangeaccent h-[3.13rem] w-[13rem] font-clashmed text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
                             </form>
                         </div>
                     `;

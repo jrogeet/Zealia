@@ -33,6 +33,8 @@ module.exports = {
         'it-beige': "url('/assets/images/custom/dashboard-rooms/it-beige.png')",
         'cs-blue': "url('/assets/images/custom/dashboard-rooms/cs-blue.png')",
         'it-blue': "url('/assets/images/custom/dashboard-rooms/it-blue.png')",
+        'home-bg': "url('/assets/images/home-bg.png')",
+        'about-bg': "url('/assets/images/about-bg.png')",
       },
 
       colors: {

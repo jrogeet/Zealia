@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-satoshimed bg-white2">
+<body class="static flex font-satoshimed bg-beige">
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="block w-full h-fit p-12 min-w-[75rem]">
@@ -16,7 +16,7 @@
                 </select>
                 <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
             </div>
-            <button class="flex items-center justify-center h-10 px-4 text-lg border rounded-lg bg-white2 font-satoshimed border-black1" onclick="downloadPDF()">Print Logs</button>
+            <button class="flex items-center justify-center h-10 px-4 text-lg border rounded-lg bg-beige font-satoshimed border-black1" onclick="downloadPDF()">Print Logs</button>
         </div>
 
         <div class="mt-8 overflow-hidden border border-black rounded-xl">

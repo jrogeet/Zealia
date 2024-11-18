@@ -356,7 +356,7 @@
 
     function createNotificationElement(notification, isRead) {
         const li = document.createElement('li');
-        li.className = isRead ? 'read border border-t-[1px]' : 'w-full flex flex-col p-2 bg-white2 unread border-black1 border-t-[2px] text-base';
+        li.className = isRead ? 'read border border-t-[1px]' : 'w-full flex flex-col p-2 bg-beige unread border-black1 border-t-[2px] text-base';
         li.dataset.notificationId = notification.id;
 
         let notifObj = JSON.parse(notification.type);

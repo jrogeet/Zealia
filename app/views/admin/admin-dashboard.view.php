@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-satoshimed bg-white2">
+<body class="static flex font-satoshimed bg-beige">
 
     <?php view('partials/admin-nav.view.php'); ?>
 
@@ -34,12 +34,30 @@
                 <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="insCount"></h1>
             </a>
 
-            <a href="/admin-rooms" class="mx-auto mr-0 border border-black rounded-2xl h-52 w-[24%] bg-white2 p-4">
+            <a href="/admin-rooms" class="mx-auto mr-0 border border-black rounded-2xl h-52 w-[24%] bg-beige p-4">
                 <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
                 <h1 class="text-lg font-satoshimed text-grey-200">Rooms:</h1>
                 <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="roomCount"></h1>
             </a>
     
+        </div>
+
+        <div class="flex w-full mt-8 space-x-4">
+            <!-- Monthly Users Chart -->
+            <div class="w-4/6 p-4 bg-white border border-black rounded-lg">
+                <h2 class="mb-4 text-xl font-clashbold text-grey2">Monthly User Registration</h2>
+                <div class="h-[300px] w-full flex justify-center">
+                    <canvas class="w-full" id="monthlyUsersChart"></canvas>
+                </div>
+            </div>
+
+            <!-- User Distribution Chart -->
+            <div class="w-2/6 p-4 bg-white border border-black rounded-lg">
+                <h2 class="mb-4 text-xl font-clashbold text-grey2">User Distribution</h2>
+                <div class="h-[300px] flex justify-center">
+                    <canvas class="h-full" id="userDistributionChart"></canvas>
+                </div>
+            </div>
         </div>
 
         <!-- lists -->
@@ -51,12 +69,12 @@
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">School No.</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">Name</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">Email</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">Type</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">Timestamp</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left uppercase border-l border-r border-black bg-blue3 text-white">Activation</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">School No.</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Name</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Email</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Type</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
+                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Activation</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,12 +95,12 @@
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room ID</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room Name</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Instructor</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Instructor ID</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room Code</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Timestamp</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room ID</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room Name</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Instructor</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Instructor ID</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room Code</th>
+                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,6 +116,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="assets/js/fetch/fetch.js"></script>
     <script>
         let changeChecker = null;
@@ -127,6 +146,7 @@
 
             if (changeChecker == null || JSON.stringify(changeChecker) !== JSON.stringify(data)) {
                 changeChecker = data;
+                updateCharts(data);
                 // console.log('CHANGED CHECKER: ' ,changeChecker);
             
                 totalUsers.innerHTML = '';
@@ -173,6 +193,107 @@
             }
 
         }
+
+
+        let monthlyUsersChart = null;
+    let userDistributionChart = null;
+
+    function initializeCharts() {
+        const monthlyCtx = document.getElementById('monthlyUsersChart').getContext('2d');
+        const distributionCtx = document.getElementById('userDistributionChart').getContext('2d');
+
+        monthlyUsersChart = new Chart(monthlyCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'New Users',
+                    data: [],
+                    borderColor: '#2563eb',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                animation: false,
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+        userDistributionChart = new Chart(distributionCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Students', 'Instructors'],
+                datasets: [{
+                    data: [],
+                    backgroundColor: ['#2563eb', '#f97316']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+    }
+
+    function updateCharts(data) {
+        if (!monthlyUsersChart || !userDistributionChart) {
+            initializeCharts();
+        }
+
+        // Update Monthly Users Chart
+        if (data.monthly_users) {
+            const labels = data.monthly_users.map(item => {
+                const date = new Date(item.month + '-01');
+                return date.toLocaleDateString('default', { month: 'short', year: 'numeric' });
+            });
+            const values = data.monthly_users.map(item => item.count);
+
+            monthlyUsersChart.data.labels = labels;
+            monthlyUsersChart.data.datasets[0].data = values;
+            monthlyUsersChart.update();
+        }
+
+        // Update User Distribution Chart
+        if (data.user_distribution) {
+            const distributionData = {
+                students: 0,
+                instructors: 0
+            };
+
+            data.user_distribution.forEach(item => {
+                if (item.account_type === 'student') {
+                    distributionData.students = parseInt(item.count);
+                } else if (item.account_type === 'instructor') {
+                    distributionData.instructors = parseInt(item.count);
+                }
+            });
+
+            userDistributionChart.data.datasets[0].data = [
+                distributionData.students,
+                distributionData.instructors
+            ];
+            userDistributionChart.update();
+        }
+    }
     </script>
 
 </body>

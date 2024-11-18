@@ -23,10 +23,10 @@
                     </div>
 
                     <!-- search -->
-                    <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-[30rem] bg-white2 border border-grey2 text-grey1 font-satoshimed rounded-lg pr-4 overflow-hidden">
+                    <form method="POST" action="/dashboard" class="flex items-center h-[2.25rem] w-[30rem] bg-beige border border-grey2 text-grey1 font-satoshimed rounded-lg pr-4 overflow-hidden">
                         <input type="hidden" name="search" value="search">
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
-                        <input class="w-5/6 h-full pl-2 bg-white2" type="text" name="search_input" placeholder="Search Room">
+                        <input class="w-5/6 h-full pl-2 bg-beige" type="text" name="search_input" placeholder="Search Room">
                         <button type="submit" class="w-1/6 bg-center bg-no-repeat bg-contain border bg-search h-5/6 border-l-grey2"></button>
                     </form>
 
@@ -46,7 +46,7 @@
 
                         <input type="hidden" name="join" value="join">
                         
-                        <input class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-4" type="number" id="room_code" name="room_code" placeholder="Enter room code">
+                        <input class="h-[2.25rem] w-[12.5rem] bg-beige border border-grey2 font-satoshimed text-grey1 text-base px-4" type="number" id="room_code" name="room_code" placeholder="Enter room code">
 
                         <button class="bg-orangeaccent h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg"  type="submit">Join</button>
                     </form>
@@ -60,7 +60,7 @@
                         <?php if (isset($errors['room_name'])) : ?>
                             <p class=""><?= $errors['room_name'] ?></p>
                         <?php endif; ?>
-                        <!-- <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter room name" required> -->
+                        <!-- <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-beige border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter room name" required> -->
                         <!-- <button class="bg-orangeaccent h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg"  type="submit">Create</button> -->
                         <button onclick="show('createRoom'); disableScroll();" class="bg-orangeaccent h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg">Create</button>
                     <!-- </form> -->
@@ -75,23 +75,23 @@
                         <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
                         <!-- Year -->
                         <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-satoshimed" name="year_level" id="yrLevel">
-                            <option class="bg-white2" value="">Year Level</option>
-                            <option class="bg-white2" value="1st year">1st Year</option>
-                            <option class="bg-white2" value="2nd year">2nd Year</option>
-                            <option class="bg-white2" value="3rd year">3rd Year</option>
-                            <option class="bg-white2" value="4th year">4th Year</option>
+                            <option class="bg-beige" value="">Year Level</option>
+                            <option class="bg-beige" value="1st year">1st Year</option>
+                            <option class="bg-beige" value="2nd year">2nd Year</option>
+                            <option class="bg-beige" value="3rd year">3rd Year</option>
+                            <option class="bg-beige" value="4th year">4th Year</option>
                         </select>
     
                         <!-- Section -->
                         <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-satoshimed" name="section" id="section">
-                            <option class="bg-white2" value="">Section</option>
+                            <option class="bg-beige" value="">Section</option>
                         </select>
     
                         <!-- Program -->
                         <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-satoshimed" name="program" id="program">
-                            <option class="bg-white2" value="">Program</option>
-                            <option class="bg-white2" value="cs">CS</option>
-                            <option class="bg-white2" value="it">IT</option>
+                            <option class="bg-beige" value="">Program</option>
+                            <option class="bg-beige" value="cs">CS</option>
+                            <option class="bg-beige" value="it">IT</option>
                         </select>
 
                         
@@ -110,7 +110,7 @@
                     <div class="flex flex-wrap content-start w-full m-4 gap-9" id="rooms-ascending">
                         <!--  ROOMS  -->
                         <?php foreach($ascending_rooms as $rooms) { ?>
-                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-beige flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                 <div>   
                                     <h1 class="text-2xl truncate font-satoshimed"><?= $rooms['room_name'] ?></h1>
                                     <h1 class="text-base text-grey2">BS<?= strtoupper($rooms['program']) ?> <?= $rooms['year_level'][0] ?>-<?= $rooms['section'] ?></h1>
@@ -125,7 +125,7 @@
                     <div class="flex-wrap content-start hidden w-full m-4 gap-9"  id="rooms-descending">
                         <!--  ROOMS  -->
                         <?php foreach($descending_rooms as $rooms) { ?>
-                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
+                            <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-beige flex flex-col justify-between h-48 w-[27.625rem] p-6 rounded-2xl">
                                 <div>   
                                     <h1 class="text-2xl truncate font-satoshimed"><?= $rooms['room_name'] ?></h1>
                                     <h1 class="text-base text-grey2">BS<?= strtoupper($rooms['program']) ?> <?= $rooms['year_level'][0] ?>-<?= $rooms['section'] ?></h1>
@@ -185,7 +185,7 @@
     </main>
 
     <div id="createRoom" class="fixed z-50 justify-center hidden w-full h-full bg-glassmorphism">
-        <div class="relative flex flex-col h-64 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
+        <div class="relative flex flex-col h-64 border rounded-t-lg bg-beige w-80 border-black1 top-1/3">
             <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
                 <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Confirmation</span>
                 <button class="w-1/5 h-full rounded bg-red1" onClick="hide('createRoom'); enableScroll();">X</button>
@@ -199,7 +199,7 @@
                 <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>"> 
 
                 <span class="text-xl font-clashbold">Enter Room name:</span>
-                <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter room name" required>
+                <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-beige border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter room name" required>
                 <div class="flex">
                     <label>Year Level:</label>
                     <select name="year_level">
@@ -217,7 +217,7 @@
                         <option value="it">IT</option>
                     </select>
                 </div>
-                <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter section:" required>
+                <input name="section" class="h-[2.25rem] w-[12.5rem] bg-beige border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter section:" required>
 
                 <button type="submit" class="p-1 mt-2 border rounded bg-orangeaccent text-black1 border-black1">Create Room</button>
             </form>
@@ -248,7 +248,7 @@
         </div>
 
         <!-- search dropdown -->
-        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-white2" id="search">
+        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-beige" id="search">
             <input type="hidden" name="search" value="search">
             <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
 
@@ -257,7 +257,7 @@
         </form>
 
         <!-- create/join dropdown -->
-        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-white2" id="jc">
+        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-beige" id="jc">
 
             <?php if ($_SESSION['user']['account_type'] === 'student'):?>
 
@@ -292,7 +292,7 @@
         <!-- rooms -->
         <div class="relative flex flex-wrap w-full px-0 py-4 h-fit">
             <?php foreach($ascending_rooms as $rooms) { ?>
-                <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 relative flex flex-wrap mx-auto min-w-[19rem] h-32 w-[48%] rounded-2xl m-2 py-2">
+                <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-beige relative flex flex-wrap mx-auto min-w-[19rem] h-32 w-[48%] rounded-2xl m-2 py-2">
                     <div class="w-full">   
                         <h1 class="text-2xl truncate font-satoshimed"><?= $rooms['room_name'] ?></h1>
                         <span class="text-base text-grey2"><?= $rooms['prof_name'] ?></span>

@@ -35,7 +35,7 @@
 
                     <!-- <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onClick="toggleHidden(['rooms-ascending','rooms-descending']); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button> -->
                     <button class="bg-sort h-[2.25rem] w-[2.25rem] border border-grey2 rounded-lg" onclick="toggle('rooms-ascending-container'); toggle('rooms-descending-container'); toggleHidden(['t-rooms-ascending','t-rooms-descending']);"></button>
-                    <button id="clearFilters" class="mx-auto border border-whitebord  bg-peachaccent h-[2.25rem] w-[10rem] rounded-lg font-satoshimed">Clear Search/Filter</button>
+                    <button id="clearFilters" class="mx-auto border border-whitebord   h-[2.25rem] w-[10rem] rounded-lg font-satoshimed">Clear Search/Filter</button>
                 </div>
 
                 <?php if ($_SESSION['user']['account_type'] === 'student'):?>
@@ -62,7 +62,7 @@
                         <?php if (isset($errors['room_name'])) : ?>
                             <p class=""><?= $errors['room_name'] ?></p>
                         <?php endif; ?>
-                        <!-- <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter room name" required> -->
+                        <!-- <input name="room_name" class="h-[2.25rem] w-[12.5rem] bg-beige border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter room name" required> -->
                         <!-- <button class="bg-orangeaccent h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg"  type="submit">Create</button> -->
                         <button onclick="show('createRoom'); disableScroll();" class="bg-orangeaccent h-[2.25rem] w-[6.25rem] font-satoshiblack rounded-lg">Create</button>
                     <!-- </form> -->
@@ -77,26 +77,26 @@
 
                     <!-- Year -->
                     <select class="mx-auto h-[2.25rem] w-[10rem] rounded-lg pl-2 font-satoshimed" id="yrLevel">
-                        <option class="bg-white2" value="">Year Level</option>
-                        <option class="bg-white2" value="1st year">1st Year</option>
-                        <option class="bg-white2" value="2nd year">2nd Year</option>
-                        <option class="bg-white2" value="3rd year">3rd Year</option>
-                        <option class="bg-white2" value="4th year">4th Year</option>
+                        <option class="bg-beige" value="">Year Level</option>
+                        <option class="bg-beige" value="1st year">1st Year</option>
+                        <option class="bg-beige" value="2nd year">2nd Year</option>
+                        <option class="bg-beige" value="3rd year">3rd Year</option>
+                        <option class="bg-beige" value="4th year">4th Year</option>
                     </select>
 
                     <!-- Section -->
                     <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-satoshimed" id="section">
-                        <option class="bg-white2" value="">Section</option>
-                        <option class="bg-white2" value="A">A</option>
-                        <option class="bg-white2" value="B">B</option>
-                        <option class="bg-white2" value="C">C</option>
+                        <option class="bg-beige" value="">Section</option>
+                        <option class="bg-beige" value="A">A</option>
+                        <option class="bg-beige" value="B">B</option>
+                        <option class="bg-beige" value="C">C</option>
                     </select>
 
                     <!-- Program -->
                     <select class="mx-auto bg-grey1 h-[2.25rem] w-[10rem] rounded-lg pl-2 font-satoshimed" id="program">
-                        <option class="bg-white2" value="">Program</option>
-                        <option class="bg-white2" value="cs">CS</option>
-                        <option class="bg-white2" value="it">IT</option>
+                        <option class="bg-beige" value="">Program</option>
+                        <option class="bg-beige" value="cs">CS</option>
+                        <option class="bg-beige" value="it">IT</option>
                     </select>
 
                     <!-- <button id="clearFilters" class="mx-auto bg-red1 text-white h-[2.25rem] w-[10rem] rounded-lg font-satoshimed">Clear Filters</button> -->
@@ -163,7 +163,7 @@
 
                 <div class="flex items-center">
                     <span class="mr-2 text-base font-satoshimed">Enter Room name:</span>
-                    <input name="room_name" class="h-[1.75rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-2 py-4 mb-2 rounded-lg" placeholder="Enter room name" required>
+                    <input name="room_name" class="h-[1.75rem] w-[12.5rem] bg-beige border border-grey2 font-satoshimed text-grey1 text-base px-2 py-4 mb-2 rounded-lg" placeholder="Enter room name" required>
                 </div>
                 
                 <div class="flex items-center">
@@ -184,7 +184,7 @@
                     </select>
                 </div>
 
-                <!-- <input name="section" class="h-[2.25rem] w-[12.5rem] bg-white2 border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter section:" required> -->
+                <!-- <input name="section" class="h-[2.25rem] w-[12.5rem] bg-beige border border-grey2 font-satoshimed text-grey1 text-base px-4" placeholder="Enter section:" required> -->
                 <div class="flex items-center">
                     <label class="mr-1 ">Section:</label>
                     <label for="yearPrefix">Y</label>
@@ -224,7 +224,7 @@
         </div>
 
         <!-- search dropdown -->
-        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-white2" id="search">
+        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-beige" id="search">
             <input type="hidden" name="search" value="search">
             <input type="hidden" name="encoded_room_info" value="<?= htmlspecialchars($encoded_room_info, ENT_QUOTES, 'UTF-8')?>">
 
@@ -233,7 +233,7 @@
         </form>
 
         <!-- create/join dropdown -->
-        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-white2" id="jc">
+        <form method="POST" action="/dashboard" class="flex hidden w-full p-2 bg-beige" id="jc">
 
             <?php if ($_SESSION['user']['account_type'] === 'student'):?>
 
@@ -268,7 +268,7 @@
         <!-- rooms -->
         <div class="relative flex flex-wrap w-full px-0 py-4 h-fit">
             <?php foreach($ascending_rooms as $rooms) { ?>
-                <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-white2 relative flex flex-wrap mx-auto min-w-[19rem] h-32 w-[48%] rounded-2xl m-2 py-2">
+                <a href="/room?room_id=<?= $rooms['room_id']?>" class="bg-beige relative flex flex-wrap mx-auto min-w-[19rem] h-32 w-[48%] rounded-2xl m-2 py-2">
                     <div class="w-full">   
                         <h1 class="text-2xl truncate font-satoshimed"><?= $rooms['room_name'] ?></h1>
                         <span class="text-base text-grey2"><?= $rooms['prof_name'] ?></span>
@@ -370,7 +370,7 @@
                         <?php elseif($_SESSION['user']['account_type'] === 'student'): ?>
                             <span class="text-xl font-satoshimed">Join a room by <span class="text-orangeaccent">entering the code</span> above</span>
                         <?php endif; ?>
-                    `;bg-whitecon
+                    `;
                 } else if (rooms.length == 0 && filtering == false) {
                     roomsASC.innerHTML = "<p>We couldn't find any rooms that match your search criteria.</p>";
                     roomsDESC.innerHTML = "<p>We couldn't find any rooms that match your search criteria.</p>";
@@ -545,13 +545,13 @@
             function populateSections() {
                 const sections = [...new Set(rooms.map(room => room.section))]; // Extract unique sections
                 
-                sectionDropdown.innerHTML = `<option class="bg-white2" value="">Section</option>`;
+                sectionDropdown.innerHTML = `<option class="bg-beige" value="">Section</option>`;
                 
                 sections.forEach(section => {
                     const option = document.createElement('option');
                     option.value = section;
                     option.textContent = section;
-                    option.classList.add('bg-white2');
+                    option.classList.add('bg-beige');
                     sectionDropdown.appendChild(option);
                 });
             }

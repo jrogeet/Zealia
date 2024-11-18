@@ -108,7 +108,7 @@
 
             <!-- delete room confirmation modal -->
             <div id="delRoomConfirmation" class="fixed left-0 z-50 justify-center hidden w-screen h-screen justify-self-center bg-glassmorphism -top-24">
-                <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
+                <div class="relative flex flex-col h-48 border rounded-t-lg bg-beige w-80 border-black1 top-1/3">
                     <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
                         <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Confirmation</span>
                         <button class="w-1/5 h-full rounded bg-red1" onClick="hide('delRoomConfirmation'); enableScroll();">X</button>
@@ -166,11 +166,11 @@
                 <!-- BODY -->
                 <div class="flex w-10/12 mx-auto mb-32">
                     <!-- left -->
-                    <div id="leftBoxStudent" class="bg-white2 relative block mx-auto w-[26%] text-center justify-between items-center h-[40rem] border border-black1 px-6 py-4 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)]">
+                    <div id="leftBoxStudent" class="bg-beige relative block mx-auto w-[26%] text-center justify-between items-center h-[40rem] border border-black1 px-6 py-4 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)]">
                         <!-- head -->
                         <div id="leftBoxStudentHead" class="flex w-full py-2">
                             <!-- <h1 class="mx-auto ml-0 text-4xl text-left font-clashbold">Group: <?//php echo $groupNum ?></h1>
-                            <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1" onclick="downloadPDF()">Print Group</button> -->
+                            <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-beige w-36 font-satoshimed border-black1" onclick="downloadPDF()">Print Group</button> -->
                         </div>
                         
                         <!-- members -->
@@ -184,7 +184,7 @@
                     </div>
                     
                     <!-- right -->
-                    <div id="rightBoxStudent" class="bg-white2 relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-satoshimed">
+                    <div id="rightBoxStudent" class="bg-beige relative block mx-auto w-8/12 text-center justify-between items-center h-[40rem] border border-black1 rounded-2xl shadow-[inset_0_0_10px_rgba(255,255,255,1)] overflow-x-hidden overflow-y-auto font-satoshimed">
                         <!-- group tabs -->
                         <div id="kanbanTabs" class="flex w-full border-b border-black1">
                         </div>
@@ -391,7 +391,7 @@
                                     <span class="w-4/5 text-4xl font-clashbold">GROUPS</span>
                             
                                     <!-- downloadPDF groups btn -->
-                                    <button onclick="downloadPDF()" class="flex items-center justify-center h-10 text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1">Print Groups</button>
+                                    <button onclick="downloadPDF()" class="flex items-center justify-center h-10 text-lg border rounded-lg bg-beige w-36 font-satoshimed border-black1">Print Groups</button>
                                     <!-- edit groups btn -->
                                     <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-10 ml-4 text-lg border rounded-lg bg-blue2 w-36 font-satoshimed border-black1">Edit Groups</a>
                                 </div>
@@ -474,7 +474,7 @@
 
                         leftBoxStudentHead.innerHTML = `
                             <h1 class="mx-auto ml-0 text-4xl text-left font-clashbold">Group: ${groupNum}</h1>
-                            <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-white2 w-36 font-satoshimed border-black1" onclick="downloadPDF()">Print Group</button>
+                            <button class="flex items-center justify-center h-10 mx-auto mr-0 text-lg border rounded-lg bg-beige w-36 font-satoshimed border-black1" onclick="downloadPDF()">Print Group</button>
                         `;
 
                         members.forEach(member => {
@@ -967,7 +967,7 @@
                         </div>
 
                         <div id="kickConfirmation${student.school_id}"  class="fixed left-0 z-50 justify-center hidden w-screen h-screen bg-glassmorphism -top-24">
-                            <div class="relative flex flex-col h-48 border rounded-t-lg bg-white2 w-80 border-black1 top-1/3">
+                            <div class="relative flex flex-col h-48 border rounded-t-lg bg-beige w-80 border-black1 top-1/3">
                                 <div class="flex items-center justify-between h-20 border rounded-t-lg bg-blue3 border-black1">
                                     <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Confirmation</span>
                                     <button class="w-1/5 h-full rounded bg-red1" onClick="hide('kickConfirmation${student.school_id}'); enableScroll(); fetchLatestData({'table1': 'room_list','table2': 'join_room_requests','room_id': <?= $_GET['room_id']  ?>,'currentPage': 'room',}, displayStudents, 3000);">X</button>

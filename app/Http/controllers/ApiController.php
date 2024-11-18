@@ -474,6 +474,31 @@ private function getLatestData($params)
                     $account['hoursAgo'] = $hoursAgo;
                     $account['minutesAgo'] = $minutesAgo;
                 }
+
+                 // Add monthly users data
+                    $monthlyUsers = $this->db->query('
+                    SELECT 
+                        DATE_FORMAT(reg_date, "%Y-%m") as month,
+                        COUNT(*) as count
+                    FROM accounts
+                    WHERE account_type IN ("student", "instructor")
+                    GROUP BY DATE_FORMAT(reg_date, "%Y-%m")
+                    ORDER BY month DESC
+                    LIMIT 12
+                ')->findAll();
+
+                // Add user distribution data
+                $userDistribution = $this->db->query('
+                    SELECT 
+                        account_type,
+                        COUNT(*) as count
+                    FROM accounts
+                    WHERE account_type IN ("student", "instructor")
+                    GROUP BY account_type
+                ')->findAll();
+
+                $latestData['monthly_users'] = array_reverse($monthlyUsers);
+                $latestData['user_distribution'] = $userDistribution;
             } else { // currently, no one uses it?
                 echo "currently, no one uses it?";
                 foreach ($latestData as &$room) { // Use reference to modify the original array

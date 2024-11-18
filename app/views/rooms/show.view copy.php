@@ -38,7 +38,7 @@
 
         <!-- delete room confirmation modal -->
         <div id="delRoomConfirmation" class="hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-            <div class="bg-white2 flex flex-col h-48 w-80 border border-black1 rounded-t-lg">
+            <div class="bg-beige flex flex-col h-48 w-80 border border-black1 rounded-t-lg">
                 <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
                     <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Confirmation</span>
                     <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('delRoomConfirmation'); enableScroll();">X</button>
@@ -85,7 +85,7 @@
 
                         <?php if($_SESSION['user']['account_type'] === 'professor'):?>
                         <div id="kickConfirmation<?= $student['school_id'] ?>" class="hidden bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-                            <div class="bg-white2 flex flex-col h-40 w-80 border border-black1 rounded-t-lg">
+                            <div class="bg-beige flex flex-col h-40 w-80 border border-black1 rounded-t-lg">
                                 <div class="bg-blue3 flex justify-between items-center h-20 border border-black1 rounded-t-lg">
                                     <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Confirmation</span>
                                     <button class="bg-red1 h-full w-1/5 rounded" onClick="hide('kickConfirmation<?= $student['school_id'] ?>'); enableScroll();">X</button>

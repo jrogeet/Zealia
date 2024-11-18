@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-satoshimed bg-white2">
+<body class="static flex font-satoshimed bg-beige">
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="block w-full h-fit p-12 min-w-[75rem]">

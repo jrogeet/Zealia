@@ -134,7 +134,7 @@ function optionInjection(string) {
         var code =          `
                                 <div class="group relative py-8 hover:bg-blue3 flex text-left">
                                     <div class="relative block mx-auto w-[10%]">
-                                        <input class="peer relative appearance-none w-[20px] h-5 min-w-[20px] left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2 border rounded border-grey2 cursor-pointer bg-white2 checked:bg-orangeaccent" type="checkbox" onclick="checker(this)" id="${letter}">
+                                        <input class="peer relative appearance-none w-[20px] h-5 min-w-[20px] left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2 border rounded border-grey2 cursor-pointer bg-beige checked:bg-orangeaccent" type="checkbox" onclick="checker(this)" id="${letter}">
                                     </div>
                                     
                                     <span class="relative block mx-auto w-[90%] pr-8 text-gray-700 group-hover:text-white">${ques}</span>

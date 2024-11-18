@@ -68,11 +68,11 @@
                 <input class="relative w-2/3 h-10 pl-4 mb-2 text-sm bg-white border border-black rounded-xl" placeholder="School number *" type="number" name="school_id" id="school_id" required></input></br>
                 <input class="relative w-2/3 h-10 pl-4 mb-2 text-sm bg-white border border-black rounded-xl" placeholder="Email *" type="email" name="email" required></input></br>
                 <select class="relative w-2/3 h-10 pl-4 mb-2 text-sm border border-black rounded-xl bg-blue2" name="category" id="reason" required>
-                    <option class="bg-white2" value="">Select Category *</option>
-                    <option class="bg-white2" value="account">Account</option>
-                    <option class="bg-white2" value="rooms">Rooms</option>
-                    <option class="bg-white2" value="groups">Groups</option>
-                    <option class="bg-white2" value="other">Other (specify in text box below)</option>
+                    <option class="bg-beige" value="">Select Category *</option>
+                    <option class="bg-beige" value="account">Account</option>
+                    <option class="bg-beige" value="rooms">Rooms</option>
+                    <option class="bg-beige" value="groups">Groups</option>
+                    <option class="bg-beige" value="other">Other (specify in text box below)</option>
                 </select>
                 <textarea class="relative w-2/3 p-4 mb-2 text-sm bg-white border border-black h-2/6 max-h-2/6 rounded-xl" placeholder="Message for concern... *" name="message" id="message" required></textarea></br>
 
@@ -116,11 +116,11 @@
                 <input class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-white mb-2" placeholder="School Email *" type="email" name="email" required></input>
 
                 <select class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-14 pl-4 bg-blue2 mb-2" name="category" id="reason" required>
-                    <option class="bg-white2" value="">Select Category *</option>
-                    <option class="bg-white2" value="account">Account</option>
-                    <option class="bg-white2" value="rooms">Rooms</option>
-                    <option class="bg-white2" value="groups">Groups</option>
-                    <option class="bg-white2" value="other">Other (specify in text box below)</option>
+                    <option class="bg-beige" value="">Select Category *</option>
+                    <option class="bg-beige" value="account">Account</option>
+                    <option class="bg-beige" value="rooms">Rooms</option>
+                    <option class="bg-beige" value="groups">Groups</option>
+                    <option class="bg-beige" value="other">Other (specify in text box below)</option>
                 </select>
 
                 <textarea class="max-w-[300px] relative block mx-auto w-[90%] border border-black rounded-xl h-20 pl-4 bg-white mb-2" placeholder="Message for concern... *" name="message" id="message" required></textarea>

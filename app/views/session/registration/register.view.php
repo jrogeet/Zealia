@@ -4,7 +4,7 @@
     <?php view('partials/nav.view.php')?>
 
 
-    <div class="pt-16 pb-10 sm:bg-white2 sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[60%] transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[26.25rem] sm:w-[26.25rem] h-fit"> 
+    <div class="pt-16 pb-10 sm:bg-beige sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[60%] transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[26.25rem] sm:w-[26.25rem] h-fit"> 
 
         <h1 class="mb-14 mx-12 text-[6vw] sm:text-4xl text-center">Create an account</h1>
         <?php if (isset($errors['regexist'])): ?>

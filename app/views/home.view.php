@@ -1,11 +1,13 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="flex flex-col items-center min-h-screen mx-auto overflow-x-hidden bg-whitecon">
+<body class="flex flex-col items-center min-h-screen mx-auto overflow-x-hidden bg-center bg-no-repeat bg-cover bg-sticky bg-home-bg">
     <?php view('partials/nav.view.php'); ?>
 
     <main class="mt-20 min-h-[96rem] h-auto w-[87.75rem]">
         <section class=" flex flex-col items-center h-[41rem] justify-center">
+
             <div class="relative flex items-center justify-center">
+                <img class="absolute h-7 -top-2 right-35" src="assets/images/vectors/shapes/Zealia-Star-Orange.png" >
                 <h1 class="text-5xl text-center font-clashbold">BUILD <span class="text-blue2 [-webkit-text-stroke:1px_black]">BALANCED TEAMS</span> THAT</h1>
             </div>
 
@@ -90,6 +92,8 @@
             </div>
         </section>
     </main>
+
+    <!-- <img class="absolute -right-[94rem] top-0 opacity-50 h-[204.875rem]" src="assets/images/vectors/gradients/gradient_blur1.png"> -->
     
     <?php view('partials/footer.view.php'); ?>
     <script src="assets/js/shared-scripts.js"></script>

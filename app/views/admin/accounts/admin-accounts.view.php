@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-satoshimed bg-white2">
+<body class="static flex font-satoshimed bg-beige">
     <?php view('partials/admin-nav.view.php'); ?>
 
     <div class="z-40 relative block w-full h-fit py-12 px-6 min-w-[75rem] mb-16">
@@ -134,10 +134,10 @@
 
                     <h1 class="text-grey2 mt-[5%]">User Type</h1>
                     <select name="account_type" class="relative w-1/3 h-10 pl-4 mb-2 text-sm border border-black rounded-lg bg-blue2" name="category" id="reason" placeholder="Select Category" required>
-                        <option class="bg-white2" value="">Select User Type:</option>
-                        <option class="bg-white2" value="admin">Admin</option>
-                        <option class="bg-white2" value="instructor">instructor</option>
-                        <option class="bg-white2" value="student">Student</option>
+                        <option class="bg-beige" value="">Select User Type:</option>
+                        <option class="bg-beige" value="admin">Admin</option>
+                        <option class="bg-beige" value="instructor">instructor</option>
+                        <option class="bg-beige" value="student">Student</option>
                     </select>
                     
                     <h1 class="text-grey2 mt-[5%] mt-4">Name</h1>

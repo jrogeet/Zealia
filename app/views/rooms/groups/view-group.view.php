@@ -39,7 +39,7 @@
                             <th class="px-0 py-3 text-xs tracking-wider text-center uppercase border-l border-r border-white bg-blackpri font-satoshiblack text-greenaccent">Reason</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white2">
+                    <tbody class="bg-beige">
                         <?php if(! empty($groupHistory)): ?>
                             <?php foreach($groupHistory as $history): ?>
                             <tr>
