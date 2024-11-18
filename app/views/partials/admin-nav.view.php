@@ -5,19 +5,19 @@
             <a href="/">
                 <img class="h-14" src="assets/images/zealia-logos/full/white.png" alt="Zealia Logo"/>
             </a>
-            <h5 class="relative -mt-2 text-lg left-1/3">ADMIN</H5>
+            <h5 class="relative -mt-2 text-lg text-white left-1/3">ADMIN</H5>
         </div>
         
         <div class="relative block mt-6 h-fit">
-            <a href="/admin"            class="block w-full py-6 pl-4 my-4 text-3xl text-left hover:text-black">Dashboard</a>
-            <a href="/admin-accounts"   class="block w-full py-6 pl-4 my-4 text-3xl text-left hover:text-black">Accounts</a>
-            <a href="/admin-rooms"      class="block w-full py-6 pl-4 my-4 text-3xl text-left hover:text-black">Rooms</a>
-            <a href="/admin-tickets"    class="block w-full py-6 pl-4 my-4 text-3xl text-left hover:text-black">Tickets</a>
-            <a href="/admin-logs"       class="block w-full py-6 pl-4 my-4 text-3xl text-left hover:text-black">Logs</a>
-            <a href="/admin-settings"   class="block w-full py-6 pl-4 my-4 text-3xl text-left hover:text-black">Settings</a>
+            <a href="/admin"            class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Dashboard</a>
+            <a href="/admin-accounts"   class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Accounts</a>
+            <a href="/admin-rooms"      class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Rooms</a>
+            <a href="/admin-tickets"    class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Tickets</a>
+            <a href="/admin-logs"       class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Logs</a>
+            <a href="/admin-settings"   class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Settings</a>
             <form method="POST" action="/login">
                 <input type="hidden" name="_method" value="DELETE" />
-                <button class="block w-full py-6 pl-4 my-4 text-3xl text-left text-red1">Log Out</button>
+                <button class="block w-full py-6 pl-4 my-4 text-3xl text-left text-rederr">Log Out</button>
             </form>
         </div>
     </div>
