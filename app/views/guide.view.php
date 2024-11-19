@@ -34,22 +34,28 @@
             <div id="accTab" class="hidden pl-8 py-4 w-3/4 h-auto">
                     
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How can I create my account?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8">
+                    <p>
+                        Click on Sign up, fill up the form, and wait for the activation link that will be sent to your email address.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I change my password?</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        You can change your password on the account settings page by filling up the form and saving changes.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Where do I take the test?</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        On the account settings page, you can take or retake the test.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
@@ -57,21 +63,18 @@
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Where do I see my test results</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        If you already took the test, you can see your test results on the account settings page.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I retake the test?</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                    
-                    <img src="assets/images/john-holland.png" alt="John Holland">
-                </div>
-                
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change my password?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        Yes, you can retake the test on your account settings.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
@@ -83,21 +86,27 @@
                     
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I join rooms?</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        To join rooms, you have to ask your instructor for the room code and input the code in your Zealia dashboard and click join and wait for your instructor to accept your join request.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">I entered my code but I still can't join the room</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        After entering your code in the Zealia dashboard, you still have to wait for the instructor to accept your join request. 
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Why am I not able to join a group?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8">
+                    <p>
+                        If you're not able to join a group even after asking your instructor to regenerate the groups, make sure you have taken the test and try again.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
@@ -105,35 +114,45 @@
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change groups?</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        If you want to change groups, you have to ask your instructor to change your group.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change roles?</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        Roles are changeable, inform your instructor about the change and ask them to edit your role in their room group settings.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I add tasks to the Kanban board?</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        On your dashboard, enter the room containing the group you want to add a task to, click your Kanban board tab on the left, and click the Add button and fill up the form about the details of your task.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I change a tasks status to done?</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        When a task is done, you can change it's status by dragging the task and dropping it to the done zone.
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
                 <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I add tasks to my groupmates' Kanban board?</button>
                 <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p>
+                        Only the Principal Investigator can add tasks to other members' Kanban, meanwhile members can see other members' Kanban
+                    </p>
                     
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
