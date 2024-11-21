@@ -8,7 +8,7 @@
             <h1 class="text-4xl font-clashbold">TICKETS</h1>
             <div class="flex gap-4">
                 <div class="flex items-center">
-                    <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white" onchange="handleSort()">
+                    <select id="sortBy" class="pl-4 mx-auto bg-white border border-black rounded-lg" onchange="handleSort()">
                         <option value="">Sort by...</option>
                         <option value="date_asc">Date (Oldest First)</option>
                         <option value="date_desc">Date (Newest First)</option>
@@ -21,7 +21,7 @@
                 </div>
                 <!-- Existing search form -->
                 <form id="searchTicketForm" method="POST" action="/admin-tickets" class="flex mr-6 w-fit">
-                    <input id="searchInput" oninput="checkSearch();" name="search_input" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white" required>
+                    <input id="searchInput" oninput="checkSearch();" name="search_input" type="text" placeholder="Search..." class="pl-4 mx-auto bg-white border border-black rounded-lg" required>
                     <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1">X</button>
                     <button type="submit" class="mx-auto ml-4 border rounded-lg border-grey2 bg-orangeaccent w-28 text-black1">Search</button>
                 </form>
@@ -36,22 +36,22 @@
             <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Pending Tickets</h1>
         </div>
 
-        <div class="border border-black rounded-b-xl overflow-hidden">
+        <div class="overflow-hidden border border-black rounded-b-xl">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">
                     <table class="w-full table-fixed">
                         <thead>
                             <tr>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Status</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Ticket ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Category</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Message</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">First Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Last Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">ID number</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Email</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Timestamp</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Status</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Ticket ID</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Category</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Message</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">First Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Last Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">ID number</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Email</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
                             </tr>
                         </thead>
                     </table>
@@ -69,26 +69,26 @@
         </div>
 
 
-        <div class="relative flex mt-24 mb-4">
+        <div class="relative flex mt-24 mb-4 ">
             <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Solved Tickets</h1>
         </div>
 
-        <div class="border border-black rounded-b-xl overflow-hidden">
+        <div class="overflow-hidden border border-black rounded-b-xl">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">
                     <table class="w-full table-fixed">
                         <thead>
                             <tr>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Status</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Ticket ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Category</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Message</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">First Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Last Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">ID number</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Email</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Timestamp</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Status</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Ticket ID</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Category</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Message</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">First Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Last Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">ID number</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Email</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
                             </tr>
                         </thead>
                     </table>
@@ -109,22 +109,22 @@
             <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Unresolved Tickets</h1>
         </div>
 
-        <div class="border border-black rounded-b-xl overflow-hidden">
+        <div class="overflow-hidden border border-black rounded-b-xl">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">
                     <table class="w-full table-fixed">
                         <thead>
                             <tr>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Status</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Ticket ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Category</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Message</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">First Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Last Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">ID number</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Email</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Timestamp</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Status</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Ticket ID</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Category</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Message</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">First Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Last Name</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">ID number</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Email</th>
+                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
                             </tr>
                         </thead>
                     </table>
@@ -188,7 +188,7 @@
                             console.log('Solved:', data.solved);
                             solved.innerHTML += `
                                 <tr>
-                                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}" class="px-4 rounded-sm bg-green1 text-black1">Solved</a></td>
+                                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}" class="px-4 rounded-sm bg-greensuccess text-black1">Solved</a></td>
                                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.ticket_id}</a></td>
                                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.category}</a></td>
                                     <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.message}</a></td>
@@ -204,7 +204,7 @@
                             console.log('Unsolved:', data);
                             unresolved.innerHTML += `
                                 <tr>
-                                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}" class="px-4 rounded-sm bg-grey1 text-black1">Unresolved</a></td>
+                                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}" class="px-4 rounded-sm bg-whitebord text-black1">Unresolved</a></td>
                                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.ticket_id}</a></td>
                                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.category}</a></td>
                                     <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.message}</a></td>
@@ -237,7 +237,7 @@
                     data.solved.forEach(ticket => {
                         solved.innerHTML += `
                             <tr>
-                                <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}" class="px-4 rounded-sm bg-green1 text-black1">Solved</a></td>
+                                <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}" class="px-4 rounded-sm bg-greensuccess text-black1">Solved</a></td>
                                 <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.ticket_id}</a></td>
                                 <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.category}</a></td>
                                 <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.message}</a></td>
@@ -253,7 +253,7 @@
                     data.unresolved.forEach(ticket => {
                         unresolved.innerHTML += `
                             <tr>
-                                <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}" class="px-4 rounded-sm bg-grey1 text-black1">Unresolved</a></td>
+                                <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}" class="px-4 rounded-sm bg-whitebord text-black1">Unresolved</a></td>
                                 <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.ticket_id}</a></td>
                                 <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.category}</a></td>
                                 <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.message}</a></td>
@@ -288,7 +288,7 @@
                 if (solvedCounter === 0) {
                     solved.innerHTML = `
                         <tr>
-                            <td colspan="9"  class="px-5 py-5 text-xl text-center bg-white rounded-b-xl text-grey1">Empty</td>
+                            <td colspan="9"  class="px-5 py-5 text-xl text-center bg-white rounded-b-xl text-whitebord">Empty</td>
                         </tr>
                     `;
                 }
@@ -296,7 +296,7 @@
                 if (unresolvedCounter === 0) {
                     unresolved.innerHTML = `
                         <tr>
-                            <td colspan="9"  class="px-5 py-5 text-xl text-center bg-white rounded-b-xl text-grey1">Empty</td>
+                            <td colspan="9"  class="px-5 py-5 text-xl text-center bg-white rounded-b-xl text-whitebord">Empty</td>
                         </tr>
                     `;
                 }
@@ -304,7 +304,7 @@
                 if (pendingCounter === 0) {
                     pending.innerHTML = `
                         <tr>
-                            <td colspan="9"  class="px-5 py-5 text-xl text-center bg-white rounded-b-xl text-grey1">Empty</td>
+                            <td colspan="9"  class="px-5 py-5 text-xl text-center bg-white rounded-b-xl text-whitebord">Empty</td>
                         </tr>
                     `;
                 }
@@ -420,6 +420,94 @@
                 displayTickets(originalData);
             }
             startFetching();
+        }
+
+        function handleCategoryFilter() {
+            const category = document.getElementById('ticketCategory').value.toLowerCase();
+            const tables = [pending, solved, unresolved];
+            
+            tables.forEach(table => {
+                const rows = Array.from(table.getElementsByTagName('tr'));
+                rows.forEach(row => {
+                    const ticketCategory = row.cells[2].textContent.toLowerCase();
+                    row.style.display = !category || ticketCategory === category ? '' : 'none';
+                });
+            });
+        }
+
+        function applyDateFilter() {
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            const tables = [pending, solved, unresolved];
+            
+            if (startDate && endDate) {
+                clearInterval(intervalID); // Stop fetching
+                document.getElementById('clearDateFilter').classList.remove('hidden');
+                
+                tables.forEach(table => {
+                    const rows = Array.from(table.getElementsByTagName('tr'));
+                    rows.forEach(row => {
+                        const rowDate = new Date(row.cells[8].textContent); // Timestamp column
+                        row.style.display = (rowDate >= startDate && rowDate <= endDate) ? '' : 'none';
+                    });
+                });
+            }
+        }
+
+        function clearDateFilter() {
+            // Clear date inputs
+            document.getElementById('startDate').value = '';
+            document.getElementById('endDate').value = '';
+            document.getElementById('clearDateFilter').classList.add('hidden');
+            
+            // Show all rows
+            const tables = [pending, solved, unresolved];
+            tables.forEach(table => {
+                const rows = Array.from(table.getElementsByTagName('tr'));
+                rows.forEach(row => row.style.display = '');
+            });
+            
+            // Restart fetching
+            startFetching();
+        }
+
+        function exportTickets() {
+            const tables = [pending, solved, unresolved];
+            const allTickets = [];
+            
+            tables.forEach(table => {
+                const rows = Array.from(table.getElementsByTagName('tr'))
+                    .filter(row => row.style.display !== 'none');
+                    
+                rows.forEach(row => {
+                    allTickets.push({
+                        status: row.cells[0].textContent,
+                        ticketId: row.cells[1].textContent,
+                        category: row.cells[2].textContent,
+                        message: row.cells[3].textContent,
+                        firstName: row.cells[4].textContent,
+                        lastName: row.cells[5].textContent,
+                        idNumber: row.cells[6].textContent,
+                        email: row.cells[7].textContent,
+                        timestamp: row.cells[8].textContent
+                    });
+                });
+            });
+
+            // Convert to CSV and download
+            const headers = ['Status', 'Ticket ID', 'Category', 'Message', 'First Name', 'Last Name', 'ID Number', 'Email', 'Timestamp'];
+            const csvContent = [
+                headers.join(','),
+                ...allTickets.map(ticket => Object.values(ticket).map(v => `"${v}"`).join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `tickets_export_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     </script>
 </body>

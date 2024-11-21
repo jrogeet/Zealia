@@ -1,6 +1,6 @@
-<div class="z-10 relative block w-72 h-[100vh] text-white2 font-satoshimed min-w-[18rem] min-h-[75rem]">
+<div class="z-10 relative block w-72 h-[100vh] text-white2 font-satoshimed min-w-[18rem] min-h-[75rem]" id="admin-sidebar">
 
-    <div class="fixed h-screen p-6 bg-blue3 w-72">
+    <div class="fixed h-screen p-6 transition-all duration-300 bg-blue3 w-72" id="sidebar-content">
         <div class="relative">
             <a href="/">
                 <img class="h-14" src="assets/images/zealia-logos/full/white.png" alt="Zealia Logo"/>
@@ -21,4 +21,15 @@
             </form>
         </div>
     </div>
+
+    <button id="toggle-sidebar" class="absolute p-2 text-white rounded top-4 right-4 bg-blue3">Toggle Sidebar</button>
 </div>
+
+<script>
+    document.getElementById('toggle-sidebar').addEventListener('click', function() {
+        const sidebar = document.getElementById('admin-sidebar');
+        const sidebarContent = document.getElementById('sidebar-content');
+        sidebar.classList.toggle('w-20');
+        sidebarContent.classList.toggle('hidden');
+    });
+</script>

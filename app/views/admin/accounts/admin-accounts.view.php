@@ -8,6 +8,23 @@
             <h1 class="mx-auto ml-6 text-3xl font-clashbold">Account List</h1>
             <div class="flex gap-4 mx-auto w-fit">
                 <div class="flex items-center">
+                    <select id="accountType" class="pl-4 mx-auto bg-white border border-black rounded-lg" onchange="handleTypeFilter()">
+                        <option value="">All Account Types</option>
+                        <option value="admin">Admin</option>
+                        <option value="instructor">Instructor</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+
+            <!-- Date Range Filter -->
+            <div class="flex items-center">
+                <input type="date" id="startDate" class="pl-2 mx-1 bg-white border border-black rounded-lg" placeholder="Start Date">
+                <input type="date" id="endDate" class="pl-2 mx-1 bg-white border border-black rounded-lg" placeholder="End Date">
+                <button onclick="applyDateFilter()" class="px-2 py-1 mx-1 text-white rounded-lg bg-blue3">Filter Dates</button>
+                <button id="clearDateFilter" onclick="clearDateFilter()" class="hidden px-2 py-1 mx-1 rounded-lg text-blackpri bg-red1">Clear Dates</button>
+            </div>
+
+                <div class="flex items-center">
                     <select id="sortBy" class="pl-4 mx-auto bg-white border border-black rounded-lg" onchange="handleSort()">
                         <option value="">Sort by...</option>
                         <option value="date_asc">Date (Oldest First)</option>
@@ -21,6 +38,12 @@
                     <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto bg-white border border-black rounded-lg">
                     <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSearch()">X</button>
                 </div>
+
+                <div class="flex items-center">
+                    <button onclick="exportAccounts()" class="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700">
+                        Export Accounts
+                    </button>
+                </div>
             </div>
         </div>
     
@@ -30,9 +53,9 @@
         
         <div class="overflow-hidden border-b border-black border-x rounded-xl">
             <div class="flex w-64 text-lg font-satoshimed">
-                <button onclick="setActiveTab('allList', this);" class="px-4 py-2 text-center text-white border border-black rounded-t-lg tab-button w-28 bg-blue3 hover:bg-blue3 hover:text-white">All</button>
-                <button onclick="setActiveTab('studentsList', this);" class="px-4 py-2 text-center border border-black rounded-t-lg tab-button w-28 bg-blue2 hover:bg-blue3 hover:text-white">Students</button>
-                <button onclick="setActiveTab('instructorsList', this);" class="px-4 py-2 text-center border border-black rounded-t-lg tab-button w-28 bg-blue2 hover:bg-blue3 hover:text-white">Instructors</button>
+                <button onclick="setActiveTab('allList', this);" class="w-40 px-8 py-2 text-center text-white rounded-t-lg tab-button bg-blue3 hover:bg-blue3 hover:text-white">All</button>
+                <button onclick="setActiveTab('studentsList', this);" class="w-40 px-8 py-2 text-center rounded-t-lg tab-button bg-blue2 hover:bg-blue3 hover:text-white">Students</button>
+                <button onclick="setActiveTab('instructorsList', this);" class="w-40 px-8 py-2 text-center rounded-t-lg tab-button bg-blue2 hover:bg-blue3 hover:text-white">Instructors</button>
             </div>
 
             <div class="relative">
@@ -378,6 +401,84 @@ function displayAccounts(data) {
         // Set the clicked button to active style
         button.classList.add('bg-blue3', 'text-white');
         button.classList.remove('bg-blue2', 'text-black'); // Remove default
+    }
+</script>
+
+<script>
+    function handleTypeFilter() {
+        const type = document.getElementById('accountType').value;
+        const rows = Array.from(document.querySelector('tbody:not(.hidden)').getElementsByTagName('tr'));
+
+        rows.forEach(row => {
+            const userType = row.cells[2].textContent.toLowerCase();
+            row.style.display = !type || userType === type ? '' : 'none';
+        });
+    }
+
+    function applyDateFilter() {
+        const startDate = new Date(document.getElementById('startDate').value);
+        const endDate = new Date(document.getElementById('endDate').value);
+        const tableBodies = ['allList', 'studentsList', 'instructorsList'];
+
+        if (startDate && endDate) {
+            clearInterval(intervalID); // Stop fetching
+            document.getElementById('clearDateFilter').classList.remove('hidden');
+
+            tableBodies.forEach(bodyId => {
+                const rows = Array.from(document.getElementById(bodyId).getElementsByTagName('tr'));
+                rows.forEach(row => {
+                    const rowDate = new Date(row.cells[6].textContent); // Registration time column
+                    row.style.display = (rowDate >= startDate && rowDate <= endDate) ? '' : 'none';
+                });
+            });
+        }
+    }
+
+    function clearDateFilter() {
+        // Clear date inputs
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+        document.getElementById('clearDateFilter').classList.add('hidden');
+
+        // Show all rows in all table bodies
+        const tableBodies = ['allList', 'studentsList', 'instructorsList'];
+        tableBodies.forEach(bodyId => {
+            const rows = Array.from(document.getElementById(bodyId).getElementsByTagName('tr'));
+            rows.forEach(row => row.style.display = '');
+        });
+
+        // Restart fetching
+        startFetching();
+    }
+
+    function exportAccounts() {
+        const currentList = document.querySelector('tbody:not(.hidden)');
+        const rows = Array.from(currentList.getElementsByTagName('tr'))
+            .filter(row => row.style.display !== 'none');
+
+        const accountData = rows.map(row => ({
+            schoolId: row.cells[1].textContent,
+            surname: row.cells[2].textContent,
+            firstName: row.cells[3].textContent,
+            email: row.cells[4].textContent,
+            registrationTime: row.cells[6].textContent,
+            activation: row.cells[7].textContent
+        }));
+
+        // Convert to CSV and download
+        const headers = ['School ID', 'Surname', 'First Name', 'Email', 'Registration Time', 'Activation'];
+        const csvContent = [
+            headers.join(','),
+            ...accountData.map(account => Object.values(account).map(v => `"${v}"`).join(','))
+        ].join('\n');
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `accounts_export_${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 </script>
 </body>

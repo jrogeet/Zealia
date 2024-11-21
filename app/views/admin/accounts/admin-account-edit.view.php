@@ -5,7 +5,7 @@
 
     <div class="relative block w-full h-32 py-12 px-6 min-w-[75rem]">
         <div class="relative block w-full h-[40rem] mt-2">
-            <a href="/admin-accounts" class="px-2 text-3xl border rounded-lg bg-blue3 border-black1 text-white">◀</a>
+            <a href="/admin-accounts" class="h-4 px-2 mb-10 text-3xl text-white border rounded-lg bg-blue3 border-black1">◀</a>
             <h1 class="mb-12 text-3xl text-grey2 font-satoshimed">Edit <span class="text-black1"><?= $allUserInfo['f_name'] ?> <?= $allUserInfo['l_name'] ?></span>'s Information</h1>
 
             <div class="flex w-[60%] h-[90%] bg-white border border-black  rounded-2xl mx-auto p-6 pl-8">
@@ -52,7 +52,7 @@
                     <form method="post" action="/admin-account-edit">
                         <input type="hidden" name="delete">
                         <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
-                        <button type="submit" class="w-full h-10 mx-auto text-white border border-black rounded-lg mt-96 bg-red1">Delete Account</button>
+                        <button type="submit" class="w-full h-10 mx-auto text-white border border-black rounded-lg mt-96 bg-rederr">Delete Account</button>
                     </form>
                 </div>
                 

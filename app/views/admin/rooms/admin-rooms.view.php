@@ -8,7 +8,7 @@
         <h1 class="mx-auto ml-6 text-3xl font-clashbold">Room List</h1>
         <div class="flex gap-4 mx-auto w-fit">
             <div class="flex items-center">
-                <select id="sortBy" class="pl-4 mx-auto border border-black rounded-lg bg-white" onchange="handleSort()">
+                <select id="sortBy" class="pl-4 mx-auto bg-white border border-black rounded-lg" onchange="handleSort()">
                     <option value="">Sort by...</option>
                     <option value="date_asc">Date (Oldest First)</option>
                     <option value="date_desc">Date (Newest First)</option>
@@ -18,8 +18,27 @@
                 <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
             </div>
             <div class="flex items-center">
-                <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto border border-black rounded-lg bg-white">
+                <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto bg-white border border-black rounded-lg">
                 <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSearch()">X</button>
+            </div>
+            <div class="flex items-center">
+                <select id="roomStatus" class="pl-4 mx-auto bg-white border border-black rounded-lg" onchange="handleStatusFilter()">
+                    <option value="">All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <!-- Date Range Filter -->
+            <div class="flex items-center">
+                <input type="date" id="startDate" class="pl-2 mx-1 bg-white border border-black rounded-lg" placeholder="Start Date">
+                <input type="date" id="endDate" class="pl-2 mx-1 bg-white border border-black rounded-lg" placeholder="End Date">
+                <button onclick="applyDateFilter()" class="px-2 py-1 mx-1 text-white rounded-lg bg-blue3">Filter Dates</button>
+                <button id="clearDateFilter" onclick="clearDateFilter()" class="hidden px-2 py-1 mx-1 rounded-lg text-blackpri bg-red1">Clear Dates</button>
+            </div>
+            <div class="flex items-center">
+                <button onclick="exportRooms()" class="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700">
+                    Export Rooms
+                </button>
             </div>
         </div>
     </div>
@@ -28,20 +47,20 @@
         <h2>Search Results for: <span id="searchTerm"></span></h2>
     </div>
 
-        <div class="border border-black rounded-xl overflow-hidden">
+        <div class="overflow-hidden border border-black rounded-xl">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">
                     <table class="w-full table-fixed">
                         <thead>
                             <tr>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Edit</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room ID</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room Name</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase truncate border-l border-r border-black bg-blue3 text-white">Instructor Name</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Instructor ID</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Room Code</th>
-                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center uppercase border-l border-r border-black bg-blue3 text-white">Time Created</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Edit</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room ID</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room Name</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase truncate border-l border-r border-black bg-blue3">Instructor Name</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Instructor ID</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room Code</th>
+                            <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Time Created</th>
                             </tr>
                         </thead>
                     </table>
@@ -168,7 +187,7 @@
                 data.forEach(room => {
                     roomsTBody.innerHTML += `
                         <tr>
-                            <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-room-edit?room_id=${room.room_id}" class="px-4 py-2 rounded-sm bg-blue3 text-white">EDIT</a></td>
+                            <td class="px-5 py-5 text-sm text-center bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-room-edit?room_id=${room.room_id}" class="px-4 py-2 text-white rounded-sm bg-blue3">EDIT</a></td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200">${room.room_id}</td>
                             <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${room.room_name}</td>
                             <td class="px-5 py-5 text-sm truncate bg-white border-b border-l border-r border-black border-gray-200">${room.prof_name}</td>
@@ -191,6 +210,75 @@
                     handleSearch();
                 }
             }
+        }
+
+        function handleStatusFilter() {
+            const status = document.getElementById('roomStatus').value;
+            const rows = Array.from(roomsTBody.getElementsByTagName('tr'));
+
+            rows.forEach(row => {
+                const roomStatus = row.getAttribute('data-status').toLowerCase();
+                row.style.display = !status || roomStatus === status ? '' : 'none';
+            });
+        }
+
+        function applyDateFilter() {
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            const rows = Array.from(roomsTBody.getElementsByTagName('tr'));
+            
+            if (startDate && endDate) {
+                clearInterval(intervalID); // Stop fetching
+                document.getElementById('clearDateFilter').classList.remove('hidden');
+                
+                rows.forEach(row => {
+                    const rowDate = new Date(row.cells[6].textContent); // Time Created column
+                    row.style.display = (rowDate >= startDate && rowDate <= endDate) ? '' : 'none';
+                });
+            }
+        }
+
+        function clearDateFilter() {
+            // Clear date inputs
+            document.getElementById('startDate').value = '';
+            document.getElementById('endDate').value = '';
+            document.getElementById('clearDateFilter').classList.add('hidden');
+            
+            // Show all rows
+            const rows = Array.from(roomsTBody.getElementsByTagName('tr'));
+            rows.forEach(row => row.style.display = '');
+            
+            // Restart fetching
+            startFetching();
+        }
+
+        function exportRooms() {
+            const rows = Array.from(roomsTBody.getElementsByTagName('tr'))
+                .filter(row => row.style.display !== 'none');
+
+            const roomData = rows.map(row => ({
+                roomId: row.cells[1].textContent,
+                roomName: row.cells[2].textContent,
+                instructorName: row.cells[3].textContent,
+                instructorId: row.cells[4].textContent,
+                roomCode: row.cells[5].textContent,
+                timeCreated: row.cells[6].textContent
+            }));
+
+            // Convert to CSV and download
+            const headers = ['Room ID', 'Room Name', 'Instructor Name', 'Instructor ID', 'Room Code', 'Time Created'];
+            const csvContent = [
+                headers.join(','),
+                ...roomData.map(room => Object.values(room).map(v => `"${v}"`).join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `rooms_export_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         document.addEventListener('DOMContentLoaded', function() {
