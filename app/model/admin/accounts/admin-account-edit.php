@@ -115,7 +115,13 @@ if (isset($_POST['edit'])) {
         }
     }
 
-    header("Location: /admin-account-edit?id={$id}");
+    if (isset($school_id)) {
+        header("Location: /admin-account-edit?id={$school_id}");
+    } else {
+        header("Location: /admin-account-edit?id={$id}"); 
+    }
+
+
     exit();
 
 
