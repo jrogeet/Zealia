@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="relative block overflow-x-hidden overflow-y-scroll">
+<body class="relative block overflow-x-hidden overflow-y-scroll bg-white">
     <?php if(isset($notifications)){
         view('partials/nav.view.php', ['notifications' => $notifications]);
     } elseif (! isset($notifications)) {
@@ -8,33 +8,33 @@
     }
     ?>
 
-    <div class="relative block mx-auto top-32 py-4 w-5/6 h-auto">
+    <div class="relative block w-5/6 h-auto py-4 mx-auto top-32">
         <!-- HEADER -->
-        <div class="mx-auto text-center border-b border-black w-full pb-4 mb-6">
-            <h1 class="font-clashsemibold text-2xl tracking-wider">HOW TO USE THE SITE?</h1>
-            <h1 class="font-clashreg text-lg text-grey2 tracking-wider">Here's a guide on our website's features</h1>
+        <div class="w-full pb-4 mx-auto mb-6 text-center border-b border-black">
+            <h1 class="text-2xl tracking-wider font-clashsemibold">HOW TO USE THE SITE?</h1>
+            <h1 class="text-lg tracking-wider font-clashreg text-grey2">Here's a guide on our website's features</h1>
         </div>
 
         <!-- BODY -->
-        <div class="flex mx-auto w-full h-auto">
+        <div class="flex w-full h-auto mx-auto">
 
             <!-- LEFT: TABLE OF CONTENTS -->
-            <div class="block text-left mx-auto w-1/4 h-auto pl-8 py-4">
-                <h1 class="font-clashsemibold text-blackhead text-lg mb-4">Table of Contents</h1>
-                <a onclick="show('accTab','block');hideAll('accTab');" class="accTab block cursor-pointer w-full my-2 ml-8 focus:text-green1 text-grey2 hover:text-blacksec font-clashmed text-xl">Accounts</a>
-                <a onclick="show('roomTab','block');hideAll('roomTab');" class="roomTab block cursor-pointer w-full my-2 ml-8 focus:text-green1 text-grey2 hover:text-blacksec font-clashmed text-xl">Rooms</a>
+            <div class="block w-1/4 h-auto py-4 pl-8 mx-auto text-left">
+                <h1 class="mb-4 text-lg font-clashsemibold text-blackhead">Table of Contents</h1>
+                <a onclick="show('accTab','block');hideAll('accTab');" class="block w-full my-2 ml-8 text-xl cursor-pointer accTab focus:text-green1 text-grey2 hover:text-blacksec font-clashmed">Accounts</a>
+                <a onclick="show('roomTab','block');hideAll('roomTab');" class="block w-full my-2 ml-8 text-xl cursor-pointer roomTab focus:text-green1 text-grey2 hover:text-blacksec font-clashmed">Rooms</a>
             </div>
 
             <!-- RIGHT: MAIN -->
-            <div id="noSel" class="block mx-auto w-3/4 text-center h-auto">
-                <h1 class="border border-black w-full h-full">*PICTURE* CHOOSE ONE FROM HERE NA NAKATURO SA LEFT, MAG HIHIDE KAPAG NAG PUMILI NA NG TAB</h1>
+            <div id="noSel" class="block w-3/4 h-auto mx-auto text-center">
+                <h1 class="w-full h-full border border-black">*PICTURE* CHOOSE ONE FROM HERE NA NAKATURO SA LEFT, MAG HIHIDE KAPAG NAG PUMILI NA NG TAB</h1>
             </div>
 
             <!-- ACCOUNTS -->
-            <div id="accTab" class="hidden pl-8 py-4 w-3/4 h-auto">
+            <div id="accTab" class="hidden w-3/4 h-auto py-4 pl-8">
                     
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How can I create my account?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8">
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How can I create my account?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0">
                     <p>
                         Click on Sign up, fill up the form, and wait for the activation link that will be sent to your email address.
                     </p>
@@ -42,8 +42,8 @@
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I change my password?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How do I change my password?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         You can change your password on the account settings page by filling up the form and saving changes.
                     </p>
@@ -51,8 +51,8 @@
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Where do I take the test?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Where do I take the test?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         On the account settings page, you can take or retake the test.
                     </p>
@@ -61,8 +61,8 @@
                 </div>
 
                 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Where do I see my test results</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Where do I see my test results</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         If you already took the test, you can see your test results on the account settings page.
                     </p>
@@ -70,8 +70,8 @@
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I retake the test?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Can I retake the test?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         Yes, you can retake the test on your account settings.
                     </p>
@@ -82,10 +82,10 @@
             </div>
 
             <!-- ROOMS -->
-            <div id="roomTab" class="hidden pl-8 py-4 w-3/4 h-auto">
+            <div id="roomTab" class="hidden w-3/4 h-auto py-4 pl-8">
                     
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I join rooms?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How do I join rooms?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         To join rooms, you have to ask your instructor for the room code and input the code in your Zealia dashboard and click join and wait for your instructor to accept your join request.
                     </p>
@@ -93,8 +93,8 @@
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">I entered my code but I still can't join the room</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">I entered my code but I still can't join the room</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         After entering your code in the Zealia dashboard, you still have to wait for the instructor to accept your join request. 
                     </p>
@@ -102,8 +102,8 @@
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Why am I not able to join a group?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8">
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Why am I not able to join a group?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0">
                     <p>
                         If you're not able to join a group even after asking your instructor to regenerate the groups, make sure you have taken the test and try again.
                     </p>
@@ -112,8 +112,8 @@
                 </div>
 
                 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change groups?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Can I change groups?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         If you want to change groups, you have to ask your instructor to change your group.
                     </p>
@@ -121,8 +121,8 @@
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I change roles?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Can I change roles?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         Roles are changeable, inform your instructor about the change and ask them to edit your role in their room group settings.
                     </p>
@@ -130,8 +130,8 @@
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I add tasks to the Kanban board?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How do I add tasks to the Kanban board?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         On your dashboard, enter the room containing the group you want to add a task to, click your Kanban board tab on the left, and click the Add button and fill up the form about the details of your task.
                     </p>
@@ -139,8 +139,8 @@
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">How do I change a tasks status to done?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How do I change a tasks status to done?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         When a task is done, you can change it's status by dragging the task and dropping it to the done zone.
                     </p>
@@ -148,8 +148,8 @@
                     <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
-                <button class="ques font-clashsemibold tracking-wide text-xl mt-8">Can I add tasks to my groupmates' Kanban board?</button>
-                <div class="panel font-clashreg text-lg text-left max-h-0 overflow-hidden duration-700 pr-8 ease-in bg-white py-0 pl-8"> 
+                <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Can I add tasks to my groupmates' Kanban board?</button>
+                <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
                     <p>
                         Only the Principal Investigator can add tasks to other members' Kanban, meanwhile members can see other members' Kanban
                     </p>
