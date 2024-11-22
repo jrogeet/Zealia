@@ -50,7 +50,7 @@
 
                     <form method="POST" action="/login">
                         <input type="hidden" name="_method" value="DELETE" />
-                        <button class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center text-white transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-red1 md:text-lg md:w-1/2">Log Out</button>
+                        <button class="relative w-3/4 p-2 mt-6 text-xs tracking-tight text-center text-white transform -translate-x-1/2 border rounded-sm left-1/2 text-black1 bg-rederr md:text-lg md:w-1/2">Log Out</button>
                     </form>
                 </div>
                 
@@ -66,7 +66,7 @@
 </header>
 
 <!-- desktop nav -->
-<header class="fixed top-0 z-50 content-center block w-full h-20 border-b border-black bg-whitecon" id="navbar">
+<header class="fixed top-0 z-50 content-center block w-full h-20 bg-glassmorphism" id="navbar">
     <!-- object container -->
     <div class="flex h-fit w-full justify-between font-satoshimed text-xl text-black1 mx-auto px-[1rem]">
         <!-- Main NavBar -->

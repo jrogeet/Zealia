@@ -3,7 +3,7 @@
 <body class="static flex font-satoshimed bg-beige">
     <?php view('partials/admin-nav.view.php'); ?>
 
-    <div class="block w-full h-fit p-12 min-w-[75rem]">
+    <div class="block w-full h-fit p-12 min-w-[75rem]  transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
         <h1 class="text-3xl text-blackpri font-clashbold">Ticket ID:</h1>
 
         <div class="relative w-1/6 h-10 mt-12 mb-2 text-sm ">
@@ -71,4 +71,12 @@
     </div>
 
     <script src="assets/js/shared-scripts.js"></script>
+    <script>
+    // Adjust main content margin when sidebar is toggled
+    document.getElementById('toggle-sidebar').addEventListener('click', function() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.classList.toggle('ml-48');
+        mainContent.classList.toggle('ml-20');
+    });
+</script>
 </body>

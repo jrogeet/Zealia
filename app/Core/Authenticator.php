@@ -203,6 +203,12 @@ class Authenticator
             'account_type'=> $user['account_type'],
             'result' => $user['result'],
         ];
+
+        $_SESSION['page-settings'] = [
+            'dark_mode' => false,
+            'admin_nav_toggle' => false 
+        ];
+
         session_regenerate_id(true); // regenerate new SESSION ID and (true) to clear out the OLD session file
     }
     

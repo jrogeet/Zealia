@@ -1,35 +1,103 @@
-<div class="z-10 relative block w-72 h-[100vh] text-white2 font-satoshimed min-w-[18rem] min-h-[75rem]" id="admin-sidebar">
-
-    <div class="fixed h-screen p-6 transition-all duration-300 bg-blue3 w-72" id="sidebar-content">
-        <div class="relative">
-            <a href="/">
-                <img class="h-14" src="assets/images/zealia-logos/full/white.png" alt="Zealia Logo"/>
+<div class="fixed z-50 h-screen transition-all duration-300 bg-blue3 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'w-20' : 'w-48' ?>" id="admin-sidebar">
+    <button id="toggle-sidebar" class="absolute p-2 rounded-full -right-4 top-4 bg-blue3">
+        <img src="assets/images/icons/nav-icons/angle-double-left.svg" alt="Toggle" class="w-4 h-4" id="toggle-icon">
+    </button>
+    
+    <div class="flex flex-col justify-between h-full p-4 text-white" id="sidebar-content">
+        <div class="flex flex-col items-center">
+            <a href="/admin">
+                <img class="h-10 expanded-logo" src="assets/images/zealia-logos/full/white.png" alt="Zealia Logo"/>
+                <img class="hidden h-10 collapsed-logo" src="assets/images/zealia-logos/Zealia_Logo_Flat/OFFWHITE/FullZ_Flat_OFFWHITE.png" alt="Zealia Icon"/>
             </a>
-            <h5 class="relative -mt-2 text-lg text-white left-1/3">ADMIN</H5>
+            <h5 class="text-white expanded-content">ADMIN</h5>
         </div>
         
-        <div class="relative block mt-6 h-fit">
-            <a href="/admin"            class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Dashboard</a>
-            <a href="/admin-accounts"   class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Accounts</a>
-            <a href="/admin-rooms"      class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Rooms</a>
-            <a href="/admin-tickets"    class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Tickets</a>
-            <a href="/admin-logs"       class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Logs</a>
-            <a href="/admin-settings"   class="block w-full py-6 pl-4 my-4 text-3xl text-left text-white hover:text-orangeaccent">Settings</a>
+        <div class="flex flex-col gap-4">
+            <a href="/admin" class="flex items-center gap-2 p-2 rounded hover:bg-blue2 hover:text-blackpri">
+                <img src="assets/images/icons/nav-icons/dashboard-icon.svg" alt="Dashboard" class="w-6 h-6">
+                <span class="expanded-content">Dashboard</span>
+            </a>
+            
+            <a href="/admin-accounts" class="flex items-center gap-2 p-2 rounded hover:bg-blue2 hover:text-blackpri">
+                <img src="assets/images/icons/nav-icons/accounts-icon.svg" alt="Accounts" class="w-6 h-6">
+                <span class="expanded-content">Accounts</span>
+            </a>
+            
+            <a href="/admin-rooms" class="flex items-center gap-2 p-2 rounded hover:bg-blue2 hover:text-blackpri">
+                <img src="assets/images/icons/nav-icons/rooms-icon.svg" alt="Rooms" class="w-6 h-6">
+                <span class="expanded-content">Rooms</span>
+            </a>
+            
+            <a href="/admin-tickets" class="flex items-center gap-2 p-2 rounded hover:bg-blue2 hover:text-blackpri">
+                <img src="assets/images/icons/nav-icons/tickets-icon.svg" alt="Tickets" class="w-6 h-6">
+                <span class="expanded-content">Tickets</span>
+            </a>
+            
+            <a href="/admin-logs" class="flex items-center gap-2 p-2 rounded hover:bg-blue2 hover:text-blackpri">
+                <img src="assets/images/icons/nav-icons/logs-icon.svg" alt="Logs" class="w-6 h-6">
+                <span class="expanded-content">Logs</span>
+            </a>
+            
+            <a href="/admin-settings" class="flex items-center gap-2 p-2 rounded hover:bg-blue2 hover:text-blackpri">
+                <img src="assets/images/icons/nav-icons/settings-icon.svg" alt="Settings" class="w-6 h-6">
+                <span class="expanded-content">Settings</span>
+            </a>
+            
+            <a href="/" class="flex items-center gap-2 p-2 rounded hover:bg-blue2 hover:text-blackpri">
+                <img src="assets/images/icons/nav-icons/user-pages-icon.svg" alt="User Pages" class="w-6 h-6">
+                <span class="text-sm expanded-content">Visit User Pages</span>
+            </a>
+            
             <form method="POST" action="/login">
                 <input type="hidden" name="_method" value="DELETE" />
-                <button class="block w-full py-6 pl-4 my-4 text-3xl text-left text-rederr">Log Out</button>
+                <button class="flex items-center gap-2 p-2 rounded hover:bg-blue2 hover:text-blackpri">
+                    <img src="assets/images/icons/nav-icons/logout-icon.svg" alt="Logout" class="w-6 h-6">
+                    <span class="text-rederr expanded-content">Log Out</span>
+                </button>
             </form>
         </div>
     </div>
-
-    <button id="toggle-sidebar" class="absolute p-2 text-white rounded top-4 right-4 bg-blue3">Toggle Sidebar</button>
 </div>
 
 <script>
+    const sidebar = document.getElementById('admin-sidebar');
+    const toggleIcon = document.getElementById('toggle-icon');
+    const expandedElements = document.querySelectorAll('.expanded-content');
+    const expandedLogo = document.querySelector('.expanded-logo');
+    const collapsedLogo = document.querySelector('.collapsed-logo');
+
+    // Initialize state based on session
+    if (<?= json_encode($_SESSION['page-settings']['admin_nav_toggle']) ?>) {
+        expandedElements.forEach(el => el.classList.add('hidden'));
+        expandedLogo.classList.add('hidden');
+        collapsedLogo.classList.remove('hidden');
+        toggleIcon.classList.add('rotate-180');
+    }
+
     document.getElementById('toggle-sidebar').addEventListener('click', function() {
-        const sidebar = document.getElementById('admin-sidebar');
-        const sidebarContent = document.getElementById('sidebar-content');
+        // Toggle sidebar width
+        sidebar.classList.toggle('w-48');
         sidebar.classList.toggle('w-20');
-        sidebarContent.classList.toggle('hidden');
+        
+        // Rotate toggle icon
+        toggleIcon.classList.toggle('rotate-180');
+        
+        // Toggle visibility of text content
+        expandedElements.forEach(el => el.classList.toggle('hidden'));
+        
+        // Switch logos
+        expandedLogo.classList.toggle('hidden');
+        collapsedLogo.classList.toggle('hidden');
+
+        // Update session via AJAX
+        fetch('/update-nav-toggle', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                toggle: sidebar.classList.contains('w-20')
+            })
+        });
     });
 </script>

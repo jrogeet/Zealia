@@ -10,7 +10,6 @@
                 <img class="absolute h-7 -top-2 right-35" src="assets/images/vectors/shapes/Zealia-Star-Orange.png" >
                 <h1 class="text-5xl text-center font-clashbold">BUILD <span class="text-blue2 [-webkit-text-stroke:1px_black]">BALANCED TEAMS</span> THAT</h1>
             </div>
-
             <h1 class="text-5xl text-center font-clashbold">AMPLIFY STRENGTHS</h1>
             <h5 class="text-xl text-center font-satoshireg">Generate teams by passion</h5>
         </section>

@@ -3,26 +3,19 @@
 <body class="static flex font-satoshimed bg-beige">
     <?php view('partials/admin-nav.view.php'); ?>
 
-    <div class="z-40 relative block w-full h-fit py-12 px-6 min-w-[75rem] mb-16">
+    <div class="z-40 relative block w-full h-fit py-12 px-6 min-w-[75rem] mb-16 flex-1 transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
         <div class="flex justify-between mb-12">
             <h1 class="mx-auto ml-6 text-3xl font-clashbold">Account List</h1>
             <div class="flex gap-4 mx-auto w-fit">
-                <div class="flex items-center">
-                    <select id="accountType" class="pl-4 mx-auto bg-white border border-black rounded-lg" onchange="handleTypeFilter()">
-                        <option value="">All Account Types</option>
-                        <option value="admin">Admin</option>
-                        <option value="instructor">Instructor</option>
-                        <option value="student">Student</option>
-                    </select>
-                </div>
 
-            <!-- Date Range Filter -->
-            <div class="flex items-center">
-                <input type="date" id="startDate" class="pl-2 mx-1 bg-white border border-black rounded-lg" placeholder="Start Date">
-                <input type="date" id="endDate" class="pl-2 mx-1 bg-white border border-black rounded-lg" placeholder="End Date">
-                <button onclick="applyDateFilter()" class="px-2 py-1 mx-1 text-white rounded-lg bg-blue3">Filter Dates</button>
-                <button id="clearDateFilter" onclick="clearDateFilter()" class="hidden px-2 py-1 mx-1 rounded-lg text-blackpri bg-red1">Clear Dates</button>
-            </div>
+
+                <!-- Date Range Filter -->
+                <div class="flex items-center">
+                    <input type="date" id="startDate" class="pl-2 mx-1 bg-white border border-black rounded-lg" placeholder="Start Date">
+                    <input type="date" id="endDate" class="pl-2 mx-1 bg-white border border-black rounded-lg" placeholder="End Date">
+                    <button onclick="applyDateFilter()" class="px-2 py-1 mx-1 text-white rounded-lg bg-blue3">Filter Dates</button>
+                    <button id="clearDateFilter" onclick="clearDateFilter()" class="hidden px-2 py-1 mx-1 rounded-lg text-blackpri bg-red1">Clear Dates</button>
+                </div>
 
                 <div class="flex items-center">
                     <select id="sortBy" class="pl-4 mx-auto bg-white border border-black rounded-lg" onchange="handleSort()">
@@ -34,6 +27,7 @@
                     </select>
                     <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
                 </div>
+                
                 <div class="flex items-center">
                     <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto bg-white border border-black rounded-lg">
                     <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSearch()">X</button>
@@ -480,5 +474,14 @@ function displayAccounts(data) {
         link.click();
         document.body.removeChild(link);
     }
+</script>
+
+<script>
+    // Adjust main content margin when sidebar is toggled
+    document.getElementById('toggle-sidebar').addEventListener('click', function() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.classList.toggle('ml-48');
+        mainContent.classList.toggle('ml-20');
+    });
 </script>
 </body>

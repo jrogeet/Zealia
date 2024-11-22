@@ -10,6 +10,8 @@ $router->api('GET', '/api/get-latest-data', 'getLatestData');
 $router->api('POST', '/api/submit-form', 'submitForm');
 // $router->api('POST', '/api/toggle-like', 'toggleLike');
 
+$router->post('/update-nav-toggle', 'Http/controllers/admin/update-nav-toggle.php');
+
 $router->get('/', 'Http/controllers/home.php');
 $router->get('/guide', 'Http/controllers/guide.php');
 $router->get('/about', 'Http/controllers/about.php');

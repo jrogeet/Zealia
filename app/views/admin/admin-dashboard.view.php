@@ -1,122 +1,127 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static flex font-satoshimed bg-beige">
+<body class="flex font-satoshimed bg-beige">
 
     <?php view('partials/admin-nav.view.php'); ?>
 
-    <!-- content -->
-    <div class="relative block w-full p-12 pl-[1%] min-w-[73rem]">
+    <!-- Main content wrapper -->
+    <div class="flex-1 transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
+        <div class="p-12">
+            <!-- Your existing content here -->
+            <!-- greeting -->
+            <h1 class="text-4xl">Welcome back,</h1>
+            <div class="flex">
+                <h1 class="text-4xl">Admin</h1><h1 class="ml-2 text-4xl" id="name"><?//= $_SESSION['user']['f_name'] ?></h1>
+            </div>
+        
+            <!-- counter -->
+            <div class="flex w-full mt-8">
 
-        <!-- greeting -->
-        <h1 class="text-4xl">Welcome back,</h1>
-        <div class="flex">
-            <h1 class="text-4xl">Admin</h1><h1 class="ml-2 text-4xl" id="name"><?//= $_SESSION['user']['f_name'] ?></h1>
-        </div>
-    
-        <!-- counter -->
-        <div class="flex w-full mt-8">
+                <a href="/admin-accounts" class="mx-auto ml-0 border border-black rounded-2xl h-26 w-[24%] bg-orangeaccent p-4">
+                    <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
+                    <h1 class="text-lg font-satoshimed text-grey-200">Users:</h1>
+                    <h1 class="-mt-8 text-6xl text-right font-clashmed" id="userCount"></h1>
+                </a>
 
-            <a href="/admin-accounts" class="mx-auto ml-0 border border-black rounded-2xl h-52 w-[24%] bg-orangeaccent p-4">
-                <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
-                <h1 class="text-lg font-satoshimed text-grey-200">Users:</h1>
-                <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="userCount"></h1>
-            </a>
+                <a href="/admin-accounts" class="mx-auto border border-black rounded-2xl h-26 w-[24%] bg-blue2 p-4">
+                    <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
+                    <h1 class="text-lg font-satoshimed text-grey-200">Students:</h1>
+                    <h1 class="-mt-8 text-6xl text-right font-clashmed" id="studCount"></h1>
+                </a>
 
-            <a href="/admin-accounts" class="mx-auto border border-black rounded-2xl h-52 w-[24%] bg-blue2 p-4">
-                <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
-                <h1 class="text-lg font-satoshimed text-grey-200">Students:</h1>
-                <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="studCount"></h1>
-            </a>
+                <a href="/admin-accounts" class="mx-auto border border-black rounded-2xl h-26 w-[24%] bg-blue2 p-4">
+                    <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
+                    <h1 class="text-lg font-satoshimed text-grey-200">Instructors:</h1>
+                    <h1 class="-mt-8 text-6xl text-right font-clashmed" id="insCount"></h1>
+                </a>
 
-            <a href="/admin-accounts" class="mx-auto border border-black rounded-2xl h-52 w-[24%] bg-blue2 p-4">
-                <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
-                <h1 class="text-lg font-satoshimed text-grey-200">Instructors:</h1>
-                <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="insCount"></h1>
-            </a>
+                <a href="/admin-rooms" class="mx-auto mr-0 border border-black rounded-2xl h-26 w-[24%] bg-beige p-4">
+                    <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
+                    <h1 class="text-lg font-satoshimed text-grey-200">Rooms:</h1>
+                    <h1 class="-mt-8 text-6xl text-right font-clashmed" id="roomCount"></h1>
+                </a>
+        
+            </div>
 
-            <a href="/admin-rooms" class="mx-auto mr-0 border border-black rounded-2xl h-52 w-[24%] bg-beige p-4">
-                <h1 class="text-lg font-satoshimed text-grey-200">Total no. of</h1>
-                <h1 class="text-lg font-satoshimed text-grey-200">Rooms:</h1>
-                <h1 class="text-right text-[6.5rem] font-clashbold -mt-8" id="roomCount"></h1>
-            </a>
-    
-        </div>
+            <div class="flex w-full mt-8 space-x-4">
+                <!-- Monthly Users Chart -->
+                <div class="w-4/6 p-4 bg-white border border-black rounded-lg">
+                    <h2 class="mb-4 text-xl font-clashmed text-grey2">Monthly User Registration</h2>
+                    <div class="h-[300px] w-full flex justify-center">
+                        <canvas class="w-full" id="monthlyUsersChart"></canvas>
+                    </div>
+                </div>
 
-        <div class="flex w-full mt-8 space-x-4">
-            <!-- Monthly Users Chart -->
-            <div class="w-4/6 p-4 bg-white border border-black rounded-lg">
-                <h2 class="mb-4 text-xl font-clashbold text-grey2">Monthly User Registration</h2>
-                <div class="h-[300px] w-full flex justify-center">
-                    <canvas class="w-full" id="monthlyUsersChart"></canvas>
+                <!-- User Distribution Chart -->
+                <div class="w-2/6 p-4 bg-white border border-black rounded-lg">
+                    <h2 class="mb-4 text-xl font-clashmed text-grey2">User Distribution</h2>
+                    <div class="h-[300px] flex justify-center">
+                        <canvas class="h-full" id="userDistributionChart"></canvas>
+                    </div>
                 </div>
             </div>
 
-            <!-- User Distribution Chart -->
-            <div class="w-2/6 p-4 bg-white border border-black rounded-lg">
-                <h2 class="mb-4 text-xl font-clashbold text-grey2">User Distribution</h2>
-                <div class="h-[300px] flex justify-center">
-                    <canvas class="h-full" id="userDistributionChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- lists -->
-        <div class="relative flex w-full mt-14">
-            <!-- left -->
-            <div class="mx-auto ml-0 w-[50%] min-w-[37.5rem]">
-                <h2 class="mb-4 text-xl text-left font-clashbold text-grey2">Recently Created Accounts</h2>
-                <div class="container mx-auto my-6 mr-2 overflow-hidden bg-white border border-black rounded-lg shadow-lg">
-                    <table class="min-w-full leading-normal">
-                        <thead>
-                            <tr>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">School No.</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Name</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Email</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Type</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
-                            <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Activation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                            <tbody id="rcAccs">
-                                <!-- Add more rows as needed -->
+            <!-- lists -->
+            <div class="relative flex w-full mt-14">
+                <!-- left -->
+                <div class="mx-auto ml-0 w-[50%] min-w-[37.5rem]">
+                    <h2 class="mb-4 text-xl text-left font-clashmed text-grey2">Recently Created Accounts</h2>
+                    <div class="container mx-auto my-6 mr-2 overflow-hidden bg-white border border-black rounded-lg shadow-lg">
+                        <table class="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">School No.</th>
+                                <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Name</th>
+                                <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Email</th>
+                                <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Type</th>
+                                <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
+                                <th class="px-1 py-3 pl-2 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Activation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
+                                <tbody id="rcAccs">
+                                    <!-- Add more rows as needed -->
+                                </tbody>
                             </tbody>
-                        </tbody>
-                    </table>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            
+                
 
-            <!-- Right -->
-            <div class="mx-auto mr-0 w-[50%] min-w-[37.5rem]">
-                <h2 class="mb-4 text-xl text-left font-clashbold text-grey2">Recently Created Rooms</h2>
-                <div class="container mx-auto my-6 ml-2 overflow-hidden bg-white border border-black rounded-lg shadow-lg">
-                    <table class="min-w-full leading-normal">
-                        <thead>
-                            <tr>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room ID</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room Name</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Instructor</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Instructor ID</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room Code</th>
-                            <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
-                            <tbody id="rcRooms"> 
+                <!-- Right -->
+                <div class="mx-auto mr-0 w-[50%] min-w-[37.5rem]">
+                    <h2 class="mb-4 text-xl text-left font-clashmed text-grey2">Recently Created Rooms</h2>
+                    <div class="container mx-auto my-6 ml-2 overflow-hidden bg-white border border-black rounded-lg shadow-lg">
+                        <table class="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room ID</th>
+                                <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room Name</th>
+                                <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Instructor</th>
+                                <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Instructor ID</th>
+                                <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Room Code</th>
+                                <th class="px-1 py-3 pl-4 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- gamit tayo injection per <tr> dito same sa tieOpt -->
+                                <tbody id="rcRooms"> 
 
-                                <!-- Add more rows as needed -->
+                                    <!-- Add more rows as needed -->
+                                </tbody>
                             </tbody>
-                        </tbody>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <?php if (hasInternetConnection()): ?>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <?php endif; ?>
+    
     <script src="assets/js/fetch/fetch.js"></script>
     <script>
         let changeChecker = null;
@@ -129,7 +134,6 @@
         const totalRooms = document.getElementById('roomCount');
 
         document.addEventListener('DOMContentLoaded', function() {
-            
             fetchLatestData({
                 "table1": "rooms",
                 "table2": "accounts",
@@ -146,7 +150,10 @@
 
             if (changeChecker == null || JSON.stringify(changeChecker) !== JSON.stringify(data)) {
                 changeChecker = data;
-                updateCharts(data);
+
+                <?php if (hasInternetConnection()): ?>
+                    updateCharts(data);
+                <?php endif; ?>
                 // console.log('CHANGED CHECKER: ' ,changeChecker);
             
                 totalUsers.innerHTML = '';
@@ -195,7 +202,7 @@
         }
 
 
-        let monthlyUsersChart = null;
+    let monthlyUsersChart = null;
     let userDistributionChart = null;
 
     function initializeCharts() {
@@ -294,6 +301,16 @@
             userDistributionChart.update();
         }
     }
+    </script>
+
+    <!-- Add this script at the bottom of your file -->
+    <script>
+        // Adjust main content margin when sidebar is toggled
+        document.getElementById('toggle-sidebar').addEventListener('click', function() {
+            const mainContent = document.getElementById('main-content');
+            mainContent.classList.toggle('ml-48');
+            mainContent.classList.toggle('ml-20');
+        });
     </script>
 
 </body>

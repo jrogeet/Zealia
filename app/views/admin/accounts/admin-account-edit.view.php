@@ -3,7 +3,7 @@
 <body class="static flex font-satoshimed bg-beige">
     <?php view('partials/admin-nav.view.php'); ?>
 
-    <div class="relative block w-full h-32 py-12 px-6 min-w-[75rem]">
+    <div class="relative block w-full h-32 py-12 px-6 min-w-[75rem] transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
         <div class="relative block w-full h-[40rem] mt-2">
             <a href="/admin-accounts" class="h-4 px-2 mb-10 text-3xl text-white border rounded-lg bg-blue3 border-black1">◀</a>
             <h1 class="mb-12 text-3xl text-grey2 font-satoshimed">Edit <span class="text-black1"><?= $allUserInfo['f_name'] ?> <?= $allUserInfo['l_name'] ?></span>'s Information</h1>
@@ -60,4 +60,13 @@
         </div>
     </div>
 
+
+    <script>
+    // Adjust main content margin when sidebar is toggled
+    document.getElementById('toggle-sidebar').addEventListener('click', function() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.classList.toggle('ml-48');
+        mainContent.classList.toggle('ml-20');
+    });
+</script>
 </body>

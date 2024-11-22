@@ -3,7 +3,7 @@
 <body class="static flex font-satoshimed bg-beige">
     <?php view('partials/admin-nav.view.php'); ?>
 
-    <div class="relative flex w-full h-fit py-12 px-6 min-w-[75rem]">
+    <div class="relative flex w-full h-fit py-12 px-6 min-w-[75rem] flex-1 transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
 
         <div class="relative block w-[70%] h-[40rem] mt-2">
             <h1 class="mb-12 text-3xl font-satoshimed">Edit Account Information</h1>
@@ -20,20 +20,20 @@
                         <?php endif; ?>
                         <h1 class="text-grey2 mt-[5%] mt-4">Name</h1>
                         <div class="flex">
-                            <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="First Name">
-                            <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white" placeholder="Last Name">
+                            <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="First Name">
+                            <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 bg-white border rounded-lg border-grey2" placeholder="Last Name">
                         </div>
 
                         <h1 class="text-grey2 mt-[5%] mt-4">School number</h1>
-                        <input name="school_id" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="ID number">
+                        <input name="school_id" type="text" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="ID number">
 
                         <h1 class="text-grey2 mt-[5%] mt-4">Email</h1>
-                        <input name="email" type="text" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="Email">
+                        <input name="email" type="text" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="Email">
                         
                         <h1 class="text-grey2 mt-[5%] mt-4">Change Password</h1>
                         <div class="flex">
-                            <input name="password" type="password" class="w-1/3 h-10 pl-2 ml-0 border rounded-lg border-grey2 bg-white" placeholder="New Password">
-                            <input name="c_password" type="password" class="w-1/3 h-10 pl-2 ml-4 border rounded-lg border-grey2 bg-white" placeholder="Confirm Password">
+                            <input name="password" type="password" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="New Password">
+                            <input name="c_password" type="password" class="w-1/3 h-10 pl-2 ml-4 bg-white border rounded-lg border-grey2" placeholder="Confirm Password">
                         </div>
 
                         <div class="block w-[30%] h-full mx-auto">
@@ -46,7 +46,7 @@
 
         <div class="relative block w-[40%] h-[40rem] mt-[5.7rem]">
             <div class="block w-[80%] h-[90%] border border-black rounded-2xl ml-12 overflow-hidden">
-                <h1 class="w-full h-10 pt-2 text-center bg-blue3 text-white font-satoshimed">Admin List</h1>
+                <h1 class="w-full h-10 pt-2 text-center text-white bg-blue3 font-satoshimed">Admin List</h1>
 
                 <?php foreach ($admins as $admin): ?>
                 <div class="flex w-full p-2 border-b border-black h-fit">
@@ -74,4 +74,13 @@
         </div>
 
     </div>
+
+    <script>
+    // Adjust main content margin when sidebar is toggled
+    document.getElementById('toggle-sidebar').addEventListener('click', function() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.classList.toggle('ml-48');
+        mainContent.classList.toggle('ml-20');
+    });
+</script>
 </body>

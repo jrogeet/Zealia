@@ -3,7 +3,7 @@
 <body class="static flex font-satoshimed bg-beige">
     <?php view('partials/admin-nav.view.php'); ?>
 
-    <div class="relative block w-full h-fit py-12 px-6 min-w-[75rem]">
+    <div class="relative block w-full h-fit py-12 px-6 min-w-[75rem] flex-1 transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
         <div class="flex justify-between mb-8">
             <h1 class="text-4xl font-clashbold">TICKETS</h1>
             <div class="flex gap-4">
@@ -510,4 +510,13 @@
             document.body.removeChild(link);
         }
     </script>
+
+<script>
+    // Adjust main content margin when sidebar is toggled
+    document.getElementById('toggle-sidebar').addEventListener('click', function() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.classList.toggle('ml-48');
+        mainContent.classList.toggle('ml-20');
+    });
+</script>
 </body>
