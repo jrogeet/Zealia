@@ -1,51 +1,54 @@
 <!-- ACCOUNT SETTINGS PAGE  / PROFILE PAGE -->
 <?php view('partials/head.view.php'); ?>
 
-<body class="static w-screen h-auto py-6 mb-0 overflow-x-hidden bg-beige font-satoshimed">
+<body class="static w-screen h-auto py-6 mb-0 overflow-x-hidden bg-blue1 font-satoshimed">
 
     <?php view('partials/nav.view.php') ?>
 
     <!-- desktop -->
-    <main class="relative block w-screen h-full text-center top-10 lg:top-24">
+    <main class="relative block w-screen h-auto text-center top-10 lg:top-24">
         <h1 class="relative font-clashbold text-[6vw] lg:text-3xl">Account Settings</h1>
 
-        <div class="relative flex flex-wrap w-full h-fit">
+        <div class="relative flex flex-wrap w-full mb-10 h-fit">
             <!-- left box -->
-            <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white lg:bg-beige text-left pt-2 pl-[3%] overflow-x-hidden">
-                <h5 class="text-xl text-grey2 mt-[6%]">Name</h5>
+            <div class="relative block  h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6  text-left pt-2 pl-[3%] overflow-hidden">
+                <h5 class="text-xl text-blackless mt-[6%]">Name</h5>
                 <h1 class="mb-6 text-3xl text-center lg:ml-4 lg:text-left"><?php echo "{$_SESSION['user']['f_name']} {$_SESSION['user']['l_name']}"; ?></h1>
 
-                <h5 class="text-xl text-grey2">Student Number</h5>
+                <h5 class="text-xl text-blackless">Student Number</h5>
                 <h1 class="mb-6 text-3xl text-center lg:ml-4 lg:text-left"><?php echo "{$_SESSION['user']['school_id']}"; ?></h1>
 
-                <h5 class="text-xl text-grey2 mt-36">Change Password</h5>
-                <form method="POST" action="/account">
-                    <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg lg:ml-4 mt-4" type="password" placeholder="Current Password" name="cur_pass" required></input>
-                    <div class="flex mt-2 lg:ml-4">
-                        <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg mt-4" type="password" placeholder="New Password" name="new_pass" required></input>
-                        <input class="max-w-[192px] w-[42vw] border border-grey2 p-2 h-10 rounded-lg ml-2 lg:ml-4 mt-4" type="password" placeholder="Confirm New Password" name="conew_pass" required></input>
-                    </div>
-                    <button class="relative h-10 px-8 mt-12 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orangeaccent text-black1">Save Changes</button>
-                </form>
+                <div class="p-6 lg:border lg:border-black lg:rounded-2xl bg-whitecon mt-28">
+                    <h5 class="text-xl text-blackless">Change Password</h5>
+                    <form method="POST" action="/account">
+                        <input class="max-w-[192px] w-[42vw] border border-blackless p-2 h-10 rounded-lg lg:ml-4 mt-4" type="password" placeholder="Current Password" name="cur_pass" required></input>
+                        <div class="flex mt-2 lg:ml-4">
+                            <input class="max-w-[192px] w-[42vw] border border-blackless p-2 h-10 rounded-lg mt-4" type="password" placeholder="New Password" name="new_pass" required></input>
+                            <input class="max-w-[192px] w-[42vw] border border-blackless p-2 h-10 rounded-lg ml-2 lg:ml-4 mt-4" type="password" placeholder="Confirm New Password" name="conew_pass" required></input>
+                        </div>
+                        <button class="relative h-10 px-8 mt-12 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orangeaccent text-black1">Save Changes</button>
+                    </form>
+                </div>
+
 
             </div>
 
             <!-- right box -->
-            <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-white lg:bg-beige text-left pt-2 pl-[4%] overflow-x-hidden">
+            <div class="relative block lg:border lg:border-black lg:rounded-2xl h-[70vh] min-h-[37rem] w-screen lg:w-5/12 mx-auto mt-6 bg-whitecon text-left pt-2 pl-[4%] overflow-x-hidden">
                 <?php if (isset($typeNscores)):?>
 
                     <div class="relative flex mt-10">
-                        <h1 class="mt-1 ml-auto text-xl font-satoshimed text-grey2">RESULTS:</h1>
+                        <h1 class="mt-1 ml-auto text-xl font-satoshimed text-blackless">RESULTS:</h1>
                         <label class="mr-auto text-4xl text-black font-clashsemibold top-12"><?= $typeNscores['result'] ?></label>
                     </div>
                     <div class="flex mt-16">
                         <div class="relative text-left mx-auto w-[20rem] h-5/6 pl-24">
-                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">REALISTIC</h1>
-                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">INVESTIGATIVE</h1>
-                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">ARTISTIC</h1>
-                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">SOCIAL</h1>
-                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">ENTERPRISING</h1>
-                            <h1 class="mb-4 text-lg font-satoshimed text-grey2">CONVENTIONAL</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-blackless">REALISTIC</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-blackless">INVESTIGATIVE</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-blackless">ARTISTIC</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-blackless">SOCIAL</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-blackless">ENTERPRISING</h1>
+                            <h1 class="mb-4 text-lg font-satoshimed text-blackless">CONVENTIONAL</h1>
                         </div>
                         <div class="relative text-right mx-auto w-[20rem] h-5/6 pr-32 mb-1">
                             <h1 class="mb-4 text-xl text-black font-satoshimed" id="r"><?= $typeNscores['R'] ?></h1>
@@ -59,12 +62,12 @@
 
                     <div class="flex justify-start ">
                         <!-- Add this button where you want it to appear -->
-                        <button id="downloadPDF" class="relative h-10 p-2 mt-8 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 text-black1">Download PDF</button>
+                        <button id="downloadPDF" class="relative h-10 px-2 mt-8 transform -translate-x-1/2 border rounded-2xl bg-blue2 left-1/2 border-black1 text-black1">Download PDF</button>
                     </div>
                     <a href="/test"><button class="relative h-10 px-8 mt-4 transform -translate-x-1/2 border rounded-lg left-1/2 border-black1 bg-orangeaccent text-black1">Retake Test</button></a>
                 <?php else:?>
                     <h1 class="relative text-4xl text-center transform -translate-y-1/2 top-1/2 font-satoshimed">You haven't taken the test!</h1>
-                    <a href="/test"><button class="relative w-40 h-12 text-xl transform -translate-x-1/2 border top-1/2 border-grey2 rounded-2xl bg-orangeaccent font-satoshimed left-1/2">Take Test</button></a>
+                    <a href="/test"><button class="relative w-40 h-12 text-xl transform -translate-x-1/2 border top-1/2 border-blackless rounded-2xl bg-orangeaccent font-satoshimed left-1/2">Take Test</button></a>
                 <?php endif;?>
 
             </div>

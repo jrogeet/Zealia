@@ -115,6 +115,22 @@ module.exports = {
         '41': '10.25rem',
         '42': '10.5rem',
         '43': '10.75rem'
+      },
+
+      keyframes: {
+        'star-shine': {
+          '0%, 100%': { 
+            transform: 'scale(1)',
+            opacity: '1'
+          },
+          '50%': { 
+            transform: 'scale(1.2)',
+            opacity: '0.8'
+          }
+        }
+      },
+      animation: {
+        'star-shine': 'star-shine 2s ease-in-out infinite'
       }
     },
   },

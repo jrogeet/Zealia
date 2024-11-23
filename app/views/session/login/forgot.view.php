@@ -1,21 +1,21 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="bg-white flex flex-col justify-between items-center">
+<body class="flex flex-col items-center justify-between bg-blue1">
     <?php view('partials/nav.view.php')?>
 
     <main class="h-[41rem] w-[87.5rem] flex space-between">
         <?php if(isset($sent)): ?>
             <?php echo '<script type="text/javascript">disableScroll();</script>'; ?>
-            <div id="resetSent" class=" flex bg-glassmorphism fixed top-20 left-0  h-screen w-screen pt-56 justify-center">
-                <div class="bg-white flex flex-col justify-between h-48 w-90 border border-black1 rounded-t-lg">
-                    <div class="bg-blue3 flex justify-between items-center h-1/6 border border-black1 rounded-t-lg">
-                        <span class="text-white w-4/5 text-lg font-satoshimed pl-2">Reset Sent</span>
-                        <button class="bg-red1 h-full w-10 rounded" onClick="hide('resetSent'); enableScroll();">X</button>
+            <div id="resetSent" class="fixed left-0 flex justify-center w-screen h-screen pt-56 bg-glassmorphism top-20">
+                <div class="flex flex-col justify-between h-48 bg-white border rounded-t-lg w-90 border-black1">
+                    <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
+                        <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Reset Sent</span>
+                        <button class="w-10 h-full rounded bg-red1" onClick="hide('resetSent'); enableScroll();">X</button>
                     </div>
                 
-                    <div class="h-5/6 flex flex-col justify-center items-center  p-4 ">
-                        <p class="font-satoshimed text-black">The reset link was <span class="text-green1">successfully</span> sent to your email,</p>
-                        <p class="font-satoshimed mb-3">please check your inbox.</p>
+                    <div class="flex flex-col items-center justify-center p-4 h-5/6 ">
+                        <p class="text-black font-satoshimed">The reset link was <span class="text-green1">successfully</span> sent to your email,</p>
+                        <p class="mb-3 font-satoshimed">please check your inbox.</p>
                         <p class="text-sm font-satoshimed text-grey2">If you can't find the email, please check your spam folder.</p>
                     </div>
                 </div>
@@ -23,13 +23,13 @@
         <?php endif; ?>
 
         <div class="bg-blue1 h-[30rem] w-[26rem] flex flex-col justify-between items-center mt-32 mb-20 border border-black1 rounded-lg px-4">
-            <h1 class="flex flex-col font-satoshimed text-4xl text-center text-black1 mt-14">Forgot your<span class="text-3xl text-red1">Password?</span></h1>
-            <form method="post" action="/forgot" class="h-4/6 w-full mb-6 flex flex-col justify-evenly items-center">
-                <div class="w-5/6 flex flex-col">
-                    <label class="font-satoshimed text-lg text-grey2" for="email">Enter Account's email</label>
-                    <input class="w-full border border-black1 rounded-lg mt-2 p-2" type="email" name="email" placeholder="Email" required>
+            <h1 class="flex flex-col text-4xl text-center font-satoshimed text-black1 mt-14">Forgot your<span class="text-3xl text-red1">Password?</span></h1>
+            <form method="post" action="/forgot" class="flex flex-col items-center w-full mb-6 h-4/6 justify-evenly">
+                <div class="flex flex-col w-5/6">
+                    <label class="text-lg font-satoshimed text-grey2" for="email">Enter Account's email</label>
+                    <input class="w-full p-2 mt-2 border rounded-lg border-black1" type="email" name="email" placeholder="Email" required>
                 </div>
-                <button class="bg-blue3 hover:bg-orangeaccent hover:text-black1 w-3/6 py-2 border border-blue3 rounded-xl font-satoshimed text-xl text-white" type="submit">Send Reset Link</button>
+                <button class="w-3/6 py-2 text-xl text-white border bg-blue3 hover:bg-orangeaccent hover:text-black1 border-blue3 rounded-xl font-satoshimed" type="submit">Send Reset Link</button>
             </form>
         </div>
     </main>

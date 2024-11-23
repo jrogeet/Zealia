@@ -7,7 +7,7 @@
         <section class=" flex flex-col items-center h-[41rem] justify-center">
 
             <div class="relative flex items-center justify-center">
-                <img class="absolute h-7 -top-2 right-35" src="assets/images/vectors/shapes/Zealia-Star-Orange.png" >
+                <img class="absolute h-7 -top-2 right-35 animate-star-shine" src="assets/images/vectors/shapes/Zealia-Star-Orange.png" >
                 <h1 class="text-5xl text-center font-clashbold">BUILD <span class="text-blue2 [-webkit-text-stroke:1px_black]">BALANCED TEAMS</span> THAT</h1>
             </div>
             <h1 class="text-5xl text-center font-clashbold">AMPLIFY STRENGTHS</h1>

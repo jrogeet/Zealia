@@ -163,12 +163,12 @@
 
                 <div class="flex items-center">
                     <span class="mr-2 text-base font-satoshimed">Enter Room name:</span>
-                    <input name="room_name" class="h-[1.75rem] w-[12.5rem] bg-beige border border-grey2 font-satoshimed text-grey1 text-base px-2 py-4 mb-2 rounded-lg" placeholder="Enter room name" required>
+                    <input name="room_name" class="h-[1.75rem] w-[12.5rem] bg-blue1 border border-grey2 font-satoshimed text-grey1 text-base px-2 py-4 mb-2 rounded-lg" placeholder="Enter room name" required>
                 </div>
                 
                 <div class="flex items-center">
                     <label>Year Level:</label>
-                    <select name="year_level" class="p-1 ml-2 border rounded-lg border-grey2">
+                    <select name="year_level" class="p-1 ml-2 border rounded-lg bg-blue1 border-grey2">
                         <option value="1st year">1st year</option>
                         <option value="2nd year">2nd year</option>
                         <option value="3rd year">3rd year</option>
@@ -178,7 +178,7 @@
 
                 <div class="flex items-center">
                     <label>Program:</label>
-                    <select name="program" class="p-1 ml-2 border rounded-lg border-grey2">
+                    <select name="program" class="p-1 ml-2 border rounded-lg bg-blue1 border-grey2">
                         <option value="cs">CS</option>
                         <option value="it">IT</option>
                     </select>
@@ -188,14 +188,14 @@
                 <div class="flex items-center">
                     <label class="mr-1 ">Section:</label>
                     <label for="yearPrefix">Y</label>
-                    <input type="text" id="yearPrefix" maxlength="1" class="p-1 ml-1 border rounded-lg w-14 border-grey2" pattern="[A-Z0-9]" placeholder="A or 1" required>
+                    <input type="text" id="yearPrefix" maxlength="1" class="p-1 ml-1 border rounded-lg w-14 bg-blue1 border-grey2" pattern="[A-Z0-9]" placeholder="A or 1" required>
                     <span>-</span>
-                    <input type="text" id="sectionSuffix" maxlength="1" class="p-1 border rounded-lg w-14 border-grey2" pattern="[A-Z0-9]" placeholder="A or 1" required>
+                    <input type="text" id="sectionSuffix" maxlength="1" class="p-1 border rounded-lg bg-blue1 w-14 border-grey2" pattern="[A-Z0-9]" placeholder="A or 1" required>
                 </div>
                 
                 <input type="hidden" id="combinedSection" name="section">
 
-                <button type="submit" class="w-1/2 p-1 mx-auto mt-2 border rounded-xl bg-whitealt text-blackpri border-blackless hover:bg-orangeaccent">Create Room</button>
+                <button type="submit" class="w-1/2 p-1 mx-auto mt-2 border rounded-xl bg-blue2 text-blackpri border-blackless hover:bg-orangeaccent">Create Room</button>
             </form>
         </div>
     </div>
