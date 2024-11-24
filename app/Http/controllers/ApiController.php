@@ -603,6 +603,7 @@ private function getLatestData($params)
                     $encodedGroups = json_encode($decodedGroups);
                     $latestData[0]['groups_json'] = $encodedGroups;
                 }
+                
             } elseif (isset($currentPage) && $currentPage == 'admin_accounts') {
                 $latestData['students'] = [];
                 $latestData['instructors'] = [];

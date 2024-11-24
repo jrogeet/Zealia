@@ -171,7 +171,6 @@
     <script>
         const room_id = <?= $_GET['room_id']  ?>;
         const currentUserId = '<?= $_SESSION['user']['school_id'] ?>';
-        // console.log('currentUserId', currentUserId);
 
         let groupChecker = null;
         let studentsChecker = null;
@@ -197,29 +196,13 @@
         // const noSelectClass = studentRole === 'Principal Investigator' ? '' : 'cursor-grab select-none pointer-events-none';
         let noSelectClass = '';
 
-        // let membersWarningContent = `
-        //     <div id="membersWarning" class="flex items-center justify-center w-full h-10 bg-rederr rounded-t-xl">
-        //         <span class="text-base text-white font-clashbold">WARNING!:The number of members in the groups does not match the number of students in the room.</span>
-        //     </div>
-        //     <div class="flex items-center justify-center w-full h-10 rounded-t-xl">
-        //         <form id="submitGroups" method="POST">
-        //             <input type="hidden" name="grouped" value="grouped">
-        //             <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value="${JSON.stringify(student_has_result)}"> 
-        //             <input type="hidden" name="stunotype" id="stunotype" value="${JSON.stringify(student_no_result)}">
-        //             <input type="hidden" name="genGroups" id="genGroups" value="">
-        //             <input type="hidden" name="room" value="${room_id}">
-        //             <button onclick="generateGroups();" class="bg-orangeaccent h-[3.13rem] w-[13rem] font-clashbold text-base border border-black1 rounded-lg mt-4">Re-generate groups</button>
-        //         </form>
-        //     </div>
-        // `;
-
+        // for Loading visual:
         let loadingCount = 0;
-
         function showLoading() {
             loadingCount++;
             document.getElementById('loadingIndicator').classList.remove('hidden');
         }
-
+        
         function hideLoading() {
             loadingCount--;
             if (loadingCount <= 0) {
@@ -228,11 +211,11 @@
             }
         }
 
+        // As soon as the page loads:
         document.addEventListener('DOMContentLoaded', function() {
             const roomStudentList = document.getElementById('roomStudentList');
             const roomJoinRequest = document.getElementById('roomJoinRequest');
             const studentCount = document.getElementById('studentCount');
-
 
             <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
                 showLoading();
@@ -274,6 +257,7 @@
             setupFormSubmissions();
         });
         
+        // Getting all the forms in the HTML and ready-ing them for fetch:
         function setupFormSubmissions() {
             document.body.addEventListener('submit', function(e) {
                 if (e.target && e.target.id && e.target.id.startsWith('kickForm')) {
@@ -305,53 +289,54 @@
                 }
             });
         }
+        
+        // Modal to show Task Details when clicked
         function showTaskDetails(title, description, date, status) {
-                        // Decode the URI-encoded strings
-                        const decodedTitle = decodeURIComponent(title);
-                        const decodedDescription = decodeURIComponent(description);
-                        
-                        // Map status to a more readable format and color
-                        const statusMap = {
-                            'todo': { text: 'To Do', color: '#FF6B6B' },
-                            'wip': { text: 'In Progress', color: '#4DABF7' },
-                            'done': { text: 'Completed', color: '#40C057' }
-                        };
+            // Decode the URI-encoded strings
+            const decodedTitle = decodeURIComponent(title);
+            const decodedDescription = decodeURIComponent(description);
+            
+            // Map status to a more readable format and color
+            const statusMap = {
+                'todo': { text: 'To Do', color: '#FF6B6B' },
+                'wip': { text: 'In Progress', color: '#4DABF7' },
+                'done': { text: 'Completed', color: '#40C057' }
+            };
 
-                        const statusInfo = statusMap[status] || { text: status, color: '#000000' };
+            const statusInfo = statusMap[status] || { text: status, color: '#000000' };
 
-                        Swal.fire({
-                            title: decodedTitle,
-                            html: `
-                                <div class="flex flex-col items-start text-left">
-                                    <div class="mb-4">
-                                        <span class="font-bold">Status: </span>
-                                        <span style="color: ${statusInfo.color}">${statusInfo.text}</span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <span class="font-bold">Due Date: </span>
-                                        <span>${date}</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-bold">Description:</span>
-                                        <p class="mt-2 text-gray-600 whitespace-pre-wrap">${decodedDescription}</p>
-                                    </div>
-                                </div>
-                            `,
-                            showCloseButton: true,
-                            showConfirmButton: false,
-                            customClass: {
-                                popup: 'rounded-xl',
-                                content: 'text-left'
-                            },
-                            background: 'rgba(255, 255, 255, 0.9)',
-                            backdrop: `
-                                rgba(0, 0, 0, 0.4)
-                                left top
-                                no-repeat
-                            `
-                        });
-                    }
-
+            Swal.fire({
+                title: decodedTitle,
+                html: `
+                    <div class="flex flex-col items-start text-left">
+                        <div class="mb-4">
+                            <span class="font-bold">Status: </span>
+                            <span style="color: ${statusInfo.color}">${statusInfo.text}</span>
+                        </div>
+                        <div class="mb-4">
+                            <span class="font-bold">Due Date: </span>
+                            <span>${date}</span>
+                        </div>
+                        <div>
+                            <span class="font-bold">Description:</span>
+                            <p class="mt-2 text-gray-600 whitespace-pre-wrap">${decodedDescription}</p>
+                        </div>
+                    </div>
+                `,
+                showCloseButton: true,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'rounded-xl',
+                    content: 'text-left'
+                },
+                background: 'rgba(255, 255, 255, 0.9)',
+                backdrop: `
+                    rgba(0, 0, 0, 0.4)
+                    left top
+                    no-repeat
+                `
+            });
+        }
 
         function displayGroups(groupsList){
             if (isUpdatingKanban) {
@@ -378,12 +363,9 @@
 
                     // for KANBAN and PDF generation
                     parsedGroupsList.forEach((group, index) => {
-                        // console.log('group ', index + 1, ':', group);
                         let container = [];
                         let bool = false;
                         group.forEach(member => {
-                            // console.log('member', member);
-                            // console.log('my school id', '<?= $_SESSION['user']['school_id'] ?>');
                             container.push(member);
                             if (<?= $_SESSION['user']['account_type'] === 'instructor' ? 'true' : 'false' ?>) {
                                 members[index + 1] = group;
@@ -399,13 +381,6 @@
                             members = container;
                         }
                     });
-
-                    // console.log('members', members);
-
-                    // console.log('groupNum', groupNum);
-                    // console.log('studentRole', studentRole);
-
-                    // console.log('members', members);
 
                     // Checking whether members warning should be shown
                     <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
@@ -426,14 +401,87 @@
                         }
                     <?php endif; ?>
 
-                    // console.log('groups', typeof(parsedGroupsList));
-                    // console.log('groups', parsedGroupsList);
 
-                    if (groupChecker === null || JSON.stringify(groupChecker) !== JSON.stringify(parsedGroupsList)){
+                    // Add this helper function to normalize and compare groups data
+                    function areGroupsEqual(oldGroups, newGroups) {
+                        if (!oldGroups || !newGroups) return false;
+                        
+                        // Helper to normalize a single member's data
+                        const normalizeMember = member => ({
+                            name: member[0],
+                            id: member[1],
+                            role: member[2],
+                            // Only include kanban data if it exists
+                            ...(member[3] ? { kanban: normalizeKanban(member[3]) } : {})
+                        });
+
+                        // Helper to normalize kanban data
+                        const normalizeKanban = kanban => {
+                            if (!kanban) return null;
+                            
+                            // Only compare essential kanban data structure
+                            const normalized = {};
+                            for (const [roomId, lists] of Object.entries(kanban)) {
+                                normalized[roomId] = {
+                                    todo: (lists.todo || []).map(task => {
+                                        // Handle different possible task formats
+                                        if (Array.isArray(task)) {
+                                            return task.join('|');
+                                        } else if (typeof task === 'object') {
+                                            // If task is an object, stringify its relevant properties
+                                            return `${task.title}|${task.description}|${task.date}`;
+                                        } else {
+                                            // If task is a string or other type, convert to string
+                                            return String(task);
+                                        }
+                                    }).sort(),
+                                    wip: (lists.wip || []).map(task => {
+                                        if (Array.isArray(task)) {
+                                            return task.join('|');
+                                        } else if (typeof task === 'object') {
+                                            return `${task.title}|${task.description}|${task.date}`;
+                                        } else {
+                                            return String(task);
+                                        }
+                                    }).sort(),
+                                    done: (lists.done || []).map(task => {
+                                        if (Array.isArray(task)) {
+                                            return task.join('|');
+                                        } else if (typeof task === 'object') {
+                                            return `${task.title}|${task.description}|${task.date}`;
+                                        } else {
+                                            return String(task);
+                                        }
+                                    }).sort()
+                                };
+                            }
+                            return normalized;
+                        };
+
+                        // Normalize and compare the groups
+                        try {
+                            const normalizedOld = oldGroups.map(group => 
+                                group.map(normalizeMember).sort((a, b) => a.id.localeCompare(b.id))
+                            ).sort((a, b) => a[0].id.localeCompare(b[0].id));
+
+                            const normalizedNew = newGroups.map(group => 
+                                group.map(normalizeMember).sort((a, b) => a.id.localeCompare(b.id))
+                            ).sort((a, b) => a[0].id.localeCompare(b[0].id));
+
+                            return JSON.stringify(normalizedOld) === JSON.stringify(normalizedNew);
+                        } catch (error) {
+                            console.error('Error comparing groups:', error);
+                            return false;
+                        }
+                    }
+
+                    // if (groupChecker === null || JSON.stringify(groupChecker) !== JSON.stringify(parsedGroupsList)) {
+                    if (groupChecker === null || !areGroupsEqual(groupChecker, parsedGroupsList)) {
+                        console.log('Group Checker:', groupChecker);
                         membersCount = membersCounter;
                         console.log('Groups updated - refreshing UI');
                         console.log('not equal');
-                        // console.log('parsedGroupsList', parsedGroupsList);
+                        console.log('parsedGroupsList', parsedGroupsList);
                         groupChecker = parsedGroupsList;
 
                         <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
@@ -637,7 +685,7 @@
                                         </div>
 
                                         <!-- lanes -->
-                                        <div class="relative flex w-full min-h-full gap-2 mt-2">
+                                        <div class="relative flex w-full min-h-full gap-2 mt-2 select-none">
                                             <!-- to do -->
                                             <div id="${index}todoCont" class="w-1/3 min-h-[33.8rem] overflow-hidden bg-whitecon group dropzone rounded-xl">
                                                 <h1 class="px-3 py-3 text-left text-white border-b bg-blackless font-clashsemibold border-black1">To Do List:</h1>
