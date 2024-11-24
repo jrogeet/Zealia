@@ -1042,6 +1042,29 @@ private function getLatestData($params)
                     ]
                 );
 
+                foreach ($groupCheck as $group) {
+                    foreach ($group as $student) {
+                        $kanbans = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
+                            'school_id'=> $student[1],
+                        ])->find();
+
+                        if (!empty($kanbans['kanban'])) {
+                            $kanbanData = json_decode($kanbans['kanban'], true);
+                            
+                            // Remove the specific room's kanban data if it exists
+                            if (isset($kanbanData[$formData['room']])) {
+                                unset($kanbanData[$formData['room']]);
+                                
+                                // Update the account's kanban data
+                                $this->db->query('UPDATE accounts SET kanban = :kanban WHERE school_id = :school_id', [
+                                    'kanban' => json_encode($kanbanData),
+                                    'school_id' => $student[1]
+                                ]);
+                            }
+                        }
+                    }
+                }
+
                 // Delete existing groups
                 $this->db->query('DELETE FROM room_groups WHERE room_id = :id', [
                     ':id'=> $formData['room'],
