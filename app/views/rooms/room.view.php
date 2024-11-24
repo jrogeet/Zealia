@@ -218,14 +218,14 @@
             const studentCount = document.getElementById('studentCount');
 
             <?php if ($_SESSION['user']['account_type'] === 'instructor'): ?>
-                showLoading();
                 try {
                     fetchLatestData({
                         "table1": "room_list",
                         "table2": "join_room_requests",
                         "room_id": <?= $_GET['room_id']  ?>,
                         "currentPage": "room",
-                    }, displayStudents, 1000); 
+                    }, displayStudents, 1000);
+                    showLoading();
                 } catch(error) {
                     console.error('Error fetching student data:', error);
                     // Show error message to user
@@ -813,6 +813,7 @@
                                     processUpdateKanban('delete', [taskName, taskInfo, taskDate], 'delete')
                                         .then(() => {
                                             curTask.remove();
+                                            hideLoading();
                                         })
                                         .catch(error => {
                                             console.error('Error deleting task:', error);
@@ -906,6 +907,7 @@
                                                 zone.appendChild(curTask);
                                                 curTask.classList.remove("cursor-grabbing");
                                                 curTask.classList.add("cursor-grab");
+                                                hideLoading();
                                             })
                                             .catch(error => {
                                                 console.error('Error moving task:', error);
@@ -1141,7 +1143,7 @@
                                         <span class="text-2xl font-satoshiblack text-rederr">Remove:</span>
                                         <span class="text-xl font-satoshimed">${student.l_name} ${student.f_name}</span>
                                         <span class="text-lg font-satoshimed">from this room?</span>
-                                        <button onclick="enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 border rounded-lg text-blackpri bg-rederr border-blackpri">Confirm</button>
+                                        <button onclick="hide('kickConfirmation${student.school_id}'); enableScroll();" type="submit" name="kick" value="${student.room_id},${student.school_id}" class="w-16 border rounded-lg text-blackpri bg-rederr border-blackpri">Confirm</button>
                                     </form>
                                 </div>
                             </div>

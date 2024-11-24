@@ -987,6 +987,25 @@ private function getLatestData($params)
             ':school_id' => $values_array[1]
         ]);
 
+        $kanbans = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
+            'school_id' => $values_array[1]
+        ])->find();
+
+        if (!empty($kanbans['kanban'])) {
+            $kanbanData = json_decode($kanbans['kanban'], true);
+            
+            // Remove the specific room's kanban data if it exists
+            if (isset($kanbanData[$values_array[0]])) {
+                unset($kanbanData[$values_array[0]]);
+                
+                // Update the account's kanban data
+                $this->db->query('UPDATE accounts SET kanban = :kanban WHERE school_id = :school_id', [
+                    'kanban' => json_encode($kanbanData),
+                    'school_id' => $values_array[1]
+                ]);
+            }
+        }
+
         $this->logger->log(
             'KICK STUDENT',
             'success',
@@ -1042,10 +1061,14 @@ private function getLatestData($params)
                     ]
                 );
 
-                foreach ($groupCheck as $group) {
+                // Decode the existing groups JSON first
+                $existingGroups = json_decode($groupCheck['groups_json'], true);
+
+                // Then iterate through the decoded groups structure
+                foreach ($existingGroups as $group) {
                     foreach ($group as $student) {
                         $kanbans = $this->db->query('SELECT kanban FROM accounts WHERE school_id = :school_id', [
-                            'school_id'=> $student[1],
+                            'school_id' => $student[1],
                         ])->find();
 
                         if (!empty($kanbans['kanban'])) {
