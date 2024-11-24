@@ -202,7 +202,7 @@ function showTaskModal() {
         html: `
             <div class="flex w-full">                        
                 <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl border-b border-black bg-white font-satoshimed" placeholder="Task Name" id="taskName" required>
-                <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white font-satoshimed" placeholder="Date" id="taskDate">
+                <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 border-b border-black bg-white font-satoshimed" placeholder="Date" id="taskDate" required>
             </div>
             <div class="flex w-full">                        
                 <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base border-b border-black bg-white font-satoshimed text-grey2" placeholder="Description" id="taskInfo">
@@ -228,9 +228,22 @@ function showTaskModal() {
             left top
             no-repeat`,
         preConfirm: () => {
+            const taskName = document.getElementById('taskName').value;
+            const taskDate = document.getElementById('taskDate').value;
+            
+            // Validate required fields
+            if (!taskName.trim()) {
+                Swal.showValidationMessage('Task name is required');
+                return false;
+            }
+            if (!taskDate) {
+                Swal.showValidationMessage('Due date is required');
+                return false;
+            }
+
             return {
-                taskName: document.getElementById('taskName').value,
-                taskDate: document.getElementById('taskDate').value,
+                taskName: taskName,
+                taskDate: taskDate,
                 taskInfo: document.getElementById('taskInfo').value,
                 taskDestination: document.getElementById('taskDestination').value
             }

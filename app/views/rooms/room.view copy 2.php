@@ -359,7 +359,6 @@
                     const parsedGroupsList = JSON.parse(groupsList[0]['groups_json']);
                     // console.log('parsedGroupsList', parsedGroupsList);
 
-                    members = [];
 
                     // for KANBAN and PDF generation
                     parsedGroupsList.forEach((group, index) => {
@@ -860,6 +859,7 @@
                                 // Process deletion
                                 processUpdateKanban('delete', [taskName, taskInfo, taskDate], 'delete')
                                     .then(() => {
+                                        hideLoading();
                                         curTask.remove();
                                     })
                                     .catch(error => {
@@ -951,6 +951,7 @@
 
                                     processUpdateKanban('move', [taskName, taskInfo, taskDate], newDestination)
                                         .then(() => {
+                                            hideLoading();
                                             zone.appendChild(curTask);
                                             curTask.classList.remove("cursor-grabbing");
                                             curTask.classList.add("cursor-grab");
@@ -1004,11 +1005,11 @@
             
         }
 
-        function processUpdateKanban(action, taskData, destination) {
+        function processUpdateKanban(action, taskData, destination, targetSchoolId = null) {
             isUpdatingKanban = true;
-
+            showLoading();
             const formData = new FormData();
-            formData.append('school_id', members[currentKB][1]);
+            formData.append('school_id', targetSchoolId || members[currentKB][1]);
             formData.append('task', JSON.stringify(taskData));
             formData.append('destination', destination);
             formData.append('room_id', room_id);
@@ -1306,8 +1307,11 @@
                 // Create the task array
                 const newTask = [taskName, taskInfo, taskDate];
 
-                processUpdateKanban(null, newTask, taskDestination)
+                const targetMemberId = members[currentKB][1];
+
+                processUpdateKanban(null, newTask, taskDestination, targetMemberId)
                 .then(() => {
+                    hideLoading();
                     // Add UI update code here
                     const container = document.getElementById(`${currentKB}${taskDestination}Cont`);
                     const newCard = document.createElement('div');
