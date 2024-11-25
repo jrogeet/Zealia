@@ -284,7 +284,7 @@
                         genGroups: document.getElementById('genGroups').value,
                         room: <?= $_GET['room_id'] ?>,
                         filteredidNRiasec: document.getElementById('filteredidNRiasec').value,
-                        stunotype: document.getElementById('stunotype').value,
+                        stunotype: document.getElementById('stunotype').value
                     });
                 }
             });
@@ -319,7 +319,60 @@
                         </div>
                         <div>
                             <span class="font-bold">Description:</span>
-                            <p class="mt-2 text-gray-600 whitespace-pre-wrap">${decodedDescription}</p>
+                            <p class="mt-2 text-gray-600">${decodedDescription}</p>
+                        </div>
+                    </div>
+                `,
+                showCloseButton: true,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'rounded-xl',
+                    content: 'text-left'
+                },
+                background: 'rgba(255, 255, 255, 0.9)',
+                backdrop: `
+                    rgba(0, 0, 0, 0.4)
+                    left top
+                    no-repeat
+                `
+            });
+        }
+
+        function showStudentDetails(name, id, email, result) {
+            // Decode the URI-encoded strings
+            const decodedName = decodeURIComponent(name);
+            const decodedID = decodeURIComponent(id);
+            const decodedEmail = decodeURIComponent(email);
+            const decodedResult = decodeURIComponent(result);
+            
+            // Map status to a more readable format and color
+            // const statusMap = {
+            //     'todo': { text: 'To Do', color: '#FF6B6B' },
+            //     'wip': { text: 'In Progress', color: '#4DABF7' },
+            //     'done': { text: 'Completed', color: '#40C057' }
+            // };
+
+            // const statusInfo = statusMap[status] || { text: status, color: '#000000' };
+
+            Swal.fire({
+                title: 'Student Details',
+                html: `
+                    <div class="flex flex-col items-start text-left">
+                        <div class="mb-4">
+                            <span class="font-bold">Name: </span>
+                            <span style="color: ">${decodedName}</span>
+                        </div>
+                        <div class="mb-4">
+                            <span class="font-bold">School ID: </span>
+                            <span>${decodedID}</span>
+                        </div>
+                        <div class="mb-4">
+                            <span class="font-bold">Email: </span>
+                            <span>${decodedEmail}</span>
+                        </div>
+                        <div class="mb-4">
+                            <span class="font-bold">RIASEC Type: </span>
+                            <span>${decodedResult}</span>
                         </div>
                     </div>
                 `,
@@ -499,10 +552,14 @@
                                 <div id="groupsContent" class="relative flex flex-col items-center w-full h-full overflow-y-hidden">
                                     <!-- HEADER -->
                                     <div class="flex items-center w-full h-20 p-6">
-                                        <span class="w-4/5 text-4xl font-clashbold">GROUPS</span>
+                                        <span class="w-3/5 text-4xl font-clashbold">GROUPS</span>
                                 
                                         <!-- downloadPDF groups btn -->
                                         <button onclick="downloadPDF()" class="flex items-center justify-center h-8 text-lg border border-black rounded-lg bg-whitecon w-36 font-satoshireg">Print Groups</button>
+                                        
+                                        <!-- re-generate groups btn -->
+                                        <button onclick="showRegenerateGroupsModal()" class="flex items-center justify-center h-8 ml-4 text-base border rounded-lg w-52 bg-blue2 font-satoshimed border-blackpri">Re-generate Groups</button>
+                                        
                                         <!-- edit groups btn -->
                                         <a href="/groups?room_id=<?= $room_info['room_id'] ?>" class="flex items-center justify-center h-8 ml-4 text-lg border rounded-lg bg-greenaccent w-36 font-satoshimed border-blackpri">Edit Groups</a>
                                     </div>
@@ -759,27 +816,54 @@
                                     let date = new Date(taskData[2]);
                                     let formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-                                    return `
-                                        <div class="flex border mt-2 ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
-                                            draggable="${canDrag}"
-                                            onclick="showTaskDetails('${encodeURIComponent(taskData[0])}', '${encodeURIComponent(taskData[1])}', '${formattedDate}', '${listType}')"
-                                        >
-                                            <div class="flex px-2 bg-white border rounded-xl w-fit">
-                                                <span class="text-xs text-left font-satoshimed text-wrap text-blackpri">${formattedDate}</span>
+                                    console.log('now date:' ,new Date(), 'task date: ', date);
+                                    console.log((new Date()) > date);
+
+                                    if ((new Date()) < date) {
+                                        return `
+                                            <div class="flex border mt-2 ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
+                                                draggable="${canDrag}"
+                                                onclick="showTaskDetails('${encodeURIComponent(taskData[0])}', '${encodeURIComponent(taskData[1])}', '${formattedDate}', '${listType}')"
+                                            >
+                                                <div class="flex px-2 bg-white border rounded-xl w-fit">
+                                                    <span class="text-xs text-left font-satoshimed text-wrap text-blackpri">${formattedDate}</span>
+                                                </div>
+                                                
+                                                <!-- Task Title & Task Description -->
+                                                <div class="${canDrag ? 'cursor-grab' : ''} min-h-[2.28rem] flex items-center w-full">
+                                                    <span class="w-full text-lg text-left text-black break-words font-satoshireg">${taskData[0]}</span>
+                                                </div>
+                                                
+                                                <div class="w-full border-t border-black">
+                                                    <p class="text-base text-left break-words whitespace-normal font-satoshilight text-blackpri">
+                                                        ${taskData[1]}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            
-                                            <!-- Task Title & Task Description -->
-                                            <div class="${canDrag ? 'cursor-grab' : ''} min-h-[2.28rem] flex items-center w-full">
-                                                <span class="w-full text-lg text-left text-black break-words font-satoshireg">${taskData[0]}</span>
+                                        `;
+                                    } else {
+                                        return `
+                                            <div class="flex border mt-2 border-black flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl bg-blackless bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
+                                                draggable="${canDrag}"
+                                                onclick="showTaskDetails('${encodeURIComponent(taskData[0])}', '${encodeURIComponent(taskData[1])}', '${formattedDate}', 'Past Deadline')"
+                                            >
+                                                <div class="flex px-2 bg-white border rounded-xl w-fit">
+                                                    <span class="text-xs text-left text-rederr font-satoshimed text-wrap">${formattedDate}</span>
+                                                </div>
+                                                
+                                                <!-- Task Title & Task Description -->
+                                                <div class="${canDrag ? 'cursor-grab' : ''} min-h-[2.28rem] flex items-center w-full">
+                                                    <span class="w-full text-lg text-left text-black break-words font-satoshireg">${taskData[0]}</span>
+                                                </div>
+                                                
+                                                <div class="w-full border-t border-black">
+                                                    <p class="text-base text-left break-words whitespace-normal font-satoshilight text-blackpri">
+                                                        ${taskData[1]}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            
-                                            <div class="w-full border-t border-black">
-                                                <p class="text-base text-left break-words whitespace-normal font-satoshilight text-blackpri">
-                                                    ${taskData[1]}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    `;
+                                        `;
+                                    }
                                 }).join('');
                             }
 
@@ -996,6 +1080,7 @@
                 return;
             }
 
+            showLoading();
             let formData = new FormData(form);
             formData.append('form_type', type);
 
@@ -1017,9 +1102,9 @@
                 if (!data) {
                     // throw new Error('No data received from server');
                 }
-                
                 console.log('Response:', data);
                 
+                hideLoading();
                 if (type === 'group_students') {
                     if (data.success) {
                         // Reset the group checker to force a UI update
@@ -1078,8 +1163,6 @@
                         </div>
                     `;
                 }
-
-
                 // Force check warning state on every update
                 const groupsContent = document.getElementById('groupsContent');
                 if (groupsContent) {
@@ -1125,9 +1208,12 @@
                     const kickConfirmationContainer = document.getElementById('kickConfirmationContainer');
 
                     studentsList.room_list.forEach(student => {
+                        console.log(student);
+                        let studentNameATM = `${student.l_name}, ${student.f_name}`;
+                        console.log(studentNameATM);
                         roomStudentList.innerHTML += `
                             <div class="flex justify-between h-[3.75rem] w-full bg-blue1 border-t border-blackpri p-4">
-                                <a href="#" class="text-base font-satoshimed">${student.l_name}, ${student.f_name}</a>
+                                <div  onclick="showStudentDetails('${encodeURIComponent(studentNameATM)}', '${encodeURIComponent(student.school_id)}', '${encodeURIComponent(student.email)}', '${encodeURIComponent(student.result)}');" class="text-base cursor-pointer font-satoshimed">${student.l_name}, ${student.f_name}</div>
                                 <img src="assets/images/icons/cross.png" class="w-6 h-6 cursor-pointer" onClick="show('kickConfirmation${student.school_id}'); disableScroll(); clearInterval(intervalID);">
                             </div>
                         `;
@@ -1644,5 +1730,157 @@
     </script>
 
     <script src="/assets/js/sweetalert2.min.js"></script>
+
+    <script>
+        // Add task modal
+        function showTaskModal() {
+            return Swal.fire({
+                title: 'Add Task',
+                html: `
+                    <div class="flex w-full">                        
+                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl bg-white border-b border-black font-satoshimed" placeholder="Task Name" id="taskName" required>
+                        <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 bg-white border-b border-black font-satoshimed" placeholder="Date" id="taskDate" required>
+                    </div>
+                    <div class="flex w-full">                        
+                        <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base bg-white border-b border-black font-satoshimed text-grey2" placeholder="Description" id="taskInfo">
+                        <select class="block w-1/4 p-2 mx-auto my-2 mr-2 bg-white border-b border-black font-satoshimed text-grey2" id="taskDestination">
+                            <option class="text-grey2" value="todo">To do</option>
+                            <option class="text-grey2" value="wip">Work in Progress</option>
+                            <option class="text-grey2" value="done">Done</option>
+                        </select>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Add',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    popup: 'swal-popup font-satoshireg',
+                    title: 'swal-title font-clashmed',
+                    confirmButton: 'swal-confirm font-satoshimed',
+                    cancelButton: 'swal-cancel font-satoshimed'
+                },
+                background: 'rgba(255, 255, 255, 0.9)',
+                backdrop: `
+                    rgba(0, 0, 0, 0.4)
+                    left top
+                    no-repeat`,
+                preConfirm: () => {
+                    const taskName = document.getElementById('taskName').value;
+                    const taskDate = document.getElementById('taskDate').value;
+                    
+                    // Validate required fields
+                    if (!taskName.trim()) {
+                        Swal.showValidationMessage('Task name is required');
+                        return false;
+                    }
+                    if (!taskDate) {
+                        Swal.showValidationMessage('Due date is required');
+                        return false;
+                    }
+
+                    return {
+                        taskName: taskName,
+                        taskDate: taskDate,
+                        // taskInfo: document.getElementById('taskInfo').value,
+                        taskInfo: document.getElementById('taskInfo').value.trim().replace(/\n/g, ''),
+                        
+                        taskDestination: document.getElementById('taskDestination').value
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    addTask(result.value);
+                }
+            });
+        }
+
+        function showRegenerateGroupsModal() {
+            Swal.fire({
+                title: 'Re-generate Groups',
+                html: `
+                    <form id="regenerateGroupsForm">
+                        <input type="hidden" name="filteredidNRiasec" id="modalFilteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
+                        <input type="hidden" name="grouped" value="grouped">
+                        <input type="hidden" name="filteredidNRiasec" id="filteredidNRiasec" value='${JSON.stringify(student_has_result)}'>
+                        <input type="hidden" name="stunotype" id="stunotype" value="">
+
+                        <input id="genGroups" type="hidden" name="genGroups" value="">
+                        <input type="hidden" name="room" value="<?= $_GET['room_id'] ?>">
+                    </form>
+                    <p>This action will erase all Kanban tasks of students. Are you sure you want to proceed?</p>
+                `,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, re-generate',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#F68614',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Get the value from the hidden input
+                    const filteredidNRiasec = document.getElementById('modalFilteredidNRiasec').value;
+
+                    // Update the hidden form value before calling generateGroups
+                    document.getElementById('filteredidNRiasec').value = filteredidNRiasec;
+
+                    // Trigger the generate groups function
+                    generateGroups();
+
+                    submitForm('regenerateGroupsForm', '/api/submit-form', 'group_students', {
+                        genGroups: document.getElementById('genGroups').value,
+                        room: <?= $_GET['room_id'] ?>,
+                        filteredidNRiasec: document.getElementById('filteredidNRiasec').value,
+                        stunotype: document.getElementById('stunotype').value
+                    });
+                }
+            });
+        }
+
+        // Delete room confirmation
+        function showDeleteRoomConfirm(roomId, roomName) {
+            return Swal.fire({
+                title: 'Delete Room',
+                html: `
+
+                    <span class="text-xl font-satoshimed">${roomName}</span><br>
+                    <span class="text-2xl font-clashbold text-red1">FOREVER?</span>
+                `,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete Room Forever',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    popup: 'swal-popup font-satoshireg',
+                    title: 'swal-title font-clashbold text-red1',
+                    confirmButton: 'swal-confirm font-satoshimed bg-red1 text-white',
+                    cancelButton: 'swal-cancel font-satoshimed'
+                },
+                background: '#FFFFFF',
+                backdrop: `rgba(0,0,0,0.4)
+                        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==)`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the delete form
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/room';
+                    
+                    const methodInput = document.createElement('input');
+                    methodInput.type = 'hidden';
+                    methodInput.name = '_method';
+                    methodInput.value = 'DELETE';
+                    
+                    const roomInput = document.createElement('input');
+                    roomInput.type = 'hidden';
+                    roomInput.name = 'room_id';
+                    roomInput.value = roomId;
+                    
+                    form.appendChild(methodInput);
+                    form.appendChild(roomInput);
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        }
+    </script>
 </body>
 </html>

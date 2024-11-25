@@ -144,33 +144,7 @@ function distributeRoles(){
     // console.log(JSON.stringify(groups));
 
     document.getElementById('genGroups').value = JSON.stringify(groups);
-
-    // const submitEvent = new Event('submit', {
-    //     bubbles: true,
-    //     cancelable: true
-    // });
-    
-    // document.getElementById('submitGroups').dispatchEvent(submitEvent);
-    
-    // // Prevent any default form submission
-    // return false;
-    // document.getElementById('submitGroups').submit();
 }
-
-// function generateGroups() {
-//     const filteredIdNRiasecElement = document.getElementById('filteredidNRiasec');
-//     if (filteredIdNRiasecElement) {
-//         const filteredIdNRiasec = JSON.parse(filteredIdNRiasecElement.value);
-//         createList(filteredIdNRiasec);
-//         groupRoles(PI);
-//         groupRoles(writer);
-//         groupRoles(dev);
-//         groupRoles(des);
-//         distributeRoles();
-//     } else {
-//         console.error('Could not find filteredidNRiasec element');
-//     }
-// }
 
 function generateGroups() {
     const filteredIdNRiasecElement = document.getElementById('filteredidNRiasec');
@@ -182,10 +156,6 @@ function generateGroups() {
                 console.error('filteredIdNRiasec value is empty');
                 return;
             }
-
-            // Try to parse the JSON
-            // const filteredIdNRiasec = JSON.parse(value);
-            // console.log('filteredIdNRiasec:', filteredIdNRiasec);
 
             // Log the raw value for debugging
             console.log('Raw value:', value);
@@ -237,42 +207,3 @@ function generateGroups() {
         console.error('Could not find filteredidNRiasec element');
     }
 }
-
-// function display(){ //MOSTLY 
-    
-//     let container = document.getElementById('groups');// Get the existing HTML element where you want to insert the users
-    
-//     for (let group of groups) {// Iterate over the groups
-    
-//         let groupElement = document.createElement('div');// Create a new HTML element for the group
-//         groupElement.className = "group";
-        
-//         for (let user of group) {// Iterate over the users in the group
-            
-//             let userElement = document.createElement('p');// Create a new HTML element for the user
-//             userElement.textContent = [`User${user[1]} ${user[2]}`];
-            
-            
-//             groupElement.appendChild(userElement);// Insert the user element into the group element
-//         }
-//         if (group.length < 4){
-//             let userElement = document.createElement('p');// Create a new HTML element for the user
-//             userElement.textContent = ['Empty slot'];
-            
-//             groupElement.appendChild(userElement);// Insert the user element into the group element
-//         }
-        
-        
-//         container.appendChild(groupElement);// Insert the group element into the container
-//     }
-
-// }
-
-// createList()
-// groupRoles(PI)
-// groupRoles(writer)
-// groupRoles(dev)
-// groupRoles(des)
-// distributeRoles()
-
-// display()
