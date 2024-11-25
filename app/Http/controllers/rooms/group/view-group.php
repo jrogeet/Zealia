@@ -39,9 +39,9 @@ try {
         ])->findAll();
         
         foreach($groupHistory as &$history) {
-            foreach ($stu_info as $stu) {
-                if ($history['school_id'] == $stu['school_id']) {
-                    $history['name'] = "{$stu['f_name']} {$stu['l_name']}";
+            foreach ($group as $member) {
+                if ($history['school_id'] == $member[1]) {
+                    $history['name'] = $member[0];
                 }
             }
         }
