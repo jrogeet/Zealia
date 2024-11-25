@@ -35,48 +35,48 @@
                     
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How can I create my account?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0">
-                    <p>
+                    <p class="my-2">
                         Click on Sign up, fill up the form, and wait for the activation link that will be sent to your email address.
                     </p>
                     
-                    <img src="assets/images/john-holland.png" alt="John Holland">
+                    <img class="my-2" src="assets/images/Guides/Accounts/register.png" alt="register">
                 </div>
 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How do I change my password?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
+                    <p class="my-2">
                         You can change your password on the account settings page by filling up the form and saving changes.
                     </p>
                     
-                    <img src="assets/images/john-holland.png" alt="John Holland">
+                    <img class="my-2" src="assets/images/Guides/Accounts/password.png" alt="password">
                 </div>
 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Where do I take the test?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
-                        On the account settings page, you can take or retake the test.
+                    <p class="my-2">
+                        On the account settings page, you can press the "take the test" button.
                     </p>
                     
-                    <img src="assets/images/john-holland.png" alt="John Holland">
+                    <img class="my-2" src="assets/images/Guides/Accounts/test.png" alt="test">
                 </div>
 
                 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Where do I see my test results</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
+                    <p class="my-2">
                         If you already took the test, you can see your test results on the account settings page.
                     </p>
                     
-                    <img src="assets/images/john-holland.png" alt="John Holland">
+                    <img class="my-2" src="assets/images/Guides/Accounts/results.png" alt="results">
                 </div>
 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Can I retake the test?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
+                    <p class="my-2">
                         Yes, you can retake the test on your account settings.
                     </p>
                     
-                    <img src="assets/images/john-holland.png" alt="John Holland">
+                    <img class="my-2" src="assets/images/Guides/Accounts/retake.png" alt="retake">
                 </div>
 
             </div>
@@ -86,75 +86,65 @@
                     
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How do I join rooms?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
+                    <p class="my-2">
                         To join rooms, you have to ask your instructor for the room code and input the code in your Zealia dashboard and click join and wait for your instructor to accept your join request.
                     </p>
                     
-                    <img src="assets/images/john-holland.png" alt="John Holland">
+                    <img class="my-2" src="assets/images/Guides/Rooms/rooms.png" alt="rooms">
                 </div>
 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">I entered my code but I still can't join the room</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
+                    <p class="my-2">
                         After entering your code in the Zealia dashboard, you still have to wait for the instructor to accept your join request. 
                     </p>
-                    
-                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Why am I not able to join a group?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0">
-                    <p>
+                    <p class="my-2">
                         If you're not able to join a group even after asking your instructor to regenerate the groups, make sure you have taken the test and try again.
                     </p>
-                    
-                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Can I change groups?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
+                    <p class="my-2">
                         If you want to change groups, you have to ask your instructor to change your group.
                     </p>
-                    
-                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Can I change roles?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
+                    <p class="my-2">
                         Roles are changeable, inform your instructor about the change and ask them to edit your role in their room group settings.
                     </p>
-                    
-                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
                 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How do I add tasks to the Kanban board?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
+                    <p class="my-2">
                         On your dashboard, enter the room containing the group you want to add a task to, click your Kanban board tab on the left, and click the Add button and fill up the form about the details of your task.
                     </p>
                     
-                    <img src="assets/images/john-holland.png" alt="John Holland">
+                    <img class="my-2" src="assets/images/Guides/Rooms/tasks.png" alt="task">
                 </div>
                 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How do I change a tasks status to done?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
+                    <p class="my-2">
                         When a task is done, you can change it's status by dragging the task and dropping it to the done zone.
                     </p>
                     
-                    <img src="assets/images/john-holland.png" alt="John Holland">
+                    <img class="my-2" src="assets/images/Guides/Rooms/status.png" alt="status">
                 </div>
                 
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">Can I add tasks to my groupmates' Kanban board?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0"> 
-                    <p>
+                    <p class="my-2">
                         Only the Principal Investigator can add tasks to other members' Kanban, meanwhile members can see other members' Kanban
                     </p>
-                    
-                    <img src="assets/images/john-holland.png" alt="John Holland">
                 </div>
 
             </div>

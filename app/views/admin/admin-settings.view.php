@@ -20,15 +20,15 @@
                         <?php endif; ?>
                         <h1 class="text-grey2 mt-[5%] mt-4">Name</h1>
                         <div class="flex">
-                            <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="First Name">
-                            <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 bg-white border rounded-lg border-grey2" placeholder="Last Name">
+                            <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="<?php echo "{$_SESSION['user']['f_name']}"; ?>">
+                            <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 bg-white border rounded-lg border-grey2" placeholder="<?php echo "{$_SESSION['user']['l_name']}"; ?>">
                         </div>
 
                         <h1 class="text-grey2 mt-[5%] mt-4">School number</h1>
-                        <input name="school_id" type="text" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="ID number">
+                        <input name="school_id" type="text" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="<?php echo "{$_SESSION['user']['school_id']}"; ?>">
 
                         <h1 class="text-grey2 mt-[5%] mt-4">Email</h1>
-                        <input name="email" type="text" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="Email">
+                        <input name="email" type="text" class="w-1/2 h-10 px-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="<?php echo "{$_SESSION['user']['email']}"; ?>">
                         
                         <h1 class="text-grey2 mt-[5%] mt-4">Change Password</h1>
                         <div class="flex">

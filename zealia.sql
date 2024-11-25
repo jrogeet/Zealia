@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2024 at 12:15 PM
+-- Generation Time: Nov 12, 2024 at 11:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,7 +33,7 @@ CREATE TABLE `accounts` (
   `password` varchar(255) NOT NULL,
   `l_name` varchar(255) NOT NULL,
   `f_name` varchar(255) NOT NULL,
-  `account_type` enum('student','professor','admin') NOT NULL DEFAULT 'student',
+  `account_type` enum('student','instructor','admin') NOT NULL DEFAULT 'student',
   `reg_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `reset_token_hash` varchar(64) DEFAULT NULL,
   `reset_token_expires_at` datetime DEFAULT NULL,
@@ -54,10 +54,10 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`school_id`, `email`, `password`, `l_name`, `f_name`, `account_type`, `reg_date`, `reset_token_hash`, `reset_token_expires_at`, `account_activation_hash`, `R`, `I`, `A`, `S`, `E`, `C`, `result`, `kanban`) VALUES
 ('00000', 'adminturquoise@fatima.edu.ph', '$2y$10$5VylqOadeQrcANwfiyd39OuimAMDl58iGeZuwCmk.bTSJM7Jy8jHW', 'Turquoise', 'Admin', 'admin', '2024-10-07 03:31:01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('01210011111', 'asaprocky@student.fatima.edu.ph', '$2y$10$suP/vgOMCaYxy16DfERt3.MjNBxOH801aNwPXv9bdFgRul.qc28aq', 'Rocky', 'ASAP', 'student', '2024-11-05 11:12:29', NULL, NULL, '808ca357075bce3bab5dd1d16e962cf751a7497db40c450074f4987d8b371e96', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('01210011112', 'jmturqueza1114val@student.fatima.edu.ph', '$2y$10$OjgDl9yaye81n18/YPKi3.GOiEiX2kHfykos1pGjnYz1/7UFixa4m', 'Nuggets', 'Nettspend', 'student', '2024-10-16 03:07:23', NULL, NULL, NULL, '3', '2', '3', '3', '2', '4', 'CAS', '{\"1\":{\"todo\":[],\"wip\":[],\"done\":[]},\"900\":{\"todo\":[],\"wip\":[],\"done\":[]}}'),
+('01210011111', 'asaprocky@student.fatima.edu.ph', '$2y$10$suP/vgOMCaYxy16DfERt3.MjNBxOH801aNwPXv9bdFgRul.qc28aq', 'Beyonce', 'Jay-Z', 'student', '2024-11-05 11:12:29', NULL, NULL, '808ca357075bce3bab5dd1d16e962cf751a7497db40c450074f4987d8b371e96', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('01210011112', 'jmturqueza1114val@student.fatima.edu.ph', '$2y$10$DiCZh0C1yg7ZIOtbOdY8ZO/txVL54fySL48Shk6kKOIQwPtSwwfUm', 'Rogue', 'Johan', 'student', '2024-11-09 07:34:48', '1d439ed3599e6ac2595d35d28f2f695c834ee31dbfdd2b838c47aab43c9abc21', '2024-11-09 09:51:01', NULL, '4', '1', '1', '1', '2', '2', 'RCE', '{\"900\":{\"todo\":[[\"wqewqe\",\"wqeqwe\",\"2024-11-14\"]],\"wip\":[[\"Yes, sir\",\"okay po hahaha\",\"2024-11-05\"]],\"done\":[]}}'),
 ('01210011113', 'jmturqueza1113val@student.fatima.edu.ph', '$2y$10$Lx95qWIJEsWahYXQa2i8peJq4hUP/EJnaS083KgXR0J8N6cDLY386', 'Turquoise', 'Regine', 'student', '2024-10-07 03:48:04', NULL, NULL, NULL, '2', '2', '0', '1', '1', '2', 'CIR', NULL),
-('01210011114', 'jmturqueza1112val@student.fatima.edu.ph', '$2y$10$Pc.SiSr1F3XE6KxKP0Ke5uhLiU2Qt8mz.EoS41byNyzH2djYISY7a', 'Turqouise', 'John Rogee', 'professor', '2024-09-20 14:13:07', NULL, NULL, NULL, '1', '1', '2', '0', '0', '2', 'AIC', NULL),
+('01210011114', 'jmturqueza1112val@student.fatima.edu.ph', '$2y$10$r.sApNFrb1kTWtlyqkB6Cu0Pdb.yYEHKUrte5PispZ8pfVknhadpG', 'Turqouise', 'John Rogee', 'instructor', '2024-09-20 14:13:07', NULL, NULL, NULL, '0', '1', '2', '1', '2', '2', 'CEA', NULL),
 ('01234354658', 'nettspendnuggets@student.fatima.edu.ph', '$2y$10$VwZUH2fXUYO7/HPcsD0kB.GNM08smgdcDCPr3sh7cWo35HJqdkyVm', 'Nuggets', 'Nettspend', 'student', '2024-10-11 02:16:03', NULL, NULL, 'edc8ae71bb3c216573a855196842cd12bc53c987021123a35564962707cdc04f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 ('12345678901', 'john.doe@student.fatima.edu.ph', '', 'Doe', 'John', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '3', '4', '6', '2', '0', '1', 'AIR', NULL),
 ('12345678902', 'jane.smith@student.fatima.edu.ph', '', 'Smith', 'Jane', 'student', '2024-09-22 15:52:41', NULL, NULL, NULL, '4', '6', '2', '1', '0', '3', 'CAI', NULL),
@@ -177,6 +177,13 @@ CREATE TABLE `group_edit_history` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `group_edit_history`
+--
+
+INSERT INTO `group_edit_history` (`id`, `room_id`, `from_group`, `to_group`, `school_id`, `reason`, `groups_json`, `timestamp`) VALUES
+(14, 900, 0, 1, '12345678920', 'Personal conflict with one of the members.', '[[[\"John Doe\",\"12345678901\",\"Principal Investigator\"],[\"Charlotte Reed\",\"12345678930\",\"System Developer\"],[\"William Jones\",\"12345678940\",\"System Designer\"]],[[\"Jane Smith\",\"12345678902\",\"Principal Investigator\"],[\"Noah Wright\",\"12345678919\",\"Research Writer\"],[\"Lucas Cooper\",\"12345678929\",\"System Developer\"],[\"Sophie Wood\",\"12345678939\",\"System Designer\"],[\"Sophia Hall\",\"12345678920\",\"N/A\"]],[[\"Bob Jones\",\"12345678903\",\"Principal Investigator\"],[\"Ella Moore\",\"12345678918\",\"Research Writer\"],[\"Zoe Murphy\",\"12345678928\",\"System Developer\"],[\"Noah Cook\",\"12345678938\",\"System Designer\"]],[[\"Emma James\",\"12345678904\",\"Principal Investigator\"],[\"Liam Harris\",\"12345678917\",\"Research Writer\"],[\"Benjamin Morris\",\"12345678927\",\"System Developer\"],[\"Lucy Gray\",\"12345678937\",\"System Designer\"]],[[\"Alice Brown\",\"12345678905\",\"Principal Investigator\"],[\"Olivia White\",\"12345678916\",\"Research Writer\"],[\"Grace Carter\",\"12345678926\",\"System Developer\"],[\"Liam Bennett\",\"12345678936\",\"System Designer\"]],[[\"Michael Davis\",\"12345678906\",\"Principal Investigator\"],[\"Jack Johnson\",\"12345678915\",\"Research Writer\"],[\"Logan Adams\",\"12345678925\",\"System Developer\"],[\"Olivia Morgan\",\"12345678935\",\"System Designer\"]],[[\"Sarah Wilson\",\"12345678907\",\"Principal Investigator\"],[\"Lucy Thomas\",\"12345678914\",\"Research Writer\"],[\"Isabella Baker\",\"12345678924\",\"System Developer\"],[\"Jackson Roberts\",\"12345678934\",\"System Designer\"]],[[\"Tom Taylor\",\"12345678908\",\"Principal Investigator\"],[\"Oliver Lewis\",\"12345678913\",\"Research Writer\"],[\"James Green\",\"12345678923\",\"System Developer\"],[\"Emma Jackson\",\"12345678933\",\"System Designer\"]],[[\"Emily Clark\",\"12345678909\",\"Principal Investigator\"],[\"Anna Kim\",\"12345678912\",\"Research Writer\"],[\"Mia Scott\",\"12345678922\",\"System Developer\"],[\"Ethan Martin\",\"12345678932\",\"System Designer\"]],[[\"George Martin\",\"12345678910\",\"Principal Investigator\"],[\"Chris Evans\",\"12345678911\",\"Research Writer\"],[\"Mason King\",\"12345678921\",\"System Developer\"],[\"Ella Lee\",\"12345678931\",\"System Designer\"]]]', '2024-11-09 14:51:41');
+
 -- --------------------------------------------------------
 
 --
@@ -188,22 +195,103 @@ CREATE TABLE `join_room_requests` (
   `school_id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `join_room_requests`
+--
+
+INSERT INTO `join_room_requests` (`room_id`, `school_id`) VALUES
+(902, '01210011112');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log_trails`
+-- Table structure for table `logs`
 --
 
-CREATE TABLE `log_trails` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `school_id` varchar(50) NOT NULL,
-  `action_type` enum('LOGIN','LOGOUT','REGISTER','ROOM_CREATE','ROOM_MODIFY','ROOM_JOIN','JOIN_REQUEST_RESPONSE','GROUP_CREATE','GROUP_MODIFY','ACCOUNT_CHANGE','PASSWORD_CHANGE','PERSONALITY_TEST') NOT NULL,
-  `description` text NOT NULL,
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL,
+  `school_id` varchar(50) DEFAULT NULL,
+  `user_role` enum('admin','instructor','student','guest') NOT NULL,
+  `action` varchar(50) NOT NULL,
+  `status` enum('success','failed','first_take','re-take') DEFAULT NULL,
+  `target_id` int(11) DEFAULT NULL,
+  `target_type` enum('room','user','ticket','task','group') DEFAULT NULL,
+  `details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`details`)),
+  `username_or_id_attempted` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `ip_address` varchar(45) DEFAULT NULL,
-  `resource` varchar(255) DEFAULT NULL,
-  `status` varchar(50) NOT NULL
+  `user_agent` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`id`, `school_id`, `user_role`, `action`, `status`, `target_id`, `target_type`, `details`, `username_or_id_attempted`, `created_at`, `ip_address`, `user_agent`) VALUES
+(1, '01210011112', 'student', 'JOIN ROOM', 'success', 1210011112, 'room', '{\"room_id\":902,\"room_name\":\"SOFE 311\",\"instructor_id\":\"01210011114\"}', NULL, '2024-11-09 14:27:21', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(2, '01210011112', 'student', 'LOGOUT', 'success', 1210011112, 'user', NULL, NULL, '2024-11-09 14:37:20', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(3, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-09 14:37:34', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(4, '01210011114', 'instructor', 'GENERATE GROUPS', 'success', 1210011114, 'room', '{\"room_id\":\"900\",\"group_count\":11}', NULL, '2024-11-09 14:37:40', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(5, '01210011114', 'instructor', 'GENERATE GROUPS', 'success', 1210011114, 'room', '{\"room_id\":\"900\",\"group_count\":11}', NULL, '2024-11-09 14:37:56', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(6, '01210011114', 'instructor', 'RE-GENERATE GROUPS', 'success', 1210011114, 'room', '{\"old_groups\":\"[[[\\\"John Doe\\\",\\\"12345678901\\\",\\\"Principal Investigator\\\"],[\\\"Mia Scott\\\",\\\"12345678922\\\",\\\"Research Writer\\\"],[\\\"Emma Jackson\\\",\\\"12345678933\\\",\\\"System Developer\\\"],[\\\"Johan Rogue\\\",\\\"01210011112\\\",\\\"System Designer\\\"]],[[\\\"Jane Smith\\\",\\\"12345678902\\\",\\\"Principal Investigator\\\"],[\\\"Mason King\\\",\\\"12345678921\\\",\\\"Research Writer\\\"],[\\\"Ethan Martin\\\",\\\"12345678932\\\",\\\"System Developer\\\"],[\\\"William Jones\\\",\\\"12345678940\\\",\\\"System Designer\\\"]],[[\\\"Bob Jones\\\",\\\"12345678903\\\",\\\"Principal Investigator\\\"],[\\\"Sophia Hall\\\",\\\"12345678920\\\",\\\"Research Writer\\\"],[\\\"Ella Lee\\\",\\\"12345678931\\\",\\\"System Developer\\\"],[\\\"Sophie Wood\\\",\\\"12345678939\\\",\\\"System Designer\\\"]],[[\\\"Emma James\\\",\\\"12345678904\\\",\\\"Principal Investigator\\\"],[\\\"Noah Wright\\\",\\\"12345678919\\\",\\\"Research Writer\\\"],[\\\"Charlotte Reed\\\",\\\"12345678930\\\",\\\"System Developer\\\"],[\\\"Noah Cook\\\",\\\"12345678938\\\",\\\"System Designer\\\"]],[[\\\"Alice Brown\\\",\\\"12345678905\\\",\\\"Principal Investigator\\\"],[\\\"Ella Moore\\\",\\\"12345678918\\\",\\\"Research Writer\\\"],[\\\"Lucas Cooper\\\",\\\"12345678929\\\",\\\"System Developer\\\"],[\\\"Lucy Gray\\\",\\\"12345678937\\\",\\\"System Designer\\\"]],[[\\\"Michael Davis\\\",\\\"12345678906\\\",\\\"Principal Investigator\\\"],[\\\"Liam Harris\\\",\\\"12345678917\\\",\\\"Research Writer\\\"],[\\\"Zoe Murphy\\\",\\\"12345678928\\\",\\\"System Developer\\\"],[\\\"Liam Bennett\\\",\\\"12345678936\\\",\\\"System Designer\\\"]],[[\\\"Sarah Wilson\\\",\\\"12345678907\\\",\\\"Principal Investigator\\\"],[\\\"Olivia White\\\",\\\"12345678916\\\",\\\"Research Writer\\\"],[\\\"Benjamin Morris\\\",\\\"12345678927\\\",\\\"System Developer\\\"],[\\\"Olivia Morgan\\\",\\\"12345678935\\\",\\\"System Designer\\\"]],[[\\\"Tom Taylor\\\",\\\"12345678908\\\",\\\"Principal Investigator\\\"],[\\\"Jack Johnson\\\",\\\"12345678915\\\",\\\"Research Writer\\\"],[\\\"Grace Carter\\\",\\\"12345678926\\\",\\\"System Developer\\\"],[\\\"Jackson Roberts\\\",\\\"12345678934\\\",\\\"System Designer\\\"]],[[\\\"Emily Clark\\\",\\\"12345678909\\\",\\\"Principal Investigator\\\"],[\\\"Lucy Thomas\\\",\\\"12345678914\\\",\\\"Research Writer\\\"],[\\\"Logan Adams\\\",\\\"12345678925\\\",\\\"System Developer\\\"]],[[\\\"George Martin\\\",\\\"12345678910\\\",\\\"Principal Investigator\\\"],[\\\"Oliver Lewis\\\",\\\"12345678913\\\",\\\"Research Writer\\\"],[\\\"Isabella Baker\\\",\\\"12345678924\\\",\\\"System Developer\\\"]],[[\\\"Chris Evans\\\",\\\"12345678911\\\",\\\"Principal Investigator\\\"],[\\\"Anna Kim\\\",\\\"12345678912\\\",\\\"Research Writer\\\"],[\\\"James Green\\\",\\\"12345678923\\\",\\\"System Developer\\\"]]]\",\"room_id\":\"900\",\"group_count\":10}', NULL, '2024-11-09 14:39:42', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(7, NULL, 'guest', 'LOGIN', 'success', 0, 'user', NULL, NULL, '2024-11-09 14:43:44', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(8, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-09 14:44:29', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(9, '01210011114', 'instructor', 'EDIT GROUPS', 'success', 1210011114, 'room', '{\"room_id\":\"900\",\"groups_json\":\"[[[\\\"John Doe\\\",\\\"12345678901\\\",\\\"Principal Investigator\\\"],[\\\"Charlotte Reed\\\",\\\"12345678930\\\",\\\"System Developer\\\"],[\\\"William Jones\\\",\\\"12345678940\\\",\\\"System Designer\\\"]],[[\\\"Jane Smith\\\",\\\"12345678902\\\",\\\"Principal Investigator\\\"],[\\\"Noah Wright\\\",\\\"12345678919\\\",\\\"Research Writer\\\"],[\\\"Lucas Cooper\\\",\\\"12345678929\\\",\\\"System Developer\\\"],[\\\"Sophie Wood\\\",\\\"12345678939\\\",\\\"System Designer\\\"],[\\\"Sophia Hall\\\",\\\"12345678920\\\",\\\"Sub-Developer\\\"]],[[\\\"Bob Jones\\\",\\\"12345678903\\\",\\\"Principal Investigator\\\"],[\\\"Ella Moore\\\",\\\"12345678918\\\",\\\"Research Writer\\\"],[\\\"Zoe Murphy\\\",\\\"12345678928\\\",\\\"System Developer\\\"],[\\\"Noah Cook\\\",\\\"12345678938\\\",\\\"System Designer\\\"]],[[\\\"Emma James\\\",\\\"12345678904\\\",\\\"Principal Investigator\\\"],[\\\"Liam Harris\\\",\\\"12345678917\\\",\\\"Research Writer\\\"],[\\\"Benjamin Morris\\\",\\\"12345678927\\\",\\\"System Developer\\\"],[\\\"Lucy Gray\\\",\\\"12345678937\\\",\\\"System Designer\\\"]],[[\\\"Alice Brown\\\",\\\"12345678905\\\",\\\"Principal Investigator\\\"],[\\\"Olivia White\\\",\\\"12345678916\\\",\\\"Research Writer\\\"],[\\\"Grace Carter\\\",\\\"12345678926\\\",\\\"System Developer\\\"],[\\\"Liam Bennett\\\",\\\"12345678936\\\",\\\"System Designer\\\"]],[[\\\"Michael Davis\\\",\\\"12345678906\\\",\\\"Principal Investigator\\\"],[\\\"Jack Johnson\\\",\\\"12345678915\\\",\\\"Research Writer\\\"],[\\\"Logan Adams\\\",\\\"12345678925\\\",\\\"System Developer\\\"],[\\\"Olivia Morgan\\\",\\\"12345678935\\\",\\\"System Designer\\\"]],[[\\\"Sarah Wilson\\\",\\\"12345678907\\\",\\\"Principal Investigator\\\"],[\\\"Lucy Thomas\\\",\\\"12345678914\\\",\\\"Research Writer\\\"],[\\\"Isabella Baker\\\",\\\"12345678924\\\",\\\"System Developer\\\"],[\\\"Jackson Roberts\\\",\\\"12345678934\\\",\\\"System Designer\\\"]],[[\\\"Tom Taylor\\\",\\\"12345678908\\\",\\\"Principal Investigator\\\"],[\\\"Oliver Lewis\\\",\\\"12345678913\\\",\\\"Research Writer\\\"],[\\\"James Green\\\",\\\"12345678923\\\",\\\"System Developer\\\"],[\\\"Emma Jackson\\\",\\\"12345678933\\\",\\\"System Designer\\\"]],[[\\\"Emily Clark\\\",\\\"12345678909\\\",\\\"Principal Investigator\\\"],[\\\"Anna Kim\\\",\\\"12345678912\\\",\\\"Research Writer\\\"],[\\\"Mia Scott\\\",\\\"12345678922\\\",\\\"System Developer\\\"],[\\\"Ethan Martin\\\",\\\"12345678932\\\",\\\"System Designer\\\"]],[[\\\"George Martin\\\",\\\"12345678910\\\",\\\"Principal Investigator\\\"],[\\\"Chris Evans\\\",\\\"12345678911\\\",\\\"Research Writer\\\"],[\\\"Mason King\\\",\\\"12345678921\\\",\\\"System Developer\\\"],[\\\"Ella Lee\\\",\\\"12345678931\\\",\\\"System Designer\\\"]]]\",\"reasons\":\"[{\\\"room_id\\\":900,\\\"from_group\\\":0,\\\"to_group\\\":1,\\\"school_id\\\":\\\"12345678920\\\",\\\"groups_json\\\":\\\"[[[\\\\\\\"John Doe\\\\\\\",\\\\\\\"12345678901\\\\\\\",\\\\\\\"Principal Investigator\\\\\\\"],[\\\\\\\"Charlotte Reed\\\\\\\",\\\\\\\"12345678930\\\\\\\",\\\\\\\"System Developer\\\\\\\"],[\\\\\\\"William Jones\\\\\\\",\\\\\\\"12345678940\\\\\\\",\\\\\\\"System Designer\\\\\\\"]],[[\\\\\\\"Jane Smith\\\\\\\",\\\\\\\"12345678902\\\\\\\",\\\\\\\"Principal Investigator\\\\\\\"],[\\\\\\\"Noah Wright\\\\\\\",\\\\\\\"12345678919\\\\\\\",\\\\\\\"Research Writer\\\\\\\"],[\\\\\\\"Lucas Cooper\\\\\\\",\\\\\\\"12345678929\\\\\\\",\\\\\\\"System Developer\\\\\\\"],[\\\\\\\"Sophie Wood\\\\\\\",\\\\\\\"12345678939\\\\\\\",\\\\\\\"System Designer\\\\\\\"],[\\\\\\\"Sophia Hall\\\\\\\",\\\\\\\"12345678920\\\\\\\",\\\\\\\"N\\\\\\/A\\\\\\\"]],[[\\\\\\\"Bob Jones\\\\\\\",\\\\\\\"12345678903\\\\\\\",\\\\\\\"Principal Investigator\\\\\\\"],[\\\\\\\"Ella Moore\\\\\\\",\\\\\\\"12345678918\\\\\\\",\\\\\\\"Research Writer\\\\\\\"],[\\\\\\\"Zoe Murphy\\\\\\\",\\\\\\\"12345678928\\\\\\\",\\\\\\\"System Developer\\\\\\\"],[\\\\\\\"Noah Cook\\\\\\\",\\\\\\\"12345678938\\\\\\\",\\\\\\\"System Designer\\\\\\\"]],[[\\\\\\\"Emma James\\\\\\\",\\\\\\\"12345678904\\\\\\\",\\\\\\\"Principal Investigator\\\\\\\"],[\\\\\\\"Liam Harris\\\\\\\",\\\\\\\"12345678917\\\\\\\",\\\\\\\"Research Writer\\\\\\\"],[\\\\\\\"Benjamin Morris\\\\\\\",\\\\\\\"12345678927\\\\\\\",\\\\\\\"System Developer\\\\\\\"],[\\\\\\\"Lucy Gray\\\\\\\",\\\\\\\"12345678937\\\\\\\",\\\\\\\"System Designer\\\\\\\"]],[[\\\\\\\"Alice Brown\\\\\\\",\\\\\\\"12345678905\\\\\\\",\\\\\\\"Principal Investigator\\\\\\\"],[\\\\\\\"Olivia White\\\\\\\",\\\\\\\"12345678916\\\\\\\",\\\\\\\"Research Writer\\\\\\\"],[\\\\\\\"Grace Carter\\\\\\\",\\\\\\\"12345678926\\\\\\\",\\\\\\\"System Developer\\\\\\\"],[\\\\\\\"Liam Bennett\\\\\\\",\\\\\\\"12345678936\\\\\\\",\\\\\\\"System Designer\\\\\\\"]],[[\\\\\\\"Michael Davis\\\\\\\",\\\\\\\"12345678906\\\\\\\",\\\\\\\"Principal Investigator\\\\\\\"],[\\\\\\\"Jack Johnson\\\\\\\",\\\\\\\"12345678915\\\\\\\",\\\\\\\"Research Writer\\\\\\\"],[\\\\\\\"Logan Adams\\\\\\\",\\\\\\\"12345678925\\\\\\\",\\\\\\\"System Developer\\\\\\\"],[\\\\\\\"Olivia Morgan\\\\\\\",\\\\\\\"12345678935\\\\\\\",\\\\\\\"System Designer\\\\\\\"]],[[\\\\\\\"Sarah Wilson\\\\\\\",\\\\\\\"12345678907\\\\\\\",\\\\\\\"Principal Investigator\\\\\\\"],[\\\\\\\"Lucy Thomas\\\\\\\",\\\\\\\"12345678914\\\\\\\",\\\\\\\"Research Writer\\\\\\\"],[\\\\\\\"Isabella Baker\\\\\\\",\\\\\\\"12345678924\\\\\\\",\\\\\\\"System Developer\\\\\\\"],[\\\\\\\"Jackson Roberts\\\\\\\",\\\\\\\"12345678934\\\\\\\",\\\\\\\"System Designer\\\\\\\"]],[[\\\\\\\"Tom Taylor\\\\\\\",\\\\\\\"12345678908\\\\\\\",\\\\\\\"Principal Investigator\\\\\\\"],[\\\\\\\"Oliver Lewis\\\\\\\",\\\\\\\"12345678913\\\\\\\",\\\\\\\"Research Writer\\\\\\\"],[\\\\\\\"James Green\\\\\\\",\\\\\\\"12345678923\\\\\\\",\\\\\\\"System Developer\\\\\\\"],[\\\\\\\"Emma Jackson\\\\\\\",\\\\\\\"12345678933\\\\\\\",\\\\\\\"System Designer\\\\\\\"]],[[\\\\\\\"Emily Clark\\\\\\\",\\\\\\\"12345678909\\\\\\\",\\\\\\\"Principal Investigator\\\\\\\"],[\\\\\\\"Anna Kim\\\\\\\",\\\\\\\"12345678912\\\\\\\",\\\\\\\"Research Writer\\\\\\\"],[\\\\\\\"Mia Scott\\\\\\\",\\\\\\\"12345678922\\\\\\\",\\\\\\\"System Developer\\\\\\\"],[\\\\\\\"Ethan Martin\\\\\\\",\\\\\\\"12345678932\\\\\\\",\\\\\\\"System Designer\\\\\\\"]],[[\\\\\\\"George Martin\\\\\\\",\\\\\\\"12345678910\\\\\\\",\\\\\\\"Principal Investigator\\\\\\\"],[\\\\\\\"Chris Evans\\\\\\\",\\\\\\\"12345678911\\\\\\\",\\\\\\\"Research Writer\\\\\\\"],[\\\\\\\"Mason King\\\\\\\",\\\\\\\"12345678921\\\\\\\",\\\\\\\"System Developer\\\\\\\"],[\\\\\\\"Ella Lee\\\\\\\",\\\\\\\"12345678931\\\\\\\",\\\\\\\"System Designer\\\\\\\"]]]\\\",\\\"reason\\\":\\\"Personal conflict with one of the members.\\\"}]\"}', NULL, '2024-11-09 14:51:41', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(10, '01210011114', 'instructor', 'EDIT ROOM NAME', 'success', 1210011114, 'room', '{\"room_id\":900,\"old_name\":\"CS THesis 312\",\"new_name\":\"CS Thesis 312\"}', NULL, '2024-11-09 15:00:15', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(11, '01210011114', 'instructor', 'LOGOUT', 'success', 1210011114, 'user', NULL, NULL, '2024-11-09 15:03:12', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(12, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-09 15:03:26', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(13, '01210011114', 'instructor', 'LOGOUT', 'success', 1210011114, 'user', NULL, NULL, '2024-11-09 15:03:34', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(14, NULL, 'guest', 'LOGIN', 'success', 1210011112, 'user', NULL, NULL, '2024-11-09 15:04:16', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(15, '01210011112', 'student', 'JOIN ROOM', 'success', 1210011112, 'room', '{\"room_id\":900,\"room_name\":\"CS Thesis 312\",\"instructor_id\":\"01210011114\"}', NULL, '2024-11-09 15:04:19', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(16, '01210011112', 'student', 'LOGOUT', 'success', 1210011112, 'user', NULL, NULL, '2024-11-09 15:04:50', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(17, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-09 15:05:06', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(18, '01210011114', 'instructor', 'ACCEPT JOIN REQUEST', 'success', 1210011114, 'room', '{\"student_id\":\"01210011112\",\"room_id\":900,\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\"}', NULL, '2024-11-09 15:05:11', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(19, '01210011114', 'instructor', 'RE-GENERATE GROUPS', 'success', 1210011114, 'room', '{\"old_groups\":\"[[[\\\"John Doe\\\",\\\"12345678901\\\",\\\"Principal Investigator\\\"],[\\\"Charlotte Reed\\\",\\\"12345678930\\\",\\\"System Developer\\\"],[\\\"William Jones\\\",\\\"12345678940\\\",\\\"System Designer\\\"]],[[\\\"Jane Smith\\\",\\\"12345678902\\\",\\\"Principal Investigator\\\"],[\\\"Noah Wright\\\",\\\"12345678919\\\",\\\"Research Writer\\\"],[\\\"Lucas Cooper\\\",\\\"12345678929\\\",\\\"System Developer\\\"],[\\\"Sophie Wood\\\",\\\"12345678939\\\",\\\"System Designer\\\"],[\\\"Sophia Hall\\\",\\\"12345678920\\\",\\\"Sub-Developer\\\"]],[[\\\"Bob Jones\\\",\\\"12345678903\\\",\\\"Principal Investigator\\\"],[\\\"Ella Moore\\\",\\\"12345678918\\\",\\\"Research Writer\\\"],[\\\"Zoe Murphy\\\",\\\"12345678928\\\",\\\"System Developer\\\"],[\\\"Noah Cook\\\",\\\"12345678938\\\",\\\"System Designer\\\"]],[[\\\"Emma James\\\",\\\"12345678904\\\",\\\"Principal Investigator\\\"],[\\\"Liam Harris\\\",\\\"12345678917\\\",\\\"Research Writer\\\"],[\\\"Benjamin Morris\\\",\\\"12345678927\\\",\\\"System Developer\\\"],[\\\"Lucy Gray\\\",\\\"12345678937\\\",\\\"System Designer\\\"]],[[\\\"Alice Brown\\\",\\\"12345678905\\\",\\\"Principal Investigator\\\"],[\\\"Olivia White\\\",\\\"12345678916\\\",\\\"Research Writer\\\"],[\\\"Grace Carter\\\",\\\"12345678926\\\",\\\"System Developer\\\"],[\\\"Liam Bennett\\\",\\\"12345678936\\\",\\\"System Designer\\\"]],[[\\\"Michael Davis\\\",\\\"12345678906\\\",\\\"Principal Investigator\\\"],[\\\"Jack Johnson\\\",\\\"12345678915\\\",\\\"Research Writer\\\"],[\\\"Logan Adams\\\",\\\"12345678925\\\",\\\"System Developer\\\"],[\\\"Olivia Morgan\\\",\\\"12345678935\\\",\\\"System Designer\\\"]],[[\\\"Sarah Wilson\\\",\\\"12345678907\\\",\\\"Principal Investigator\\\"],[\\\"Lucy Thomas\\\",\\\"12345678914\\\",\\\"Research Writer\\\"],[\\\"Isabella Baker\\\",\\\"12345678924\\\",\\\"System Developer\\\"],[\\\"Jackson Roberts\\\",\\\"12345678934\\\",\\\"System Designer\\\"]],[[\\\"Tom Taylor\\\",\\\"12345678908\\\",\\\"Principal Investigator\\\"],[\\\"Oliver Lewis\\\",\\\"12345678913\\\",\\\"Research Writer\\\"],[\\\"James Green\\\",\\\"12345678923\\\",\\\"System Developer\\\"],[\\\"Emma Jackson\\\",\\\"12345678933\\\",\\\"System Designer\\\"]],[[\\\"Emily Clark\\\",\\\"12345678909\\\",\\\"Principal Investigator\\\"],[\\\"Anna Kim\\\",\\\"12345678912\\\",\\\"Research Writer\\\"],[\\\"Mia Scott\\\",\\\"12345678922\\\",\\\"System Developer\\\"],[\\\"Ethan Martin\\\",\\\"12345678932\\\",\\\"System Designer\\\"]],[[\\\"George Martin\\\",\\\"12345678910\\\",\\\"Principal Investigator\\\"],[\\\"Chris Evans\\\",\\\"12345678911\\\",\\\"Research Writer\\\"],[\\\"Mason King\\\",\\\"12345678921\\\",\\\"System Developer\\\"],[\\\"Ella Lee\\\",\\\"12345678931\\\",\\\"System Designer\\\"]]]\",\"room_id\":\"900\",\"group_count\":11}', NULL, '2024-11-09 15:05:15', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(20, '01210011114', 'instructor', 'KICK STUDENT', 'success', 1210011114, 'room', '{\"room_id\":900,\"student_id\":\"01210011112\"}', NULL, '2024-11-09 15:05:32', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(21, '01210011114', 'instructor', 'RE-GENERATE GROUPS', 'success', 1210011114, 'room', '{\"old_groups\":\"[[[\\\"John Doe\\\",\\\"12345678901\\\",\\\"Principal Investigator\\\"],[\\\"Mia Scott\\\",\\\"12345678922\\\",\\\"Research Writer\\\"],[\\\"Emma Jackson\\\",\\\"12345678933\\\",\\\"System Developer\\\"],[\\\"Johan Rogue\\\",\\\"01210011112\\\",\\\"System Designer\\\"]],[[\\\"Jane Smith\\\",\\\"12345678902\\\",\\\"Principal Investigator\\\"],[\\\"Mason King\\\",\\\"12345678921\\\",\\\"Research Writer\\\"],[\\\"Ethan Martin\\\",\\\"12345678932\\\",\\\"System Developer\\\"],[\\\"William Jones\\\",\\\"12345678940\\\",\\\"System Designer\\\"]],[[\\\"Bob Jones\\\",\\\"12345678903\\\",\\\"Principal Investigator\\\"],[\\\"Sophia Hall\\\",\\\"12345678920\\\",\\\"Research Writer\\\"],[\\\"Ella Lee\\\",\\\"12345678931\\\",\\\"System Developer\\\"],[\\\"Sophie Wood\\\",\\\"12345678939\\\",\\\"System Designer\\\"]],[[\\\"Emma James\\\",\\\"12345678904\\\",\\\"Principal Investigator\\\"],[\\\"Noah Wright\\\",\\\"12345678919\\\",\\\"Research Writer\\\"],[\\\"Charlotte Reed\\\",\\\"12345678930\\\",\\\"System Developer\\\"],[\\\"Noah Cook\\\",\\\"12345678938\\\",\\\"System Designer\\\"]],[[\\\"Alice Brown\\\",\\\"12345678905\\\",\\\"Principal Investigator\\\"],[\\\"Ella Moore\\\",\\\"12345678918\\\",\\\"Research Writer\\\"],[\\\"Lucas Cooper\\\",\\\"12345678929\\\",\\\"System Developer\\\"],[\\\"Lucy Gray\\\",\\\"12345678937\\\",\\\"System Designer\\\"]],[[\\\"Michael Davis\\\",\\\"12345678906\\\",\\\"Principal Investigator\\\"],[\\\"Liam Harris\\\",\\\"12345678917\\\",\\\"Research Writer\\\"],[\\\"Zoe Murphy\\\",\\\"12345678928\\\",\\\"System Developer\\\"],[\\\"Liam Bennett\\\",\\\"12345678936\\\",\\\"System Designer\\\"]],[[\\\"Sarah Wilson\\\",\\\"12345678907\\\",\\\"Principal Investigator\\\"],[\\\"Olivia White\\\",\\\"12345678916\\\",\\\"Research Writer\\\"],[\\\"Benjamin Morris\\\",\\\"12345678927\\\",\\\"System Developer\\\"],[\\\"Olivia Morgan\\\",\\\"12345678935\\\",\\\"System Designer\\\"]],[[\\\"Tom Taylor\\\",\\\"12345678908\\\",\\\"Principal Investigator\\\"],[\\\"Jack Johnson\\\",\\\"12345678915\\\",\\\"Research Writer\\\"],[\\\"Grace Carter\\\",\\\"12345678926\\\",\\\"System Developer\\\"],[\\\"Jackson Roberts\\\",\\\"12345678934\\\",\\\"System Designer\\\"]],[[\\\"Emily Clark\\\",\\\"12345678909\\\",\\\"Principal Investigator\\\"],[\\\"Lucy Thomas\\\",\\\"12345678914\\\",\\\"Research Writer\\\"],[\\\"Logan Adams\\\",\\\"12345678925\\\",\\\"System Developer\\\"]],[[\\\"George Martin\\\",\\\"12345678910\\\",\\\"Principal Investigator\\\"],[\\\"Oliver Lewis\\\",\\\"12345678913\\\",\\\"Research Writer\\\"],[\\\"Isabella Baker\\\",\\\"12345678924\\\",\\\"System Developer\\\"]],[[\\\"Chris Evans\\\",\\\"12345678911\\\",\\\"Principal Investigator\\\"],[\\\"Anna Kim\\\",\\\"12345678912\\\",\\\"Research Writer\\\"],[\\\"James Green\\\",\\\"12345678923\\\",\\\"System Developer\\\"]]]\",\"room_id\":\"900\",\"group_count\":10}', NULL, '2024-11-09 15:05:34', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(22, '00000', 'admin', 'ADMIN: PENDING TICKET', 'success', NULL, '', '{\"ticket_id\":\"3\"}', NULL, '2024-11-09 15:14:28', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(23, '00000', 'admin', 'ADMIN: EDIT ACCOUNT FIRST NAME', 'success', NULL, '', '{\"school_id\":\"01210011111\",\"new_f_name\":\"Nicki\",\"old_f_name\":\"ASAP\"}', NULL, '2024-11-09 15:24:35', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(24, '00000', 'admin', 'ADMIN: EDIT ACCOUNT LAST NAME', 'success', NULL, '', '{\"school_id\":\"01210011111\",\"new_l_name\":\"Minaj\",\"old_l_name\":\"Rocky\"}', NULL, '2024-11-09 15:24:36', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(25, '00000', 'admin', 'ADMIN: EDIT ACCOUNT FIRST NAME', 'success', 1210011111, 'user', '{\"school_id\":\"01210011111\",\"new_f_name\":\"Jay-Z\",\"old_f_name\":\"Nicki\"}', NULL, '2024-11-09 15:28:22', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(26, '00000', 'admin', 'ADMIN: EDIT ACCOUNT LAST NAME', 'success', 1210011111, 'user', '{\"school_id\":\"01210011111\",\"new_l_name\":\"Beyonce\",\"old_l_name\":\"Minaj\"}', NULL, '2024-11-09 15:28:23', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(27, NULL, 'guest', 'LOGIN', 'success', 0, 'user', NULL, NULL, '2024-11-09 16:16:08', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(28, NULL, 'guest', 'LOGIN', 'success', 0, 'user', NULL, NULL, '2024-11-09 23:07:15', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(29, '00000', 'admin', 'LOGOUT', 'success', 0, 'user', NULL, NULL, '2024-11-09 23:17:26', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(30, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-09 23:17:45', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(31, '01210011114', 'instructor', 'LOGOUT', 'success', 1210011114, 'user', NULL, NULL, '2024-11-10 01:39:29', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(32, NULL, 'guest', 'LOGIN', 'failed', 1, 'user', '{\"errors\":{\"id\":\"Account ID doesn\'t exist\"}}', NULL, '2024-11-10 01:39:51', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(33, NULL, 'guest', 'LOGIN', 'success', 0, 'user', NULL, NULL, '2024-11-10 01:40:03', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(34, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-10 09:38:18', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(35, '01210011114', 'instructor', 'LOGOUT', 'success', 1210011114, 'user', NULL, NULL, '2024-11-10 09:38:25', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(36, NULL, 'guest', 'LOGIN', 'success', 0, 'user', NULL, NULL, '2024-11-10 09:38:32', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(37, '00000', 'admin', 'LOGOUT', 'success', 0, 'user', NULL, NULL, '2024-11-10 14:04:13', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(38, NULL, 'guest', 'LOGIN', 'success', 1210011112, 'user', NULL, NULL, '2024-11-10 14:04:40', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(39, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-10 14:06:13', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(40, '01210011112', 'student', 'JOIN ROOM', 'success', 1210011112, 'room', '{\"room_id\":900,\"room_name\":\"CS Thesis 312\",\"instructor_id\":\"01210011114\"}', NULL, '2024-11-10 14:06:29', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(41, '01210011114', 'instructor', 'ACCEPT JOIN REQUEST', 'success', 1210011114, 'room', '{\"student_id\":\"01210011112\",\"room_id\":900,\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\"}', NULL, '2024-11-10 14:06:31', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(42, '01210011114', 'instructor', 'RE-GENERATE GROUPS', 'success', 1210011114, 'room', '{\"old_groups\":\"[[[\\\"John Doe\\\",\\\"12345678901\\\",\\\"Principal Investigator\\\"],[\\\"Sophia Hall\\\",\\\"12345678920\\\",\\\"Research Writer\\\"],[\\\"Charlotte Reed\\\",\\\"12345678930\\\",\\\"System Developer\\\"],[\\\"William Jones\\\",\\\"12345678940\\\",\\\"System Designer\\\"]],[[\\\"Jane Smith\\\",\\\"12345678902\\\",\\\"Principal Investigator\\\"],[\\\"Noah Wright\\\",\\\"12345678919\\\",\\\"Research Writer\\\"],[\\\"Lucas Cooper\\\",\\\"12345678929\\\",\\\"System Developer\\\"],[\\\"Sophie Wood\\\",\\\"12345678939\\\",\\\"System Designer\\\"]],[[\\\"Bob Jones\\\",\\\"12345678903\\\",\\\"Principal Investigator\\\"],[\\\"Ella Moore\\\",\\\"12345678918\\\",\\\"Research Writer\\\"],[\\\"Zoe Murphy\\\",\\\"12345678928\\\",\\\"System Developer\\\"],[\\\"Noah Cook\\\",\\\"12345678938\\\",\\\"System Designer\\\"]],[[\\\"Emma James\\\",\\\"12345678904\\\",\\\"Principal Investigator\\\"],[\\\"Liam Harris\\\",\\\"12345678917\\\",\\\"Research Writer\\\"],[\\\"Benjamin Morris\\\",\\\"12345678927\\\",\\\"System Developer\\\"],[\\\"Lucy Gray\\\",\\\"12345678937\\\",\\\"System Designer\\\"]],[[\\\"Alice Brown\\\",\\\"12345678905\\\",\\\"Principal Investigator\\\"],[\\\"Olivia White\\\",\\\"12345678916\\\",\\\"Research Writer\\\"],[\\\"Grace Carter\\\",\\\"12345678926\\\",\\\"System Developer\\\"],[\\\"Liam Bennett\\\",\\\"12345678936\\\",\\\"System Designer\\\"]],[[\\\"Michael Davis\\\",\\\"12345678906\\\",\\\"Principal Investigator\\\"],[\\\"Jack Johnson\\\",\\\"12345678915\\\",\\\"Research Writer\\\"],[\\\"Logan Adams\\\",\\\"12345678925\\\",\\\"System Developer\\\"],[\\\"Olivia Morgan\\\",\\\"12345678935\\\",\\\"System Designer\\\"]],[[\\\"Sarah Wilson\\\",\\\"12345678907\\\",\\\"Principal Investigator\\\"],[\\\"Lucy Thomas\\\",\\\"12345678914\\\",\\\"Research Writer\\\"],[\\\"Isabella Baker\\\",\\\"12345678924\\\",\\\"System Developer\\\"],[\\\"Jackson Roberts\\\",\\\"12345678934\\\",\\\"System Designer\\\"]],[[\\\"Tom Taylor\\\",\\\"12345678908\\\",\\\"Principal Investigator\\\"],[\\\"Oliver Lewis\\\",\\\"12345678913\\\",\\\"Research Writer\\\"],[\\\"James Green\\\",\\\"12345678923\\\",\\\"System Developer\\\"],[\\\"Emma Jackson\\\",\\\"12345678933\\\",\\\"System Designer\\\"]],[[\\\"Emily Clark\\\",\\\"12345678909\\\",\\\"Principal Investigator\\\"],[\\\"Anna Kim\\\",\\\"12345678912\\\",\\\"Research Writer\\\"],[\\\"Mia Scott\\\",\\\"12345678922\\\",\\\"System Developer\\\"],[\\\"Ethan Martin\\\",\\\"12345678932\\\",\\\"System Designer\\\"]],[[\\\"George Martin\\\",\\\"12345678910\\\",\\\"Principal Investigator\\\"],[\\\"Chris Evans\\\",\\\"12345678911\\\",\\\"Research Writer\\\"],[\\\"Mason King\\\",\\\"12345678921\\\",\\\"System Developer\\\"],[\\\"Ella Lee\\\",\\\"12345678931\\\",\\\"System Designer\\\"]]]\",\"room_id\":\"900\",\"group_count\":11}', NULL, '2024-11-10 14:06:33', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(43, '01210011112', 'student', 'ADD KANBAN TASK', 'success', 1210011112, 'user', '{\"task\":\"[\\\"Yes, sir\\\",\\\"okay po hahaha\\\",\\\"2024-11-05\\\"]\",\"destination\":\"wip\",\"action\":\"move\"}', NULL, '2024-11-10 14:06:58', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(44, '01210011112', 'student', 'MOVE KANBAN TASK', 'success', 1210011112, 'user', '{\"task\":\"[\\\"Yes, sir\\\",\\\"okay po hahaha\\\",\\\"2024-11-05\\\"]\",\"destination\":\"wip\",\"action\":\"move\"}', NULL, '2024-11-10 14:07:06', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(45, NULL, 'guest', 'LOGIN', 'success', 1210011112, 'user', NULL, NULL, '2024-11-11 02:17:00', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(46, '01210011112', 'student', 'LOGOUT', 'success', 1210011112, 'user', NULL, NULL, '2024-11-11 22:28:36', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(47, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-12 01:51:34', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(48, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-12 02:03:30', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(49, '01210011114', 'instructor', 'LOGOUT', 'success', 1210011114, 'user', NULL, NULL, '2024-11-12 02:03:37', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(50, NULL, 'guest', 'LOGIN', 'success', 1210011112, 'user', NULL, NULL, '2024-11-12 02:03:51', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(51, '01210011112', 'student', 'ADD KANBAN TASK', 'success', 1210011112, 'user', '{\"task\":\"[\\\"wqewqe\\\",\\\"wqeqwe\\\",\\\"2024-11-14\\\"]\",\"destination\":\"todo\",\"action\":\"move\"}', NULL, '2024-11-12 02:04:00', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(52, '01210011112', 'student', 'MOVE KANBAN TASK', 'success', 1210011112, 'user', '{\"task\":\"[\\\"wqewqe\\\",\\\"wqeqwe\\\",\\\"2024-11-14\\\"]\",\"destination\":\"todo\",\"action\":\"move\"}', NULL, '2024-11-12 02:06:11', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(53, '01210011112', 'student', 'LOGOUT', 'success', 1210011112, 'user', NULL, NULL, '2024-11-12 02:06:29', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(54, NULL, 'guest', 'LOGIN', 'success', 1210011112, 'user', NULL, NULL, '2024-11-12 04:08:38', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(55, '01210011112', 'student', 'LOGOUT', 'success', 1210011112, 'user', NULL, NULL, '2024-11-12 09:26:00', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(56, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-12 09:26:11', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(57, '01210011114', 'instructor', 'LOGOUT', 'success', 1210011114, 'user', NULL, NULL, '2024-11-12 09:28:53', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(58, NULL, 'guest', 'LOGIN', 'success', 1210011112, 'user', NULL, NULL, '2024-11-12 09:29:02', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(59, '01210011112', 'student', 'LOGOUT', 'success', 1210011112, 'user', NULL, NULL, '2024-11-12 09:33:33', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(60, NULL, 'guest', 'LOGIN', 'success', 1210011114, 'user', NULL, NULL, '2024-11-12 09:33:42', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(61, NULL, 'guest', 'LOGIN', 'success', 1210011112, 'user', NULL, NULL, '2024-11-12 09:54:14', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(62, NULL, 'guest', 'LOGIN', 'success', 1210011112, 'user', NULL, NULL, '2024-11-12 09:57:10', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(63, '01210011114', 'instructor', 'LOGOUT', 'success', 1210011114, 'user', NULL, NULL, '2024-11-12 10:22:58', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0'),
+(64, NULL, 'guest', 'LOGIN', 'success', 1210011112, 'user', NULL, NULL, '2024-11-12 10:23:38', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0');
 
 -- --------------------------------------------------------
 
@@ -253,11 +341,6 @@ INSERT INTO `notifications` (`id`, `school_id`, `read_status`, `created_at`, `ty
 (151, '12345678922', 0, '2024-10-28 14:13:16', '{\"type\":\"student_remove\",\"room_name\":\"CSTH411\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":1,\"student_id\":\"12345678922\"}'),
 (152, '12345678939', 0, '2024-10-28 14:17:11', '{\"type\":\"student_remove\",\"room_name\":\"CSTH411\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":1,\"student_id\":\"12345678939\"}'),
 (153, '12345678920', 0, '2024-10-28 15:04:59', '{\"type\":\"student_remove\",\"room_name\":\"CSTH411\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":1,\"student_id\":\"12345678920\"}'),
-(165, '01210011114', 0, '2024-11-04 06:33:32', '{\"type\":\"room_join\",\"room_name\":\"Runaway\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":897,\"student_id\":\"01210011112\",\"student_name\":\"Nuggets, Nettspend\"}'),
-(168, '01210011114', 0, '2024-11-04 06:57:03', '{\"type\":\"room_join\",\"room_name\":\"Neon Guts\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":899,\"student_id\":\"01210011112\",\"student_name\":\"Nuggets, Nettspend\"}'),
-(169, '01210011112', 0, '2024-11-04 06:57:09', '{\"type\":\"room_accept\",\"room_name\":\"Neon Guts\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":899,\"student_id\":\"01210011112\"}'),
-(170, '01210011112', 0, '2024-11-04 06:57:32', '{\"type\":\"created_groups\",\"room_name\":\"Neon Guts\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":899}'),
-(171, '01210011112', 0, '2024-11-04 07:19:56', '{\"type\":\"room_delete\",\"room_name\":\"Neon Guts\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":899}'),
 (172, '12345678901', 0, '2024-11-04 07:41:26', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
 (173, '12345678902', 0, '2024-11-04 07:41:26', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
 (174, '12345678903', 0, '2024-11-04 07:41:26', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
@@ -298,8 +381,6 @@ INSERT INTO `notifications` (`id`, `school_id`, `read_status`, `created_at`, `ty
 (209, '12345678938', 0, '2024-11-04 07:41:26', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
 (210, '12345678939', 0, '2024-11-04 07:41:26', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
 (211, '12345678940', 0, '2024-11-04 07:41:26', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
-(212, '01210011114', 0, '2024-11-04 07:41:54', '{\"type\":\"room_join\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900,\"student_id\":\"01210011112\",\"student_name\":\"Nuggets, Nettspend\"}'),
-(213, '01210011112', 0, '2024-11-04 07:41:57', '{\"type\":\"room_accept\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900,\"student_id\":\"01210011112\"}'),
 (214, '12345678901', 0, '2024-11-04 07:45:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
 (215, '12345678902', 0, '2024-11-04 07:45:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
 (216, '12345678903', 0, '2024-11-04 07:45:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
@@ -340,7 +421,430 @@ INSERT INTO `notifications` (`id`, `school_id`, `read_status`, `created_at`, `ty
 (251, '12345678938', 0, '2024-11-04 07:45:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
 (252, '12345678939', 0, '2024-11-04 07:45:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
 (253, '12345678940', 0, '2024-11-04 07:45:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
-(254, '01210011112', 0, '2024-11-04 07:45:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}');
+(255, '12345678901', 0, '2024-11-09 08:48:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(256, '12345678902', 0, '2024-11-09 08:48:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(257, '12345678903', 0, '2024-11-09 08:48:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(258, '12345678904', 0, '2024-11-09 08:48:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(259, '12345678905', 0, '2024-11-09 08:48:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(260, '12345678906', 0, '2024-11-09 08:48:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(261, '12345678907', 0, '2024-11-09 08:48:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(262, '12345678908', 0, '2024-11-09 08:48:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(263, '12345678909', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(264, '12345678910', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(265, '12345678911', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(266, '12345678912', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(267, '12345678913', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(268, '12345678914', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(269, '12345678915', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(270, '12345678916', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(271, '12345678917', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(272, '12345678918', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(273, '12345678919', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(274, '12345678920', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(275, '12345678921', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(276, '12345678922', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(277, '12345678923', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(278, '12345678924', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(279, '12345678925', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(280, '12345678926', 0, '2024-11-09 08:48:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(281, '12345678927', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(282, '12345678928', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(283, '12345678929', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(284, '12345678930', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(285, '12345678931', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(286, '12345678932', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(287, '12345678933', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(288, '12345678934', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(289, '12345678935', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(290, '12345678936', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(291, '12345678937', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(292, '12345678938', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(293, '12345678939', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(294, '12345678940', 0, '2024-11-09 08:48:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(296, '01210011112', 0, '2024-11-09 12:30:56', '{\"type\":\"room_accept\",\"room_name\":\"Get You\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":905,\"student_id\":\"01210011112\"}'),
+(297, '01210011112', 0, '2024-11-09 12:31:39', '{\"type\":\"student_remove\",\"room_name\":\"Get You\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":905,\"student_id\":\"01210011112\"}'),
+(300, '01210011112', 0, '2024-11-09 12:33:15', '{\"type\":\"room_accept\",\"room_name\":\"Get You\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":905,\"student_id\":\"01210011112\"}'),
+(301, '01210011112', 0, '2024-11-09 12:34:16', '{\"type\":\"room_decline\",\"room_name\":\"SOFE 311\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":902,\"student_id\":\"902\"}'),
+(303, '01210011112', 0, '2024-11-09 12:37:08', '{\"type\":\"room_accept\",\"room_name\":\"SOFE 311\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":902,\"student_id\":\"01210011112\"}'),
+(304, '01210011112', 0, '2024-11-09 12:38:50', '{\"type\":\"student_remove\",\"room_name\":\"SOFE 311\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":902,\"student_id\":\"01210011112\"}'),
+(305, '01210011112', 0, '2024-11-09 12:38:54', '{\"type\":\"student_remove\",\"room_name\":\"Get You\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":905,\"student_id\":\"01210011112\"}'),
+(308, '01210011112', 0, '2024-11-09 12:39:32', '{\"type\":\"room_accept\",\"room_name\":\"Get You\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":905,\"student_id\":\"01210011112\"}'),
+(309, '01210011112', 0, '2024-11-09 12:39:35', '{\"type\":\"room_decline\",\"room_name\":\"SOFE 311\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":902,\"student_id\":\"902\"}'),
+(311, '01210011112', 0, '2024-11-09 12:49:31', '{\"type\":\"room_accept\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900,\"student_id\":\"01210011112\"}'),
+(312, '12345678901', 0, '2024-11-09 12:49:33', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(313, '12345678902', 0, '2024-11-09 12:49:33', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(314, '12345678903', 0, '2024-11-09 12:49:33', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(315, '12345678904', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(316, '12345678905', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(317, '12345678906', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(318, '12345678907', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(319, '12345678908', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(320, '12345678909', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(321, '12345678910', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(322, '12345678911', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(323, '12345678912', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(324, '12345678913', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(325, '12345678914', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(326, '12345678915', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(327, '12345678916', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(328, '12345678917', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(329, '12345678918', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(330, '12345678919', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(331, '12345678920', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(332, '12345678921', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(333, '12345678922', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(334, '12345678923', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(335, '12345678924', 0, '2024-11-09 12:49:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(336, '12345678925', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(337, '12345678926', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(338, '12345678927', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(339, '12345678928', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(340, '12345678929', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(341, '12345678930', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(342, '12345678931', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(343, '12345678932', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(344, '12345678933', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(345, '12345678934', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(346, '12345678935', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(347, '12345678936', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(348, '12345678937', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(349, '12345678938', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(350, '12345678939', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(351, '12345678940', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(352, '01210011112', 0, '2024-11-09 12:49:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(353, '12345678901', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(354, '12345678902', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(355, '12345678903', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(356, '12345678904', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(357, '12345678905', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(358, '12345678906', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(359, '12345678907', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(360, '12345678908', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(361, '12345678909', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(362, '12345678910', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(363, '12345678911', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(364, '12345678912', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(365, '12345678913', 0, '2024-11-09 12:49:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(366, '12345678914', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(367, '12345678915', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(368, '12345678916', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(369, '12345678917', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(370, '12345678918', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(371, '12345678919', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(372, '12345678920', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(373, '12345678921', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(374, '12345678922', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(375, '12345678923', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(376, '12345678924', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(377, '12345678925', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(378, '12345678926', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(379, '12345678927', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(380, '12345678928', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(381, '12345678929', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(382, '12345678930', 0, '2024-11-09 12:49:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(383, '12345678931', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(384, '12345678932', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(385, '12345678933', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(386, '12345678934', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(387, '12345678935', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(388, '12345678936', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(389, '12345678937', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(390, '12345678938', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(391, '12345678939', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(392, '12345678940', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(393, '01210011112', 0, '2024-11-09 12:49:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(394, '12345678901', 0, '2024-11-09 12:51:21', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(395, '12345678902', 0, '2024-11-09 12:51:21', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(396, '12345678903', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(397, '12345678904', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(398, '12345678905', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(399, '12345678906', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(400, '12345678907', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(401, '12345678908', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(402, '12345678909', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(403, '12345678910', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(404, '12345678911', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}');
+INSERT INTO `notifications` (`id`, `school_id`, `read_status`, `created_at`, `type`) VALUES
+(405, '12345678912', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(406, '12345678913', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(407, '12345678914', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(408, '12345678915', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(409, '12345678916', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(410, '12345678917', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(411, '12345678918', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(412, '12345678919', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(413, '12345678920', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(414, '12345678921', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(415, '12345678922', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(416, '12345678923', 0, '2024-11-09 12:51:22', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(417, '12345678924', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(418, '12345678925', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(419, '12345678926', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(420, '12345678927', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(421, '12345678928', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(422, '12345678929', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(423, '12345678930', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(424, '12345678931', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(425, '12345678932', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(426, '12345678933', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(427, '12345678934', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(428, '12345678935', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(429, '12345678936', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(430, '12345678937', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(431, '12345678938', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(432, '12345678939', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(433, '12345678940', 0, '2024-11-09 12:51:23', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(434, '01210011112', 0, '2024-11-09 12:51:24', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(437, '12345678901', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(438, '12345678902', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(439, '12345678903', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(440, '12345678904', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(441, '12345678905', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(442, '12345678906', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(443, '12345678907', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(444, '12345678908', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(445, '12345678909', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(446, '12345678910', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(447, '12345678911', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(448, '12345678912', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(449, '12345678913', 0, '2024-11-09 14:37:40', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(450, '12345678914', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(451, '12345678915', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(452, '12345678916', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(453, '12345678917', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(454, '12345678918', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(455, '12345678919', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(456, '12345678920', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(457, '12345678921', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(458, '12345678922', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(459, '12345678923', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(460, '12345678924', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(461, '12345678925', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(462, '12345678926', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(463, '12345678927', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(464, '12345678928', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(465, '12345678929', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(466, '12345678930', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(467, '12345678931', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(468, '12345678932', 0, '2024-11-09 14:37:41', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(469, '12345678933', 0, '2024-11-09 14:37:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(470, '12345678934', 0, '2024-11-09 14:37:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(471, '12345678935', 0, '2024-11-09 14:37:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(472, '12345678936', 0, '2024-11-09 14:37:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(473, '12345678937', 0, '2024-11-09 14:37:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(474, '12345678938', 0, '2024-11-09 14:37:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(475, '12345678939', 0, '2024-11-09 14:37:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(476, '12345678940', 0, '2024-11-09 14:37:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(477, '01210011112', 0, '2024-11-09 14:37:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(478, '12345678901', 0, '2024-11-09 14:37:56', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(479, '12345678902', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(480, '12345678903', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(481, '12345678904', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(482, '12345678905', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(483, '12345678906', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(484, '12345678907', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(485, '12345678908', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(486, '12345678909', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(487, '12345678910', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(488, '12345678911', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(489, '12345678912', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(490, '12345678913', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(491, '12345678914', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(492, '12345678915', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(493, '12345678916', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(494, '12345678917', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(495, '12345678918', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(496, '12345678919', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(497, '12345678920', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(498, '12345678921', 0, '2024-11-09 14:37:57', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(499, '12345678922', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(500, '12345678923', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(501, '12345678924', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(502, '12345678925', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(503, '12345678926', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(504, '12345678927', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(505, '12345678928', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(506, '12345678929', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(507, '12345678930', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(508, '12345678931', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(509, '12345678932', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(510, '12345678933', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(511, '12345678934', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(512, '12345678935', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(513, '12345678936', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(514, '12345678937', 0, '2024-11-09 14:37:58', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(515, '12345678938', 0, '2024-11-09 14:37:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(516, '12345678939', 0, '2024-11-09 14:37:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(517, '12345678940', 0, '2024-11-09 14:37:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(518, '01210011112', 0, '2024-11-09 14:37:59', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(519, '01210011112', 0, '2024-11-09 14:39:35', '{\"type\":\"student_remove\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900,\"student_id\":\"01210011112\"}'),
+(520, '12345678901', 0, '2024-11-09 14:39:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(521, '12345678902', 0, '2024-11-09 14:39:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(522, '12345678903', 0, '2024-11-09 14:39:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(523, '12345678904', 0, '2024-11-09 14:39:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(524, '12345678905', 0, '2024-11-09 14:39:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(525, '12345678906', 0, '2024-11-09 14:39:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(526, '12345678907', 0, '2024-11-09 14:39:42', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(527, '12345678908', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(528, '12345678909', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(529, '12345678910', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(530, '12345678911', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(531, '12345678912', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(532, '12345678913', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(533, '12345678914', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(534, '12345678915', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(535, '12345678916', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(536, '12345678917', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(537, '12345678918', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(538, '12345678919', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(539, '12345678920', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(540, '12345678921', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(541, '12345678922', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(542, '12345678923', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(543, '12345678924', 0, '2024-11-09 14:39:43', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(544, '12345678925', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(545, '12345678926', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(546, '12345678927', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(547, '12345678928', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(548, '12345678929', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(549, '12345678930', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(550, '12345678931', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(551, '12345678932', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(552, '12345678933', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(553, '12345678934', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(554, '12345678935', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(555, '12345678936', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(556, '12345678937', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(557, '12345678938', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(558, '12345678939', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(559, '12345678940', 0, '2024-11-09 14:39:44', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(561, '01210011112', 0, '2024-11-09 15:05:11', '{\"type\":\"room_accept\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900,\"student_id\":\"01210011112\"}'),
+(562, '12345678901', 0, '2024-11-09 15:05:15', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(563, '12345678902', 0, '2024-11-09 15:05:15', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(564, '12345678903', 0, '2024-11-09 15:05:15', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(565, '12345678904', 0, '2024-11-09 15:05:15', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(566, '12345678905', 0, '2024-11-09 15:05:15', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(567, '12345678906', 0, '2024-11-09 15:05:15', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(568, '12345678907', 0, '2024-11-09 15:05:15', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(569, '12345678908', 0, '2024-11-09 15:05:15', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(570, '12345678909', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(571, '12345678910', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(572, '12345678911', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(573, '12345678912', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(574, '12345678913', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(575, '12345678914', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(576, '12345678915', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(577, '12345678916', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(578, '12345678917', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(579, '12345678918', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(580, '12345678919', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(581, '12345678920', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(582, '12345678921', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(583, '12345678922', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(584, '12345678923', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(585, '12345678924', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(586, '12345678925', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(587, '12345678926', 0, '2024-11-09 15:05:16', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(588, '12345678927', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(589, '12345678928', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(590, '12345678929', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(591, '12345678930', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(592, '12345678931', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(593, '12345678932', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(594, '12345678933', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(595, '12345678934', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(596, '12345678935', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(597, '12345678936', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(598, '12345678937', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(599, '12345678938', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(600, '12345678939', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(601, '12345678940', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(602, '01210011112', 0, '2024-11-09 15:05:17', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(603, '01210011112', 0, '2024-11-09 15:05:32', '{\"type\":\"student_remove\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900,\"student_id\":\"01210011112\"}'),
+(604, '12345678901', 0, '2024-11-09 15:05:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(605, '12345678902', 0, '2024-11-09 15:05:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(606, '12345678903', 0, '2024-11-09 15:05:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(607, '12345678904', 0, '2024-11-09 15:05:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(608, '12345678905', 0, '2024-11-09 15:05:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(609, '12345678906', 0, '2024-11-09 15:05:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(610, '12345678907', 0, '2024-11-09 15:05:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(611, '12345678908', 0, '2024-11-09 15:05:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(612, '12345678909', 0, '2024-11-09 15:05:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(613, '12345678910', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(614, '12345678911', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(615, '12345678912', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(616, '12345678913', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(617, '12345678914', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(618, '12345678915', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(619, '12345678916', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(620, '12345678917', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(621, '12345678918', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(622, '12345678919', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(623, '12345678920', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(624, '12345678921', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(625, '12345678922', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(626, '12345678923', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(627, '12345678924', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(628, '12345678925', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(629, '12345678926', 0, '2024-11-09 15:05:36', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(630, '12345678927', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(631, '12345678928', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(632, '12345678929', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(633, '12345678930', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(634, '12345678931', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(635, '12345678932', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(636, '12345678933', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(637, '12345678934', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(638, '12345678935', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(639, '12345678936', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(640, '12345678937', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(641, '12345678938', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(642, '12345678939', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(643, '12345678940', 0, '2024-11-09 15:05:37', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(644, '01210011114', 0, '2024-11-10 14:06:29', '{\"type\":\"room_join\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900,\"student_id\":\"01210011112\",\"student_name\":\"Rogue, Johan\"}'),
+(645, '01210011112', 0, '2024-11-10 14:06:31', '{\"type\":\"room_accept\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900,\"student_id\":\"01210011112\"}'),
+(646, '12345678901', 0, '2024-11-10 14:06:33', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(647, '12345678902', 0, '2024-11-10 14:06:33', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(648, '12345678903', 0, '2024-11-10 14:06:33', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(649, '12345678904', 0, '2024-11-10 14:06:33', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(650, '12345678905', 0, '2024-11-10 14:06:33', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(651, '12345678906', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(652, '12345678907', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(653, '12345678908', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(654, '12345678909', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(655, '12345678910', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(656, '12345678911', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(657, '12345678912', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(658, '12345678913', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(659, '12345678914', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(660, '12345678915', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(661, '12345678916', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(662, '12345678917', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(663, '12345678918', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}');
+INSERT INTO `notifications` (`id`, `school_id`, `read_status`, `created_at`, `type`) VALUES
+(664, '12345678919', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(665, '12345678920', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(666, '12345678921', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(667, '12345678922', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(668, '12345678923', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(669, '12345678924', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(670, '12345678925', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(671, '12345678926', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(672, '12345678927', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(673, '12345678928', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(674, '12345678929', 0, '2024-11-10 14:06:34', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(675, '12345678930', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(676, '12345678931', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(677, '12345678932', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(678, '12345678933', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(679, '12345678934', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(680, '12345678935', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(681, '12345678936', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(682, '12345678937', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(683, '12345678938', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(684, '12345678939', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(685, '12345678940', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}'),
+(686, '01210011112', 0, '2024-11-10 14:06:35', '{\"type\":\"created_groups\",\"room_name\":\"CS Thesis 312\",\"prof_name\":\"John Rogee Turqouise\",\"prof_id\":\"01210011114\",\"room_id\":900}');
 
 -- --------------------------------------------------------
 
@@ -366,7 +870,8 @@ CREATE TABLE `rooms` (
 INSERT INTO `rooms` (`room_id`, `room_name`, `school_id`, `room_code`, `created_date`, `year_level`, `program`, `section`) VALUES
 (900, 'CS Thesis 312', '01210011114', '905716', '2024-11-04 07:19:10', '3rd year', 'cs', 'Y1-1'),
 (901, 'IT Capstone 311', '01210011114', '323490', '2024-11-04 07:19:20', '3rd year', 'it', 'Y1-1'),
-(902, 'SOFE 311', '01210011114', '321232', '2024-11-04 07:19:37', '3rd year', 'cs', 'Y1-1');
+(902, 'SOFE 311', '01210011114', '321232', '2024-11-04 07:19:37', '3rd year', 'cs', 'Y1-1'),
+(905, 'Get You', '01210011114', '654318', '2024-11-09 12:22:30', '4th year', 'cs', 'Y3-2');
 
 -- --------------------------------------------------------
 
@@ -384,7 +889,7 @@ CREATE TABLE `room_groups` (
 --
 
 INSERT INTO `room_groups` (`room_id`, `groups_json`) VALUES
-(900, '[[[\"John Doe\",\"12345678901\",\"Principal Investigator\"],[\"Mia Scott\",\"12345678922\",\"Research Writer\"],[\"Emma Jackson\",\"12345678933\",\"System Developer\"],[\"Nettspend Nuggets\",\"01210011112\",\"System Designer\"]],[[\"Jane Smith\",\"12345678902\",\"Principal Investigator\"],[\"Mason King\",\"12345678921\",\"Research Writer\"],[\"Ethan Martin\",\"12345678932\",\"System Developer\"],[\"William Jones\",\"12345678940\",\"System Designer\"]],[[\"Bob Jones\",\"12345678903\",\"Principal Investigator\"],[\"Sophia Hall\",\"12345678920\",\"Research Writer\"],[\"Ella Lee\",\"12345678931\",\"System Developer\"],[\"Sophie Wood\",\"12345678939\",\"System Designer\"]],[[\"Emma James\",\"12345678904\",\"Principal Investigator\"],[\"Noah Wright\",\"12345678919\",\"Research Writer\"],[\"Charlotte Reed\",\"12345678930\",\"System Developer\"],[\"Noah Cook\",\"12345678938\",\"System Designer\"]],[[\"Alice Brown\",\"12345678905\",\"Principal Investigator\"],[\"Ella Moore\",\"12345678918\",\"Research Writer\"],[\"Lucas Cooper\",\"12345678929\",\"System Developer\"],[\"Lucy Gray\",\"12345678937\",\"System Designer\"]],[[\"Michael Davis\",\"12345678906\",\"Principal Investigator\"],[\"Liam Harris\",\"12345678917\",\"Research Writer\"],[\"Zoe Murphy\",\"12345678928\",\"System Developer\"],[\"Liam Bennett\",\"12345678936\",\"System Designer\"]],[[\"Sarah Wilson\",\"12345678907\",\"Principal Investigator\"],[\"Olivia White\",\"12345678916\",\"Research Writer\"],[\"Benjamin Morris\",\"12345678927\",\"System Developer\"],[\"Olivia Morgan\",\"12345678935\",\"System Designer\"]],[[\"Tom Taylor\",\"12345678908\",\"Principal Investigator\"],[\"Jack Johnson\",\"12345678915\",\"Research Writer\"],[\"Grace Carter\",\"12345678926\",\"System Developer\"],[\"Jackson Roberts\",\"12345678934\",\"System Designer\"]],[[\"Emily Clark\",\"12345678909\",\"Principal Investigator\"],[\"Lucy Thomas\",\"12345678914\",\"Research Writer\"],[\"Logan Adams\",\"12345678925\",\"System Developer\"]],[[\"George Martin\",\"12345678910\",\"Principal Investigator\"],[\"Oliver Lewis\",\"12345678913\",\"Research Writer\"],[\"Isabella Baker\",\"12345678924\",\"System Developer\"]],[[\"Chris Evans\",\"12345678911\",\"Principal Investigator\"],[\"Anna Kim\",\"12345678912\",\"Research Writer\"],[\"James Green\",\"12345678923\",\"System Developer\"]]]');
+(900, '[[[\"John Doe\",\"12345678901\",\"Principal Investigator\"],[\"Mia Scott\",\"12345678922\",\"Research Writer\"],[\"Emma Jackson\",\"12345678933\",\"System Developer\"],[\"Johan Rogue\",\"01210011112\",\"System Designer\"]],[[\"Jane Smith\",\"12345678902\",\"Principal Investigator\"],[\"Mason King\",\"12345678921\",\"Research Writer\"],[\"Ethan Martin\",\"12345678932\",\"System Developer\"],[\"William Jones\",\"12345678940\",\"System Designer\"]],[[\"Bob Jones\",\"12345678903\",\"Principal Investigator\"],[\"Sophia Hall\",\"12345678920\",\"Research Writer\"],[\"Ella Lee\",\"12345678931\",\"System Developer\"],[\"Sophie Wood\",\"12345678939\",\"System Designer\"]],[[\"Emma James\",\"12345678904\",\"Principal Investigator\"],[\"Noah Wright\",\"12345678919\",\"Research Writer\"],[\"Charlotte Reed\",\"12345678930\",\"System Developer\"],[\"Noah Cook\",\"12345678938\",\"System Designer\"]],[[\"Alice Brown\",\"12345678905\",\"Principal Investigator\"],[\"Ella Moore\",\"12345678918\",\"Research Writer\"],[\"Lucas Cooper\",\"12345678929\",\"System Developer\"],[\"Lucy Gray\",\"12345678937\",\"System Designer\"]],[[\"Michael Davis\",\"12345678906\",\"Principal Investigator\"],[\"Liam Harris\",\"12345678917\",\"Research Writer\"],[\"Zoe Murphy\",\"12345678928\",\"System Developer\"],[\"Liam Bennett\",\"12345678936\",\"System Designer\"]],[[\"Sarah Wilson\",\"12345678907\",\"Principal Investigator\"],[\"Olivia White\",\"12345678916\",\"Research Writer\"],[\"Benjamin Morris\",\"12345678927\",\"System Developer\"],[\"Olivia Morgan\",\"12345678935\",\"System Designer\"]],[[\"Tom Taylor\",\"12345678908\",\"Principal Investigator\"],[\"Jack Johnson\",\"12345678915\",\"Research Writer\"],[\"Grace Carter\",\"12345678926\",\"System Developer\"],[\"Jackson Roberts\",\"12345678934\",\"System Designer\"]],[[\"Emily Clark\",\"12345678909\",\"Principal Investigator\"],[\"Lucy Thomas\",\"12345678914\",\"Research Writer\"],[\"Logan Adams\",\"12345678925\",\"System Developer\"]],[[\"George Martin\",\"12345678910\",\"Principal Investigator\"],[\"Oliver Lewis\",\"12345678913\",\"Research Writer\"],[\"Isabella Baker\",\"12345678924\",\"System Developer\"]],[[\"Chris Evans\",\"12345678911\",\"Principal Investigator\"],[\"Anna Kim\",\"12345678912\",\"Research Writer\"],[\"James Green\",\"12345678923\",\"System Developer\"]]]');
 
 -- --------------------------------------------------------
 
@@ -442,6 +947,7 @@ INSERT INTO `room_list` (`room_id`, `school_id`) VALUES
 (900, '12345678938'),
 (900, '12345678939'),
 (900, '12345678940'),
+(905, '01210011112'),
 (900, '01210011112');
 
 -- --------------------------------------------------------
@@ -468,7 +974,8 @@ CREATE TABLE `ticket` (
 
 INSERT INTO `ticket` (`ticket_id`, `status`, `f_name`, `l_name`, `school_id`, `message`, `email`, `category`, `ticket_date`) VALUES
 (1, 'solved', 'Jovannah', 'Lean', '01234567890', 'My acount is hak  ;(', 'whathehealll@student.fatima.edu.ph', 'account', '2024-10-08 02:58:17'),
-(2, 'pending', 'Joana', 'Rogue', '01210011113', 'Wowzers', 'jmturqueza1114val@student.fatima.edu.ph', 'rooms', '2024-10-16 03:18:15');
+(2, 'pending', 'Joana', 'Rogue', '01210011113', 'Wowzers', 'jmturqueza1114val@student.fatima.edu.ph', 'rooms', '2024-10-16 03:18:15'),
+(3, 'pending', 'ojwqeow', 'wqewqe', '01210011114', 'I forgot my password', 'jmturqueza1114val@student.fatima.edu.ph', 'account', '2024-11-09 11:50:19');
 
 --
 -- Indexes for dumped tables
@@ -500,10 +1007,11 @@ ALTER TABLE `join_room_requests`
   ADD KEY `request_school_id` (`school_id`);
 
 --
--- Indexes for table `log_trails`
+-- Indexes for table `logs`
 --
-ALTER TABLE `log_trails`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `school_id` (`school_id`);
 
 --
 -- Indexes for table `notifications`
@@ -549,25 +1057,25 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT for table `group_edit_history`
 --
 ALTER TABLE `group_edit_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `log_trails`
+-- AUTO_INCREMENT for table `logs`
 --
-ALTER TABLE `log_trails`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=687;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=903;
+  MODIFY `room_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=906;
 
 --
 -- AUTO_INCREMENT for table `room_groups`
@@ -579,13 +1087,13 @@ ALTER TABLE `room_groups`
 -- AUTO_INCREMENT for table `room_list`
 --
 ALTER TABLE `room_list`
-  MODIFY `room_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=901;
+  MODIFY `room_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=906;
 
 --
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `ticket_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ticket_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -604,6 +1112,12 @@ ALTER TABLE `group_edit_history`
 ALTER TABLE `join_room_requests`
   ADD CONSTRAINT `request_room_id` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `request_school_id` FOREIGN KEY (`school_id`) REFERENCES `accounts` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `logs`
+--
+ALTER TABLE `logs`
+  ADD CONSTRAINT `logs_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `accounts` (`school_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `notifications`

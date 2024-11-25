@@ -232,7 +232,13 @@
                                         <div class="flex flex-col items-center p-4 h-5/6 justify-evenly">
                                             <div class="w-full">
                                                 <p class="text-black font-satoshimed">Enter the reason for transferring <span class="text-blue3">${member[0]}</span>:</p>
-                                                <input id="reasonInput ${member[1]} ${groupNum}" placeholder="Enter reason:" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
+                                                <select id="reasonInput ${member[1]} ${groupNum}" class="w-full p-2 mt-2 border border-black rounded font-satoshimed" required>
+                                                    <option value="" disabled selected>Select reason:</option>
+                                                    <option value="Personal Request">Personal Request</option>
+                                                    <option value="Internal Issues">Internal Issues</option>
+                                                    <option value="Performance Issues">Performance Issues</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
                                             </div>
 
                                             <button id="confirmReason ${member[1]} ${groupNum}" class="w-6/12 p-1 mt-2 border rounded bg-orangeaccent text-blackpri border-blackpri confirmModal">Confirm</button>
@@ -240,6 +246,7 @@
 
                                     </div>
                                 </div>
+
 
 
                             </div>`

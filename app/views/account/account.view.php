@@ -42,7 +42,7 @@
                         <label class="mr-auto text-4xl text-black font-clashsemibold top-12"><?= $typeNscores['result'] ?></label>
                     </div>
                     <div class="flex mt-16">
-                        <div class="relative text-left mx-auto w-[20rem] h-5/6 pl-24">
+                        <div class="relative text-left mx-auto w-[20rem] h-5/6 pl-16">
                             <h1 class="mb-4 text-lg font-satoshimed text-blackless">REALISTIC</h1>
                             <h1 class="mb-4 text-lg font-satoshimed text-blackless">INVESTIGATIVE</h1>
                             <h1 class="mb-4 text-lg font-satoshimed text-blackless">ARTISTIC</h1>
