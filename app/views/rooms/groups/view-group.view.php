@@ -4,7 +4,7 @@
     <?php view('partials/nav.view.php')?>
 
     <main class="h-auto min-h-[40rem] w-[80rem] mt-20">
-    <?php // dd($group); ?>
+    <?php //dd($group); ?>
         <div class="flex justify-between mt-20">
             <!-- GROUP -->
             <div class="bg-white h-auto max-w-[22rem]  border rounded-lg flex flex-col overflow-hidden">
@@ -119,7 +119,10 @@
                 <div class="tab-content active" id="todo-content">
                     <div class="p-4 space-y-2">
                         <?php foreach ($allTasks['todo'] as $task): ?>
-                            <?php if ($task[2] >= $today): // Only show non-past due tasks ?>
+                            <?php 
+                            $dueDate = date('Y-m-d', strtotime($task[2])); // Parse the due date
+                            if ($dueDate >= $today): // Only show non-past due tasks
+                            ?>
                                 <div class="p-4 bg-white border-l-4 rounded-lg shadow-sm border-blue3">
                                     <div class="flex items-start justify-between">
                                         <div>
@@ -139,16 +142,21 @@
                 <div class="hidden tab-content" id="wip-content">
                     <div class="p-4 space-y-2">
                         <?php foreach ($allTasks['wip'] as $task): ?>
-                            <div class="p-4 bg-white border-l-4 rounded-lg shadow-sm border-greenaccent">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <h4 class="font-satoshimed text-blackpri"><?= htmlspecialchars($task[0]) ?></h4>
-                                        <p class="text-grey2"><?= htmlspecialchars($task[1]) ?></p>
-                                        <p class="mt-2 text-sm font-satoshimed text-greenaccent">Assigned to: <?= htmlspecialchars($task[3]) ?></p>
+                            <?php 
+                            $dueDate = date('Y-m-d', strtotime($task[2])); // Parse the due date
+                            if ($dueDate >= $today): // Only show non-past due tasks
+                            ?>
+                                <div class="p-4 bg-white border-l-4 rounded-lg shadow-sm border-greenaccent">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <h4 class="font-satoshimed text-blackpri"><?= htmlspecialchars($task[0]) ?></h4>
+                                            <p class="text-grey2"><?= htmlspecialchars($task[1]) ?></p>
+                                            <p class="mt-2 text-sm font-satoshimed text-greenaccent">Assigned to: <?= htmlspecialchars($task[3]) ?></p>
+                                        </div>
+                                        <span class="text-sm text-grey2">Due: <?= date('M j, Y', strtotime($task[2])) ?></span>
                                     </div>
-                                    <span class="text-sm text-grey2">Due: <?= date('M j, Y', strtotime($task[2])) ?></span>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -157,16 +165,21 @@
                 <div class="hidden tab-content" id="done-content">
                     <div class="p-4 space-y-2">
                         <?php foreach ($allTasks['done'] as $task): ?>
-                            <div class="p-4 bg-white border-l-4 rounded-lg shadow-sm border-blackpri">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <h4 class="font-satoshimed text-blackpri"><?= htmlspecialchars($task[0]) ?></h4>
-                                        <p class="text-grey2"><?= htmlspecialchars($task[1]) ?></p>
-                                        <p class="mt-2 text-sm font-satoshimed">Completed by: <?= htmlspecialchars($task[3]) ?></p>
+                            <?php 
+                            $dueDate = date('Y-m-d', strtotime($task[2])); // Parse the due date
+                            if ($dueDate >= $today): // Only show non-past due tasks
+                            ?>
+                                <div class="p-4 bg-white border-l-4 rounded-lg shadow-sm border-blackpri">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <h4 class="font-satoshimed text-blackpri"><?= htmlspecialchars($task[0]) ?></h4>
+                                            <p class="text-grey2"><?= htmlspecialchars($task[1]) ?></p>
+                                            <p class="mt-2 text-sm font-satoshimed">Completed by: <?= htmlspecialchars($task[3]) ?></p>
+                                        </div>
+                                        <span class="text-sm text-grey2">Completed: <?= date('M j, Y', strtotime($task[2])) ?></span>
                                     </div>
-                                    <span class="text-sm text-grey2">Completed: <?= date('M j, Y', strtotime($task[2])) ?></span>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -175,7 +188,46 @@
                 <div class="hidden tab-content" id="past-due-content">
                     <div class="p-4 space-y-2">
                         <?php foreach ($allTasks['todo'] as $task): ?>
-                            <?php if ($task[2] < $today): // Only show past due tasks ?>
+                            <?php 
+                            $dueDate = date('Y-m-d', strtotime($task[2])); // Parse the due date
+                            if ($dueDate < $today): // Only show past due tasks 
+                            ?>
+                                <div class="p-4 bg-white border-l-4 border-red-500 rounded-lg shadow-sm">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <h4 class="font-satoshimed text-blackpri"><?= htmlspecialchars($task[0]) ?></h4>
+                                            <p class="text-grey2"><?= htmlspecialchars($task[1]) ?></p>
+                                            <p class="mt-2 text-sm text-red-500 font-satoshimed">Assigned to: <?= htmlspecialchars($task[3]) ?></p>
+                                        </div>
+                                        <span class="text-sm text-red-500">Due: <?= date('M j, Y', strtotime($task[2])) ?></span>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+
+                        <?php foreach ($allTasks['wip'] as $task): ?>
+                            <?php 
+                            $dueDate = date('Y-m-d', strtotime($task[2])); // Parse the due date
+                            if ($dueDate < $today): // Only show past due tasks 
+                            ?>
+                                <div class="p-4 bg-white border-l-4 border-red-500 rounded-lg shadow-sm">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <h4 class="font-satoshimed text-blackpri"><?= htmlspecialchars($task[0]) ?></h4>
+                                            <p class="text-grey2"><?= htmlspecialchars($task[1]) ?></p>
+                                            <p class="mt-2 text-sm text-red-500 font-satoshimed">Assigned to: <?= htmlspecialchars($task[3]) ?></p>
+                                        </div>
+                                        <span class="text-sm text-red-500">Due: <?= date('M j, Y', strtotime($task[2])) ?></span>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+
+                        <?php foreach ($allTasks['done'] as $task): ?>
+                            <?php 
+                            $dueDate = date('Y-m-d', strtotime($task[2])); // Parse the due date
+                            if ($dueDate < $today): // Only show past due tasks 
+                            ?>
                                 <div class="p-4 bg-white border-l-4 border-red-500 rounded-lg shadow-sm">
                                     <div class="flex items-start justify-between">
                                         <div>
