@@ -2,6 +2,17 @@
 
 <body class="static flex font-satoshimed bg-beige">
     <?php view('partials/admin-nav.view.php'); ?>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-75">
+        <div class="flex flex-col items-center">
+            <!-- <div class="w-12 h-12 mb-4 border-4 border-t-4 border-blue-500 rounded-full animate-spin"></div>
+            <p class="text-xl font-satoshimed text-blue3">Loading...</p> -->
+            <div class="w-28 h-28 loader">
+                
+            </div> 
+        </div>
+    </div>
     <div class="relative block w-full h-fit py-12 px-6 min-w-[75rem] flex-1 transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
 
     <div class="relative flex mb-12">
@@ -210,6 +221,8 @@
                     handleSearch();
                 }
             }
+
+            hideLoading();
         }
 
         function handleStatusFilter() {

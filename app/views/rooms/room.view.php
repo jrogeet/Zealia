@@ -199,21 +199,6 @@
         // const noSelectClass = studentRole === 'Principal Investigator' ? '' : 'cursor-grab select-none pointer-events-none';
         let noSelectClass = '';
 
-        // for Loading visual:
-        let loadingCount = 0;
-        function showLoading() {
-            loadingCount++;
-            document.getElementById('loadingIndicator').classList.remove('hidden');
-        }
-        
-        function hideLoading() {
-            loadingCount--;
-            if (loadingCount <= 0) {
-                loadingCount = 0;
-                document.getElementById('loadingIndicator').classList.add('hidden');
-            }
-        }
-
         // As soon as the page loads:
         document.addEventListener('DOMContentLoaded', function() {
             const roomStudentList = document.getElementById('roomStudentList');
@@ -283,6 +268,17 @@
                     });
                 } else if (e.target && e.target.id && e.target.id.startsWith('submitGroups')) {
                     e.preventDefault();
+                    // Check if there are enough students before generating groups
+                    if (studentsCount < 4) {
+                        Swal.fire({
+                            title: 'Not Enough Students',
+                            text: 'There must be at least 4 students in the room to generate groups.',
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                        return; // Exit the function if not enough students
+                    }
+
                     submitForm(e.target.id, '/api/submit-form', 'group_students', {
                         genGroups: document.getElementById('genGroups').value,
                         room: <?= $_GET['room_id'] ?>,
