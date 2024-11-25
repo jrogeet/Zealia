@@ -169,6 +169,7 @@
     <script src="assets/js/shared-scripts.js"></script>
     <script src="assets/js/grouping.js"></script>
     <script src="assets/js/fetch/fetch.js"></script>
+    <script src="assets/js/loading.js"></script> 
 
     <!-- FETCHING -->
     <script>
@@ -1043,6 +1044,9 @@
 
         // Updating of Kanban Tasks
         function processUpdateKanban(action, taskData, destination, targetSchoolId = null) {
+            console.log('TANGINA? members[currentKB][1]',members[currentKB][1]);
+            console.log('TANGINA? targetSchoolId ', targetSchoolId );
+            console.log('TANGINA? targetSchoolId || members[currentKB][1]', targetSchoolId || members[currentKB][1]);
             isUpdatingKanban = true;
             showLoading();
             const formData = new FormData();
@@ -1316,14 +1320,14 @@
                 alert('Task name is required');
                 return;
             }
-
             // console.log('DESTINASYON: ', taskDestination);
 
             // Create the task array
             const newTask = [taskName, taskInfo, taskDate];
-
-            const targetMemberId = members[currentKB][1];
-
+            let targetMemberId = members[currentKB][1];
+            
+            console.log('currentKB:', currentKB)
+            console.log('TARGET MEMBERRRR RID::::', targetMemberId)
             processUpdateKanban(null, newTask, taskDestination, targetMemberId)
             .then(() => {
                 hideLoading();

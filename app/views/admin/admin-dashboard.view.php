@@ -134,6 +134,7 @@
     <?php endif; ?>
     
     <script src="assets/js/fetch/fetch.js"></script>
+    <script src="assets/js/loading.js"></script> 
     <script>
         let changeChecker = null;
         const recentAccounts = document.getElementById('rcAccs');

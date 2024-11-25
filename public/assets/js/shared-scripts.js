@@ -200,18 +200,3 @@ function showConfirm(title, message, confirmText = "Yes", cancelText = "No") {
     cancelButtonColor: "#99948C", // grey1
   });
 }
-
-// for Loading visual:
-let loadingCount = 0;
-function showLoading() {
-  loadingCount++;
-  document.getElementById("loadingIndicator").classList.remove("hidden");
-}
-
-function hideLoading() {
-  loadingCount--;
-  if (loadingCount <= 0) {
-    loadingCount = 0;
-    document.getElementById("loadingIndicator").classList.add("hidden");
-  }
-}
