@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="absolute inline-block w-screen overflow-x-hidden bg-white h-fit font-satoshimed">
+<body class="absolute inline-block w-screen overflow-x-hidden bg-beige h-fit font-satoshimed">
 
     <?php if(isset($notifications)){
         view('partials/nav.view.php', ['notifications' => $notifications]);

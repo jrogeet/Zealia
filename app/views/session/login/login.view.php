@@ -3,13 +3,7 @@
 <body class="font-satoshimed bg-blue1">
     <?php view('partials/nav.view.php')?>
 
-    <div class="pt-16 pb-10 bg-white sm:bg-white sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-[26.25rem] h-fit"> 
-
-        <!-- <div>
-            <?php //if(isset($loginmessage)): ?>
-                <p class="change-pass-success"><?php //= $loginmessage ?></p>
-            <?php // endif; ?>
-        </div> -->
+    <div class="pt-16 pb-10 bg-beige sm:bg-beige sm:border sm:border-black sm:rounded-xl sm:shadow-2xl absolute left-[50%] top-[55%] transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-[26.25rem] h-fit"> 
 
         <h1 class="mb-16 mx-12 text-[6vw] sm:text-4xl text-center">Welcome back to Zealia</h1>
 

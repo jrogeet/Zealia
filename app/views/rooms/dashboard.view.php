@@ -1,6 +1,6 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="flex flex-col w-screen overflow-x-hidden bg-whitecon justify">
+<body class="flex flex-col w-screen overflow-x-hidden bg-blue1 justify">
     <?php view('partials/nav.view.php')?>
 
     <!-- desktop -->
@@ -143,7 +143,7 @@
                 </table>
            </div>
 
-            <div id="noRooms" class="flex flex-col items-center justify-center w-full h-full">
+            <div id="noRooms" class="flex flex-col items-center justify-center w-full h-full min-h-[40rem]">
 
             </div>
         </div>

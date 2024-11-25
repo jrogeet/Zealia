@@ -1,12 +1,12 @@
 <?php view('partials/head.view.php'); ?>
 
-<body class="static block w-full overflow-x-hidden">
+<body class="static block w-full overflow-x-hidden bg-blue1">
     <?php view('partials/nav.view.php')?>
 
     <div class="relative w-full h-[47rem] top-[5rem] pt-28 mb-44 block min-w-[62rem]">
 
         <div class="font-satoshiblack text-left relative w-8/12 h-fit left-[62%] mb-0 transform translate-x-[-50%] flex">
-            <h1 class="ml-4 text-3xl text-grey2">RESULT:</h1>
+            <h1 class="ml-4 text-3xl text-whitebord">RESULT:</h1>
             <h1 class="relative text-[5rem] font-clashsemibold top-[-2.2rem] ml-10" id="resultDisplay"></h1>
         </div>
 
@@ -25,8 +25,8 @@
         <input type="hidden" name="finalRes" value="<?php echo $finalRes; ?>">
         <input type="hidden" name="id" value="<?php echo $currentUser; ?>">
         <div class="flex flex-col items-center justify-center">
-            <a href="/test" class="flex items-center justify-center w-32 h-8 border rounded-lg border-grey2 text-black1 hover:text-white hover:bg-grey1">Re-take Test</a>
-            <button type="submit" class="w-64 h-12 my-4 text-xl text-white border border-grey2 rounded-2xl bg-blue3 font-satoshimed hover:text-black1 hover:bg-orangeaccent">Confirm Result</button>
+            <a href="/test" class="flex items-center justify-center w-32 h-8 border-2 rounded-lg border-blackless text-blackpri bg-whitecon hover:text-greenaccent hover:bg-whitecon">Re-take Test</a>
+            <button type="submit" class="w-64 h-12 my-4 text-xl text-white border border-whitebord rounded-2xl bg-blue3 font-satoshimed hover:text-blackpri hover:bg-orangeaccent">Confirm Result</button>
         </div>
     </form>
 
