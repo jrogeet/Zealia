@@ -9,17 +9,30 @@ use Model\Logger;
 $db = App::resolve(Database::class);
 $logger = new Logger($db);
 
-$id = $_POST['id'];
+if (!isset($_POST['id']) && !isset($_GET['id'])) {
+    header("Location: /admin-accounts");
+    exit();
+}
+
+$userExists = $db->query('select count(*) as count from accounts where school_id = :id', [
+    ':id' => $_GET['id'] ?? $_POST['id']
+])->find();
+
+if (!$userExists || $userExists['count'] == 0) {
+    header("Location: /admin-accounts");
+    exit();
+}
+
+$id = $_GET['id'];
+$f_name = $_POST['f_name'];
+$l_name = $_POST['l_name'];
+$school_id = $_POST['school_id'];
+$email = $_POST['email'];
+$password = $_POST['password'];
+$c_password = $_POST['c_password'];
+$decoded_allUserInfo = json_decode($_POST['encoded_allUserInfo'], true);
 
 if (isset($_POST['edit'])) {
-    $f_name = $_POST['f_name'];
-    $l_name = $_POST['l_name'];
-    $school_id = $_POST['school_id'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $c_password = $_POST['c_password'];
-    $decoded_allUserInfo = json_decode($_POST['encoded_allUserInfo'], true);
-
     if (! empty($f_name)) {
         $db->query('update accounts set f_name = :f_name where school_id = :id', [
             ':f_name' => $f_name,
@@ -59,6 +72,16 @@ if (isset($_POST['edit'])) {
     } 
 
     if (! empty($school_id)) {
+        $schoolIdExists = $db->query('select count(*) as count from accounts where school_id = :school_id and school_id != :current_id', [
+            ':school_id' => $school_id,
+            ':current_id' => $id
+        ])->find();
+
+        if ($schoolIdExists['count'] > 0) {
+            header("Location: /admin-account-edit?id={$id}&error=school_id_taken");
+            exit();
+        }
+
         $db->query('update accounts set school_id = :school_id where school_id = :id', [
             ':school_id' => $school_id,
             ':id' => $id,
@@ -72,9 +95,12 @@ if (isset($_POST['edit'])) {
             [
                 'school_id' => $id,
                 'new_school_id' => $school_id,
-                'old_school_id' => $decoded_allUserInfo['school_id'],
+                'old_school_id' => $id,
             ]
         );
+
+        header("Location: /admin-account-edit?id={$school_id}");
+        exit();
     } 
 
     if (! empty($email)) {
@@ -115,14 +141,10 @@ if (isset($_POST['edit'])) {
         }
     }
 
-    if (isset($school_id)) {
-        header("Location: /admin-account-edit?id={$school_id}");
-    } else {
-        header("Location: /admin-account-edit?id={$id}"); 
+    if (empty($school_id)) {
+        header("Location: /admin-account-edit?id={$id}");
+        exit();
     }
-
-
-    exit();
 
 
 } elseif (isset($_POST['activate'])) {
@@ -135,14 +157,17 @@ if (isset($_POST['edit'])) {
 
 } elseif (isset($_POST['delete'])) {
     $db->query('delete from accounts where school_id = :id', [
-        ':id' => $id,
+        ':id' => $_POST['id'],
     ]);
 
     $logger->log(
         'ADMIN: DELETE ACCOUNT',
         'success',
         'user',
-        $id,
+        $_POST['id'],
+        [
+            'deleted_school_id' => $_POST['id']
+        ]
     );
 
     header("Location: /admin-accounts");

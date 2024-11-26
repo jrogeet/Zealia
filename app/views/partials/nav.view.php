@@ -146,7 +146,7 @@
 
                         <form method="POST" action="/login">
                             <input type="hidden" name="_method" value="DELETE" />
-                            <button class="text-red1">Log Out</button>
+                            <button class="text-rederr">Log Out</button>
                         </form>
                     </div>
 
@@ -161,7 +161,7 @@
                             <li class="">
                                 <form method="POST" action="/login">
                                     <input type="hidden" name="_method" value="DELETE" />
-                                    <button class="text-red1">Log Out</button>
+                                    <button class="text-rederr">Log Out</button>
                                 </form>
                             </li>
                         </ul>

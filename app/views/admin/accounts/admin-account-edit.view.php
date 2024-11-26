@@ -49,9 +49,9 @@
                     <?php endif; ?>
                     
                 <!-- DELETE -->
-                    <form method="post" action="/admin-account-edit">
+                    <form method="post" action="/admin-account-edit" onsubmit="return confirm('Are you sure you want to delete this account?');">
                         <input type="hidden" name="delete">
-                        <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
+                        <input type="hidden" name="id" value="<?= $allUserInfo['school_id'] ?>">
                         <button type="submit" class="w-full h-10 mx-auto text-white border border-black rounded-lg mt-96 bg-rederr">Delete Account</button>
                     </form>
                 </div>
