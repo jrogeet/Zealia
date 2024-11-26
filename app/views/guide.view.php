@@ -25,13 +25,8 @@
                 <a onclick="show('roomTab','block');hideAll('roomTab');" class="block w-full my-2 ml-8 text-xl cursor-pointer roomTab focus:text-green1 text-grey2 hover:text-blacksec font-clashmed">Rooms</a>
             </div>
 
-            <!-- RIGHT: MAIN -->
-            <div id="noSel" class="block w-3/4 h-auto mx-auto text-center">
-                <h1 class="w-full h-full border border-black">*PICTURE* CHOOSE ONE FROM HERE NA NAKATURO SA LEFT, MAG HIHIDE KAPAG NAG PUMILI NA NG TAB</h1>
-            </div>
-
             <!-- ACCOUNTS -->
-            <div id="accTab" class="hidden w-3/4 h-auto py-4 pl-8">
+            <div id="accTab" class="block w-3/4 h-auto py-4 pl-8">
                     
                 <button class="mt-8 text-xl tracking-wide ques font-clashsemibold">How can I create my account?</button>
                 <div class="py-0 pl-8 pr-8 overflow-hidden text-lg text-left duration-700 ease-in bg-whitecon rounded-2xl panel font-clashreg max-h-0">
@@ -157,7 +152,7 @@
 
         // hide script
         function hideAll(exception) {
-            const ids = ['noSel', 'accTab', 'roomTab'];
+            const ids = ['accTab', 'roomTab'];
 
             // Filter out the current ID from the array
             const filteredIds = ids.filter(id => id !== exception);
