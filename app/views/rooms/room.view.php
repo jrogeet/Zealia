@@ -821,7 +821,7 @@
 
                                     if ((new Date()) < date) {
                                         return `
-                                            <div class="flex border mt-2 ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
+                                            <div class="flex border mt-2 ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none'}" 
                                                 draggable="${canDrag}"
                                                 onclick="showTaskDetails('${encodeURIComponent(taskData[0])}', '${encodeURIComponent(taskData[1])}', '${formattedDate}', '${listType}')"
                                             >
@@ -843,7 +843,7 @@
                                         `;
                                     } else {
                                         return `
-                                            <div class="flex border mt-2 border-black flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl bg-blackless bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none pointer-events-none'}" 
+                                            <div class="flex border mt-2 border-black flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl bg-blackless bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none'}" 
                                                 draggable="${canDrag}"
                                                 onclick="showTaskDetails('${encodeURIComponent(taskData[0])}', '${encodeURIComponent(taskData[1])}', '${formattedDate}', 'Past Deadline')"
                                             >
