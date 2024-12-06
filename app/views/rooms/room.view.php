@@ -12,6 +12,11 @@
         </div>
     </div>
 
+    <div id="savingIndicator" class="fixed z-50 flex items-center p-3 bg-white rounded-lg shadow-lg bottom-4 right-4">
+        <div class="w-5 h-5 mr-2 border-2 border-t-2 border-blue-500 rounded-full animate-spin"></div>
+        <span class="text-sm text-gray-700 font-satoshimed">Saving changes...</span>
+    </div>
+
     <div id="kickConfirmationContainer" class="absolute top-0">
 
     </div>
@@ -391,11 +396,12 @@
             });
         }
 
-        function displayGroups(groupsList){
+        function displayGroups(groupsList) {
             // If nag Update pa yung Kanban, exit out of this function immediately
             if (isUpdatingKanban) {
                 return;
             }
+            
             showLoading(); // Loading visualizer
             
             try {
@@ -614,7 +620,13 @@
 
                         // for STUDENT'S VIEW:
                         <?php elseif ($_SESSION['user']['account_type'] === 'student'): ?>
-                            noSelectClass = (studentRole === 'Principal Investigator' || members[currentKB][1] === currentUserId) ? '' : 'cursor-grab select-none pointer-events-none';
+                            const currentMember = members[currentKB];
+                            if (!currentMember) {
+                                console.error("Invalid currentKB value");
+                                return;
+                            }
+
+                            noSelectClass = (studentRole === 'Principal Investigator' || currentMember[1] === currentUserId) ? '' : 'cursor-grab select-none pointer-events-none';
                             
                             // Turn OFF isUpdatingKanban if it's True
                             if (isUpdatingKanban) {
@@ -718,7 +730,7 @@
                                             
                                             <!-- ADD TASK BUTTON if P.I. or OWN TAB -->
                                             ${member[1] === currentUserId || studentRole === 'Principal Investigator' 
-                                                ? '<div class="flex pr-4 w-fit"><button onclick="showTaskModal()" class="flex items-center justify-center h-10 mx-auto text-lg border rounded-lg bg-blue2 w-36 font-satoshimed border-black1">Add Task</button></div>' 
+                                                ? `<div class="flex pr-4 w-fit"><button onclick="showTaskModal('${member[1]}')" class="flex items-center justify-center h-10 mx-auto text-lg border rounded-lg bg-blue2 w-36 font-satoshimed border-black1">Add Task</button></div>` 
                                                 : ''
                                             }
                                         </div>
@@ -774,34 +786,33 @@
                                 }
 
                                 // Get the tasks for this list type
-                                const tasks = memberData[roomId][listType];
+                                const tasks = memberData[roomId][listType];                                
                                 if (!tasks || !Array.isArray(tasks)) {
                                     console.log('No tasks found for', listType);
                                     return '';
                                 }
 
-                                let myKanban = memberId === currentUserId;
+                                const isOwnKanban = memberId === currentUserId;
+                                const canDrag = studentRole === 'Principal Investigator' || isOwnKanban;
 
                                 console.log('memberData', typeof(memberData[roomId][listType][0]));
                                 console.log('memberData.listType', typeof(memberData[roomId][listType]));
                                 console.log('tasks', tasks);
 
+                                // Add background colors based on list type
+                                const bgColor = {
+                                    'todo': 'bg-rederr',
+                                    'wip': 'bg-blue2',
+                                    'done': 'bg-greensuccess'
+                                }[listType];
+
+                                const borderColor = {
+                                    'todo': 'border-rederr',
+                                    'wip': 'border-blue2',
+                                    'done': 'border-greensuccess'
+                                }[listType];
+
                                 return tasks.map(task => {
-                                    const isOwnKanban = memberId === currentUserId;
-                                    const canDrag = studentRole === 'Principal Investigator' || isOwnKanban;
-
-                                    // Add background colors based on list type
-                                    const bgColor = {
-                                        'todo': 'bg-rederr',
-                                        'wip': 'bg-blue2',
-                                        'done': 'bg-greensuccess'
-                                    }[listType];
-
-                                    const borderColor = {
-                                        'todo': 'border-rederr',
-                                        'wip': 'border-blue2',
-                                        'done': 'border-greensuccess'
-                                    }[listType];
 
                                     let taskData = task;
                                     if (typeof task === 'string') {
@@ -823,6 +834,7 @@
                                         return `
                                             <div class="flex border mt-2 ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none'}" 
                                                 draggable="${canDrag}"
+                                                data-member-id="${memberId}"
                                                 onclick="showTaskDetails('${encodeURIComponent(taskData[0])}', '${encodeURIComponent(taskData[1])}', '${formattedDate}', '${listType}')"
                                             >
                                                 <div class="flex px-2 bg-white border rounded-xl w-fit">
@@ -845,6 +857,7 @@
                                         return `
                                             <div class="flex border mt-2 border-black flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl bg-blackless bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none'}" 
                                                 draggable="${canDrag}"
+                                                data-member-id="${memberId}"
                                                 onclick="showTaskDetails('${encodeURIComponent(taskData[0])}', '${encodeURIComponent(taskData[1])}', '${formattedDate}', 'Past Deadline')"
                                             >
                                                 <div class="flex px-2 bg-white border rounded-xl w-fit">
@@ -892,9 +905,12 @@
                                     const taskName = curTask.querySelector('.font-satoshireg').textContent;
                                     const taskDate = curTask.querySelector('.font-satoshimed').textContent;
                                     const taskInfo = curTask.querySelector('.font-satoshilight').textContent;
+                                    const studentId = curTask.dataset.memberId;  // Get memberId from data attribute
+
+                                    console.log('DELETING THIS SHIT, STUDENTID:', studentId);
 
                                     // Process deletion
-                                    processUpdateKanban('delete', [taskName, taskInfo, taskDate], 'delete')
+                                    processUpdateKanban('delete', [taskName, taskInfo, taskDate], 'delete', studentId)
                                         .then(() => {
                                             curTask.remove();
                                             hideLoading();
@@ -905,7 +921,13 @@
                                 });
 
                                 cards.forEach(card => {
-                                    const isCurrentUserKanban = members[currentKB][1] === currentUserId;
+                                    const currentMember = members[currentKB];
+                                    if (!currentMember) {
+                                        console.error("Invalid currentKB value");
+                                        return;
+                                    }
+
+                                    const isCurrentUserKanban = currentMember[1] === currentUserId;
                                     if (studentRole === 'Principal Investigator' || isCurrentUserKanban) {
                                         console.log('isCurrentUserKanban', isCurrentUserKanban);
                                         
@@ -937,7 +959,13 @@
 
                                 dropzones.forEach(zone => {
                                     zone.addEventListener('dragover', function(e) {
-                                        const isCurrentUserKanban = members[currentKB][1] === currentUserId;
+                                        const currentMember = members[currentKB];
+                                        if (!currentMember) {
+                                            console.error("Invalid currentKB value");
+                                            return;
+                                        }
+
+                                        const isCurrentUserKanban = currentMember[1] === currentUserId;
                                         if (!(studentRole === 'Principal Investigator' || isCurrentUserKanban)) {
                                             return;
                                         }
@@ -985,8 +1013,11 @@
                                         const taskName = curTask.querySelector('.font-satoshireg').textContent;
                                         const taskDate = curTask.querySelector('.font-satoshimed').textContent;
                                         const taskInfo = curTask.querySelector('.font-satoshilight').textContent;
+                                        const studentId = curTask.dataset.memberId;  // Get memberId from data attribute
+                                        
+                                        console.log('MOVING THIS SHIT, STUDENT ID IS:', studentId);
 
-                                        processUpdateKanban('move', [taskName, taskInfo, taskDate], newDestination)
+                                        processUpdateKanban('move', [taskName, taskInfo, taskDate], newDestination, studentId)
                                             .then(() => {
                                                 zone.appendChild(curTask);
                                                 curTask.classList.remove("cursor-grabbing");
@@ -1047,10 +1078,23 @@
             console.log('TANGINA? members[currentKB][1]',members[currentKB][1]);
             console.log('TANGINA? targetSchoolId ', targetSchoolId );
             console.log('TANGINA? targetSchoolId || members[currentKB][1]', targetSchoolId || members[currentKB][1]);
+
+            
             isUpdatingKanban = true;
             showLoading();
+
+            const currentMember = members[currentKB];
+            if (!currentMember) {
+                console.error("Invalid currentKB value");
+                return Promise.reject(new Error("Invalid currentKB value"));
+            }
+
+            const targetMemberId = targetSchoolId || members[currentKB]?.[1];
+            if (!targetMemberId) throw new Error("Target member ID is undefined");
+            console.log('Target Member ID:', targetMemberId);
+
             const formData = new FormData();
-            formData.append('school_id', targetSchoolId || members[currentKB][1]);
+            formData.append('school_id', targetMemberId);
             formData.append('task', JSON.stringify(taskData));
             formData.append('destination', destination);
             formData.append('room_id', room_id);
@@ -1308,13 +1352,21 @@
 
         // let currentKB = currentKB;
 
-        function addTask() {
+        function addTask(taskValues, memberID) {
+            const currentMember = members[currentKB];
+            if (!currentMember) {
+                console.error("Invalid currentKB value");
+                return;
+            }
+            console.log('Inside addTask, taskValues:', taskValues);
+            console.log(memberID);
+
             // Get values from the modal inputs
-            const taskName = document.getElementById('taskName').value;
-            const taskDate = document.getElementById('taskDate').value;
-            const taskInfo = document.getElementById('taskInfo').value;
-            const taskDestination = document.getElementById('taskDestination').value;
-            
+            const taskName = taskValues.taskName;
+            const taskDate = taskValues.taskDate;
+            const taskInfo = taskValues.taskInfo;
+            const taskDestination = taskValues.taskDestination;
+
             // Validate inputs
             if (!taskName.trim()) {
                 alert('Task name is required');
@@ -1324,7 +1376,11 @@
 
             // Create the task array
             const newTask = [taskName, taskInfo, taskDate];
-            let targetMemberId = members[currentKB][1];
+            const targetMemberId = memberID || members[currentKB]?.[1];
+            if (!targetMemberId) {
+                console.error("Invalid target member for task");
+                return;
+            }
             
             console.log('currentKB:', currentKB)
             console.log('TARGET MEMBERRRR RID::::', targetMemberId)
@@ -1334,7 +1390,7 @@
                 // Add UI update code here
                 const container = document.getElementById(`${currentKB}${taskDestination}Cont`);
                 const newCard = document.createElement('div');
-                const canDrag = studentRole === 'Principal Investigator' || members[currentKB][1] === currentUserId;
+                const canDrag = studentRole === 'Principal Investigator' || currentMember[1] === currentUserId;
 
                 newCard.setAttribute('draggable', canDrag);
                 newCard.classList.add('block', 'py-2', 'card');
@@ -1466,6 +1522,13 @@
         function changeKB(index) {
             console.log('Changing to tab:', index);
             currentKBTab = index;
+            
+            const currentMember = members[currentKB];
+            if (!currentMember) {
+                console.error("Invalid currentKB value");
+                return;
+            }
+
             currentKB = index;
             isUpdatingKanban = true;
             localStorage.setItem('lastSelectedTab', index.toString());
@@ -1736,15 +1799,17 @@
 
     <script>
         // Add task modal
-        function showTaskModal() {
+        function showTaskModal(member) {
+            console.log('SHOW TASK MODAL:',member);
+
             return Swal.fire({
                 title: 'Add Task',
                 html: `
-                    <div class="flex w-full">                        
+                    <div class="flex w-full">
                         <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-2xl bg-white border-b border-black font-satoshimed" placeholder="Task Name" id="taskName" required>
                         <input type="date" class="block w-1/4 p-2 mx-auto my-2 mr-2 bg-white border-b border-black font-satoshimed" placeholder="Date" id="taskDate" required>
                     </div>
-                    <div class="flex w-full">                        
+                    <div class="flex w-full">
                         <input class="block w-1/2 p-2 mx-auto my-2 ml-2 text-base bg-white border-b border-black font-satoshimed text-grey2" placeholder="Description" id="taskInfo">
                         <select class="block w-1/4 p-2 mx-auto my-2 mr-2 bg-white border-b border-black font-satoshimed text-grey2" id="taskDestination">
                             <option class="text-grey2" value="todo">To do</option>
@@ -1792,7 +1857,8 @@
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    addTask(result.value);
+                    console.log('MULLETAGEN!!!!!!!', result.value);
+                    addTask(result.value, member);
                 }
             });
         }
