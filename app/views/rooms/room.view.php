@@ -12,9 +12,11 @@
         </div>
     </div>
 
-    <div id="savingIndicator" class="fixed z-50 flex items-center p-3 bg-white rounded-lg shadow-lg bottom-4 right-4">
-        <div class="w-5 h-5 mr-2 border-2 border-t-2 border-blue-500 rounded-full animate-spin"></div>
-        <span class="text-sm text-gray-700 font-satoshimed">Saving changes...</span>
+    <div id="savingIndicator" class="fixed z-50 flex items-center justify-center hidden transition-all duration-300 ease-in-out -translate-x-1/2 translate-y-full left-1/2 bottom-8">
+        <div class="flex w-full h-full p-3 rounded-lg shadow-lg border-1 bg-opacity-20 border-blue3 bg-blue2">
+            <div class="w-5 h-5 mr-2 border-2 rounded-full border-blue3 border-t-transparent animate-spin"></div>
+            <p class="text-sm text-blue3 font-satoshimed">Saving changes... <span class="text-sm">Please don't refresh or leave the page.</span></p>
+        </div>
     </div>
 
     <div id="kickConfirmationContainer" class="absolute top-0">
@@ -1069,6 +1071,7 @@
                 alert('Error loading groups. Please try again later.');
             } finally {
                 hideLoading();
+                toggleSavingIndicator(false);
             }
             
         }
@@ -1079,6 +1082,8 @@
             console.log('TANGINA? targetSchoolId ', targetSchoolId );
             console.log('TANGINA? targetSchoolId || members[currentKB][1]', targetSchoolId || members[currentKB][1]);
 
+            // Indicator to show that the changes is being saved
+            toggleSavingIndicator(true);
             
             isUpdatingKanban = true;
             showLoading();
@@ -1949,6 +1954,27 @@
                     form.submit();
                 }
             });
+        }
+    </script>
+    
+    <!-- Animations & stuff -->
+    <script>
+        function toggleSavingIndicator(show) {
+            const indicator = document.getElementById('savingIndicator');
+            
+            if (show) {
+                indicator.classList.remove('hidden');
+                // Use requestAnimationFrame to ensure the initial state is rendered
+                requestAnimationFrame(() => {
+                    indicator.classList.remove('translate-y-full');
+                });
+            } else {
+                indicator.classList.add('translate-y-full');
+                // Hide after transition completes
+                setTimeout(() => {
+                    indicator.classList.add('hidden');
+                }, 300);
+            }
         }
     </script>
 </body>
