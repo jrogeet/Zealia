@@ -68,21 +68,31 @@ if ($_SESSION['user']['account_type'] === "admin") {
 
                 if (!empty($updates)) {
                     $sql .= implode(", ", $updates);
-                    $sql .= " WHERE school_id = :school_id";
-                    $params[':school_id'] = $currentUserId;
+                    $sql .= " WHERE school_id = :current_id";
+                    $params[':current_id'] = $currentUserId;
 
                     $db->query($sql, $params);
+                    
+                    // Update session data
+                    if (!empty($f_name)) $_SESSION['user']['f_name'] = $f_name;
+                    if (!empty($l_name)) $_SESSION['user']['l_name'] = $l_name;
+                    if (!empty($school_id)) $_SESSION['user']['school_id'] = $school_id;
+                    if (!empty($email)) $_SESSION['user']['email'] = $email;
+
+                    $_SESSION['success_message'] = 'Account information updated successfully!';
                 }
             } catch (Exception $e) {
-                // Handle database update error
-                echo "An error occurred while updating the admin information: " . $e->getMessage();
+                $errors['database'] = "An error occurred while updating the information.";
             }
         }
     }
 
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+    }
+
     header('Location: /admin-settings');
     exit();
-    // view('admin/admin-settings.view.php');
 } else {
     abort(403);
 }
