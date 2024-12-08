@@ -107,9 +107,9 @@
             <!-- TILES  -->
             <div id="dashboardTiles" class="flex justify-center max-h-[39.8rem] w-full overflow-y-auto overflow-x-hidden">         
                     <div class="flex-col hidden w-full m-4" id="rooms-ascending-container">
-                        <hi class="text-xl font-clashbold">Earliest</hi>
+                        <hi class="text-xl font-satoshiblack">Earliest</hi>
                         <!--  ROOMS  -->
-                        <div class="flex flex-wrap content-start gap-9" id="rooms-ascending">
+                        <div class="flex flex-wrap content-start gap-4" id="rooms-ascending">
                             <!-- FILLED USING JAVASCRIPT -->
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                     <div  class="flex flex-col w-full m-4" id="rooms-descending-container">
                         <hi class="text-xl font-satoshiblack">Latest</hi>
                         <!--  ROOMS  -->
-                        <div class="flex flex-wrap content-start gap-9" id="rooms-descending">
+                        <div class="flex flex-wrap content-start gap-4" id="rooms-descending">
                             <!-- FILLED USING JAVASCRIPT -->
                         </div>
                     </div>
