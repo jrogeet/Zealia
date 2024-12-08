@@ -1086,7 +1086,7 @@
             toggleSavingIndicator(true);
             
             isUpdatingKanban = true;
-            showLoading();
+            // showLoading();
 
             const currentMember = members[currentKB];
             if (!currentMember) {
