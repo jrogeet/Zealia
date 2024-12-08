@@ -44,9 +44,12 @@ if (isset($_POST["cur_pass"])) {
 
 
     if (! empty($errors)) {
-        return view('account/account.view.php', [
-            'errors'=> $errors
-        ]);
+        $_SESSION['message'] = 'Please fix the following errors:';
+        $_SESSION['message_type'] = 'error';
+        $_SESSION['errors'] = $errors;
+        
+        header('Location: /account');
+        exit();
     } else {
         $logger->log(
             'PASSWORD CHANGE',
@@ -60,6 +63,9 @@ if (isset($_POST["cur_pass"])) {
             ':id' => $_SESSION['user']['school_id']
         ]);
 
+        $_SESSION['message'] = 'Password successfully updated!';
+        $_SESSION['message_type'] = 'success';
+        
         header('Location: /account');
         exit();
     }

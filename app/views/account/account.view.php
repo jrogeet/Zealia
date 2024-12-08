@@ -30,6 +30,16 @@
                 <!-- Improved password change form -->
                 <div class="p-6 border border-black rounded-2xl bg-whitecon">
                     <h5 class="mb-4 text-xl text-blackless">Change Password</h5>
+                    
+                    <?php if (isset($_SESSION['errors'])): ?>
+                        <div class="mb-4 space-y-2">
+                            <?php foreach ($_SESSION['errors'] as $error): ?>
+                                <p class="text-sm text-red-600"><?= $error ?></p>
+                            <?php endforeach; ?>
+                            <?php unset($_SESSION['errors']); ?>
+                        </div>
+                    <?php endif; ?>
+                    
                     <form method="POST" action="/account" class="space-y-4">
                         <div class="space-y-2">
                             <input class="w-full h-10 p-2 border rounded-lg border-blackless" 
@@ -90,8 +100,14 @@
                         </div>
                     </div>
                 <?php else: ?>
-                    <h1 class="relative text-4xl text-center transform -translate-y-1/2 top-1/2 font-satoshimed">You haven't taken the test!</h1>
-                    <a href="/test"><button class="relative w-40 h-12 text-xl transform -translate-x-1/2 border top-1/2 border-blackless rounded-2xl bg-orangeaccent font-satoshimed left-1/2">Take Test</button></a>
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <h1 class="mb-6 text-4xl font-satoshimed">You haven't taken the test!</h1>
+                        <a href="/test">
+                            <button class="w-40 h-12 text-xl border rounded-2xl bg-orangeaccent border-blackless font-satoshimed">
+                                Take Test
+                            </button>
+                        </a>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
