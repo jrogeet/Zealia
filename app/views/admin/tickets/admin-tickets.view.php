@@ -6,158 +6,196 @@
     <!-- Loading Indicator -->
     <div id="loadingIndicator" class="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-75">
         <div class="flex flex-col items-center">
-            <!-- <div class="w-12 h-12 mb-4 border-4 border-t-4 border-blue-500 rounded-full animate-spin"></div>
-            <p class="text-xl font-satoshimed text-blue3">Loading...</p> -->
-            <div class="w-28 h-28 loader">
-                
-            </div> 
+            <div class="w-28 h-28 loader"></div> 
         </div>
     </div>
 
     <div class="relative block w-full h-fit py-12 px-6 min-w-[75rem] flex-1 transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
-        <div class="flex justify-between mb-8">
-            <h1 class="text-4xl font-clashbold">TICKETS</h1>
-            <div class="flex gap-4">
-                <div class="flex items-center">
-                    <select id="sortBy" class="pl-4 mx-auto bg-white border border-black rounded-lg" onchange="handleSort()">
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-3 gap-6 mb-8">
+            <div class="p-6 transition-all duration-150 bg-white rounded-xl shadow-inside3 hover:shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-grey2">Pending Tickets</p>
+                        <h3 class="text-2xl font-clashbold text-orangeaccent" id="pendingCount">0</h3>
+                    </div>
+                    <div class="p-3 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orangeaccent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 transition-all duration-150 bg-white rounded-xl shadow-inside3 hover:shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-grey2">Unresolved Tickets</p>
+                        <h3 class="text-2xl font-clashbold text-blue3" id="unresolvedCount">0</h3>
+                    </div>
+                    <div class="p-3 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 transition-all duration-150 bg-white rounded-xl shadow-inside3 hover:shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-grey2">Solved Tickets</p>
+                        <h3 class="text-2xl font-clashbold text-greensuccess" id="solvedCount">0</h3>
+                    </div>
+                    <div class="p-3 bg-green-100 rounded-lg">
+                        <svg class="w-6 h-6 text-greensuccess" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header and Filters -->
+        <div class="flex items-center justify-between mb-8">
+            <h1 class="text-4xl font-clashbold text-blackpri">Tickets Management</h1>
+            <div class="flex items-center gap-4">
+                <!-- Category filter -->
+                <div class="relative">
+                    <select id="ticketCategory" class="w-40 pl-4 pr-8 py-2.5 bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue3 transition-all duration-150" onchange="handleCategoryFilter()">
+                        <option value="">All Categories</option>
+                        <option value="technical">Technical</option>
+                        <option value="account">Account</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Sort dropdown -->
+                <div class="relative">
+                    <select id="sortBy" class="w-40 pl-4 pr-8 py-2.5 bg-white border border-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue3 transition-all duration-150" onchange="handleSort()">
                         <option value="">Sort by...</option>
-                        <option value="date_asc">Date (Oldest First)</option>
-                        <option value="date_desc">Date (Newest First)</option>
+                        <option value="date_desc">Newest First</option>
+                        <option value="date_asc">Oldest First</option>
                         <option value="name_asc">Name (A-Z)</option>
                         <option value="name_desc">Name (Z-A)</option>
-                        <option value="id_asc">Ticket ID (Ascending)</option>
-                        <option value="id_desc">Ticket ID (Descending)</option>
                     </select>
-                    <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
+                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
                 </div>
-                <!-- Existing search form -->
-                <form id="searchTicketForm" method="POST" action="/admin-tickets" class="flex mr-6 w-fit">
-                    <input id="searchInput" oninput="checkSearch();" name="search_input" type="text" placeholder="Search..." class="pl-4 mx-auto bg-white border border-black rounded-lg" required>
-                    <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1">X</button>
-                    <button type="submit" class="mx-auto ml-4 border rounded-lg border-grey2 bg-orangeaccent w-28 text-black1">Search</button>
-                </form>
+
+                <!-- Search -->
+                <div class="relative">
+                    <input id="searchInput" type="text" placeholder="Search tickets..." 
+                           class="w-64 pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue3 transition-all duration-150">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <button id="clearSearch" class="absolute inset-y-0 right-0 hidden px-3 text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div id="searchResultsHead" class="hidden mt-4">
-            <h2 class="text-xl font-satoshimed text-grey2">Search Results for: <span id="searchTerm"></span></h2>
-        </div>
-
-        <div class="relative flex mt-12 mb-4">
-            <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Pending Tickets</h1>
-        </div>
-
-        <div class="overflow-hidden border border-black rounded-b-xl">
-            <div class="relative">
-                <!-- Fixed Header -->
-                <div class="overflow-hidden">
-                    <table class="w-full table-fixed">
+        <!-- Tickets Sections -->
+        <div class="space-y-8">
+            <!-- Pending Tickets Section -->
+            <div class="overflow-hidden transition-all duration-150 bg-white rounded-xl shadow-inside3">
+                <div class="p-4 border-b border-gray-200 bg-orangeaccent/10">
+                    <h2 class="text-xl font-clashbold text-blackpri">Pending Tickets</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
                         <thead>
-                            <tr>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Status</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Ticket ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Category</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Message</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">First Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Last Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">ID number</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Email</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
+                            <tr class="text-white bg-blue3">
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Status</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Ticket ID</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Category</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Message</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">First Name</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Last Name</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">School ID</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Email</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Date</th>
                             </tr>
                         </thead>
+                        <tbody id="pending" class="divide-y divide-gray-200">
+                            <!-- Rows will be populated by JavaScript -->
+                        </tbody>
                     </table>
                 </div>
+            </div>
 
-                <!-- Scrollable Body -->
-                <div class="overflow-y-auto max-h-[31.25rem]">
-                    <table class="w-full table-fixed">
-                        <tbody id="pending">
-                            
+            <!-- Unresolved Tickets Section -->
+            <div class="overflow-hidden transition-all duration-150 bg-white rounded-xl shadow-inside3">
+                <div class="p-4 border-b border-gray-200 bg-blue3/10">
+                    <h2 class="text-xl font-clashbold text-blackpri">Unresolved Tickets</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-white bg-blue3">
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Status</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Ticket ID</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Category</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Message</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">First Name</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Last Name</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">School ID</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Email</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="unresolved" class="divide-y divide-gray-200">
+                            <!-- Rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Solved Tickets Section -->
+            <div class="overflow-hidden transition-all duration-150 bg-white rounded-xl shadow-inside3">
+                <div class="p-4 border-b border-gray-200 bg-greensuccess/10">
+                    <h2 class="text-xl font-clashbold text-blackpri">Solved Tickets</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-white bg-blue3">
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Status</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Ticket ID</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Category</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Message</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">First Name</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Last Name</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">School ID</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Email</th>
+                                <th class="px-5 py-3 text-sm text-left font-satoshimed">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="solved" class="divide-y divide-gray-200">
+                            <!-- Rows will be populated by JavaScript -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
-
-        <div class="relative flex mt-24 mb-4 ">
-            <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Solved Tickets</h1>
-        </div>
-
-        <div class="overflow-hidden border border-black rounded-b-xl">
-            <div class="relative">
-                <!-- Fixed Header -->
-                <div class="overflow-hidden">
-                    <table class="w-full table-fixed">
-                        <thead>
-                            <tr>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Status</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Ticket ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Category</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Message</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">First Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Last Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">ID number</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Email</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-
-                <!-- Scrollable Body -->
-                <div class="overflow-y-auto max-h-[31.25rem]">
-                    <table class="w-full table-fixed">
-                        <tbody id="solved">
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="relative flex mt-12 mb-4">
-            <h1 class="mx-auto ml-0 text-2xl font-satoshimed text-grey2">Unresolved Tickets</h1>
-        </div>
-
-        <div class="overflow-hidden border border-black rounded-b-xl">
-            <div class="relative">
-                <!-- Fixed Header -->
-                <div class="overflow-hidden">
-                    <table class="w-full table-fixed">
-                        <thead>
-                            <tr>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Status</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Ticket ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Category</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Message</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">First Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Last Name</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">ID number</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Email</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-
-                <!-- Scrollable Body -->
-                <div class="overflow-y-auto max-h-[31.25rem]">
-                    <table class="w-full table-fixed">
-                        <tbody id="unresolved">
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
     </div>
-
 
     <script src="assets/js/loading.js"></script> 
     <script src="assets/js/fetch/fetch.js"></script>
-
     <script>
         let isSearching = false;
         const pending = document.getElementById('pending');
@@ -177,8 +215,15 @@
             }, displayTickets, 3000);
         }
 
+        function updateStats(data) {
+            document.getElementById('pendingCount').textContent = data.filter(t => t.status === 'pending').length;
+            document.getElementById('unresolvedCount').textContent = data.filter(t => t.status === 'unresolved').length;
+            document.getElementById('solvedCount').textContent = data.filter(t => t.status === 'solved').length;
+        }
+
         function displayTickets(data) {
             if (ticketsChecker === null || JSON.stringify(ticketsChecker) !== JSON.stringify(data)) {
+                updateStats(data);
                 originalData = JSON.parse(JSON.stringify(data)); // Store deep copy of original data
                 
                 let solvedCounter = 0;
@@ -351,79 +396,53 @@
             }, displayTickets, 3000);
         });
 
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            checkSearch();
             
-            if (searchInput && searchInput.value !== '') {
-                const searchTerm = searchInput.value.toLowerCase();
-                isSearching = true;
-                
-                if (searchTerm) {
-                    fetch(`/api/search?search=${searchTerm}`, {
-                        method: 'POST',
-                        body: new URLSearchParams('searchInput=' + searchTerm + '&currentPage=admin_tickets')
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data) {
-                            clearInterval(intervalID);
-                            displayTickets(data);
+            if (searchTerm === '') {
+                isSearching = false;
+                clearSearch.click(); // Reset to original data
+                return;
+            }
 
-                            show('searchResultsHead');
-                            document.getElementById('searchTerm').innerHTML = searchTerm;
-                        } else {
-                            console.log('no matching tickets found');
-                        }
-                    })
-                    .catch(e => {
-                        console.error('Error: ' + e);
-                    });
-                } else {
-                    fetchLatestData({
-                        "table": "ticket",
-                    }, displayTickets, 3000);
-                }
+            isSearching = true;
+            if (originalData) {
+                const filteredData = originalData.filter(ticket => {
+                    return (
+                        ticket.ticket_id.toLowerCase().includes(searchTerm) ||
+                        ticket.category.toLowerCase().includes(searchTerm) ||
+                        ticket.message.toLowerCase().includes(searchTerm) ||
+                        ticket.f_name.toLowerCase().includes(searchTerm) ||
+                        ticket.l_name.toLowerCase().includes(searchTerm) ||
+                        ticket.school_id.toLowerCase().includes(searchTerm) ||
+                        ticket.email.toLowerCase().includes(searchTerm)
+                    );
+                });
+                displayTickets(filteredData);
             }
         });
 
         function handleSort() {
             const sortBy = document.getElementById('sortBy').value;
-            if (sortBy) {
-                clearInterval(intervalID);
-                document.getElementById('clearSort').classList.remove('hidden');
-            }
-            
-            const tables = [pending, solved, unresolved];
-            
-            tables.forEach(table => {
-                const rows = Array.from(table.getElementsByTagName('tr'));
-                
-                // Skip empty state rows
-                if (rows.length === 1 && rows[0].cells.length === 1) return;
+            if (!originalData || !sortBy) return;
 
-                rows.sort((a, b) => {
-                    if (sortBy === 'date_asc' || sortBy === 'date_desc') {
-                        const dateA = new Date(a.cells[8].textContent);
-                        const dateB = new Date(b.cells[8].textContent);
-                        return sortBy === 'date_asc' ? dateA - dateB : dateB - dateA;
-                    } else if (sortBy === 'name_asc' || sortBy === 'name_desc') {
-                        const nameA = (a.cells[2].textContent + a.cells[3].textContent).toLowerCase();
-                        const nameB = (b.cells[2].textContent + b.cells[3].textContent).toLowerCase();
-                        return sortBy === 'name_asc' 
-                            ? nameA.localeCompare(nameB)
-                            : nameB.localeCompare(nameA);
-                    } else if (sortBy === 'id_asc' || sortBy === 'id_desc') {
-                        const idA = parseInt(a.cells[1].textContent);
-                        const idB = parseInt(b.cells[1].textContent);
-                        return sortBy === 'id_asc' ? idA - idB : idB - idA;
-                    }
-                    return 0;
-                });
-
-                // Clear and repopulate table
-                table.innerHTML = '';
-                rows.forEach(row => table.appendChild(row));
+            const sortedData = [...originalData].sort((a, b) => {
+                switch(sortBy) {
+                    case 'date_asc':
+                        return new Date(a.ticket_date) - new Date(b.ticket_date);
+                    case 'date_desc':
+                        return new Date(b.ticket_date) - new Date(a.ticket_date);
+                    case 'name_asc':
+                        return (a.f_name + a.l_name).localeCompare(b.f_name + b.l_name);
+                    case 'name_desc':
+                        return (b.f_name + b.l_name).localeCompare(a.f_name + a.l_name);
+                    default:
+                        return 0;
+                }
             });
+
+            displayTickets(sortedData);
         }
 
         function clearSort() {
@@ -437,15 +456,18 @@
 
         function handleCategoryFilter() {
             const category = document.getElementById('ticketCategory').value.toLowerCase();
-            const tables = [pending, solved, unresolved];
             
-            tables.forEach(table => {
-                const rows = Array.from(table.getElementsByTagName('tr'));
-                rows.forEach(row => {
-                    const ticketCategory = row.cells[2].textContent.toLowerCase();
-                    row.style.display = !category || ticketCategory === category ? '' : 'none';
-                });
-            });
+            if (!originalData) return;
+
+            if (category === '') {
+                displayTickets(originalData);
+                return;
+            }
+
+            const filteredData = originalData.filter(ticket => 
+                ticket.category.toLowerCase() === category
+            );
+            displayTickets(filteredData);
         }
 
         function applyDateFilter() {

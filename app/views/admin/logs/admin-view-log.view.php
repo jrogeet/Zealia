@@ -3,38 +3,47 @@
 <body class="static flex font-satoshimed bg-beige">
     <?php view('partials/admin-nav.view.php'); ?>
 
-    <div class="block w-full h-fit p-12 min-w-[75rem]  transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
-        <h1 class="text-3xl text-black font-clashbold"><?= $user['f_name'] . ' ' . $user['l_name'] ?></h1>
-        <h2 class="mt-2 text-2xl text-grey2 font-satoshimed">User Logs for ID: <?= $school_id ?></h2>
-
-        <div class="flex gap-4 mt-8">
-            <div class="flex items-center">
-                <select id="sortBy" class="pl-4 mx-auto bg-white border border-black rounded-lg" onchange="handleSort()">
-                    <option value="">Sort by...</option>
-                    <option value="date_asc">Date (Oldest First)</option>
-                    <option value="date_desc">Date (Newest First)</option>
-                </select>
-                <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
+    <div class="block w-full h-fit p-12 min-w-[75rem] transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="mb-2 text-4xl text-black font-clashbold"><?= $user['f_name'] . ' ' . $user['l_name'] ?></h1>
+                <h2 class="text-xl text-grey2 font-satoshimed">User Logs for ID: <?= $school_id ?></h2>
             </div>
-            <button class="flex items-center justify-center h-10 px-4 text-lg border rounded-lg bg-beige font-satoshimed border-black1" onclick="downloadPDF()">Print Logs</button>
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <select id="sortBy" class="h-10 pl-4 pr-8 transition-colors bg-white border-2 border-black rounded-lg appearance-none cursor-pointer hover:bg-gray-50" onchange="handleSort()">
+                        <option value="">Sort by date</option>
+                        <option value="date_asc">Oldest First</option>
+                        <option value="date_desc">Newest First</option>
+                    </select>
+                    <div class="absolute -translate-y-1/2 pointer-events-none right-2 top-1/2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <button id="clearSort" class="absolute flex items-center justify-center hidden w-8 h-8 text-white transition-colors rounded-full -right-10 bg-red1 hover:bg-red-600" onclick="clearSort()">×</button>
+                </div>
+                <button class="flex items-center h-10 gap-2 px-6 text-white transition-colors rounded-lg bg-blue3 font-satoshimed hover:bg-blue-700" onclick="downloadPDF()">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Download PDF
+                </button>
+            </div>
         </div>
 
-        <div class="mt-8 overflow-hidden border border-black rounded-xl">
+        <div class="mt-8 overflow-hidden bg-white border border-black shadow-lg rounded-xl">
             <div class="relative">
                 <!-- Fixed Header -->
                 <div class="overflow-hidden">
                     <table class="w-full table-fixed">
                         <thead>
                             <tr>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Log ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">User Type</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Action</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Status</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Target Type</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Target ID</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Timestamp</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">IP Address</th>
-                                <th class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center text-white uppercase border-l border-r border-black bg-blue3">Device Info</th>
+                                <th class="w-20 px-4 py-3 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Log ID</th>
+                                <th class="w-24 px-4 py-3 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">User Type</th>
+                                <th class="w-48 px-4 py-3 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Action</th>
+                                <th class="w-24 px-4 py-3 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Status</th>
+                                <th class="w-24 px-4 py-3 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Target Type</th>
+                                <th class="w-24 px-4 py-3 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Target ID</th>
+                                <th class="w-40 px-4 py-3 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Created At</th>
+                                <th class="w-32 px-4 py-3 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">IP Address</th>
+                                <th class="px-4 py-3 text-xs font-semibold tracking-wider text-left text-white uppercase border-l border-r border-black bg-blue3">Device Info</th>
                             </tr>
                         </thead>
                     </table>
@@ -46,21 +55,45 @@
                         <tbody id="logs">
                             <?php if (!empty($logs)) : ?>
                                 <?php foreach ($logs as $log) : ?>
-                                    <tr class="border-b border-black">
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center bg-white border-l border-r border-black"><?= $log['id'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center bg-white border-l border-r border-black"><?= $log['user_role'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center bg-white border-l border-r border-black"><?= $log['action'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center bg-white border-l border-r border-black"><?= $log['status'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center bg-white border-l border-r border-black"><?= $log['target_type'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center bg-white border-l border-r border-black"><?= $log['target_id'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center bg-white border-l border-r border-black"><?= $log['created_at'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center bg-white border-l border-r border-black"><?= $log['ip_address'] ?></td>
-                                        <td class="px-0 py-3 text-xs font-semibold tracking-wider text-left text-center bg-white border-l border-r border-black"><?= $log['user_agent'] ?></td>
+                                    <?php
+                                    // Determine status color
+                                    $statusColor = '';
+                                    switch(strtolower($log['status'])) {
+                                        case 'success':
+                                            $statusColor = 'text-green-600';
+                                            break;
+                                        case 'failed':
+                                            $statusColor = 'text-red-600';
+                                            break;
+                                        case 'pending':
+                                            $statusColor = 'text-yellow-600';
+                                            break;
+                                        default:
+                                            $statusColor = 'text-gray-600';
+                                    }
+                                    ?>
+                                    <tr class="transition-colors border-b border-black hover:bg-gray-50">
+                                        <td class="w-20 px-4 py-3 text-sm border-l border-r border-black"><?= $log['id'] ?></td>
+                                        <td class="w-24 px-4 py-3 text-sm border-l border-r border-black"><?= $log['user_role'] ?></td>
+                                        <td class="w-48 px-4 py-3 text-sm border-l border-r border-black"><?= $log['action'] ?></td>
+                                        <td class="px-4 py-3 text-sm border-l border-r border-black w-24 font-medium <?= $statusColor ?>"><?= $log['status'] ?></td>
+                                        <td class="w-24 px-4 py-3 text-sm border-l border-r border-black"><?= $log['target_type'] ?></td>
+                                        <td class="w-24 px-4 py-3 text-sm border-l border-r border-black"><?= $log['target_id'] ?></td>
+                                        <td class="w-40 px-4 py-3 text-sm border-l border-r border-black"><?= $log['created_at'] ?></td>
+                                        <td class="w-32 px-4 py-3 font-mono text-xs text-sm border-l border-r border-black"><?= $log['ip_address'] ?></td>
+                                        <td class="px-4 py-3 text-xs text-sm truncate border-l border-r border-black"><?= $log['user_agent'] ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <tr class="border-b border-black">
-                                    <td colspan="9" class="px-5 py-5 text-xl text-center bg-white text-grey1">No logs found</td>
+                                    <td colspan="9" class="px-5 py-12 text-xl text-center text-grey1 bg-gray-50">
+                                        <div class="flex flex-col items-center gap-2">
+                                            <svg class="w-12 h-12 text-grey2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                            </svg>
+                                            No logs found
+                                        </div>
+                                    </td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
