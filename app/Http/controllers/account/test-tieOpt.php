@@ -65,7 +65,6 @@ for ($x = 0; $x < strlen($option) ; $x++ ){
 
 view("account/tieOpt.view.php", [
     'heading' =>'My Account',
-    'notifications' => $notifications,
     'currentUser' => $currentUser,
     'rCount' => $rCount,
     'iCount' => $iCount,

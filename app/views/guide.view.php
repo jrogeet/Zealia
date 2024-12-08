@@ -1,12 +1,7 @@
 <?php view('partials/head.view.php'); ?>
 
 <body class="relative block overflow-x-hidden overflow-y-scroll bg-white">
-    <?php if(isset($notifications)){
-        view('partials/nav.view.php', ['notifications' => $notifications]);
-    } elseif (! isset($notifications)) {
-        view('partials/nav.view.php');
-    }
-    ?>
+    <?php view('partials/nav.view.php'); ?>
 
     <div class="relative block w-5/6 h-auto py-4 mx-auto top-32">
         <!-- HEADER -->

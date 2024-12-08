@@ -2,11 +2,8 @@
 
 <body class="absolute inline-block w-screen h-auto overflow-x-hidden bg-beige font-satoshimed">
 
-    <?php if(isset($notifications)){
-        view('partials/nav.view.php', ['notifications' => $notifications]);
-    } elseif (! isset($notifications)) {
+    <?php 
         view('partials/nav.view.php');
-    }
     ?>
 
     <main class="min-h-screen pb-24">
