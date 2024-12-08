@@ -23,14 +23,14 @@ if (!$userExists || $userExists['count'] == 0) {
     exit();
 }
 
-$id = $_GET['id'];
-$f_name = $_POST['f_name'];
-$l_name = $_POST['l_name'];
-$school_id = $_POST['school_id'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-$c_password = $_POST['c_password'];
-$decoded_allUserInfo = json_decode($_POST['encoded_allUserInfo'], true);
+$id = $_GET['id'] ?? $_POST['id'];
+$f_name = $_POST['f_name'] ?? '';
+$l_name = $_POST['l_name'] ?? '';
+$school_id = $_POST['school_id'] ?? '';
+$email = $_POST['email'] ?? '';
+$password = $_POST['password'] ?? '';
+$c_password = $_POST['c_password'] ?? '';
+$decoded_allUserInfo = isset($_POST['encoded_allUserInfo']) ? json_decode($_POST['encoded_allUserInfo'], true) : null;
 
 if (isset($_POST['edit'])) {
     if (! empty($f_name)) {
