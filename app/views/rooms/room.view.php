@@ -829,10 +829,14 @@
                                     let date = new Date(taskData[2]);
                                     let formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
+                                    // Get tomorrow's date at 00:00:00
+                                    let today = new Date();
+                                    today.setHours(0, 0, 0, 0);
+                                    // console.log('TOMORRROWWWWWW', tomorrow, date >= tomorrow);
                                     console.log('now date:' ,new Date(), 'task date: ', date);
                                     console.log((new Date()) > date);
 
-                                    if ((new Date()) < date) {
+                                    if (date >= today || listType === 'done') {
                                         return `
                                             <div class="flex border mt-2 ${borderColor} flex-col w-full min-h-32 p-2 h-auto max-w-full mb-4 card rounded-xl ${bgColor} bg-opacity-30 ${canDrag ? 'cursor-grab' : 'select-none'}" 
                                                 draggable="${canDrag}"
