@@ -15,39 +15,98 @@
     </div>
 
     <div class="z-40 relative block w-full h-fit py-12 px-6 min-w-[75rem] mb-16 flex-1 transition-all duration-300 <?= $_SESSION['page-settings']['admin_nav_toggle'] ? 'ml-20' : 'ml-48' ?>" id="main-content">
-        <div class="flex justify-between mb-12">
-            <h1 class="mx-auto ml-6 text-3xl font-clashbold">Account List</h1>
-            <div class="flex gap-4 mx-auto w-fit">
+        <div class="flex items-center justify-between w-full mb-12">
+            <h1 class="text-3xl font-clashbold">Account List</h1>
+            
+            <!-- Updated Filters Section with Toggle -->
+            <div class="flex flex-col gap-4 p-6 bg-white border border-black rounded-lg shadow-md w-[40rem]">
+                <!-- Always Visible Row -->
+                <div class="flex items-end justify-between gap-4">
+                    <!-- Search -->
+                    <div class="flex-1">
+                        <label class="mb-1 text-sm font-satoshimed text-grey2">Search</label>
+                        <div class="relative flex items-center">
+                            <input id="searchInput" oninput="handleSearch();" type="text" 
+                                   placeholder="Search by ID, name, or email..." 
+                                   class="w-full px-3 py-1 pl-8 bg-white border border-black rounded-lg">
+                            <span class="absolute left-2 text-grey2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </span>
+                            <button id="clearSearch" class="absolute hidden w-6 h-6 text-xl transition-colors rounded-full right-2 text-red1 hover:bg-red1 hover:bg-opacity-10" onclick="clearSearch()">×</button>
+                        </div>
+                    </div>
 
+                    <!-- Action Buttons -->
+                    <div class="flex items-center gap-2">
+                        <!-- Toggle Filters Button -->
+                        <button onclick="toggleFilters()" class="px-4 py-1 text-white transition-colors rounded-lg bg-blue3 hover:bg-blue2">
+                            <div class="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                </svg>
+                                Filters
+                            </div>
+                        </button>
 
-                <!-- Date Range Filter -->
-                <div class="flex items-center">
-                    <input type="date" id="startDate" class="pl-2 mx-1 bg-white border border-black rounded-lg" placeholder="Start Date">
-                    <input type="date" id="endDate" class="pl-2 mx-1 bg-white border border-black rounded-lg" placeholder="End Date">
-                    <button onclick="applyDateFilter()" class="px-2 py-1 mx-1 text-white rounded-lg bg-blue3">Filter Dates</button>
-                    <button id="clearDateFilter" onclick="clearDateFilter()" class="hidden px-2 py-1 mx-1 rounded-lg text-blackpri bg-red1">Clear Dates</button>
+                        <!-- Create New Account Button -->
+                        <button onclick="showCreateAccountModal()" class="px-4 py-1 text-white transition-colors rounded-lg bg-blue3 hover:bg-blue2">
+                            <div class="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                </svg>
+                                Create
+                            </div>
+                        </button>
+
+                        <!-- Export Button -->
+                        <button onclick="exportAccounts()" class="px-4 py-1 text-white transition-colors bg-green-600 rounded-lg hover:bg-green-700">
+                            <div class="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Export
+                            </div>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="flex items-center">
-                    <select id="sortBy" class="pl-4 mx-auto bg-white border border-black rounded-lg" onchange="handleSort()">
-                        <option value="">Sort by...</option>
-                        <option value="date_asc">Date (Oldest First)</option>
-                        <option value="date_desc">Date (Newest First)</option>
-                        <option value="name_asc">Name (A-Z)</option>
-                        <option value="name_desc">Name (Z-A)</option>
-                    </select>
-                    <button id="clearSort" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSort()">X</button>
-                </div>
-                
-                <div class="flex items-center">
-                    <input id="searchInput" oninput="handleSearch();" type="text" placeholder="Search..." class="pl-4 mx-auto bg-white border border-black rounded-lg">
-                    <button id="clearSearch" class="hidden w-10 mx-2 text-xl text-red1" onclick="clearSearch()">X</button>
-                </div>
+                <!-- Toggleable Filters Section -->
+                <div id="advancedFilters" class="hidden transition-all duration-300">
+                    <hr class="my-2 border-gray-300">
+                    <!-- Date Range Filter -->
+                    <div class="flex items-start justify-between gap-6">
+                        <div class="flex items-start gap-2">
+                            <div class="flex flex-col">
+                                <label class="mb-1 text-sm font-satoshimed text-grey2">Date Range</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="date" id="startDate" class="px-2 py-1 bg-white border border-black rounded-lg w-36" placeholder="Start Date">
+                                    <span class="text-grey2">to</span>
+                                    <input type="date" id="endDate" class="px-2 py-1 bg-white border border-black rounded-lg w-36" placeholder="End Date">
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1 mt-6">
+                                <button onclick="applyDateFilter()" class="px-3 py-1 text-white transition-colors rounded-lg bg-blue3 hover:bg-blue2">Apply</button>
+                                <button id="clearDateFilter" onclick="clearDateFilter()" class="hidden px-3 py-1 transition-colors rounded-lg text-blackpri bg-red1 hover:bg-opacity-80">Clear</button>
+                            </div>
+                        </div>
 
-                <div class="flex items-center">
-                    <button onclick="exportAccounts()" class="px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700">
-                        Export Accounts
-                    </button>
+                        <!-- Sort Filter -->
+                        <div class="flex flex-col">
+                            <label class="mb-1 text-sm font-satoshimed text-grey2">Sort By</label>
+                            <div class="flex items-center gap-2">
+                                <select id="sortBy" class="w-48 px-3 py-1 bg-white border border-black rounded-lg" onchange="handleSort()">
+                                    <option value="">Select...</option>
+                                    <option value="date_asc">Date (Oldest First)</option>
+                                    <option value="date_desc">Date (Newest First)</option>
+                                    <option value="name_asc">Name (A-Z)</option>
+                                    <option value="name_desc">Name (Z-A)</option>
+                                </select>
+                                <button id="clearSort" class="hidden w-8 h-8 text-xl transition-colors rounded-full text-red1 hover:bg-red1 hover:bg-opacity-10" onclick="clearSort()">×</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,58 +208,13 @@
             </div>
         <?php endif; ?>
 
-        <div class="relative block w-full h-[40rem] mt-12">
-            
-            <h1 class="mb-12 text-3xl font-satoshimed">Create User Account</h1>
-
-            <form method="POST" action="/admin-accounts" class="flex w-[60%] h-[90%] border border-black  rounded-2xl mx-auto p-6 pl-8">
-                <input type="hidden" name="encoded_accounts" value="<?= htmlspecialchars($encoded_accounts, ENT_QUOTES, 'UTF-8')?>">
-                <input type="hidden" name="encoded_students" value="<?= htmlspecialchars($encoded_students, ENT_QUOTES, 'UTF-8')?>">
-                <input type="hidden" name="encoded_instructors" value="<?= htmlspecialchars($encoded_instructors, ENT_QUOTES, 'UTF-8')?>">
-                <input type="hidden" name="create" value="create">
-                    
-                <div class="block w-[70%] h-full mx-auto">
-
-                    <h1 class="text-grey2 mt-[5%]">User Type</h1>
-                    <select name="account_type" class="relative w-1/3 h-10 pl-4 mb-2 text-sm border border-black rounded-lg bg-blue2" name="category" id="reason" placeholder="Select Category" required>
-                        <option class="bg-beige" value="">Select User Type:</option>
-                        <option class="bg-beige" value="admin">Admin</option>
-                        <option class="bg-beige" value="instructor">instructor</option>
-                        <option class="bg-beige" value="student">Student</option>
-                    </select>
-                    
-                    <h1 class="text-grey2 mt-[5%] mt-4">Name</h1>
-                    <div class="flex">
-                        <input name="f_name" type="text" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="First Name" required>
-                        <input name="l_name" type="text" class="w-1/3 h-10 pl-2 ml-4 bg-white border rounded-lg border-grey2" placeholder="Last Name" required>
-                    </div>
-
-                    <h1 class="text-grey2 mt-[5%] mt-4">School number</h1>
-                    <input name="school_id" type="number" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="ID number" required>
-
-                    <h1 class="text-grey2 mt-[5%] mt-4">Email</h1>
-                    <input name="email" type="email" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="Email" required>
-                    
-                    <h1 class="text-grey2 mt-[5%] mt-4">Set Password</h1>
-                    <div class="flex">
-                        <input name="password" type="text" class="w-1/3 h-10 pl-2 ml-0 bg-white border rounded-lg border-grey2" placeholder="Password" required>
-                        <input name="c_password" type="text" class="w-1/3 h-10 pl-2 ml-4 bg-white border rounded-lg border-grey2" placeholder="Confirm Password" required>
-                    </div>
-                </div>
-
-                <div class="block w-[30%] h-full mx-auto">
-                    <button type="submit" class="w-full h-10 mx-auto border border-black rounded-lg mt-96 bg-orangeaccent text-black1">Create Account</button>
-                </div>
-                
-            </form>
-        </div>
-
     </div>
 
 
     <script src="assets/js/shared-scripts.js"></script>
     <script src="assets/js/loading.js"></script> 
     <script src="assets/js/fetch/fetch.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         const studentsList = document.getElementById('studentsList');
@@ -497,5 +511,137 @@ function displayAccounts(data) {
         mainContent.classList.toggle('ml-48');
         mainContent.classList.toggle('ml-20');
     });
+</script>
+
+<script>
+function showCreateAccountModal() {
+    Swal.fire({
+        title: 'Create User Account',
+        html: `
+            <form id="createAccountForm" class="text-left">
+                <div class="mb-4">
+                    <label class="block mb-1 text-sm text-grey2">User Type</label>
+                    <select id="account_type" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                        <option value="">Select User Type</option>
+                        <option value="admin">Admin</option>
+                        <option value="instructor">Instructor</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+                
+                <div class="flex gap-4 mb-4">
+                    <div class="flex-1">
+                        <label class="block mb-1 text-sm text-grey2">First Name</label>
+                        <input id="f_name" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div class="flex-1">
+                        <label class="block mb-1 text-sm text-grey2">Last Name</label>
+                        <input id="l_name" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block mb-1 text-sm text-grey2">School ID</label>
+                    <input id="school_id" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block mb-1 text-sm text-grey2">Email</label>
+                    <input id="email" type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-1">
+                        <label class="block mb-1 text-sm text-grey2">Password</label>
+                        <input id="password" type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div class="flex-1">
+                        <label class="block mb-1 text-sm text-grey2">Confirm Password</label>
+                        <input id="c_password" type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                    </div>
+                </div>
+            </form>
+        `,
+        width: '600px',
+        showCancelButton: true,
+        confirmButtonText: 'Create Account',
+        confirmButtonColor: '#03346E',
+        cancelButtonText: 'Cancel',
+        focusConfirm: false,
+        preConfirm: () => {
+            const form = document.getElementById('createAccountForm');
+            const password = document.getElementById('password').value;
+            const cPassword = document.getElementById('c_password').value;
+
+            if (password !== cPassword) {
+                Swal.showValidationMessage('Passwords do not match');
+                return false;
+            }
+
+            return {
+                account_type: document.getElementById('account_type').value,
+                f_name: document.getElementById('f_name').value,
+                l_name: document.getElementById('l_name').value,
+                school_id: document.getElementById('school_id').value,
+                email: document.getElementById('email').value,
+                password: password,
+                c_password: cPassword,
+                create: 'create',
+                encoded_accounts: '<?= htmlspecialchars($encoded_accounts, ENT_QUOTES, 'UTF-8') ?>',
+                encoded_students: '<?= htmlspecialchars($encoded_students, ENT_QUOTES, 'UTF-8') ?>',
+                encoded_instructors: '<?= htmlspecialchars($encoded_instructors, ENT_QUOTES, 'UTF-8') ?>'
+            };
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Create form and submit
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/admin-accounts';
+
+            for (const key in result.value) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = result.value[key];
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
+}
+
+// Handle the response messages
+<?php if(isset($success)): ?>
+    Swal.fire({
+        title: 'Success!',
+        text: 'Account successfully created',
+        icon: 'success',
+        confirmButtonColor: '#03346E'
+    });
+<?php elseif(isset($idExists)): ?>
+    Swal.fire({
+        title: 'Error!',
+        text: 'ID already exists, please use another ID',
+        icon: 'error',
+        confirmButtonColor: '#03346E'
+    });
+<?php elseif(isset($emailExists)): ?>
+    Swal.fire({
+        title: 'Error!',
+        text: 'Email already exists, please use another email',
+        icon: 'error',
+        confirmButtonColor: '#03346E'
+    });
+<?php endif; ?>
+</script>
+
+<script>
+function toggleFilters() {
+    const filtersSection = document.getElementById('advancedFilters');
+    filtersSection.classList.toggle('hidden');
+}
 </script>
 </body>
