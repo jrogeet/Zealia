@@ -16,7 +16,7 @@ $router->get('/', 'Http/controllers/home.php');
 $router->get('/guide', 'Http/controllers/guide.php');
 $router->get('/about', 'Http/controllers/about.php');
 
-$router->post('/nav', 'model/clear-notifications.php');
+// $router->post('/nav', 'model/clear-notifications.php');
 
 // ACCOUNT PAGE
 $router->get('/account', 'Http/controllers/account/account.php')->only('auth');
