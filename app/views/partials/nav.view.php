@@ -120,6 +120,7 @@
                         <div class="flex items-center justify-between px-4 py-6 pr-6 bg-blackpri h-14">
                             <span class="text-2xl font-satoshimed text-blue2">Notifications</span>
                             <form action="/notifications" method="POST">
+                                <input type="hidden" value="<?= $_SERVER['REQUEST_URI']; ?>" name="uri"> 
                                 <button class="text-base text-white font-satoshimed hover:text-rederr" name="clear" type="submit">Clear</button>
                             </form>
                         </div>

@@ -30,10 +30,12 @@ if (isset($_POST['invite'])) {
     header("Location: /dashboard");
     exit();
 } elseif (isset($_POST['clear'])) {
+    $uri = $_POST['uri'];
+
     $db->query('DELETE FROM notifications where school_id = :id', [
         ':id' => $currentUser,
     ]);
 
-    header("Location: /dashboard");
+    header("Location: {$uri}");
     exit();
 }
