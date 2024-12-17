@@ -19,8 +19,9 @@ class RegisterForm
         }
 
         // Validate email (only accept Fatima domain)
-        if (!Validator::email($email) || !str_ends_with($email, '@fatima.edu.ph')) {
-            $this->errors['email'] = 'Please provide a valid Fatima email address (@fatima.edu.ph)';
+        if (!Validator::email($email) || 
+            (!str_ends_with($email, '@fatima.edu.ph') && !str_ends_with($email, '@student.fatima.edu.ph'))) {
+            $this->errors['email'] = 'Please provide a valid Fatima email address (@fatima.edu.ph or @student.fatima.edu.ph)';
         }
 
         // Validate names (letters, spaces, and hyphens only)

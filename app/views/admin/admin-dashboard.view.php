@@ -129,9 +129,7 @@
         </div>
     </div>
     
-    <?php if (hasInternetConnection()): ?>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <?php endif; ?>
+    <script src="assets/js/chart.umd.js"></script>
     
     <script src="assets/js/fetch/fetch.js"></script>
     <script src="assets/js/loading.js"></script> 
@@ -163,9 +161,7 @@
             if (changeChecker == null || JSON.stringify(changeChecker) !== JSON.stringify(data)) {
                 changeChecker = data;
 
-                <?php if (hasInternetConnection()): ?>
-                    updateCharts(data);
-                <?php endif; ?>
+                updateCharts(data);
                 // console.log('CHANGED CHECKER: ' ,changeChecker);
             
                 totalUsers.innerHTML = '';

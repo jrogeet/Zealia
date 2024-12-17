@@ -24,7 +24,6 @@ module.exports = {
         clear: "url('/assets/images/icons/clear.png')",
         edit: "url('/assets/images/icons/edit.png')",
         loading: "url('/assets/images/pacman-loading.gif')",
-        "mesh-yellow": "url('/assets/images/mesh-yellow.png')",
         "riasec-r": "url('/assets/images/custom/riasec-cards/R.webp')",
         "riasec-i": "url('/assets/images/custom/riasec-cards/I.webp')",
         "riasec-a": "url('/assets/images/custom/riasec-cards/A.webp')",

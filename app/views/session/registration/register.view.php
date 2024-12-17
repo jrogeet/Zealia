@@ -1,63 +1,87 @@
 <?php view('partials/head.view.php'); ?>
 
 <body class="flex flex-col justify-between overflow-x-hidden bg-gradient-to-b bg-blue1 from-blue1 to-blue2">
-    <?php view('partials/nav.view.php')?>
+    <?php // view('partials/nav.view.php')?>
 
-    <div class="pt-16 pb-10 bg-white/95 backdrop-blur-sm border border-black/10 rounded-xl shadow-2xl absolute left-[50%] top-[60%] transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[26.25rem] sm:w-[26.25rem] h-fit transition-all hover:shadow-3xl"> 
+    <div class="pt-12 pb-8 bg-white/95 backdrop-blur-sm border border-black/10 rounded-xl shadow-2xl absolute left-[50%] top-[50%] transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[24rem] sm:w-[24rem] h-fit transition-all hover:shadow-3xl"> 
 
-        <h1 class="mb-8 mx-12 text-[6vw] sm:text-4xl text-center font-bold text-blue3">Create an account</h1>
+        <h1 class="mx-8 mb-6 text-2xl font-bold text-center sm:text-3xl text-blue3">Create an account</h1>
         
-        <?php if (isset($errors['regexist'])): ?>
-            <div class="w-2/3 p-3 mx-auto mb-4 bg-red-100 border border-red-400 rounded-lg">
-                <p class="text-sm text-center text-red-700"><?= $errors['regexist'] ?></p>
+        <?php if (isset($success)): ?>
+            <div class="w-2/3 p-4 mx-auto mb-6 text-center bg-green-100 border border-green-400 rounded-lg">
+                <p class="mb-3 text-sm text-green-700"><?= $success ?></p>
+                <a href="/login" class="inline-block px-6 py-2 text-sm font-semibold text-white transition-all rounded-lg bg-blue3 hover:bg-blue3/90">
+                    Proceed to Login
+                </a>
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="/register" class="space-y-4">
+        <?php if (isset($errors['database']) || isset($errors['auth'])): ?>
+            <div class="w-2/3 p-3 mx-auto mb-4 bg-red-100 border border-red-400 rounded-lg">
+                <p class="text-sm text-center text-red-700">
+                    <?= $errors['database'] ?? $errors['auth'] ?? '' ?>
+                </p>
+            </div>
+        <?php endif; ?>
+
+        <form method="POST" action="/register" class="space-y-3">
             <!-- Name Fields with floating labels -->
-            <div class="flex justify-between gap-4 mx-16">
+            <div class="flex justify-between gap-4 mx-12">
                 <div class="relative w-[47%]">
-                    <input id="lname" class="w-full h-10 px-4 transition-all border peer border-black/30 rounded-xl bg-white/50 focus:border-blue3 focus:outline-none focus:ring-1 focus:ring-blue3" 
+                    <input id="lname" 
+                        value="<?= old('lname') ?>"
+                        class="w-full px-3 text-sm transition-all border h-9 peer border-black/30 rounded-xl bg-white/50 focus:border-blue3 focus:outline-none focus:ring-1 focus:ring-blue3" 
                         type="text" name="lname" required>
-                    <label for="lname" class="absolute left-3 -top-2.5 bg-white px-2 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue3">
+                    <label for="lname" class="absolute left-3 -top-2.5 bg-white px-2 text-xs text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue3">
                         Last name
                     </label>
                 </div>
                 <div class="relative w-[47%]">
-                    <input id="fname" class="w-full h-10 px-4 transition-all border peer border-black/30 rounded-xl bg-white/50 focus:border-blue3 focus:outline-none focus:ring-1 focus:ring-blue3" 
+                    <input id="fname" 
+                        value="<?= old('fname') ?>"
+                        class="w-full px-3 text-sm transition-all border h-9 peer border-black/30 rounded-xl bg-white/50 focus:border-blue3 focus:outline-none focus:ring-1 focus:ring-blue3" 
                         type="text" name="fname" required>
-                    <label for="fname" class="absolute left-3 -top-2.5 bg-white px-2 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue3">
+                    <label for="fname" class="absolute left-3 -top-2.5 bg-white px-2 text-xs text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue3">
                         First name
                     </label>
                 </div>
             </div>
 
             <?php if (isset($errors['names'])): ?>
-                <p class="text-sm text-center text-red-600"><?= $errors['names'] ?></p>
+                <p class="text-xs text-center text-red-600"><?= $errors['names'] ?></p>
             <?php endif; ?>
 
             <!-- School ID with floating label -->
             <div class="relative w-2/3 mx-auto">
-                <input id="school_id" class="w-full h-10 px-4 transition-all border peer border-black/30 rounded-xl bg-white/50 focus:border-blue3 focus:outline-none focus:ring-1 focus:ring-blue3" 
+                <input id="school_id" 
+                    value="<?= old('school_id') ?>"
+                    class="w-full px-3 text-sm transition-all border h-9 peer border-black/30 rounded-xl bg-white/50 focus:border-blue3 focus:outline-none focus:ring-1 focus:ring-blue3" 
                     type="number" 
                     name="school_id" 
                     pattern="\d{11,15}"
                     required>
-                <label for="school_id" class="absolute left-3 -top-2.5 bg-white px-2 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue3">
-                    School ID (11-15 digits)
+                <label for="school_id" class="absolute left-3 -top-2.5 bg-white px-2 text-xs text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue3">
+                    School ID (No Dash/Hyphen [-])
                 </label>
+                <?php if (isset($errors['school_id'])): ?>
+                    <p class="mt-1 text-xs text-red-600"><?= $errors['school_id'] ?></p>
+                <?php endif; ?>
             </div>
 
             <!-- Email with floating label -->
             <div class="relative w-2/3 mx-auto">
-                <input id="email" class="w-full h-10 px-4 transition-all border peer border-black/30 rounded-xl bg-white/50 focus:border-blue3 focus:outline-none focus:ring-1 focus:ring-blue3" 
-                    type="email" 
-                    name="email" 
-                    pattern="[a-z0-9._%+-]+@fatima\.edu\.ph$"
+                <input id="email" 
+                    value="<?= old('email') ?>"
+                    class="w-full px-3 text-sm transition-all border h-9 peer border-black/30 rounded-xl bg-white/50 focus:border-blue3 focus:outline-none focus:ring-1 focus:ring-blue3" 
+                    type="email"
+                    name="email"
                     required>
-                <label for="email" class="absolute left-3 -top-2.5 bg-white px-2 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue3">
-                    Fatima Email (@fatima.edu.ph)
+                <label for="email" class="absolute left-3 -top-2.5 bg-white px-2 text-xs text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue3">
+                    Fatima Email (@[student.]fatima.edu.ph)
                 </label>
+                <?php if (isset($errors['email'])): ?>
+                    <p class="mt-1 text-xs text-red-600"><?= $errors['email'] ?></p>
+                <?php endif; ?>
             </div>
 
             <!-- Password Requirements Card -->
@@ -124,20 +148,25 @@
                 </button>
             </div>
 
-            <!-- Error Messages -->
-            <?php if (isset($errors['password']) || isset($errors['password-letter']) || isset($errors['password-number']) || isset($errors['password-match'])): ?>
-                <div class="w-2/3 p-3 mx-auto bg-red-100 border border-red-400 rounded-lg">
+            <!-- Password error messages -->
+            <?php if (isset($errors['password']) || isset($errors['password-letter']) || 
+                      isset($errors['password-number']) || isset($errors['password-special']) || 
+                      isset($errors['password-match'])): ?>
+                <div class="w-2/3 p-2 mx-auto bg-red-100 border border-red-400 rounded-lg">
                     <?php if (isset($errors['password'])): ?>
-                        <p class="text-sm text-red-700"><?= $errors['password'] ?></p>
+                        <p class="text-xs text-red-700"><?= $errors['password'] ?></p>
                     <?php endif; ?>
                     <?php if (isset($errors['password-letter'])): ?>
-                        <p class="text-sm text-red-700"><?= $errors['password-letter'] ?></p>
+                        <p class="text-xs text-red-700"><?= $errors['password-letter'] ?></p>
                     <?php endif; ?>
                     <?php if (isset($errors['password-number'])): ?>
-                        <p class="text-sm text-red-700"><?= $errors['password-number'] ?></p>
+                        <p class="text-xs text-red-700"><?= $errors['password-number'] ?></p>
+                    <?php endif; ?>
+                    <?php if (isset($errors['password-special'])): ?>
+                        <p class="text-xs text-red-700"><?= $errors['password-special'] ?></p>
                     <?php endif; ?>
                     <?php if (isset($errors['password-match'])): ?>
-                        <p class="text-sm text-red-700"><?= $errors['password-match'] ?></p>
+                        <p class="text-xs text-red-700"><?= $errors['password-match'] ?></p>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
