@@ -11,5 +11,8 @@
             "Http\\": "app/Http/",
             "Model\\": "app/Model/"
         }
+    },
+    "config": {
+        "platform-check": false
     }
 }
