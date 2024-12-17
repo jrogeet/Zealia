@@ -72,7 +72,17 @@
 
             <!-- Right Column - Admin List -->
             <div class="w-[400px]">
-                <h2 class="mb-6 text-2xl font-clashbold text-blackhead">Admin List</h2>
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-clashbold text-blackhead">Admin List</h2>
+                    <button onclick="showCreateAdminModal()" class="px-4 py-1 text-white transition-colors rounded-lg bg-blue3 hover:bg-blue2">
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            Create Admin
+                        </div>
+                    </button>
+                </div>
                 
                 <div class="overflow-hidden border bg-whitecon border-whitebord shadow-inside3 rounded-xl">
                     <div class="divide-y divide-whitebord">
@@ -160,5 +170,131 @@
         mainContent.classList.toggle('ml-48');
         mainContent.classList.toggle('ml-20');
     });
+
+    function showCreateAdminModal() {
+        Swal.fire({
+            title: 'Create Admin Account',
+            html: `
+                <form id="createAdminForm" class="text-left">
+                    <div class="mb-4">
+                        <label class="block mb-1 text-sm text-grey2">Account Type</label>
+                        <input type="text" value="admin" class="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg" readonly>
+                        <input type="hidden" id="account_type" value="admin">
+                    </div>
+                    
+                    <div class="flex gap-4 mb-4">
+                        <div class="flex-1">
+                            <label class="block mb-1 text-sm text-grey2">First Name</label>
+                            <input id="f_name" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                        </div>
+                        <div class="flex-1">
+                            <label class="block mb-1 text-sm text-grey2">Last Name</label>
+                            <input id="l_name" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-1 text-sm text-grey2">School ID <span class="text-red1">*</span></label>
+                        <input id="school_id" 
+                               type="number" 
+                               min="10000"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 10) this.value = this.value.slice(0,10);"
+                               onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 187 && event.keyCode !== 190"
+                               title="School ID must be at least 5 digits"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-1 text-sm text-grey2">Email <span class="text-red1">*</span></label>
+                        <input id="email" 
+                               type="email" 
+                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                               oninput="this.value = this.value.toLowerCase();"
+                               title="Please enter a valid email address"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="flex-1">
+                            <label class="block mb-1 text-sm text-grey2">Password</label>
+                            <input id="password" type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                        </div>
+                        <div class="flex-1">
+                            <label class="block mb-1 text-sm text-grey2">Confirm Password</label>
+                            <input id="c_password" type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                        </div>
+                    </div>
+                </form>
+            `,
+            width: '600px',
+            showCancelButton: true,
+            confirmButtonText: 'Create Admin',
+            confirmButtonColor: '#03346E',
+            cancelButtonText: 'Cancel',
+            focusConfirm: false,
+            preConfirm: () => {
+                const password = document.getElementById('password').value;
+                const cPassword = document.getElementById('c_password').value;
+
+                if (password !== cPassword) {
+                    Swal.showValidationMessage('Passwords do not match');
+                    return false;
+                }
+
+                return {
+                    account_type: 'admin',
+                    f_name: document.getElementById('f_name').value,
+                    l_name: document.getElementById('l_name').value,
+                    school_id: document.getElementById('school_id').value,
+                    email: document.getElementById('email').value,
+                    password: password,
+                    c_password: cPassword,
+                    create: 'create'
+                };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Create form and submit
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/admin-settings';
+
+                for (const key in result.value) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = result.value[key];
+                    form.appendChild(input);
+                }
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+
+    // Handle the response messages
+    <?php if(isset($success)): ?>
+        Swal.fire({
+            title: 'Success!',
+            text: 'Admin account successfully created',
+            icon: 'success',
+            confirmButtonColor: '#03346E'
+        });
+    <?php elseif(isset($idExists)): ?>
+        Swal.fire({
+            title: 'Error!',
+            text: 'ID already exists, please use another ID',
+            icon: 'error',
+            confirmButtonColor: '#03346E'
+        });
+    <?php elseif(isset($emailExists)): ?>
+        Swal.fire({
+            title: 'Error!',
+            text: 'Email already exists, please use another email',
+            icon: 'error',
+            confirmButtonColor: '#03346E'
+        });
+    <?php endif; ?>
 </script>
 </body>

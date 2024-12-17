@@ -216,7 +216,7 @@
         }
 
         function updateStats(data) {
-            document.getElementById('pendingCount').textContent = data.filter(t => t.status === 'pending').length;
+            document.getElementById('pendingCount').textContent = data.filter(t => t.status === null).length;
             document.getElementById('unresolvedCount').textContent = data.filter(t => t.status === 'unresolved').length;
             document.getElementById('solvedCount').textContent = data.filter(t => t.status === 'solved').length;
         }
@@ -272,7 +272,7 @@
                                     <td class="px-5 py-5 text-sm bg-white border-b border-l border-r border-black border-gray-200"><a href="/admin-view-ticket?id=${ticket.ticket_id}">${ticket.ticket_date}</a></td>
                                 </tr>
                             `;
-                        } else if (ticket.status === "pending") {  
+                        } else if (ticket.status === null) {  
                             pendingCounter += 1;
                             console.log('Pending:', data);
                             pending.innerHTML += `

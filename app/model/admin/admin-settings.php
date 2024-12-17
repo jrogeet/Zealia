@@ -10,6 +10,67 @@ $db = App::resolve(Database::class);
 $currentUserId = $_SESSION['user']['school_id'];
 
 if ($_SESSION['user']['account_type'] === "admin") {
+    // Handle form submission for creating new admin account
+    if (isset($_POST['create'])) {
+        $account_type = $_POST['account_type'];
+        $f_name = $_POST['f_name'];
+        $l_name = $_POST['l_name'];
+        $school_id = $_POST['school_id'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        
+        // Check for existing school ID or email
+        $existingAccount = $db->query("SELECT * FROM accounts WHERE school_id = :school_id OR email = :email", [
+            ':school_id' => $school_id,
+            ':email' => $email
+        ])->find();
+
+        if ($existingAccount) {
+            if ($existingAccount['school_id'] === $school_id) {
+                view('admin/admin-settings.view.php', [
+                    'admins' => $db->query("SELECT * FROM accounts WHERE account_type = 'admin'")->findAll(),
+                    'idExists' => true
+                ]);
+                exit();
+            }
+            if ($existingAccount['email'] === $email) {
+                view('admin/admin-settings.view.php', [
+                    'admins' => $db->query("SELECT * FROM accounts WHERE account_type = 'admin'")->findAll(),
+                    'emailExists' => true
+                ]);
+                exit();
+            }
+        }
+
+        // If no duplicates found, proceed with account creation
+        $activation_token = bin2hex(random_bytes(16));
+        $activation_token_hash = hash("sha256", $activation_token);
+
+        try {
+            $db->query("INSERT INTO accounts(school_id, email, password, l_name, f_name, account_type, account_activation_hash)
+            VALUES(:school_id, :email, :password, :l_name, :f_name, :account_type, :activation_token_hash)", [
+                ':school_id'=> $school_id,
+                ':email'=> $email,
+                ':password' => password_hash($password, PASSWORD_BCRYPT),
+                ':l_name'=> $l_name,
+                ':f_name'=> $f_name,
+                ':account_type'=> $account_type,
+                ':activation_token_hash' => $activation_token_hash
+            ]);
+
+            view('admin/admin-settings.view.php', [
+                'admins' => $db->query("SELECT * FROM accounts WHERE account_type = 'admin'")->findAll(),
+                'success' => true
+            ]);
+            exit();
+
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            header('location: /admin-settings?error=database');
+            exit();
+        }
+    }
+
     // Handle form submission for updating admin information
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $f_name = $_POST['f_name'] ?? '';

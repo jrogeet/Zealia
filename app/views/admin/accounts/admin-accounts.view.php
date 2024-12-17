@@ -520,10 +520,9 @@ function showCreateAccountModal() {
         html: `
             <form id="createAccountForm" class="text-left">
                 <div class="mb-4">
-                    <label class="block mb-1 text-sm text-grey2">User Type</label>
+                    <label class="block mb-1 text-sm text-grey2">User Type <span class="text-red1">*</span></label>
                     <select id="account_type" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
                         <option value="">Select User Type</option>
-                        <option value="admin">Admin</option>
                         <option value="instructor">Instructor</option>
                         <option value="student">Student</option>
                     </select>
@@ -531,34 +530,64 @@ function showCreateAccountModal() {
                 
                 <div class="flex gap-4 mb-4">
                     <div class="flex-1">
-                        <label class="block mb-1 text-sm text-grey2">First Name</label>
-                        <input id="f_name" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                        <label class="block mb-1 text-sm text-grey2">First Name <span class="text-red1">*</span></label>
+                        <input id="f_name" type="text" 
+                               pattern="^[A-Za-z\s]{2,}$"
+                               title="First name must contain at least 2 letters (no numbers or special characters)"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
                     </div>
                     <div class="flex-1">
-                        <label class="block mb-1 text-sm text-grey2">Last Name</label>
-                        <input id="l_name" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                        <label class="block mb-1 text-sm text-grey2">Last Name <span class="text-red1">*</span></label>
+                        <input id="l_name" type="text" 
+                               pattern="^[A-Za-z\s]{2,}$"
+                               title="Last name must contain at least 2 letters (no numbers or special characters)"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <label class="block mb-1 text-sm text-grey2">School ID</label>
-                    <input id="school_id" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                    <label class="block mb-1 text-sm text-grey2">School ID <span class="text-red1">*</span></label>
+                    <input id="school_id" 
+                           type="number" 
+                           min="10000"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 10) this.value = this.value.slice(0,10);"
+                           onkeydown="return event.keyCode !== 69 && event.keyCode !== 189 && event.keyCode !== 187 && event.keyCode !== 190"
+                           title="School ID must be at least 5 digits"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
                 </div>
 
                 <div class="mb-4">
-                    <label class="block mb-1 text-sm text-grey2">Email</label>
-                    <input id="email" type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                    <label class="block mb-1 text-sm text-grey2">Email <span class="text-red1">*</span></label>
+                    <input id="email" 
+                           type="email" 
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                           oninput="this.value = this.value.toLowerCase();"
+                           title="Please enter a valid email address"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
                 </div>
 
                 <div class="flex gap-4">
                     <div class="flex-1">
-                        <label class="block mb-1 text-sm text-grey2">Password</label>
-                        <input id="password" type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                        <label class="block mb-1 text-sm text-grey2">Password <span class="text-red1">*</span></label>
+                        <input id="password" type="password" 
+                               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                               title="Password must be at least 8 characters long and contain at least one letter and one number"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
                     </div>
                     <div class="flex-1">
-                        <label class="block mb-1 text-sm text-grey2">Confirm Password</label>
-                        <input id="c_password" type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
+                        <label class="block mb-1 text-sm text-grey2">Confirm Password <span class="text-red1">*</span></label>
+                        <input id="c_password" type="password" 
+                               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                               title="Passwords must match"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg" required>
                     </div>
+                </div>
+
+                <div class="mt-4 text-xs text-grey2">
+                    <p><span class="text-red1">*</span> Required fields</p>
+                    <p>• First and Last names must contain only letters</p>
+                    <p>• School ID must be at least 5 digits</p>
+                    <p>• Password must be at least 8 characters with at least one letter and one number</p>
                 </div>
             </form>
         `,
@@ -572,6 +601,42 @@ function showCreateAccountModal() {
             const form = document.getElementById('createAccountForm');
             const password = document.getElementById('password').value;
             const cPassword = document.getElementById('c_password').value;
+            const schoolId = document.getElementById('school_id').value;
+            const fName = document.getElementById('f_name').value;
+            const lName = document.getElementById('l_name').value;
+            const email = document.getElementById('email').value;
+            const accountType = document.getElementById('account_type').value;
+
+            // Additional validation
+            if (!accountType) {
+                Swal.showValidationMessage('Please select a user type');
+                return false;
+            }
+
+            if (!/^[A-Za-z\s]{2,}$/.test(fName)) {
+                Swal.showValidationMessage('First name must contain at least 2 letters (no numbers or special characters)');
+                return false;
+            }
+
+            if (!/^[A-Za-z\s]{2,}$/.test(lName)) {
+                Swal.showValidationMessage('Last name must contain at least 2 letters (no numbers or special characters)');
+                return false;
+            }
+
+            if (!/^[0-9]{5,}$/.test(schoolId)) {
+                Swal.showValidationMessage('School ID must be at least 5 digits');
+                return false;
+            }
+
+            if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(email.toLowerCase())) {
+                Swal.showValidationMessage('Please enter a valid email address');
+                return false;
+            }
+
+            if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+                Swal.showValidationMessage('Password must be at least 8 characters long and contain at least one letter and one number');
+                return false;
+            }
 
             if (password !== cPassword) {
                 Swal.showValidationMessage('Passwords do not match');
@@ -579,11 +644,11 @@ function showCreateAccountModal() {
             }
 
             return {
-                account_type: document.getElementById('account_type').value,
-                f_name: document.getElementById('f_name').value,
-                l_name: document.getElementById('l_name').value,
-                school_id: document.getElementById('school_id').value,
-                email: document.getElementById('email').value,
+                account_type: accountType,
+                f_name: fName,
+                l_name: lName,
+                school_id: schoolId,
+                email: email.toLowerCase(),
                 password: password,
                 c_password: cPassword,
                 create: 'create',
