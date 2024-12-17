@@ -2,7 +2,11 @@
 <header class="fixed flex z-50 bg-white w-full min-w-[320px] top-0 min-h-10 font-satoshimed" id="nav">
     <a class="p-2 mx-auto ml-2" id="burgButt"><img class="w-6 h-auto" src="assets/images/vectors/icons/table.png"></a>
     <a href="/" class="p-2 mx-auto"><img class="w-6 h-auto" src="assets/images/zealia-logos/Zealia_Logo_Flat/BLUE/DARK-1/FullZ_Flat_BLUEDARK_1.png"></a>
-    <a class="p-2 mx-auto mr-2" id="profButt">tao</a>
+    <a class="p-2 mx-auto mr-2" id="profButt">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+        </svg>
+    </a>
 
     <!-- burger dropdown -->
     <ul id="burgDD" class="fixed z-50 hidden block w-full h-full text-center bg-gradient-to-b from-white to-grey1 font-satoshimed top-10">

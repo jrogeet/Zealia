@@ -3,36 +3,91 @@
 <body class="flex flex-col items-center justify-between bg-blue1">
     <?php view('partials/nav.view.php')?>
 
-    <main class="h-[41rem] w-[87.5rem] flex space-between">
-        <?php if(isset($sent)): ?>
-            <?php echo '<script type="text/javascript">disableScroll();</script>'; ?>
-            <div id="resetSent" class="fixed left-0 flex justify-center w-screen h-screen pt-56 bg-glassmorphism top-20">
-                <div class="flex flex-col justify-between h-48 bg-white border rounded-t-lg w-90 border-black1">
-                    <div class="flex items-center justify-between border rounded-t-lg bg-blue3 h-1/6 border-black1">
-                        <span class="w-4/5 pl-2 text-lg text-white font-satoshimed">Reset Sent</span>
-                        <button class="w-10 h-full rounded bg-red1" onClick="hide('resetSent'); enableScroll();">X</button>
-                    </div>
-                
-                    <div class="flex flex-col items-center justify-center p-4 h-5/6 ">
-                        <p class="text-black font-satoshimed">The reset link was <span class="text-green1">successfully</span> sent to your email,</p>
-                        <p class="mb-3 font-satoshimed">please check your inbox.</p>
-                        <p class="text-sm font-satoshimed text-grey2">If you can't find the email, please check your spam folder.</p>
-                    </div>
-                </div>
+    <main class="flex items-center justify-center w-full min-h-screen py-12 bg-gradient-to-b from-blue1 to-blue2">
+        <div class="w-full max-w-md p-8 bg-white border rounded-lg shadow-lg border-black1">
+            <div class="mb-8 text-center">
+                <h1 class="text-3xl font-satoshimed text-black1">Forgot Password?</h1>
+                <p class="mt-2 text-grey2">No worries, we'll send you reset instructions.</p>
             </div>
-        <?php endif; ?>
 
-        <div class="bg-blue1 h-[30rem] w-[26rem] flex flex-col justify-between items-center mt-32 mb-20 border border-black1 rounded-lg px-4">
-            <h1 class="flex flex-col text-4xl text-center font-satoshimed text-black1 mt-14">Forgot your<span class="text-3xl text-red1">Password?</span></h1>
-            <form method="post" action="/forgot" class="flex flex-col items-center w-full mb-6 h-4/6 justify-evenly">
-                <div class="flex flex-col w-5/6">
-                    <label class="text-lg font-satoshimed text-grey2" for="email">Enter Account's email</label>
-                    <input class="w-full p-2 mt-2 border rounded-lg border-black1" type="email" name="email" placeholder="Email" required>
+            <form method="post" action="/forgot" class="space-y-6" id="forgotForm">
+                <div class="space-y-2">
+                    <label class="block text-sm font-satoshimed text-grey2" for="email">Email Address</label>
+                    <input class="w-full p-3 transition-colors border rounded-lg border-black1 focus:ring-2 focus:ring-blue3 focus:border-blue3" 
+                           type="email" 
+                           name="email" 
+                           placeholder="Enter your email"
+                           required>
                 </div>
-                <button class="w-3/6 py-2 text-xl text-white border bg-blue3 hover:bg-orangeaccent hover:text-black1 border-blue3 rounded-xl font-satoshimed" type="submit">Send Reset Link</button>
+
+                <button class="w-full py-3 text-white transition-colors rounded-lg bg-blue3 hover:bg-blue3/90 font-satoshimed" 
+                        type="submit">Send Reset Link</button>
+
+                <div class="text-center">
+                    <a href="/login" class="text-sm text-blue3 hover:underline font-satoshimed">Back to Login</a>
+                </div>
             </form>
         </div>
     </main>
+
     <?php view('partials/footer.view.php')?>
     <script src="assets/js/shared-scripts.js"></script>
+    <script src="assets/js/sweetalert2.min.js"></script>
+    
+    <?php if(isset($sent)): ?>
+    <script>
+        Swal.fire({
+            title: 'Reset Link Sent',
+            text: 'Check your email for the password reset link',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#2563EB', // blue3
+            showCloseButton: true,
+            footer: '<p class="text-sm text-grey2">Didn\'t receive the email? Check your spam folder or <button class="text-blue3 hover:underline" onclick="resendResetLink()">resend the link</button></p>'
+        });
+
+        function resendResetLink() {
+            const form = document.getElementById('forgotForm');
+            const email = form.querySelector('input[name="email"]').value;
+            
+            // Show loading state
+            Swal.fire({
+                title: 'Resending...',
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+                allowOutsideClick: false,
+                showConfirmButton: false
+            });
+
+            // Make API call to resend link
+            fetch('/forgot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.fire({
+                    title: 'Link Resent',
+                    text: 'A new reset link has been sent to your email',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#2563EB'
+                });
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Failed to resend reset link. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#2563EB'
+                });
+            });
+        }
+    </script>
+    <?php endif; ?>
 </body>
